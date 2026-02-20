@@ -261,18 +261,18 @@
     .heroGrid{
       display:grid;
       grid-template-columns: 1.05fr .95fr;
-      gap: 24px;
+      gap: 22px;
       align-items:center;
     }
     @media (max-width: 900px){
       .heroGrid{ grid-template-columns: 1fr; gap: 16px; }
     }
 
-    /* Vertical system stage (embedded, no card) */
+    /* PERFECT SYSTEM STAGE (embedded, no card) */
     .systemStage{
       position:relative;
       width:100%;
-      height: 520px;            /* not huge */
+      height: 520px;
       min-height: 520px;
       display:flex;
       align-items:center;
@@ -284,20 +284,20 @@
       .systemStage{
         height: 560px;
         min-height: 560px;
-        margin-top: 6px;
+        margin-top: 8px;
       }
     }
 
     .systemStage::before{
       content:"";
       position:absolute;
-      inset: -18%;
+      inset:-16%;
       z-index:0;
       pointer-events:none;
       background:
-        radial-gradient(520px 320px at 50% 18%, rgba(86,199,255,.14), transparent 62%),
-        radial-gradient(560px 360px at 52% 52%, rgba(124,92,255,.13), transparent 64%),
-        radial-gradient(520px 340px at 50% 82%, rgba(246,211,101,.10), transparent 66%);
+        radial-gradient(560px 360px at 50% 18%, rgba(86,199,255,.12), transparent 62%),
+        radial-gradient(600px 400px at 50% 52%, rgba(124,92,255,.12), transparent 64%),
+        radial-gradient(560px 380px at 50% 82%, rgba(246,211,101,.10), transparent 66%);
       filter: blur(10px);
       opacity: .95;
       transform: translateZ(0);
@@ -310,13 +310,9 @@
       max-width: 720px;
       height:auto;
       display:block;
-      transform-origin: center;
     }
     @media (max-width: 900px){
-      .systemSvg{
-        width: 118%;
-        max-width: 740px;
-      }
+      .systemSvg{ width: 118%; max-width: 760px; }
     }
 
     .heroActions{ display:flex; gap:12px; flex-wrap:wrap; margin-top: 16px; }
@@ -358,7 +354,7 @@
       box-shadow: 0 0 0 8px rgba(86,199,255,.08);
     }
 
-    /* Marquee */
+    /* Portfolio */
     .marquee{ position:relative; overflow:hidden; margin-top: 20px; background: transparent; border: none; }
     .marqueeTrack{ display:flex; width:max-content; gap: 26px; padding: 18px 0; animation: marquee 22s linear infinite; }
     .marquee:hover .marqueeTrack{ animation-play-state: paused; }
@@ -418,27 +414,33 @@
       line-height:1.65; font-weight: 800; font-size: 12.5px;
     }
 
-    /* SVG anim styles */
+    /* SVG: uniform dotted connectors + uniform nodes */
     .flowLine{
-      stroke-dasharray: 7 10;
-      animation: dash 2.4s linear infinite;
-      opacity: .72;
+      stroke-dasharray: 10 14;
+      animation: dash 2.8s linear infinite;
+      opacity: .78;
+      stroke-linecap: round;
     }
-    .flowLine.slow{ animation-duration: 3.1s; opacity: .55; }
-    @keyframes dash{ to{ stroke-dashoffset: -34; } }
+    @keyframes dash{ to{ stroke-dashoffset: -48; } }
 
     .nodeRing{
-      opacity: .92;
+      opacity: .95;
       animation: ringPulse 2.6s ease-in-out infinite;
       transform-origin: center;
     }
     @keyframes ringPulse{
-      0%,100%{ opacity:.70; }
+      0%,100%{ opacity:.74; }
       50%{ opacity: 1; }
     }
-    .nodeLabel{ font-weight: 950; letter-spacing: -.2px; fill: rgba(255,255,255,.88); }
-    .nodeSub{ font-weight: 900; fill: rgba(255,255,255,.58); }
+    .nodeLabel{ font-weight: 950; letter-spacing: -.25px; fill: rgba(255,255,255,.90); }
+    .nodeSub{ font-weight: 900; fill: rgba(255,255,255,.60); }
     .pulseDot{ filter: drop-shadow(0 0 10px rgba(86,199,255,.22)); }
+
+    /* small junction dots */
+    .junction{
+      fill: rgba(255,255,255,.75);
+      opacity:.55;
+    }
   </style>
 </head>
 
@@ -511,9 +513,9 @@
           </div>
         </div>
 
-        <!-- VERTICAL SYSTEM (embedded, no card) -->
+        <!-- PERFECT / UNIFORM SYSTEM -->
         <div class="systemStage" aria-label="Système en mouvement">
-          <!-- ViewBox recadré: no big empty top -->
+          <!-- Perfect symmetry & uniform sizes: centerX=400, identical radii, equal spacing -->
           <svg class="systemSvg" viewBox="0 0 800 900" xmlns="http://www.w3.org/2000/svg" role="img"
                aria-label="Intention vers filtre vers qualifié/non, puis redirection">
 
@@ -521,104 +523,110 @@
               <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0" stop-color="#56C7FF" stop-opacity="0.95"/>
                 <stop offset="0.55" stop-color="#7C5CFF" stop-opacity="0.85"/>
-                <stop offset="1" stop-color="#F6D365" stop-opacity="0.78"/>
+                <stop offset="1" stop-color="#F6D365" stop-opacity="0.80"/>
               </linearGradient>
 
               <radialGradient id="gl" cx="50%" cy="45%" r="62%">
-                <stop offset="0" stop-color="rgba(255,255,255,.08)"/>
+                <stop offset="0" stop-color="rgba(255,255,255,.075)"/>
                 <stop offset="1" stop-color="rgba(255,255,255,0)"/>
               </radialGradient>
             </defs>
 
-            <!-- soft center glow -->
-            <circle cx="400" cy="420" r="360" fill="url(#gl)" opacity="0.82"/>
+            <!-- glow center -->
+            <circle cx="400" cy="420" r="360" fill="url(#gl)" opacity="0.85"/>
 
-            <!-- Paths (vertical flow) -->
-            <path id="p1" d="M400 170 C400 230, 400 255, 400 300" fill="none" stroke="url(#g)" stroke-width="6" class="flowLine"/>
-            <path id="p2" d="M400 410 C400 470, 400 500, 400 545" fill="none" stroke="url(#g)" stroke-width="6" class="flowLine slow"/>
-            <!-- split to qualified (right) -->
-            <path id="p3" d="M400 640 C470 655, 540 665, 610 675" fill="none" stroke="url(#g)" stroke-width="6" class="flowLine"/>
-            <path id="p4" d="M610 675 C660 675, 700 690, 720 710" fill="none" stroke="url(#g)" stroke-width="6" class="flowLine slow"/>
-            <!-- split to non (left) -->
-            <path id="p5" d="M400 640 C330 655, 260 665, 190 675" fill="none" stroke="rgba(255,255,255,.20)" stroke-width="5" stroke-dasharray="7 10" class="flowLine slow"/>
+            <!-- GEOMETRY CONSTANTS (mentally):
+                 centerX = 400
+                 nodesY = 140, 370, 600, branchesY = 795
+                 nodeRadius = 104 (all equal)
+                 ringRadius = 134 (all equal)
+                 branchX = 190 and 610 (symmetry around 400 with dx=210)
+            -->
 
-            <!-- Nodes (bigger) -->
+            <!-- Paths (all with same dash style & stroke width) -->
+            <path id="p1" d="M400 244 C400 292, 400 308, 400 334" fill="none" stroke="url(#g)" stroke-width="6" class="flowLine"/>
+            <path id="p2" d="M400 474 C400 522, 400 538, 400 564" fill="none" stroke="url(#g)" stroke-width="6" class="flowLine"/>
+
+            <!-- split (symmetrical) -->
+            <path id="p3" d="M400 704 C334 730, 268 756, 190 795" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="6" class="flowLine"/>
+            <path id="p4" d="M400 704 C466 730, 532 756, 610 795" fill="none" stroke="url(#g)" stroke-width="6" class="flowLine"/>
+
+            <!-- little junction dots (for perfection feel) -->
+            <circle class="junction" cx="400" cy="334" r="4.5"/>
+            <circle class="junction" cx="400" cy="564" r="4.5"/>
+            <circle class="junction" cx="400" cy="704" r="4.5"/>
+
+            <!-- Nodes (ALL SAME SIZE) -->
             <!-- INTENTION -->
             <g>
-              <circle cx="400" cy="120" r="92" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
-              <circle cx="400" cy="120" r="120" fill="none" stroke="url(#g)" stroke-width="2" stroke-dasharray="14 22" class="nodeRing"/>
-              <text x="400" y="114" text-anchor="middle" class="nodeLabel" font-size="26">INTENTION</text>
-              <text x="400" y="146" text-anchor="middle" class="nodeSub" font-size="16">Demande</text>
+              <circle cx="400" cy="140" r="104" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+              <circle cx="400" cy="140" r="134" fill="none" stroke="url(#g)" stroke-width="2" stroke-dasharray="14 22" class="nodeRing"/>
+              <text x="400" y="134" text-anchor="middle" class="nodeLabel" font-size="26">INTENTION</text>
+              <text x="400" y="166" text-anchor="middle" class="nodeSub" font-size="16">Demande</text>
             </g>
 
             <!-- FILTRE -->
             <g>
-              <circle cx="400" cy="355" r="104" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
-              <circle cx="400" cy="355" r="134" fill="none" stroke="url(#g)" stroke-width="2" stroke-dasharray="16 24" class="nodeRing"/>
-              <text x="400" y="348" text-anchor="middle" class="nodeLabel" font-size="28">FILTRE</text>
-              <text x="400" y="382" text-anchor="middle" class="nodeSub" font-size="16">Questions</text>
+              <circle cx="400" cy="370" r="104" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+              <circle cx="400" cy="370" r="134" fill="none" stroke="url(#g)" stroke-width="2" stroke-dasharray="14 22" class="nodeRing"/>
+              <text x="400" y="363" text-anchor="middle" class="nodeLabel" font-size="28">FILTRE</text>
+              <text x="400" y="395" text-anchor="middle" class="nodeSub" font-size="16">Questions</text>
             </g>
 
-            <!-- DECISION -->
+            <!-- QUALIFIÉ ? -->
             <g>
-              <circle cx="400" cy="595" r="88" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
-              <circle cx="400" cy="595" r="116" fill="none" stroke="rgba(255,255,255,.20)" stroke-width="2" stroke-dasharray="3 16" class="nodeRing"/>
-              <text x="400" y="590" text-anchor="middle" class="nodeLabel" font-size="22">QUALIFIÉ ?</text>
+              <circle cx="400" cy="600" r="104" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+              <circle cx="400" cy="600" r="134" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="2" stroke-dasharray="14 22" class="nodeRing"/>
+              <text x="400" y="594" text-anchor="middle" class="nodeLabel" font-size="22">QUALIFIÉ ?</text>
+              <text x="400" y="626" text-anchor="middle" class="nodeSub" font-size="16">Décision</text>
             </g>
 
             <!-- NON -->
-            <g opacity="0.92">
-              <circle cx="170" cy="700" r="76" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.10)" stroke-width="2"/>
-              <circle cx="170" cy="700" r="102" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="2" stroke-dasharray="14 22" class="nodeRing"/>
-              <text x="170" y="694" text-anchor="middle" class="nodeLabel" font-size="22" fill="rgba(255,255,255,.72)">NON</text>
-              <text x="170" y="724" text-anchor="middle" class="nodeSub" font-size="15">Refus</text>
+            <g opacity="0.95">
+              <circle cx="190" cy="795" r="104" fill="rgba(255,255,255,.035)" stroke="rgba(255,255,255,.10)" stroke-width="2"/>
+              <circle cx="190" cy="795" r="134" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="2" stroke-dasharray="14 22" class="nodeRing"/>
+              <text x="190" y="789" text-anchor="middle" class="nodeLabel" font-size="24" fill="rgba(255,255,255,.76)">NON</text>
+              <text x="190" y="821" text-anchor="middle" class="nodeSub" font-size="16">Refus</text>
             </g>
 
-            <!-- QUALIFIÉ / REDIRECTION -->
+            <!-- REDIRECTION -->
             <g>
-              <circle cx="720" cy="720" r="94" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
-              <circle cx="720" cy="720" r="124" fill="none" stroke="url(#g)" stroke-width="2" stroke-dasharray="14 22" class="nodeRing"/>
-              <text x="720" y="710" text-anchor="middle" class="nodeLabel" font-size="24">REDIRECTION</text>
-              <text x="720" y="742" text-anchor="middle" class="nodeSub" font-size="15">Entreprise</text>
+              <circle cx="610" cy="795" r="104" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+              <circle cx="610" cy="795" r="134" fill="none" stroke="url(#g)" stroke-width="2" stroke-dasharray="14 22" class="nodeRing"/>
+              <text x="610" y="788" text-anchor="middle" class="nodeLabel" font-size="22">REDIRECTION</text>
+              <text x="610" y="820" text-anchor="middle" class="nodeSub" font-size="16">Entreprise</text>
             </g>
 
-            <!-- Moving dots -->
+            <!-- Moving dots (clean, consistent) -->
             <g class="pulseDot">
-              <circle r="8" fill="rgba(255,255,255,.92)">
-                <animateMotion dur="2.4s" repeatCount="indefinite" rotate="auto">
+              <circle r="7.8" fill="rgba(255,255,255,.92)">
+                <animateMotion dur="2.8s" repeatCount="indefinite" rotate="auto">
                   <mpath href="#p1"/>
                 </animateMotion>
-                <animate attributeName="opacity" values=".12;.95;.12" dur="2.4s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values=".12;.95;.12" dur="2.8s" repeatCount="indefinite"/>
               </circle>
 
               <circle r="7.2" fill="rgba(86,199,255,.92)">
-                <animateMotion dur="2.7s" repeatCount="indefinite" rotate="auto" begin="-1.0s">
+                <animateMotion dur="3.0s" repeatCount="indefinite" rotate="auto" begin="-1.1s">
                   <mpath href="#p2"/>
                 </animateMotion>
-                <animate attributeName="opacity" values=".10;.9;.10" dur="2.7s" repeatCount="indefinite" begin="-1.0s"/>
+                <animate attributeName="opacity" values=".10;.9;.10" dur="3.0s" repeatCount="indefinite" begin="-1.1s"/>
               </circle>
 
-              <!-- Qualified stream -->
-              <circle r="7.6" fill="rgba(124,92,255,.92)">
-                <animateMotion dur="2.2s" repeatCount="indefinite" rotate="auto">
-                  <mpath href="#p3"/>
-                </animateMotion>
-                <animate attributeName="opacity" values=".10;.95;.10" dur="2.2s" repeatCount="indefinite"/>
-              </circle>
-
-              <circle r="7.2" fill="rgba(246,211,101,.88)">
-                <animateMotion dur="2.6s" repeatCount="indefinite" rotate="auto" begin="-1.3s">
+              <!-- Qualified branch -->
+              <circle r="7.4" fill="rgba(124,92,255,.92)">
+                <animateMotion dur="2.6s" repeatCount="indefinite" rotate="auto">
                   <mpath href="#p4"/>
                 </animateMotion>
-                <animate attributeName="opacity" values=".10;.92;.10" dur="2.6s" repeatCount="indefinite" begin="-1.3s"/>
+                <animate attributeName="opacity" values=".10;.95;.10" dur="2.6s" repeatCount="indefinite"/>
               </circle>
 
-              <!-- Non-qualified stream (rarer, softer) -->
-              <circle r="6.4" fill="rgba(255,255,255,.52)">
-                <animateMotion dur="3.4s" repeatCount="indefinite" rotate="auto" begin="-2.0s">
-                  <mpath href="#p5"/>
+              <!-- Non branch (rarer) -->
+              <circle r="6.3" fill="rgba(255,255,255,.62)">
+                <animateMotion dur="3.6s" repeatCount="indefinite" rotate="auto" begin="-2.0s">
+                  <mpath href="#p3"/>
                 </animateMotion>
-                <animate attributeName="opacity" values=".06;.55;.06" dur="3.4s" repeatCount="indefinite" begin="-2.0s"/>
+                <animate attributeName="opacity" values=".06;.55;.06" dur="3.6s" repeatCount="indefinite" begin="-2.0s"/>
               </circle>
             </g>
           </svg>
