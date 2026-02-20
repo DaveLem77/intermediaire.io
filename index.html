@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Intermediaire.io | Portfolio Middlemen</title>
-  <meta name="description" content="Intermediaire.io — portefeuille de propriétés web de mise en relation. Demande locale → qualification → routage vers partenaires." />
+  <meta name="description" content="Intermediaire.io — portefeuille de propriétés web de mise en relation. Demande locale → filtre → qualification → redirection." />
   <meta name="robots" content="index,follow" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,12 +23,10 @@
 
       --max:1160px;
 
-      /* header marine palette */
       --hdrA: rgba(6, 9, 22, .78);
       --hdrB: rgba(6, 10, 24, .60);
       --hdrLine: rgba(255,255,255,.06);
 
-      /* base background */
       --baseA:#04050a;
       --baseB:#06081a;
     }
@@ -36,25 +34,19 @@
     *{box-sizing:border-box}
     html,body{height:100%}
 
-    /* =========================
-       GLOBAL BACKGROUND (FIXED)
-       -> uniform partout / no bands
-       ========================= */
     body{
       margin:0;
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
       background: linear-gradient(180deg, var(--baseA), var(--baseB));
       overflow-x:hidden;
-
-      /* header fixed spacing */
       padding-top: 87px;
     }
     @media (max-width: 900px){
       body{ padding-top: 91px; }
     }
 
-    /* Calque FIXE: gradients + “ambiance” = même partout */
+    /* GLOBAL BACKGROUND FIXED (uniform everywhere) */
     body::before{
       content:"";
       position: fixed;
@@ -68,8 +60,6 @@
         linear-gradient(180deg, var(--baseA), var(--baseB));
       transform: translateZ(0);
     }
-
-    /* Noise FIXE léger (pas une image énorme, donc stable) */
     body::after{
       content:"";
       position: fixed;
@@ -89,7 +79,7 @@
     /* lock scroll during splash */
     body.splashLock{ overflow:hidden; padding-top: 0 !important; }
 
-    /* Soft moving blobs (desktop OK) */
+    /* soft blobs */
     .bg{
       position:fixed; inset:0;
       z-index:-1;
@@ -97,7 +87,6 @@
       overflow:hidden;
       transform: translateZ(0);
     }
-
     .blob{
       position:absolute;
       width: 820px; height: 820px;
@@ -133,20 +122,15 @@
       0%,100%{ transform: translate3d(0,0,0) scale(1); }
       50%{ transform: translate3d(46px, 22px, 0) scale(1.03); }
     }
-
-    /* Mobile perf: blobs less heavy */
     @media (max-width: 900px){
       .blob{ filter: blur(36px); opacity:.14; }
       .blob, .blob.b2, .blob.b3{ animation-duration: 16s; }
     }
-
     @media (prefers-reduced-motion: reduce){
       .blob{animation:none !important}
     }
 
-    /* ======================================================
-       SPLASH
-       ====================================================== */
+    /* SPLASH */
     .splash{
       position:fixed;
       inset:0;
@@ -179,15 +163,13 @@
       font-weight: 950;
       letter-spacing: -.6px;
       color: rgba(255,255,255,.86);
-      font-size: 24px; /* plus gros */
+      font-size: 24px;
     }
     .dotio{ color: rgba(255,255,255,.70); }
     .splash.hide{ animation: splashOut .60s ease forwards; }
     @keyframes splashOut{ to { opacity: 0; visibility: hidden; } }
 
-    /* ======================================================
-       HEADER (fixed)
-       ====================================================== */
+    /* HEADER */
     .siteHeader{
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -213,7 +195,6 @@
       justify-content:space-between;
       gap: 18px;
     }
-
     .brand{
       display:flex;
       align-items:center;
@@ -248,7 +229,6 @@
       color: rgba(255,255,255,.70);
       transform: translateY(-1px);
     }
-
     .nav{
       display:flex;
       align-items:center;
@@ -347,13 +327,11 @@
     }
     .siteHeader.menuOpen .mobileMenu{ display:block; }
 
-    /* ======================================================
-       CONTENT (no panels / no section backgrounds)
-       ====================================================== */
+    /* CONTENT */
     section{
       padding: 74px 0;
       position:relative;
-      background: transparent; /* IMPORTANT */
+      background: transparent;
     }
 
     .kicker{
@@ -408,11 +386,7 @@
       align-items:center;
     }
 
-    /* =========================
-       LOGO STAGE
-       - Desktop: SVG halo (nice)
-       - Mobile: LIGHT CSS halo (smooth)
-       ========================= */
+    /* RIGHT SIDE: DESKTOP logo stage */
     .logoStage{
       position:relative;
       min-height: 420px;
@@ -421,76 +395,12 @@
       justify-content:center;
       isolation:isolate;
     }
-
-    .halo{
-      position:absolute;
-      inset: -40px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      pointer-events:none;
-      z-index:0;
-    }
-
-    /* Desktop SVG (heavy) */
-    .halo svg{
-      width: min(560px, 92vw);
-      height: auto;
-      overflow: visible;
-      opacity:.95;
-      filter: drop-shadow(0 24px 70px rgba(0,0,0,.55));
-    }
-
-    /* Mobile: hide heavy svg */
-    @media (max-width: 900px){
-      .halo svg{ display:none; }
-      .halo{
-        inset: -10px;
-      }
-      .halo::before,
-      .halo::after{
-        content:"";
-        position:absolute;
-        width: min(520px, 92vw);
-        aspect-ratio: 1 / 1;
-        border-radius: 999px;
-        pointer-events:none;
-        transform: translateZ(0);
-      }
-      /* Ring 1 */
-      .halo::before{
-        background: conic-gradient(from 180deg,
-          rgba(86,199,255,.70),
-          rgba(124,92,255,.60),
-          rgba(246,211,101,.55),
-          rgba(86,199,255,.70)
-        );
-        mask: radial-gradient(circle, transparent 56%, #000 57%);
-        opacity: .55;
-        animation: spin 10s linear infinite;
-      }
-      /* Ring 2 (dotted vibe) */
-      .halo::after{
-        background: repeating-conic-gradient(
-          from 0deg,
-          rgba(255,255,255,.20) 0 6deg,
-          rgba(255,255,255,0) 6deg 16deg
-        );
-        mask: radial-gradient(circle, transparent 66%, #000 67%);
-        opacity: .40;
-        animation: spin 16s linear infinite reverse;
-      }
-      @keyframes spin{
-        to{ transform: rotate(360deg); }
-      }
-    }
-
     .logoImg{
       width: min(340px, 74vw);
       height:auto;
       display:block;
       z-index:2;
-      filter: drop-shadow(0 18px 60px rgba(86,199,255,.12)); /* lighter */
+      filter: drop-shadow(0 18px 60px rgba(86,199,255,.12));
       animation: logoBreath 4.8s ease-in-out infinite;
       transform-origin:center;
       will-change: transform;
@@ -499,8 +409,54 @@
       0%,100%{ transform: scale(1); }
       50%{ transform: scale(1.015); }
     }
-    @media (max-width: 900px){
-      .logoImg{ animation-duration: 6.2s; }
+
+    /* MOBILE: replace logo stage with "System Motion" */
+    .systemStage{
+      display:none;
+      position:relative;
+      width:100%;
+      min-height: 420px;
+      border-radius: 26px;
+      overflow:hidden;
+      background: radial-gradient(1200px 600px at 50% 20%, rgba(255,255,255,.04), rgba(255,255,255,0) 55%);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 26px 80px rgba(0,0,0,.45);
+      transform: translateZ(0);
+    }
+    .systemStage::before{
+      content:"";
+      position:absolute; inset:-40%;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(86,199,255,.20), transparent 55%),
+        radial-gradient(circle at 70% 60%, rgba(124,92,255,.18), transparent 55%),
+        radial-gradient(circle at 55% 80%, rgba(246,211,101,.12), transparent 60%);
+      filter: blur(12px);
+      opacity: .9;
+      animation: slowDrift 10s ease-in-out infinite;
+      transform: translateZ(0);
+    }
+    @keyframes slowDrift{
+      0%,100%{ transform: translate3d(0,0,0) scale(1); }
+      50%{ transform: translate3d(18px, -10px, 0) scale(1.03); }
+    }
+
+    .sysCanvas{
+      position:absolute;
+      inset: 0;
+      width:100%;
+      height:100%;
+      z-index: 2;
+      display:block;
+    }
+
+    .sysGlow{
+      position:absolute; inset:0;
+      z-index:1;
+      pointer-events:none;
+      background:
+        radial-gradient(520px 260px at 50% 40%, rgba(86,199,255,.10), transparent 60%),
+        radial-gradient(520px 260px at 70% 60%, rgba(124,92,255,.08), transparent 62%);
+      opacity:.9;
     }
 
     .heroActions{ display:flex; gap:12px; flex-wrap:wrap; margin-top: 16px; }
@@ -553,26 +509,20 @@
       box-shadow: 0 0 0 8px rgba(86,199,255,.08);
     }
 
-    /* IMPORTANT: marquee/diagram now totally transparent (no panel) */
-    .marquee{
-      position:relative;
-      overflow:hidden;
-      margin-top: 20px;
-      background: transparent;
-      border: none;
+    /* show systemStage on mobile, hide logoImg */
+    @media (max-width: 900px){
+      .heroGrid{ grid-template-columns: 1fr; gap: 16px; }
+      .logoStage{ min-height: auto; }
+      .logoImg{ display:none; }
+      .systemStage{ display:block; }
     }
-    .marqueeTrack{
-      display:flex;
-      width:max-content;
-      gap: 26px;
-      padding: 18px 0;
-      animation: marquee 22s linear infinite;
-    }
+
+    /* simple rest sections */
+    .marquee{ position:relative; overflow:hidden; margin-top: 20px; background: transparent; border: none; }
+    .marqueeTrack{ display:flex; width:max-content; gap: 26px; padding: 18px 0; animation: marquee 22s linear infinite; }
     .marquee:hover .marqueeTrack{ animation-play-state: paused; }
-    @keyframes marquee{
-      0%{ transform: translateX(0); }
-      100%{ transform: translateX(-50%); }
-    }
+    @keyframes marquee{ 0%{ transform: translateX(0); } 100%{ transform: translateX(-50%); } }
+
     .pillSite{
       display:inline-flex; align-items:center; gap:10px;
       padding: 10px 14px;
@@ -608,26 +558,6 @@
       color: rgba(255,255,255,.9);
     }
 
-    .diagramWrap{ margin-top: 28px; position:relative; }
-    .diagram{
-      width:100%;
-      height: 340px;
-      display:block;
-      background: transparent;  /* KEY */
-      border: none;            /* KEY */
-      overflow: visible;
-    }
-    .diagramLabelRow{
-      display:flex; justify-content:space-between; gap:12px;
-      margin-top: 12px; color: var(--muted2); font-weight: 900; font-size: 13px; flex-wrap:wrap;
-    }
-    .diagramLabelRow span{ display:inline-flex; align-items:center; gap:10px; }
-    .miniDot{
-      width:8px;height:8px;border-radius:999px;
-      background: var(--c3);
-      box-shadow:0 0 0 7px rgba(246,211,101,.08);
-    }
-
     .ctaLine{
       display:flex; align-items:center; justify-content:space-between;
       gap: 18px; flex-wrap:wrap;
@@ -659,16 +589,12 @@
 
     @media (max-width: 980px){
       section{padding: 64px 0;}
-      .heroGrid{grid-template-columns: 1fr; gap: 16px;}
-      .logoStage{min-height: 360px;}
       .bands{grid-template-columns: 1fr; gap: 18px;}
-      .diagram{height: 320px;}
     }
   </style>
 </head>
 
 <body class="splashLock">
-  <!-- SPLASH -->
   <div class="splash" id="splash" aria-hidden="false">
     <div class="splashInner">
       <img class="splashLogo" src="media/logob.png" alt="Intermediaire.io" />
@@ -682,7 +608,6 @@
     <div class="blob b3"></div>
   </div>
 
-  <!-- HEADER -->
   <header class="siteHeader" role="banner">
     <div class="headerTopLine" aria-hidden="true"></div>
 
@@ -717,7 +642,6 @@
     </div>
   </header>
 
-  <!-- HERO -->
   <section id="top">
     <div class="wrap">
       <div class="heroGrid">
@@ -728,7 +652,7 @@
 
           <div class="heroActions">
             <a class="btn primary" href="#portfolio">Voir le portfolio</a>
-            <a class="btn" href="#systeme">Voir le système</a>
+            <a class="btn" href="#partenaires">Partenaires</a>
           </div>
 
           <div class="microStats">
@@ -738,49 +662,20 @@
           </div>
         </div>
 
-        <div class="logoStage" aria-label="Logo Intermediaire.io">
-          <div class="halo" aria-hidden="true">
-            <!-- SVG halo (desktop only; hidden on mobile via CSS) -->
-            <svg viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <radialGradient id="glowA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(400 400) rotate(90) scale(360)">
-                  <stop stop-color="rgba(86,199,255,.48)"/>
-                  <stop offset="0.55" stop-color="rgba(124,92,255,.20)"/>
-                  <stop offset="1" stop-color="rgba(0,0,0,0)"/>
-                </radialGradient>
-                <linearGradient id="ringGrad" x1="240" y1="240" x2="560" y2="560" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#56C7FF" stop-opacity="0.90"/>
-                  <stop offset="0.55" stop-color="#7C5CFF" stop-opacity="0.75"/>
-                  <stop offset="1" stop-color="#F6D365" stop-opacity="0.62"/>
-                </linearGradient>
-                <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="1.4" result="b"/>
-                  <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-                </filter>
-              </defs>
-
-              <circle cx="400" cy="400" r="340" fill="url(#glowA)" opacity="0.9"/>
-              <g filter="url(#soft)" opacity="0.92">
-                <circle cx="400" cy="400" r="250" stroke="url(#ringGrad)" stroke-width="2.0" stroke-dasharray="14 10">
-                  <animateTransform attributeName="transform" type="rotate" from="0 400 400" to="360 400 400" dur="12s" repeatCount="indefinite"/>
-                </circle>
-                <circle cx="400" cy="400" r="205" stroke="rgba(255,255,255,.18)" stroke-width="1.4" stroke-dasharray="2 10">
-                  <animateTransform attributeName="transform" type="rotate" from="360 400 400" to="0 400 400" dur="9.5s" repeatCount="indefinite"/>
-                </circle>
-                <circle cx="400" cy="400" r="160" stroke="url(#ringGrad)" stroke-width="1.6" stroke-dasharray="42 12">
-                  <animateTransform attributeName="transform" type="rotate" from="0 400 400" to="360 400 400" dur="8.2s" repeatCount="indefinite"/>
-                </circle>
-              </g>
-            </svg>
-          </div>
-
+        <!-- DESKTOP: logo -->
+        <div class="logoStage" aria-label="Visuel">
           <img class="logoImg" src="media/logob.png" alt="Logo Intermediaire.io" />
+
+          <!-- MOBILE: system motion -->
+          <div class="systemStage" aria-hidden="true">
+            <div class="sysGlow"></div>
+            <canvas class="sysCanvas" id="sysCanvas"></canvas>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PORTFOLIO -->
   <section id="portfolio" style="padding-top:38px;">
     <div class="wrap">
       <h2>Portfolio <span class="grad">en expansion</span></h2>
@@ -823,79 +718,6 @@
     </div>
   </section>
 
-  <!-- SYSTEME -->
-  <section id="systeme">
-    <div class="wrap">
-      <h2>Le système <span class="grad">en mouvement</span></h2>
-      <p class="lead" style="max-width:86ch;">Un flux continu : capture → qualification → routage → feedback → amélioration.</p>
-
-      <div class="diagramWrap">
-        <svg class="diagram" viewBox="0 0 1200 340" xmlns="http://www.w3.org/2000/svg" aria-label="Diagramme animé">
-          <defs>
-            <linearGradient id="p" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#56C7FF" stop-opacity="0.90"/>
-              <stop offset="0.55" stop-color="#7C5CFF" stop-opacity="0.80"/>
-              <stop offset="1" stop-color="#F6D365" stop-opacity="0.65"/>
-            </linearGradient>
-          </defs>
-
-          <g opacity="0.9">
-            <circle cx="170" cy="170" r="40" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.10)"/>
-            <circle cx="520" cy="98"  r="40" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.10)"/>
-            <circle cx="520" cy="242" r="40" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.10)"/>
-            <circle cx="870" cy="170" r="44" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.10)"/>
-            <circle cx="1045" cy="170" r="34" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.10)"/>
-          </g>
-
-          <g font-family="Inter, Arial" font-weight="900" font-size="14" fill="rgba(255,255,255,.78)">
-            <text x="170" y="176" text-anchor="middle">INTENTION</text>
-            <text x="520" y="104" text-anchor="middle">QUALIF</text>
-            <text x="520" y="248" text-anchor="middle">FILTRE</text>
-            <text x="870" y="176" text-anchor="middle">ROUTAGE</text>
-            <text x="1045" y="176" text-anchor="middle">ROI</text>
-          </g>
-
-          <path id="pathA" d="M210 170 C320 170, 360 110, 480 100" fill="none" stroke="url(#p)" stroke-opacity=".55" stroke-width="3"/>
-          <path id="pathB" d="M210 170 C320 170, 360 230, 480 240" fill="none" stroke="url(#p)" stroke-opacity=".55" stroke-width="3"/>
-          <path id="pathE" d="M914 170 C960 170, 986 170, 1011 170" fill="none" stroke="url(#p)" stroke-opacity=".55" stroke-width="3"/>
-
-          <g>
-            <circle r="6" fill="rgba(86,199,255,.90)">
-              <animateMotion dur="3.2s" repeatCount="indefinite" rotate="auto"><mpath href="#pathA"/></animateMotion>
-              <animate attributeName="opacity" values=".12;.9;.12" dur="3.2s" repeatCount="indefinite"/>
-            </circle>
-            <circle r="5" fill="rgba(124,92,255,.90)">
-              <animateMotion dur="3.6s" repeatCount="indefinite" rotate="auto" begin="-1.2s"><mpath href="#pathB"/></animateMotion>
-              <animate attributeName="opacity" values=".12;.9;.12" dur="3.6s" repeatCount="indefinite" begin="-1.2s"/>
-            </circle>
-            <circle r="6" fill="rgba(86,199,255,.90)">
-              <animateMotion dur="2.8s" repeatCount="indefinite" rotate="auto" begin="-1.1s"><mpath href="#pathE"/></animateMotion>
-              <animate attributeName="opacity" values=".10;.85;.10" dur="2.8s" repeatCount="indefinite" begin="-1.1s"/>
-            </circle>
-          </g>
-        </svg>
-
-        <div class="diagramLabelRow">
-          <span><i class="miniDot"></i> Flux continu (intention → action)</span>
-          <span><i class="miniDot"></i> Qualification avant transfert</span>
-          <span><i class="miniDot"></i> Feedback loop (ROI)</span>
-        </div>
-      </div>
-
-      <div class="ctaLine" style="margin-top:26px;">
-        <div class="left">
-          <h2 style="margin:0;">Pourquoi c’est efficace</h2>
-          <p>Chaque propriété est construite autour d’un seul objectif : déclencher l’action, puis livrer un partenaire capable de répondre.</p>
-        </div>
-        <div style="display:flex; gap:12px; flex-wrap:wrap;">
-          <a class="btn primary" href="#partenaires">Je suis une entreprise</a>
-          <a class="btn" href="#portfolio">Voir les propriétés</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PARTENAIRES -->
   <section id="partenaires">
     <div class="wrap">
       <h2>Partenaires <span class="grad">recherchés</span></h2>
@@ -905,9 +727,6 @@
         <div class="left">
           <h2 style="margin:0;">Contact direct</h2>
           <p style="margin-top:10px;">Modèles possibles : pay-per-call, pay-per-lead, ou hybride (selon verticale/région).</p>
-          <p style="margin-top:10px; color:var(--muted2); font-weight:900;">
-            * Intermediaire.io opère des plateformes de mise en relation. Les services finaux sont rendus par des partenaires indépendants.
-          </p>
         </div>
 
         <div style="display:flex; gap:12px; flex-wrap:wrap;">
@@ -924,12 +743,11 @@
         <div>© <span id="y"></span> Intermediaire.io</div>
         <div style="display:flex; gap:14px; flex-wrap:wrap;">
           <a href="#portfolio">Portfolio</a>
-          <a href="#systeme">Système</a>
           <a href="#partenaires">Contact</a>
         </div>
       </div>
       <div class="fine">
-        Intermediaire.io est un portefeuille de propriétés web de mise en relation. Les sites peuvent rediriger vers des partenaires tiers indépendants selon disponibilité et région.
+        Intermediaire.io est un portefeuille de propriétés web de mise en relation. Les services finaux sont rendus par des partenaires indépendants.
       </div>
     </div>
   </footer>
@@ -978,13 +796,13 @@
       });
     })();
 
-    // Splash (un peu plus long)
+    // Splash
     (function(){
       const splash = document.getElementById('splash');
       if(!splash) return;
 
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const showMs = reduce ? 900 : 2300;
+      const showMs = reduce ? 900 : 2200;
 
       window.addEventListener('load', () => {
         setTimeout(() => {
@@ -994,6 +812,315 @@
           setTimeout(() => splash.remove(), 650);
         }, showMs);
       });
+    })();
+
+    /* =========================================================
+       MOBILE SYSTEM MOTION (Canvas) — Intention -> Filtre -> Decision
+       - super smooth on iPhone
+       - no text, only iconic nodes + flow + pulses
+       ========================================================= */
+    (function(){
+      const canvas = document.getElementById('sysCanvas');
+      if(!canvas) return;
+
+      const stage = canvas.parentElement;
+      const isMobile = () => window.innerWidth <= 900;
+
+      let ctx, dpr, w, h, raf;
+      let t0 = performance.now();
+
+      // system nodes (relative coords)
+      const nodes = {
+        intention: { x: 0.18, y: 0.55, r: 30 },
+        filtre:    { x: 0.48, y: 0.42, r: 34 },
+        gate:      { x: 0.48, y: 0.68, r: 26 }, // "decision gate"
+        redirect:  { x: 0.80, y: 0.50, r: 38 },
+        drop:      { x: 0.80, y: 0.78, r: 24 }  // non-qualified exit
+      };
+
+      const flows = [];
+      const MAX = 28;
+
+      function resize(){
+        const rect = stage.getBoundingClientRect();
+        dpr = Math.min(2, window.devicePixelRatio || 1);
+        w = Math.max(1, Math.floor(rect.width));
+        h = Math.max(1, Math.floor(rect.height));
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+        canvas.style.width = w + 'px';
+        canvas.style.height = h + 'px';
+        ctx = canvas.getContext('2d');
+        ctx.setTransform(dpr,0,0,dpr,0,0);
+      }
+
+      function nx(k){ return nodes[k].x * w; }
+      function ny(k){ return nodes[k].y * h; }
+
+      function gradientStroke(x1,y1,x2,y2, a=1){
+        const g = ctx.createLinearGradient(x1,y1,x2,y2);
+        g.addColorStop(0, `rgba(86,199,255,${0.95*a})`);
+        g.addColorStop(0.55, `rgba(124,92,255,${0.85*a})`);
+        g.addColorStop(1, `rgba(246,211,101,${0.70*a})`);
+        return g;
+      }
+
+      function spawn(){
+        // 72% chance qualified, 28% drop (you can tweak)
+        const qualified = Math.random() < 0.72;
+
+        flows.push({
+          born: performance.now(),
+          dur: 2400 + Math.random()*900,
+          qualified,
+          wobble: 0.9 + Math.random()*1.2,
+          size: 2.2 + Math.random()*2.2
+        });
+
+        while(flows.length > MAX) flows.shift();
+      }
+
+      function easeInOut(t){
+        return t<0.5 ? 2*t*t : 1 - Math.pow(-2*t+2,2)/2;
+      }
+
+      function drawNode(x,y,r, mode){
+        // mode: "good" | "neutral" | "bad"
+        const pulse = 0.5 + 0.5*Math.sin((performance.now()-t0)/900);
+        const glow = 10 + pulse*10;
+
+        // outer glow
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        const g = ctx.createRadialGradient(x,y,0,x,y,r+glow);
+        if(mode === 'bad'){
+          g.addColorStop(0, 'rgba(255,255,255,0.06)');
+          g.addColorStop(0.35, 'rgba(255,255,255,0.03)');
+          g.addColorStop(1, 'rgba(0,0,0,0)');
+        } else {
+          g.addColorStop(0, 'rgba(86,199,255,0.10)');
+          g.addColorStop(0.45, 'rgba(124,92,255,0.08)');
+          g.addColorStop(1, 'rgba(0,0,0,0)');
+        }
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(x,y,r+glow,0,Math.PI*2); ctx.fill();
+        ctx.restore();
+
+        // core ring
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = (mode === 'bad')
+          ? 'rgba(255,255,255,.14)'
+          : gradientStroke(x-r,y-r,x+r,y+r, 0.95);
+        ctx.fillStyle = 'rgba(255,255,255,.05)';
+        ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill(); ctx.stroke();
+
+        // inner dot
+        ctx.fillStyle = (mode === 'bad') ? 'rgba(255,255,255,.20)' : 'rgba(255,255,255,.75)';
+        ctx.beginPath(); ctx.arc(x,y, Math.max(2.2, r*0.12),0,Math.PI*2); ctx.fill();
+
+        // dotted orbit
+        ctx.save();
+        ctx.globalAlpha = 0.55;
+        ctx.strokeStyle = (mode === 'bad') ? 'rgba(255,255,255,.10)' : 'rgba(255,255,255,.16)';
+        ctx.setLineDash([2,10]);
+        ctx.lineWidth = 1.4;
+        ctx.beginPath(); ctx.arc(x,y, r*1.45,0,Math.PI*2); ctx.stroke();
+        ctx.restore();
+      }
+
+      function drawCurvedLine(ax,ay, bx,by, bend, alpha){
+        const cx = (ax+bx)/2;
+        const cy = (ay+by)/2 + bend;
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = gradientStroke(ax,ay,bx,by, alpha);
+        ctx.globalAlpha = 1;
+        ctx.beginPath();
+        ctx.moveTo(ax,ay);
+        ctx.quadraticCurveTo(cx,cy,bx,by);
+        ctx.stroke();
+
+        // soft highlight
+        ctx.save();
+        ctx.globalAlpha = 0.22 * alpha;
+        ctx.lineWidth = 9;
+        ctx.strokeStyle = gradientStroke(ax,ay,bx,by, 0.35);
+        ctx.beginPath();
+        ctx.moveTo(ax,ay);
+        ctx.quadraticCurveTo(cx,cy,bx,by);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      function pointOnQuadratic(ax,ay, cx,cy, bx,by, t){
+        const u = 1-t;
+        const x = u*u*ax + 2*u*t*cx + t*t*bx;
+        const y = u*u*ay + 2*u*t*cy + t*t*by;
+        return {x,y};
+      }
+
+      function drawFlow(f, now){
+        const age = now - f.born;
+        const p = Math.min(1, age / f.dur);
+        const e = easeInOut(p);
+
+        // segments:
+        // intention -> filtre
+        // filtre -> gate
+        // gate -> (redirect OR drop)
+        const A = {x:nx('intention'), y:ny('intention')};
+        const B = {x:nx('filtre'),    y:ny('filtre')};
+        const G = {x:nx('gate'),      y:ny('gate')};
+        const R = {x:nx('redirect'),  y:ny('redirect')};
+        const D = {x:nx('drop'),      y:ny('drop')};
+
+        // compute current position across 3 parts
+        let pos;
+        let glowAlpha = 0.9;
+
+        if(e < 0.46){
+          const tt = e/0.46;
+          const cx = (A.x+B.x)/2;
+          const cy = (A.y+B.y)/2 - (h*0.12);
+          pos = pointOnQuadratic(A.x,A.y,cx,cy,B.x,B.y,tt);
+          glowAlpha = 0.55 + 0.45*Math.sin((tt*3.14));
+        } else if(e < 0.68){
+          const tt = (e-0.46)/(0.22);
+          const cx = (B.x+G.x)/2;
+          const cy = (B.y+G.y)/2 + (h*0.10);
+          pos = pointOnQuadratic(B.x,B.y,cx,cy,G.x,G.y,tt);
+          glowAlpha = 0.7;
+        } else {
+          const target = f.qualified ? R : D;
+          const tt = (e-0.68)/(0.32);
+          const bend = f.qualified ? -(h*0.08) : (h*0.16);
+          const cx = (G.x+target.x)/2;
+          const cy = (G.y+target.y)/2 + bend;
+          pos = pointOnQuadratic(G.x,G.y,cx,cy,target.x,target.y,tt);
+          glowAlpha = f.qualified ? 0.9 : 0.55;
+        }
+
+        // draw particle
+        const wob = Math.sin((now - f.born) / 120) * f.wobble;
+        const px = pos.x + wob;
+        const py = pos.y;
+
+        // tail
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        const tail = ctx.createRadialGradient(px,py,0, px,py, 26);
+        if(f.qualified){
+          tail.addColorStop(0,'rgba(86,199,255,.30)');
+          tail.addColorStop(0.6,'rgba(124,92,255,.14)');
+          tail.addColorStop(1,'rgba(0,0,0,0)');
+        } else {
+          tail.addColorStop(0,'rgba(255,255,255,.14)');
+          tail.addColorStop(0.6,'rgba(255,255,255,.06)');
+          tail.addColorStop(1,'rgba(0,0,0,0)');
+        }
+        ctx.fillStyle = tail;
+        ctx.beginPath(); ctx.arc(px,py, 26, 0, Math.PI*2); ctx.fill();
+        ctx.restore();
+
+        ctx.fillStyle = f.qualified ? 'rgba(255,255,255,.92)' : 'rgba(255,255,255,.60)';
+        ctx.beginPath();
+        ctx.arc(px,py, f.size + (f.qualified?0.6:0), 0, Math.PI*2);
+        ctx.fill();
+      }
+
+      function draw(now){
+        ctx.clearRect(0,0,w,h);
+
+        // subtle vignette
+        const v = ctx.createRadialGradient(w*0.5,h*0.45, 40, w*0.5,h*0.55, Math.max(w,h)*0.75);
+        v.addColorStop(0, 'rgba(0,0,0,0)');
+        v.addColorStop(1, 'rgba(0,0,0,.35)');
+        ctx.fillStyle = v;
+        ctx.fillRect(0,0,w,h);
+
+        // backbone lines
+        const A = {x:nx('intention'), y:ny('intention')};
+        const B = {x:nx('filtre'),    y:ny('filtre')};
+        const G = {x:nx('gate'),      y:ny('gate')};
+        const R = {x:nx('redirect'),  y:ny('redirect')};
+        const D = {x:nx('drop'),      y:ny('drop')};
+
+        drawCurvedLine(A.x,A.y, B.x,B.y, -h*0.12, 0.75);
+        drawCurvedLine(B.x,B.y, G.x,G.y,  h*0.10, 0.65);
+        drawCurvedLine(G.x,G.y, R.x,R.y, -h*0.08, 0.80);
+        // non-qualified branch subtle
+        ctx.save();
+        ctx.globalAlpha = 0.45;
+        drawCurvedLine(G.x,G.y, D.x,D.y,  h*0.16, 0.35);
+        ctx.restore();
+
+        // nodes (big + readable)
+        drawNode(A.x,A.y, 34, 'neutral');   // INTENTION
+        drawNode(B.x,B.y, 38, 'neutral');   // FILTRE
+        drawNode(G.x,G.y, 30, 'neutral');   // GATE
+        drawNode(R.x,R.y, 44, 'good');      // REDIRECTION
+        drawNode(D.x,D.y, 26, 'bad');       // DROP
+
+        // animated pulses (flows)
+        for(const f of flows){
+          drawFlow(f, now);
+        }
+
+        // remove expired
+        for(let i=flows.length-1;i>=0;i--){
+          if(now - flows[i].born > flows[i].dur) flows.splice(i,1);
+        }
+
+        raf = requestAnimationFrame(draw);
+      }
+
+      function start(){
+        if(!isMobile()) return; // run only mobile
+        resize();
+        cancelAnimationFrame(raf);
+        flows.length = 0;
+        // warm start
+        for(let i=0;i<10;i++) spawn();
+        // spawn interval
+        const spawnTimer = setInterval(() => {
+          if(!isMobile()){ clearInterval(spawnTimer); return; }
+          spawn();
+        }, 320);
+
+        raf = requestAnimationFrame(draw);
+
+        // stop if user leaves mobile
+        const stopCheck = setInterval(() => {
+          if(!isMobile()){
+            clearInterval(stopCheck);
+            clearInterval(spawnTimer);
+            cancelAnimationFrame(raf);
+          }
+        }, 800);
+      }
+
+      // Resize / start on load
+      const onResize = () => {
+        if(isMobile()){
+          resize();
+        }
+      };
+      window.addEventListener('resize', onResize, {passive:true});
+
+      // Start after splash removal (so sizes are correct)
+      window.addEventListener('load', () => {
+        setTimeout(() => start(), 2400);
+      });
+
+      // Pause when tab not visible
+      document.addEventListener('visibilitychange', () => {
+        if(document.hidden){
+          cancelAnimationFrame(raf);
+        } else if(isMobile()){
+          cancelAnimationFrame(raf);
+          raf = requestAnimationFrame(draw);
+        }
+      });
+
     })();
   </script>
 </body>
