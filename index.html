@@ -13,9 +13,6 @@
 
   <style>
     :root{
-      --bg:#04050a;
-      --bg2:#06081a;
-
       --text:rgba(255,255,255,.92);
       --muted:rgba(255,255,255,.72);
       --muted2:rgba(255,255,255,.56);
@@ -30,20 +27,24 @@
       --hdrA: rgba(6, 9, 22, .78);
       --hdrB: rgba(6, 10, 24, .60);
       --hdrLine: rgba(255,255,255,.06);
+
+      /* base background */
+      --baseA:#04050a;
+      --baseB:#06081a;
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
 
+    /* =========================
+       GLOBAL BACKGROUND (FIXED)
+       -> uniform partout / no bands
+       ========================= */
     body{
       margin:0;
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
-      background:
-        radial-gradient(1200px 700px at 15% -10%, rgba(86,199,255,.20), transparent 55%),
-        radial-gradient(900px 650px at 90% 0%, rgba(124,92,255,.18), transparent 58%),
-        radial-gradient(900px 650px at 50% 120%, rgba(246,211,101,.14), transparent 60%),
-        linear-gradient(180deg, var(--bg), var(--bg2));
+      background: linear-gradient(180deg, var(--baseA), var(--baseB));
       overflow-x:hidden;
 
       /* header fixed spacing */
@@ -53,6 +54,34 @@
       body{ padding-top: 91px; }
     }
 
+    /* Calque FIXE: gradients + “ambiance” = même partout */
+    body::before{
+      content:"";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      background:
+        radial-gradient(1200px 700px at 15% -10%, rgba(86,199,255,.18), transparent 55%),
+        radial-gradient(900px 650px at 90% 0%, rgba(124,92,255,.16), transparent 58%),
+        radial-gradient(900px 650px at 50% 120%, rgba(246,211,101,.12), transparent 60%),
+        linear-gradient(180deg, var(--baseA), var(--baseB));
+      transform: translateZ(0);
+    }
+
+    /* Noise FIXE léger (pas une image énorme, donc stable) */
+    body::after{
+      content:"";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      opacity: .16;
+      mix-blend-mode: overlay;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+      transform: translateZ(0);
+    }
+
     a{color:inherit;text-decoration:none}
     .wrap{max-width:var(--max); margin:0 auto; padding:0 22px;}
     .nowrap{white-space:nowrap}
@@ -60,32 +89,21 @@
     /* lock scroll during splash */
     body.splashLock{ overflow:hidden; padding-top: 0 !important; }
 
-    /* ---------- Ambient background ---------- */
+    /* Soft moving blobs (desktop OK) */
     .bg{
-      position:fixed; inset:0; z-index:-2; pointer-events:none;
+      position:fixed; inset:0;
+      z-index:-1;
+      pointer-events:none;
       overflow:hidden;
+      transform: translateZ(0);
     }
-    .bg .grid{
-      position:absolute; inset:-25%;
-      background-image:
-        linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
-      background-size: 70px 70px;
-      opacity:.18;
-      transform: rotate(-12deg);
-      mask-image: radial-gradient(circle at 50% 35%, rgba(0,0,0,1), rgba(0,0,0,0) 72%);
-      animation: gridDrift 16s linear infinite;
-    }
-    @keyframes gridDrift{
-      0%{transform: translate3d(0,0,0) rotate(-12deg)}
-      100%{transform: translate3d(-140px, 92px, 0) rotate(-12deg)}
-    }
+
     .blob{
       position:absolute;
       width: 820px; height: 820px;
       border-radius: 999px;
       filter: blur(50px);
-      opacity:.24;
+      opacity:.20;
       mix-blend-mode: screen;
       background:
         radial-gradient(circle at 30% 30%, rgba(86,199,255,.95), transparent 55%),
@@ -95,11 +113,11 @@
     }
     .blob.b2{
       width: 700px; height: 700px;
-      left:auto; right:-280px; top:-220px;
+      right:-280px; top:-220px; left:auto;
       background:
         radial-gradient(circle at 30% 30%, rgba(246,211,101,.78), transparent 55%),
         radial-gradient(circle at 70% 70%, rgba(86,199,255,.65), transparent 55%);
-      opacity:.18;
+      opacity:.15;
       animation-delay:-3.8s;
     }
     .blob.b3{
@@ -108,21 +126,22 @@
       background:
         radial-gradient(circle at 30% 30%, rgba(124,92,255,.68), transparent 55%),
         radial-gradient(circle at 70% 70%, rgba(246,211,101,.55), transparent 55%);
-      opacity:.16;
+      opacity:.13;
       animation-delay:-6.5s;
     }
     @keyframes floaty{
       0%,100%{ transform: translate3d(0,0,0) scale(1); }
       50%{ transform: translate3d(46px, 22px, 0) scale(1.03); }
     }
-    .noise{
-      position:fixed; inset:0; z-index:-1; pointer-events:none;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
-      mix-blend-mode: overlay;
-      opacity:.20;
+
+    /* Mobile perf: blobs less heavy */
+    @media (max-width: 900px){
+      .blob{ filter: blur(36px); opacity:.14; }
+      .blob, .blob.b2, .blob.b3{ animation-duration: 16s; }
     }
+
     @media (prefers-reduced-motion: reduce){
-      .bg .grid, .blob{animation:none !important}
+      .blob{animation:none !important}
     }
 
     /* ======================================================
@@ -134,10 +153,7 @@
       z-index:2000;
       display:grid;
       place-items:center;
-      background:
-        radial-gradient(900px 520px at 50% 40%, rgba(86,199,255,.12), transparent 62%),
-        radial-gradient(900px 520px at 70% 50%, rgba(124,92,255,.10), transparent 64%),
-        linear-gradient(180deg, #05060b, #070816);
+      background: linear-gradient(180deg, #05060b, #070816);
       opacity:1;
       transform: translateZ(0);
     }
@@ -151,19 +167,19 @@
       width: min(270px, 68vw);
       height:auto;
       display:block;
-      filter: drop-shadow(0 26px 80px rgba(86,199,255,.16));
-      animation: splashPop 1.6s ease-in-out infinite;
+      filter: drop-shadow(0 22px 70px rgba(86,199,255,.14));
+      animation: splashPop 1.8s ease-in-out infinite;
       transform-origin:center;
     }
     @keyframes splashPop{
       0%,100%{ transform: scale(1); opacity: .95; }
-      50%{ transform: scale(1.03); opacity: 1; }
+      50%{ transform: scale(1.02); opacity: 1; }
     }
     .splashText{
       font-weight: 950;
       letter-spacing: -.6px;
       color: rgba(255,255,255,.86);
-      font-size: 22px;
+      font-size: 24px; /* plus gros */
     }
     .dotio{ color: rgba(255,255,255,.70); }
     .splash.hide{ animation: splashOut .60s ease forwards; }
@@ -180,6 +196,7 @@
       border-bottom: 1px solid var(--hdrLine);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
+      transform: translateZ(0);
     }
     .headerTopLine{
       height: 5px;
@@ -207,7 +224,7 @@
       height: 52px;
       width:auto;
       display:block;
-      filter: drop-shadow(0 16px 34px rgba(0,0,0,.40));
+      filter: drop-shadow(0 12px 26px rgba(0,0,0,.35));
     }
     .brandWordmark{
       display:flex;
@@ -291,7 +308,7 @@
 
     .mobileMenu{
       display:none;
-      background: rgba(0,0,0,.14); /* uniform vibe */
+      background: rgba(0,0,0,.12);
       backdrop-filter: blur(14px);
       border-top: 1px solid rgba(255,255,255,.08);
     }
@@ -331,16 +348,13 @@
     .siteHeader.menuOpen .mobileMenu{ display:block; }
 
     /* ======================================================
-       CONTENT — UNIFORM BACKGROUND (no separators/cut lines)
+       CONTENT (no panels / no section backgrounds)
        ====================================================== */
     section{
       padding: 74px 0;
       position:relative;
-      background: transparent;  /* IMPORTANT */
+      background: transparent; /* IMPORTANT */
     }
-
-    /* remove all section separators / lines */
-    .divider, .topline{ display:none !important; }
 
     .kicker{
       display:inline-flex; align-items:center; gap:10px;
@@ -358,7 +372,7 @@
     }
     @keyframes pulse{
       0%,100%{transform:scale(1);opacity:1}
-      50%{transform:scale(1.22);opacity:.7}
+      50%{transform:scale(1.15);opacity:.7}
     }
 
     h1{
@@ -394,6 +408,11 @@
       align-items:center;
     }
 
+    /* =========================
+       LOGO STAGE
+       - Desktop: SVG halo (nice)
+       - Mobile: LIGHT CSS halo (smooth)
+       ========================= */
     .logoStage{
       position:relative;
       min-height: 420px;
@@ -402,6 +421,7 @@
       justify-content:center;
       isolation:isolate;
     }
+
     .halo{
       position:absolute;
       inset: -40px;
@@ -411,6 +431,8 @@
       pointer-events:none;
       z-index:0;
     }
+
+    /* Desktop SVG (heavy) */
     .halo svg{
       width: min(560px, 92vw);
       height: auto;
@@ -418,18 +440,67 @@
       opacity:.95;
       filter: drop-shadow(0 24px 70px rgba(0,0,0,.55));
     }
+
+    /* Mobile: hide heavy svg */
+    @media (max-width: 900px){
+      .halo svg{ display:none; }
+      .halo{
+        inset: -10px;
+      }
+      .halo::before,
+      .halo::after{
+        content:"";
+        position:absolute;
+        width: min(520px, 92vw);
+        aspect-ratio: 1 / 1;
+        border-radius: 999px;
+        pointer-events:none;
+        transform: translateZ(0);
+      }
+      /* Ring 1 */
+      .halo::before{
+        background: conic-gradient(from 180deg,
+          rgba(86,199,255,.70),
+          rgba(124,92,255,.60),
+          rgba(246,211,101,.55),
+          rgba(86,199,255,.70)
+        );
+        mask: radial-gradient(circle, transparent 56%, #000 57%);
+        opacity: .55;
+        animation: spin 10s linear infinite;
+      }
+      /* Ring 2 (dotted vibe) */
+      .halo::after{
+        background: repeating-conic-gradient(
+          from 0deg,
+          rgba(255,255,255,.20) 0 6deg,
+          rgba(255,255,255,0) 6deg 16deg
+        );
+        mask: radial-gradient(circle, transparent 66%, #000 67%);
+        opacity: .40;
+        animation: spin 16s linear infinite reverse;
+      }
+      @keyframes spin{
+        to{ transform: rotate(360deg); }
+      }
+    }
+
     .logoImg{
       width: min(340px, 74vw);
       height:auto;
       display:block;
       z-index:2;
-      filter: drop-shadow(0 26px 85px rgba(86,199,255,.16));
-      animation: logoBreath 4.2s ease-in-out infinite;
+      filter: drop-shadow(0 18px 60px rgba(86,199,255,.12)); /* lighter */
+      animation: logoBreath 4.8s ease-in-out infinite;
       transform-origin:center;
+      will-change: transform;
     }
     @keyframes logoBreath{
       0%,100%{ transform: scale(1); }
-      50%{ transform: scale(1.02); }
+      50%{ transform: scale(1.015); }
+    }
+    @media (max-width: 900px){
+      .logoImg{ animation-duration: 6.2s; }
     }
 
     .heroActions{ display:flex; gap:12px; flex-wrap:wrap; margin-top: 16px; }
@@ -451,22 +522,9 @@
     .btn.primary{
       border: none;
       background: linear-gradient(135deg, rgba(86,199,255,.95), rgba(124,92,255,.82));
-      box-shadow: 0 22px 70px rgba(86,199,255,.16);
+      box-shadow: 0 18px 50px rgba(86,199,255,.12);
       position:relative;
       overflow:hidden;
-    }
-    .btn.primary::after{
-      content:"";
-      position:absolute; inset:-60%;
-      background: radial-gradient(circle, rgba(255,255,255,.20), transparent 55%);
-      transform: rotate(20deg);
-      opacity:.55;
-      animation: sheen 3.2s ease-in-out infinite;
-      pointer-events:none;
-    }
-    @keyframes sheen{
-      0%,100%{ transform: translateX(-14%) rotate(20deg); opacity:.35; }
-      50%{ transform: translateX(14%) rotate(20deg); opacity:.58; }
     }
 
     .microStats{
@@ -495,15 +553,13 @@
       box-shadow: 0 0 0 8px rgba(86,199,255,.08);
     }
 
-    /* Make marquee/diagram blend into background (no hard block) */
+    /* IMPORTANT: marquee/diagram now totally transparent (no panel) */
     .marquee{
       position:relative;
       overflow:hidden;
-      border: 1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.03);
       margin-top: 20px;
-      border-left: none;
-      border-right: none;
+      background: transparent;
+      border: none;
     }
     .marqueeTrack{
       display:flex;
@@ -517,7 +573,6 @@
       0%{ transform: translateX(0); }
       100%{ transform: translateX(-50%); }
     }
-
     .pillSite{
       display:inline-flex; align-items:center; gap:10px;
       padding: 10px 14px;
@@ -558,11 +613,9 @@
       width:100%;
       height: 340px;
       display:block;
-      border: 1px solid rgba(255,255,255,.08);
-      border-left: none;
-      border-right: none;
-      background: rgba(255,255,255,.02);
-      overflow:hidden;
+      background: transparent;  /* KEY */
+      border: none;            /* KEY */
+      overflow: visible;
     }
     .diagramLabelRow{
       display:flex; justify-content:space-between; gap:12px;
@@ -590,7 +643,7 @@
       color: var(--muted2);
       font-weight: 900;
       font-size: 13px;
-      background: transparent; /* keep uniform */
+      background: transparent;
     }
     .footRow{ display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; }
     .footRow a{color: var(--muted2)}
@@ -624,12 +677,10 @@
   </div>
 
   <div class="bg" aria-hidden="true">
-    <div class="grid"></div>
     <div class="blob"></div>
     <div class="blob b2"></div>
     <div class="blob b3"></div>
   </div>
-  <div class="noise" aria-hidden="true"></div>
 
   <!-- HEADER -->
   <header class="siteHeader" role="banner">
@@ -689,39 +740,36 @@
 
         <div class="logoStage" aria-label="Logo Intermediaire.io">
           <div class="halo" aria-hidden="true">
+            <!-- SVG halo (desktop only; hidden on mobile via CSS) -->
             <svg viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <radialGradient id="glowA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(400 400) rotate(90) scale(360)">
-                  <stop stop-color="rgba(86,199,255,.55)"/>
-                  <stop offset="0.55" stop-color="rgba(124,92,255,.22)"/>
+                  <stop stop-color="rgba(86,199,255,.48)"/>
+                  <stop offset="0.55" stop-color="rgba(124,92,255,.20)"/>
                   <stop offset="1" stop-color="rgba(0,0,0,0)"/>
                 </radialGradient>
                 <linearGradient id="ringGrad" x1="240" y1="240" x2="560" y2="560" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#56C7FF" stop-opacity="0.95"/>
-                  <stop offset="0.55" stop-color="#7C5CFF" stop-opacity="0.80"/>
-                  <stop offset="1" stop-color="#F6D365" stop-opacity="0.70"/>
+                  <stop stop-color="#56C7FF" stop-opacity="0.90"/>
+                  <stop offset="0.55" stop-color="#7C5CFF" stop-opacity="0.75"/>
+                  <stop offset="1" stop-color="#F6D365" stop-opacity="0.62"/>
                 </linearGradient>
                 <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="1.8" result="b"/>
+                  <feGaussianBlur stdDeviation="1.4" result="b"/>
                   <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
                 </filter>
               </defs>
 
               <circle cx="400" cy="400" r="340" fill="url(#glowA)" opacity="0.9"/>
-              <g filter="url(#soft)" opacity="0.95">
-                <circle cx="400" cy="400" r="250" stroke="url(#ringGrad)" stroke-width="2.2" stroke-dasharray="14 10">
-                  <animateTransform attributeName="transform" type="rotate" from="0 400 400" to="360 400 400" dur="10s" repeatCount="indefinite"/>
+              <g filter="url(#soft)" opacity="0.92">
+                <circle cx="400" cy="400" r="250" stroke="url(#ringGrad)" stroke-width="2.0" stroke-dasharray="14 10">
+                  <animateTransform attributeName="transform" type="rotate" from="0 400 400" to="360 400 400" dur="12s" repeatCount="indefinite"/>
                 </circle>
-                <circle cx="400" cy="400" r="205" stroke="rgba(255,255,255,.20)" stroke-width="1.6" stroke-dasharray="2 10">
-                  <animateTransform attributeName="transform" type="rotate" from="360 400 400" to="0 400 400" dur="7.8s" repeatCount="indefinite"/>
+                <circle cx="400" cy="400" r="205" stroke="rgba(255,255,255,.18)" stroke-width="1.4" stroke-dasharray="2 10">
+                  <animateTransform attributeName="transform" type="rotate" from="360 400 400" to="0 400 400" dur="9.5s" repeatCount="indefinite"/>
                 </circle>
-                <circle cx="400" cy="400" r="160" stroke="url(#ringGrad)" stroke-width="1.8" stroke-dasharray="42 12">
-                  <animateTransform attributeName="transform" type="rotate" from="0 400 400" to="360 400 400" dur="6.5s" repeatCount="indefinite"/>
+                <circle cx="400" cy="400" r="160" stroke="url(#ringGrad)" stroke-width="1.6" stroke-dasharray="42 12">
+                  <animateTransform attributeName="transform" type="rotate" from="0 400 400" to="360 400 400" dur="8.2s" repeatCount="indefinite"/>
                 </circle>
-                <path d="M400 70 A330 330 0 0 1 710 400" stroke="rgba(86,199,255,.35)" stroke-width="10" stroke-linecap="round" opacity="0.75">
-                  <animateTransform attributeName="transform" type="rotate" from="0 400 400" to="360 400 400" dur="4.6s" repeatCount="indefinite"/>
-                  <animate attributeName="opacity" values="0.15;0.75;0.15" dur="4.6s" repeatCount="indefinite"/>
-                </path>
               </g>
             </svg>
           </div>
@@ -785,14 +833,10 @@
         <svg class="diagram" viewBox="0 0 1200 340" xmlns="http://www.w3.org/2000/svg" aria-label="Diagramme animé">
           <defs>
             <linearGradient id="p" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#56C7FF" stop-opacity="0.95"/>
-              <stop offset="0.55" stop-color="#7C5CFF" stop-opacity="0.85"/>
-              <stop offset="1" stop-color="#F6D365" stop-opacity="0.72"/>
+              <stop offset="0" stop-color="#56C7FF" stop-opacity="0.90"/>
+              <stop offset="0.55" stop-color="#7C5CFF" stop-opacity="0.80"/>
+              <stop offset="1" stop-color="#F6D365" stop-opacity="0.65"/>
             </linearGradient>
-            <filter id="gl" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="3" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
           </defs>
 
           <g opacity="0.9">
@@ -811,29 +855,24 @@
             <text x="1045" y="176" text-anchor="middle">ROI</text>
           </g>
 
-          <path id="pathA" d="M210 170 C320 170, 360 110, 480 100" fill="none" stroke="url(#p)" stroke-opacity=".55" stroke-width="3" filter="url(#gl)"/>
-          <path id="pathB" d="M210 170 C320 170, 360 230, 480 240" fill="none" stroke="url(#p)" stroke-opacity=".55" stroke-width="3" filter="url(#gl)"/>
-          <path id="pathE" d="M914 170 C960 170, 986 170, 1011 170" fill="none" stroke="url(#p)" stroke-opacity=".55" stroke-width="3" filter="url(#gl)"/>
+          <path id="pathA" d="M210 170 C320 170, 360 110, 480 100" fill="none" stroke="url(#p)" stroke-opacity=".55" stroke-width="3"/>
+          <path id="pathB" d="M210 170 C320 170, 360 230, 480 240" fill="none" stroke="url(#p)" stroke-opacity=".55" stroke-width="3"/>
+          <path id="pathE" d="M914 170 C960 170, 986 170, 1011 170" fill="none" stroke="url(#p)" stroke-opacity=".55" stroke-width="3"/>
 
-          <g filter="url(#gl)">
-            <circle r="6" fill="rgba(86,199,255,.95)">
+          <g>
+            <circle r="6" fill="rgba(86,199,255,.90)">
               <animateMotion dur="3.2s" repeatCount="indefinite" rotate="auto"><mpath href="#pathA"/></animateMotion>
-              <animate attributeName="opacity" values=".15;.95;.15" dur="3.2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values=".12;.9;.12" dur="3.2s" repeatCount="indefinite"/>
             </circle>
-            <circle r="5" fill="rgba(124,92,255,.95)">
+            <circle r="5" fill="rgba(124,92,255,.90)">
               <animateMotion dur="3.6s" repeatCount="indefinite" rotate="auto" begin="-1.2s"><mpath href="#pathB"/></animateMotion>
-              <animate attributeName="opacity" values=".15;.95;.15" dur="3.6s" repeatCount="indefinite" begin="-1.2s"/>
+              <animate attributeName="opacity" values=".12;.9;.12" dur="3.6s" repeatCount="indefinite" begin="-1.2s"/>
             </circle>
-            <circle r="6" fill="rgba(86,199,255,.95)">
+            <circle r="6" fill="rgba(86,199,255,.90)">
               <animateMotion dur="2.8s" repeatCount="indefinite" rotate="auto" begin="-1.1s"><mpath href="#pathE"/></animateMotion>
-              <animate attributeName="opacity" values=".12;.92;.12" dur="2.8s" repeatCount="indefinite" begin="-1.1s"/>
+              <animate attributeName="opacity" values=".10;.85;.10" dur="2.8s" repeatCount="indefinite" begin="-1.1s"/>
             </circle>
           </g>
-
-          <rect x="-200" y="0" width="200" height="340" fill="rgba(86,199,255,.08)">
-            <animate attributeName="x" values="-200; 1400" dur="4.8s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="0;.55;0" dur="4.8s" repeatCount="indefinite"/>
-          </rect>
         </svg>
 
         <div class="diagramLabelRow">
@@ -939,13 +978,13 @@
       });
     })();
 
-    // Splash
+    // Splash (un peu plus long)
     (function(){
       const splash = document.getElementById('splash');
       if(!splash) return;
 
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const showMs = reduce ? 900 : 2200;
+      const showMs = reduce ? 900 : 2300;
 
       window.addEventListener('load', () => {
         setTimeout(() => {
