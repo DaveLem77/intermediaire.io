@@ -34,6 +34,7 @@
 
     *{box-sizing:border-box}
     html,body{height:100%}
+
     body{
       margin:0;
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
@@ -44,13 +45,20 @@
         radial-gradient(900px 650px at 50% 120%, rgba(246,211,101,.14), transparent 60%),
         linear-gradient(180deg, var(--bg), var(--bg2));
       overflow-x:hidden;
+
+      /* FIX: header is fixed, push content down */
+      padding-top: 87px; /* 5px top line + 82px header */
     }
+    @media (max-width: 900px){
+      body{ padding-top: 91px; } /* 5px top line + 86px header */
+    }
+
     a{color:inherit;text-decoration:none}
     .wrap{max-width:var(--max); margin:0 auto; padding:0 22px;}
     .nowrap{white-space:nowrap}
 
     /* lock scroll during splash */
-    body.splashLock{ overflow:hidden; }
+    body.splashLock{ overflow:hidden; padding-top: 0 !important; }
 
     /* ---------- Ambient background ---------- */
     .bg{
@@ -163,11 +171,11 @@
     @keyframes splashOut{ to { opacity: 0; visibility: hidden; } }
 
     /* ======================================================
-       HEADER (layout like screenshot)
+       HEADER (FIXED always + alignment fix)
        ====================================================== */
     .siteHeader{
-      position: sticky;
-      top: 0;
+      position: fixed;
+      top: 0; left: 0; right: 0;
       z-index: 999;
       background: linear-gradient(180deg, var(--hdrA), var(--hdrB));
       border-bottom: 1px solid var(--hdrLine);
@@ -175,7 +183,6 @@
       -webkit-backdrop-filter: blur(14px);
     }
 
-    /* Gradient line = same gradient as title word */
     .headerTopLine{
       height: 5px;
       background: linear-gradient(90deg, rgba(86,199,255,1), rgba(124,92,255,1), rgba(246,211,101,1));
@@ -186,49 +193,45 @@
       max-width: 1180px;
       margin: 0 auto;
       padding: 0 22px;
-      height: 82px;                /* a bit taller like screenshot */
+      height: 82px;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap: 18px;
     }
 
-    /* Brand block left */
     .brand{
       display:flex;
       align-items:center;
       gap: 14px;
       min-width: 0;
     }
-
-    /* BIG logo left */
     .brandLogo{
-      height: 52px;               /* bigger like screenshot */
+      height: 52px;
       width:auto;
       display:block;
       filter: drop-shadow(0 16px 34px rgba(0,0,0,.40));
     }
 
-    /* INTERMEDIAIRE + .io styling like you asked */
     .brandWordmark{
       display:flex;
       align-items:flex-end;
       gap: 4px;
       line-height: 1;
-      font-style: italic;         /* similar vibe to partenaire.io */
+      font-style: italic;
       letter-spacing: -0.6px;
       white-space: nowrap;
     }
     .brandWordmark .main{
       font-weight: 950;
-      font-size: 22px;            /* big */
-      text-transform: uppercase;  /* INTERMEDIAIRE */
+      font-size: 22px;
+      text-transform: uppercase;
       color: rgba(255,255,255,.92);
     }
     .brandWordmark .io{
       font-weight: 950;
-      font-size: 16px;            /* smaller */
-      text-transform: lowercase;  /* .io */
+      font-size: 16px;
+      text-transform: lowercase;
       color: rgba(255,255,255,.70);
       transform: translateY(-1px);
     }
@@ -260,10 +263,16 @@
       box-shadow: 0 14px 36px rgba(0,0,0,.35);
       transition: transform .15s ease, filter .15s ease;
       white-space: nowrap;
+
+      display: inline-flex;      /* FIX */
+      align-items: center;        /* FIX */
+      justify-content: center;    /* FIX */
+      line-height: 1;             /* FIX */
+      position: relative;
+      top: 0;
     }
     .ctaBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
 
-    /* Hamburger right like screenshot */
     .burger{
       display:none;
       width: 54px;
@@ -282,7 +291,7 @@
     .burger span{
       display:block;
       width: 30px;
-      height: 4px;                /* thicker */
+      height: 4px;
       border-radius: 999px;
       background: rgba(255,255,255,.92);
     }
@@ -318,11 +327,9 @@
       text-align:center;
     }
 
-    /* Mobile: brand stays LEFT, burger stays RIGHT (like screenshot) */
     @media (max-width: 900px){
       .nav, .ctaBtn{ display:none; }
       .burger{ display:inline-flex; }
-
       .headerInner{ height: 86px; }
       .brandLogo{ height: 56px; }
       .brandWordmark .main{ font-size: 21px; }
@@ -332,7 +339,7 @@
     .siteHeader.menuOpen .mobileMenu{ display:block; }
 
     /* ======================================================
-       CONTENT (unchanged)
+       CONTENT
        ====================================================== */
     section{ padding: 74px 0; position:relative; }
     .divider{
@@ -960,6 +967,10 @@
         setTimeout(() => {
           splash.classList.add('hide');
           document.body.classList.remove('splashLock');
+
+          // restore header spacing after splash unlock
+          document.body.style.paddingTop = (window.innerWidth <= 900) ? '91px' : '87px';
+
           setTimeout(() => splash.remove(), 650);
         }, showMs);
       });
