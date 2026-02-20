@@ -44,7 +44,7 @@
     }
     @media (max-width: 900px){ body{ padding-top: 91px; } }
 
-    /* BACKGROUND uniform + fixed */
+    /* Background uniform + fixed */
     body::before{
       content:"";
       position: fixed;
@@ -226,8 +226,8 @@
     .siteHeader.menuOpen .mobileMenu{ display:block; }
 
     /* CONTENT */
-    section{ padding: 74px 0; position:relative; background: transparent; }
-    @media (max-width: 900px){ section{ padding: 58px 0; } }
+    section{ padding: 66px 0; position:relative; background: transparent; }
+    @media (max-width: 900px){ section{ padding: 54px 0; } }
 
     .kicker{
       display:inline-flex; align-items:center; gap:10px;
@@ -261,20 +261,19 @@
     .heroGrid{
       display:grid;
       grid-template-columns: 1.05fr .95fr;
-      gap: 28px;
+      gap: 24px;
       align-items:center;
     }
     @media (max-width: 900px){
-      .heroGrid{ grid-template-columns: 1fr; gap: 18px; }
+      .heroGrid{ grid-template-columns: 1fr; gap: 16px; }
     }
 
-    /* BIG SYSTEM (no frame, no background) */
+    /* Vertical system stage (embedded, no card) */
     .systemStage{
       position:relative;
       width:100%;
-      /* more vertical space */
-      height: 560px;
-      min-height: 560px;
+      height: 520px;            /* not huge */
+      min-height: 520px;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -283,13 +282,12 @@
     }
     @media (max-width: 900px){
       .systemStage{
-        height: 620px;
-        min-height: 620px;
+        height: 560px;
+        min-height: 560px;
         margin-top: 6px;
       }
     }
 
-    /* faint glow behind (incrusted in background) */
     .systemStage::before{
       content:"";
       position:absolute;
@@ -297,9 +295,9 @@
       z-index:0;
       pointer-events:none;
       background:
-        radial-gradient(520px 320px at 35% 40%, rgba(86,199,255,.16), transparent 62%),
-        radial-gradient(560px 360px at 70% 45%, rgba(124,92,255,.14), transparent 64%),
-        radial-gradient(520px 340px at 55% 70%, rgba(246,211,101,.10), transparent 66%);
+        radial-gradient(520px 320px at 50% 18%, rgba(86,199,255,.14), transparent 62%),
+        radial-gradient(560px 360px at 52% 52%, rgba(124,92,255,.13), transparent 64%),
+        radial-gradient(520px 340px at 50% 82%, rgba(246,211,101,.10), transparent 66%);
       filter: blur(10px);
       opacity: .95;
       transform: translateZ(0);
@@ -308,22 +306,19 @@
     .systemSvg{
       position:relative;
       z-index:1;
-      width: 115%;
-      max-width: 820px;
-      height: auto;
+      width: 112%;
+      max-width: 720px;
+      height:auto;
       display:block;
-      transform: translateY(6px);
       transform-origin: center;
     }
     @media (max-width: 900px){
       .systemSvg{
-        width: 120%;
-        max-width: 780px;
-        transform: translateY(0px);
+        width: 118%;
+        max-width: 740px;
       }
     }
 
-    /* Buttons / chips */
     .heroActions{ display:flex; gap:12px; flex-wrap:wrap; margin-top: 16px; }
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
@@ -363,7 +358,7 @@
       box-shadow: 0 0 0 8px rgba(86,199,255,.08);
     }
 
-    /* Marquee / portfolio */
+    /* Marquee */
     .marquee{ position:relative; overflow:hidden; margin-top: 20px; background: transparent; border: none; }
     .marqueeTrack{ display:flex; width:max-content; gap: 26px; padding: 18px 0; animation: marquee 22s linear infinite; }
     .marquee:hover .marqueeTrack{ animation-play-state: paused; }
@@ -394,6 +389,9 @@
       display:flex; align-items:center; justify-content:center;
       font-weight: 950; margin-bottom: 12px; color: rgba(255,255,255,.9);
     }
+    @media (max-width: 980px){
+      .bands{grid-template-columns: 1fr; gap: 18px;}
+    }
 
     .ctaLine{
       display:flex; align-items:center; justify-content:space-between;
@@ -419,17 +417,14 @@
       color: rgba(255,255,255,.52);
       line-height:1.65; font-weight: 800; font-size: 12.5px;
     }
-    @media (max-width: 980px){
-      .bands{grid-template-columns: 1fr; gap: 18px;}
-    }
 
-    /* SVG animation styles */
+    /* SVG anim styles */
     .flowLine{
       stroke-dasharray: 7 10;
       animation: dash 2.4s linear infinite;
       opacity: .72;
     }
-    .flowLine.slow{ animation-duration: 3.2s; opacity: .55; }
+    .flowLine.slow{ animation-duration: 3.1s; opacity: .55; }
     @keyframes dash{ to{ stroke-dashoffset: -34; } }
 
     .nodeRing{
@@ -438,22 +433,12 @@
       transform-origin: center;
     }
     @keyframes ringPulse{
-      0%,100%{ opacity:.72; }
+      0%,100%{ opacity:.70; }
       50%{ opacity: 1; }
     }
-
-    .nodeLabel{
-      font-weight: 950;
-      letter-spacing: -.2px;
-      fill: rgba(255,255,255,.88);
-    }
-    .nodeSub{
-      font-weight: 900;
-      fill: rgba(255,255,255,.58);
-    }
-    .pulseDot{
-      filter: drop-shadow(0 0 10px rgba(86,199,255,.22));
-    }
+    .nodeLabel{ font-weight: 950; letter-spacing: -.2px; fill: rgba(255,255,255,.88); }
+    .nodeSub{ font-weight: 900; fill: rgba(255,255,255,.58); }
+    .pulseDot{ filter: drop-shadow(0 0 10px rgba(86,199,255,.22)); }
   </style>
 </head>
 
@@ -526,93 +511,114 @@
           </div>
         </div>
 
-        <!-- BIG SYSTEM (no frame, embedded) -->
+        <!-- VERTICAL SYSTEM (embedded, no card) -->
         <div class="systemStage" aria-label="Système en mouvement">
-          <svg class="systemSvg" viewBox="0 0 1200 760" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Intention vers filtre vers qualifié/non, puis redirection">
+          <!-- ViewBox recadré: no big empty top -->
+          <svg class="systemSvg" viewBox="0 0 800 900" xmlns="http://www.w3.org/2000/svg" role="img"
+               aria-label="Intention vers filtre vers qualifié/non, puis redirection">
+
             <defs>
               <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0" stop-color="#56C7FF" stop-opacity="0.95"/>
                 <stop offset="0.55" stop-color="#7C5CFF" stop-opacity="0.85"/>
                 <stop offset="1" stop-color="#F6D365" stop-opacity="0.78"/>
               </linearGradient>
-              <radialGradient id="gl" cx="50%" cy="50%" r="55%">
+
+              <radialGradient id="gl" cx="50%" cy="45%" r="62%">
                 <stop offset="0" stop-color="rgba(255,255,255,.08)"/>
                 <stop offset="1" stop-color="rgba(255,255,255,0)"/>
               </radialGradient>
             </defs>
 
-            <!-- subtle center glow (no box) -->
-            <circle cx="620" cy="380" r="320" fill="url(#gl)" opacity="0.85"/>
+            <!-- soft center glow -->
+            <circle cx="400" cy="420" r="360" fill="url(#gl)" opacity="0.82"/>
 
-            <!-- paths -->
-            <path id="p1" d="M220 420 C360 320, 430 320, 520 330" fill="none" stroke="url(#g)" stroke-width="5" class="flowLine"/>
-            <path id="p2" d="M520 330 C640 330, 690 370, 760 400" fill="none" stroke="url(#g)" stroke-width="5" class="flowLine slow"/>
+            <!-- Paths (vertical flow) -->
+            <path id="p1" d="M400 170 C400 230, 400 255, 400 300" fill="none" stroke="url(#g)" stroke-width="6" class="flowLine"/>
+            <path id="p2" d="M400 410 C400 470, 400 500, 400 545" fill="none" stroke="url(#g)" stroke-width="6" class="flowLine slow"/>
+            <!-- split to qualified (right) -->
+            <path id="p3" d="M400 640 C470 655, 540 665, 610 675" fill="none" stroke="url(#g)" stroke-width="6" class="flowLine"/>
+            <path id="p4" d="M610 675 C660 675, 700 690, 720 710" fill="none" stroke="url(#g)" stroke-width="6" class="flowLine slow"/>
+            <!-- split to non (left) -->
+            <path id="p5" d="M400 640 C330 655, 260 665, 190 675" fill="none" stroke="rgba(255,255,255,.20)" stroke-width="5" stroke-dasharray="7 10" class="flowLine slow"/>
 
-            <!-- split -->
-            <path id="p3" d="M760 400 C860 330, 930 300, 1030 295" fill="none" stroke="url(#g)" stroke-width="5" class="flowLine"/>
-            <path id="p4" d="M760 400 C860 470, 930 520, 1030 540" fill="none" stroke="rgba(255,255,255,.20)" stroke-width="4" stroke-dasharray="7 10" class="flowLine slow"/>
-
-            <!-- nodes -->
+            <!-- Nodes (bigger) -->
             <!-- INTENTION -->
             <g>
-              <circle cx="200" cy="420" r="82" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
-              <circle cx="200" cy="420" r="106" fill="none" stroke="url(#g)" stroke-width="2" stroke-dasharray="12 18" class="nodeRing"/>
-              <text x="200" y="414" text-anchor="middle" class="nodeLabel" font-size="22">INTENTION</text>
-              <text x="200" y="444" text-anchor="middle" class="nodeSub" font-size="15">Demande</text>
+              <circle cx="400" cy="120" r="92" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+              <circle cx="400" cy="120" r="120" fill="none" stroke="url(#g)" stroke-width="2" stroke-dasharray="14 22" class="nodeRing"/>
+              <text x="400" y="114" text-anchor="middle" class="nodeLabel" font-size="26">INTENTION</text>
+              <text x="400" y="146" text-anchor="middle" class="nodeSub" font-size="16">Demande</text>
             </g>
 
             <!-- FILTRE -->
             <g>
-              <circle cx="560" cy="330" r="92" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
-              <circle cx="560" cy="330" r="118" fill="none" stroke="url(#g)" stroke-width="2" stroke-dasharray="14 20" class="nodeRing"/>
-              <text x="560" y="322" text-anchor="middle" class="nodeLabel" font-size="24">FILTRE</text>
-              <text x="560" y="352" text-anchor="middle" class="nodeSub" font-size="15">Questions</text>
+              <circle cx="400" cy="355" r="104" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+              <circle cx="400" cy="355" r="134" fill="none" stroke="url(#g)" stroke-width="2" stroke-dasharray="16 24" class="nodeRing"/>
+              <text x="400" y="348" text-anchor="middle" class="nodeLabel" font-size="28">FILTRE</text>
+              <text x="400" y="382" text-anchor="middle" class="nodeSub" font-size="16">Questions</text>
             </g>
 
             <!-- DECISION -->
             <g>
-              <circle cx="760" cy="400" r="76" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
-              <circle cx="760" cy="400" r="102" fill="none" stroke="rgba(255,255,255,.20)" stroke-width="2" stroke-dasharray="2 14" class="nodeRing"/>
-              <text x="760" y="395" text-anchor="middle" class="nodeLabel" font-size="20">QUALIFIÉ ?</text>
+              <circle cx="400" cy="595" r="88" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+              <circle cx="400" cy="595" r="116" fill="none" stroke="rgba(255,255,255,.20)" stroke-width="2" stroke-dasharray="3 16" class="nodeRing"/>
+              <text x="400" y="590" text-anchor="middle" class="nodeLabel" font-size="22">QUALIFIÉ ?</text>
             </g>
 
-            <!-- REDIRECTION -->
-            <g>
-              <circle cx="1060" cy="295" r="92" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
-              <circle cx="1060" cy="295" r="120" fill="none" stroke="url(#g)" stroke-width="2" stroke-dasharray="12 18" class="nodeRing"/>
-              <text x="1060" y="287" text-anchor="middle" class="nodeLabel" font-size="22">REDIRECTION</text>
-              <text x="1060" y="317" text-anchor="middle" class="nodeSub" font-size="15">Entreprise</text>
-            </g>
-
-            <!-- NON QUALIF -->
+            <!-- NON -->
             <g opacity="0.92">
-              <circle cx="1060" cy="540" r="74" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.10)" stroke-width="2"/>
-              <circle cx="1060" cy="540" r="98" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="2" stroke-dasharray="12 20" class="nodeRing"/>
-              <text x="1060" y="534" text-anchor="middle" class="nodeLabel" font-size="20" fill="rgba(255,255,255,.72)">NON</text>
-              <text x="1060" y="562" text-anchor="middle" class="nodeSub" font-size="14">Refus</text>
+              <circle cx="170" cy="700" r="76" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.10)" stroke-width="2"/>
+              <circle cx="170" cy="700" r="102" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="2" stroke-dasharray="14 22" class="nodeRing"/>
+              <text x="170" y="694" text-anchor="middle" class="nodeLabel" font-size="22" fill="rgba(255,255,255,.72)">NON</text>
+              <text x="170" y="724" text-anchor="middle" class="nodeSub" font-size="15">Refus</text>
             </g>
 
-            <!-- moving dots -->
+            <!-- QUALIFIÉ / REDIRECTION -->
+            <g>
+              <circle cx="720" cy="720" r="94" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+              <circle cx="720" cy="720" r="124" fill="none" stroke="url(#g)" stroke-width="2" stroke-dasharray="14 22" class="nodeRing"/>
+              <text x="720" y="710" text-anchor="middle" class="nodeLabel" font-size="24">REDIRECTION</text>
+              <text x="720" y="742" text-anchor="middle" class="nodeSub" font-size="15">Entreprise</text>
+            </g>
+
+            <!-- Moving dots -->
             <g class="pulseDot">
               <circle r="8" fill="rgba(255,255,255,.92)">
-                <animateMotion dur="2.6s" repeatCount="indefinite" rotate="auto"><mpath href="#p1"/></animateMotion>
-                <animate attributeName="opacity" values=".12;.95;.12" dur="2.6s" repeatCount="indefinite"/>
-              </circle>
-              <circle r="7" fill="rgba(86,199,255,.92)">
-                <animateMotion dur="2.9s" repeatCount="indefinite" rotate="auto" begin="-1.1s"><mpath href="#p2"/></animateMotion>
-                <animate attributeName="opacity" values=".10;.9;.10" dur="2.9s" repeatCount="indefinite" begin="-1.1s"/>
+                <animateMotion dur="2.4s" repeatCount="indefinite" rotate="auto">
+                  <mpath href="#p1"/>
+                </animateMotion>
+                <animate attributeName="opacity" values=".12;.95;.12" dur="2.4s" repeatCount="indefinite"/>
               </circle>
 
-              <!-- qualified stream (frequent) -->
-              <circle r="7.5" fill="rgba(124,92,255,.92)">
-                <animateMotion dur="2.35s" repeatCount="indefinite" rotate="auto"><mpath href="#p3"/></animateMotion>
-                <animate attributeName="opacity" values=".10;.95;.10" dur="2.35s" repeatCount="indefinite"/>
+              <circle r="7.2" fill="rgba(86,199,255,.92)">
+                <animateMotion dur="2.7s" repeatCount="indefinite" rotate="auto" begin="-1.0s">
+                  <mpath href="#p2"/>
+                </animateMotion>
+                <animate attributeName="opacity" values=".10;.9;.10" dur="2.7s" repeatCount="indefinite" begin="-1.0s"/>
               </circle>
 
-              <!-- non qualified stream (rarer) -->
-              <circle r="6.5" fill="rgba(255,255,255,.55)">
-                <animateMotion dur="3.7s" repeatCount="indefinite" rotate="auto" begin="-2.2s"><mpath href="#p4"/></animateMotion>
-                <animate attributeName="opacity" values=".06;.55;.06" dur="3.7s" repeatCount="indefinite" begin="-2.2s"/>
+              <!-- Qualified stream -->
+              <circle r="7.6" fill="rgba(124,92,255,.92)">
+                <animateMotion dur="2.2s" repeatCount="indefinite" rotate="auto">
+                  <mpath href="#p3"/>
+                </animateMotion>
+                <animate attributeName="opacity" values=".10;.95;.10" dur="2.2s" repeatCount="indefinite"/>
+              </circle>
+
+              <circle r="7.2" fill="rgba(246,211,101,.88)">
+                <animateMotion dur="2.6s" repeatCount="indefinite" rotate="auto" begin="-1.3s">
+                  <mpath href="#p4"/>
+                </animateMotion>
+                <animate attributeName="opacity" values=".10;.92;.10" dur="2.6s" repeatCount="indefinite" begin="-1.3s"/>
+              </circle>
+
+              <!-- Non-qualified stream (rarer, softer) -->
+              <circle r="6.4" fill="rgba(255,255,255,.52)">
+                <animateMotion dur="3.4s" repeatCount="indefinite" rotate="auto" begin="-2.0s">
+                  <mpath href="#p5"/>
+                </animateMotion>
+                <animate attributeName="opacity" values=".06;.55;.06" dur="3.4s" repeatCount="indefinite" begin="-2.0s"/>
               </circle>
             </g>
           </svg>
@@ -622,7 +628,7 @@
   </section>
 
   <!-- PORTFOLIO -->
-  <section id="portfolio" style="padding-top:38px;">
+  <section id="portfolio" style="padding-top:34px;">
     <div class="wrap">
       <h2>Portfolio <span class="grad">en expansion</span></h2>
       <p class="lead" style="max-width:78ch;">Chaque propriété est conçue pour une verticale précise : intention → qualification → transfert.</p>
@@ -632,7 +638,7 @@
       <div class="wrap" style="padding:0 22px;">
         <div class="marqueeTrack" id="mq">
           <a class="pillSite" href="https://trouverunplombier.ca/" target="_blank" rel="noopener">
-            <span class="spark"></span> TrouverUnPlombier.ca <span class="tag">Plomberie • Urgence</span>
+            <span class="spark"></span> TrouverUnplombier.ca <span class="tag">Plomberie • Urgence</span>
           </a>
           <span class="pillSite"><span class="spark"></span> Propriété #2 <span class="tag">À venir</span></span>
           <span class="pillSite"><span class="spark"></span> Propriété #3 <span class="tag">À venir</span></span>
