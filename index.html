@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Intermediaire.io | Portfolio Middlemen</title>
-  <meta name="description" content="Intermediaire.io — portefeuille de propriétés web de mise en relation. Demande locale → filtre → qualification → redirection." />
+  <meta name="description" content="Intermediaire.io — portefeuille de propriétés web de mise en relation. Intention → filtre → qualification → redirection." />
   <meta name="robots" content="index,follow" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,11 +42,9 @@
       overflow-x:hidden;
       padding-top: 87px;
     }
-    @media (max-width: 900px){
-      body{ padding-top: 91px; }
-    }
+    @media (max-width: 900px){ body{ padding-top: 91px; } }
 
-    /* GLOBAL BACKGROUND FIXED (uniform everywhere) */
+    /* GLOBAL FIXED BACKGROUND (uniform partout) */
     body::before{
       content:"";
       position: fixed;
@@ -74,26 +72,15 @@
 
     a{color:inherit;text-decoration:none}
     .wrap{max-width:var(--max); margin:0 auto; padding:0 22px;}
-    .nowrap{white-space:nowrap}
 
     /* lock scroll during splash */
     body.splashLock{ overflow:hidden; padding-top: 0 !important; }
 
     /* soft blobs */
-    .bg{
-      position:fixed; inset:0;
-      z-index:-1;
-      pointer-events:none;
-      overflow:hidden;
-      transform: translateZ(0);
-    }
+    .bg{ position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden; transform: translateZ(0); }
     .blob{
-      position:absolute;
-      width: 820px; height: 820px;
-      border-radius: 999px;
-      filter: blur(50px);
-      opacity:.20;
-      mix-blend-mode: screen;
+      position:absolute; width: 820px; height: 820px; border-radius: 999px;
+      filter: blur(50px); opacity:.20; mix-blend-mode: screen;
       background:
         radial-gradient(circle at 30% 30%, rgba(86,199,255,.95), transparent 55%),
         radial-gradient(circle at 70% 70%, rgba(124,92,255,.85), transparent 55%);
@@ -101,22 +88,18 @@
       animation: floaty 12s ease-in-out infinite;
     }
     .blob.b2{
-      width: 700px; height: 700px;
-      right:-280px; top:-220px; left:auto;
+      width: 700px; height: 700px; right:-280px; top:-220px; left:auto;
       background:
         radial-gradient(circle at 30% 30%, rgba(246,211,101,.78), transparent 55%),
         radial-gradient(circle at 70% 70%, rgba(86,199,255,.65), transparent 55%);
-      opacity:.15;
-      animation-delay:-3.8s;
+      opacity:.15; animation-delay:-3.8s;
     }
     .blob.b3{
-      width: 760px; height: 760px;
-      left: 18%; top: 62%;
+      width: 760px; height: 760px; left: 18%; top: 62%;
       background:
         radial-gradient(circle at 30% 30%, rgba(124,92,255,.68), transparent 55%),
         radial-gradient(circle at 70% 70%, rgba(246,211,101,.55), transparent 55%);
-      opacity:.13;
-      animation-delay:-6.5s;
+      opacity:.13; animation-delay:-6.5s;
     }
     @keyframes floaty{
       0%,100%{ transform: translate3d(0,0,0) scale(1); }
@@ -126,54 +109,31 @@
       .blob{ filter: blur(36px); opacity:.14; }
       .blob, .blob.b2, .blob.b3{ animation-duration: 16s; }
     }
-    @media (prefers-reduced-motion: reduce){
-      .blob{animation:none !important}
-    }
+    @media (prefers-reduced-motion: reduce){ .blob{animation:none !important} }
 
     /* SPLASH */
     .splash{
-      position:fixed;
-      inset:0;
-      z-index:2000;
-      display:grid;
-      place-items:center;
+      position:fixed; inset:0; z-index:2000;
+      display:grid; place-items:center;
       background: linear-gradient(180deg, #05060b, #070816);
-      opacity:1;
-      transform: translateZ(0);
+      opacity:1; transform: translateZ(0);
     }
-    .splashInner{
-      display:grid;
-      place-items:center;
-      gap: 16px;
-      text-align:center;
-    }
+    .splashInner{ display:grid; place-items:center; gap: 16px; text-align:center; }
     .splashLogo{
-      width: min(270px, 68vw);
-      height:auto;
-      display:block;
+      width: min(270px, 68vw); height:auto; display:block;
       filter: drop-shadow(0 22px 70px rgba(86,199,255,.14));
       animation: splashPop 1.8s ease-in-out infinite;
       transform-origin:center;
     }
-    @keyframes splashPop{
-      0%,100%{ transform: scale(1); opacity: .95; }
-      50%{ transform: scale(1.02); opacity: 1; }
-    }
-    .splashText{
-      font-weight: 950;
-      letter-spacing: -.6px;
-      color: rgba(255,255,255,.86);
-      font-size: 24px;
-    }
+    @keyframes splashPop{ 0%,100%{ transform: scale(1); opacity: .95; } 50%{ transform: scale(1.02); opacity: 1; } }
+    .splashText{ font-weight: 950; letter-spacing: -.6px; color: rgba(255,255,255,.86); font-size: 24px; }
     .dotio{ color: rgba(255,255,255,.70); }
     .splash.hide{ animation: splashOut .60s ease forwards; }
     @keyframes splashOut{ to { opacity: 0; visibility: hidden; } }
 
     /* HEADER */
     .siteHeader{
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 999;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
       background: linear-gradient(180deg, var(--hdrA), var(--hdrB));
       border-bottom: 1px solid var(--hdrLine);
       backdrop-filter: blur(14px);
@@ -186,118 +146,56 @@
       opacity: .95;
     }
     .headerInner{
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 0 22px;
-      height: 82px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 18px;
+      max-width: 1180px; margin: 0 auto; padding: 0 22px;
+      height: 82px; display:flex; align-items:center; justify-content:space-between; gap: 18px;
     }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap: 14px;
-      min-width: 0;
-    }
-    .brandLogo{
-      height: 52px;
-      width:auto;
-      display:block;
-      filter: drop-shadow(0 12px 26px rgba(0,0,0,.35));
-    }
-    .brandWordmark{
-      display:flex;
-      align-items:flex-end;
-      gap: 4px;
-      line-height: 1;
-      font-style: italic;
-      letter-spacing: -0.6px;
-      white-space: nowrap;
-    }
-    .brandWordmark .main{
-      font-weight: 950;
-      font-size: 22px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.92);
-    }
-    .brandWordmark .io{
-      font-weight: 950;
-      font-size: 16px;
-      text-transform: lowercase;
-      color: rgba(255,255,255,.70);
-      transform: translateY(-1px);
-    }
-    .nav{
-      display:flex;
-      align-items:center;
-      gap: 28px;
-      margin-left:auto;
-    }
+    .brand{ display:flex; align-items:center; gap: 14px; min-width: 0; }
+    .brandLogo{ height: 52px; width:auto; display:block; filter: drop-shadow(0 12px 26px rgba(0,0,0,.35)); }
+    .brandWordmark{ display:flex; align-items:flex-end; gap: 4px; line-height: 1; font-style: italic; letter-spacing: -0.6px; white-space: nowrap; }
+    .brandWordmark .main{ font-weight: 950; font-size: 22px; text-transform: uppercase; color: rgba(255,255,255,.92); }
+    .brandWordmark .io{ font-weight: 950; font-size: 16px; text-transform: lowercase; color: rgba(255,255,255,.70); transform: translateY(-1px); }
+
+    .nav{ display:flex; align-items:center; gap: 28px; margin-left:auto; }
     .navLink{
       color: rgba(255,255,255,.78);
-      font-weight: 850;
-      font-size: 16px;
-      padding: 10px 8px;
-      border-radius: 12px;
+      font-weight: 850; font-size: 16px;
+      padding: 10px 8px; border-radius: 12px;
       transition: color .15s ease, background .15s ease;
     }
     .navLink:hover{ color: rgba(255,255,255,.92); background: rgba(255,255,255,.06); }
     .navLink.isActive{ color: rgba(255,255,255,.92); }
 
     .ctaBtn{
-      height: 46px;
-      padding: 0 18px;
-      border-radius: 14px;
+      height: 46px; padding: 0 18px; border-radius: 14px;
       background: rgba(255,255,255,.92);
       color: rgba(0,0,0,.88);
       font-weight: 950;
       box-shadow: 0 14px 36px rgba(0,0,0,.35);
       transition: transform .15s ease, filter .15s ease;
       white-space: nowrap;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      line-height: 1;
+      display: inline-flex; align-items: center; justify-content: center; line-height: 1;
     }
     .ctaBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
 
     .burger{
-      display:none;
-      width: 54px;
-      height: 54px;
-      border-radius: 14px;
+      display:none; width: 54px; height: 54px; border-radius: 14px;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.06);
       box-shadow: 0 16px 40px rgba(0,0,0,.30);
-      cursor:pointer;
-      padding:0;
-      align-items:center;
-      justify-content:center;
-      flex-direction: column;
-      gap: 7px;
+      cursor:pointer; padding:0;
+      align-items:center; justify-content:center;
+      flex-direction: column; gap: 7px;
     }
-    .burger span{
-      display:block;
-      width: 30px;
-      height: 4px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.92);
-    }
+    .burger span{ display:block; width: 30px; height: 4px; border-radius: 999px; background: rgba(255,255,255,.92); }
 
     .mobileMenu{
-      display:none;
-      background: rgba(0,0,0,.12);
+      display:none; background: rgba(0,0,0,.12);
       backdrop-filter: blur(14px);
       border-top: 1px solid rgba(255,255,255,.08);
     }
     .mobileMenuInner{
-      max-width: 1180px;
-      margin:0 auto;
-      padding: 14px 22px 18px;
-      display:grid;
-      gap:10px;
+      max-width: 1180px; margin:0 auto; padding: 14px 22px 18px;
+      display:grid; gap:10px;
     }
     .mLink{
       color: rgba(255,255,255,.86);
@@ -328,19 +226,12 @@
     .siteHeader.menuOpen .mobileMenu{ display:block; }
 
     /* CONTENT */
-    section{
-      padding: 74px 0;
-      position:relative;
-      background: transparent;
-    }
+    section{ padding: 74px 0; position:relative; background: transparent; }
 
     .kicker{
       display:inline-flex; align-items:center; gap:10px;
       color: var(--muted);
-      font-weight:900;
-      font-size:12.5px;
-      letter-spacing:.25px;
-      text-transform:uppercase;
+      font-weight:900; font-size:12.5px; letter-spacing:.25px; text-transform:uppercase;
     }
     .dot{
       width:8px; height:8px; border-radius:999px;
@@ -348,10 +239,7 @@
       box-shadow: 0 0 0 8px rgba(246,211,101,.08);
       animation: pulse 2.3s ease-in-out infinite;
     }
-    @keyframes pulse{
-      0%,100%{transform:scale(1);opacity:1}
-      50%{transform:scale(1.15);opacity:.7}
-    }
+    @keyframes pulse{ 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.15);opacity:.7} }
 
     h1{
       margin: 14px 0 14px;
@@ -359,24 +247,14 @@
       line-height: 1.02;
       letter-spacing: -1.2px;
     }
-    h2{
-      margin: 0 0 10px;
-      font-size: clamp(22px, 2.6vw, 34px);
-      letter-spacing: -.6px;
-    }
+    h2{ margin: 0 0 10px; font-size: clamp(22px, 2.6vw, 34px); letter-spacing: -.6px; }
     .grad{
       background: linear-gradient(90deg, rgba(86,199,255,1), rgba(124,92,255,1), rgba(246,211,101,1));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
+      -webkit-background-clip:text; background-clip:text; color:transparent;
     }
     .lead{
-      margin:0;
-      color: var(--muted);
-      font-size: 16.5px;
-      line-height: 1.7;
-      max-width: 72ch;
-      font-weight: 600;
+      margin:0; color: var(--muted);
+      font-size: 16.5px; line-height: 1.7; max-width: 72ch; font-weight: 600;
     }
 
     .heroGrid{
@@ -386,8 +264,8 @@
       align-items:center;
     }
 
-    /* RIGHT SIDE: DESKTOP logo stage */
-    .logoStage{
+    /* Right column: desktop logo */
+    .rightStage{
       position:relative;
       min-height: 420px;
       display:flex;
@@ -395,35 +273,59 @@
       justify-content:center;
       isolation:isolate;
     }
+    .logoWrap{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width: 100%;
+      min-height: 420px;
+    }
+    .logoWrap::before{
+      content:"";
+      position:absolute;
+      width:min(560px, 92vw);
+      aspect-ratio:1/1;
+      border-radius:999px;
+      background: conic-gradient(
+        from 180deg,
+        rgba(86,199,255,.55),
+        rgba(124,92,255,.45),
+        rgba(246,211,101,.40),
+        rgba(86,199,255,.55)
+      );
+      mask: radial-gradient(circle, transparent 55%, #000 56%);
+      opacity:.45;
+      animation: spin 14s linear infinite;
+      transform: translateZ(0);
+    }
+    @keyframes spin{ to{ transform: rotate(360deg); } }
+
     .logoImg{
-      width: min(340px, 74vw);
+      width: min(320px, 72vw);
       height:auto;
       display:block;
-      z-index:2;
       filter: drop-shadow(0 18px 60px rgba(86,199,255,.12));
-      animation: logoBreath 4.8s ease-in-out infinite;
+      animation: logoBreath 5.2s ease-in-out infinite;
       transform-origin:center;
       will-change: transform;
-    }
-    @keyframes logoBreath{
-      0%,100%{ transform: scale(1); }
-      50%{ transform: scale(1.015); }
-    }
-
-    /* MOBILE: replace logo stage with "System Motion" */
-    .systemStage{
-      display:none;
       position:relative;
+      z-index:2;
+    }
+    @keyframes logoBreath{ 0%,100%{ transform: scale(1);} 50%{ transform: scale(1.015);} }
+
+    /* System diagram stage (used mobile in hero + desktop section) */
+    .systemCard{
       width:100%;
-      min-height: 420px;
       border-radius: 26px;
       overflow:hidden;
       background: radial-gradient(1200px 600px at 50% 20%, rgba(255,255,255,.04), rgba(255,255,255,0) 55%);
       border: 1px solid rgba(255,255,255,.08);
       box-shadow: 0 26px 80px rgba(0,0,0,.45);
+      position:relative;
       transform: translateZ(0);
     }
-    .systemStage::before{
+    .systemCard::before{
       content:"";
       position:absolute; inset:-40%;
       background:
@@ -432,31 +334,30 @@
         radial-gradient(circle at 55% 80%, rgba(246,211,101,.12), transparent 60%);
       filter: blur(12px);
       opacity: .9;
-      animation: slowDrift 10s ease-in-out infinite;
+      animation: drift 10s ease-in-out infinite;
       transform: translateZ(0);
+      pointer-events:none;
     }
-    @keyframes slowDrift{
+    @keyframes drift{
       0%,100%{ transform: translate3d(0,0,0) scale(1); }
       50%{ transform: translate3d(18px, -10px, 0) scale(1.03); }
     }
 
-    .sysCanvas{
-      position:absolute;
-      inset: 0;
+    .systemSvg{
       width:100%;
-      height:100%;
-      z-index: 2;
+      height:auto;
       display:block;
+      position:relative;
+      z-index:2;
     }
 
-    .sysGlow{
-      position:absolute; inset:0;
-      z-index:1;
-      pointer-events:none;
-      background:
-        radial-gradient(520px 260px at 50% 40%, rgba(86,199,255,.10), transparent 60%),
-        radial-gradient(520px 260px at 70% 60%, rgba(124,92,255,.08), transparent 62%);
-      opacity:.9;
+    /* IMPORTANT: mobile hero uses system, desktop hero uses logo */
+    .systemHero{ display:none; }
+    @media (max-width: 900px){
+      .heroGrid{ grid-template-columns: 1fr; gap: 18px; }
+      .logoWrap{ display:none; }
+      .systemHero{ display:block; }
+      .rightStage{ min-height: auto; }
     }
 
     .heroActions{ display:flex; gap:12px; flex-wrap:wrap; margin-top: 16px; }
@@ -479,26 +380,15 @@
       border: none;
       background: linear-gradient(135deg, rgba(86,199,255,.95), rgba(124,92,255,.82));
       box-shadow: 0 18px 50px rgba(86,199,255,.12);
-      position:relative;
-      overflow:hidden;
     }
 
     .microStats{
-      display:flex;
-      gap: 16px;
-      flex-wrap:wrap;
-      align-items:center;
-      color: var(--muted2);
-      font-weight: 900;
-      font-size: 13px;
-      margin-top: 18px;
+      display:flex; gap: 16px; flex-wrap:wrap; align-items:center;
+      color: var(--muted2); font-weight: 900; font-size: 13px; margin-top: 18px;
     }
     .microStats .chip{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding: 10px 14px;
-      border-radius: 999px;
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 10px 14px; border-radius: 999px;
       background: rgba(255,255,255,.05);
       border: 1px solid rgba(255,255,255,.10);
     }
@@ -509,15 +399,7 @@
       box-shadow: 0 0 0 8px rgba(86,199,255,.08);
     }
 
-    /* show systemStage on mobile, hide logoImg */
-    @media (max-width: 900px){
-      .heroGrid{ grid-template-columns: 1fr; gap: 16px; }
-      .logoStage{ min-height: auto; }
-      .logoImg{ display:none; }
-      .systemStage{ display:block; }
-    }
-
-    /* simple rest sections */
+    /* Marquee / sections */
     .marquee{ position:relative; overflow:hidden; margin-top: 20px; background: transparent; border: none; }
     .marqueeTrack{ display:flex; width:max-content; gap: 26px; padding: 18px 0; animation: marquee 22s linear infinite; }
     .marquee:hover .marqueeTrack{ animation-play-state: paused; }
@@ -525,21 +407,16 @@
 
     .pillSite{
       display:inline-flex; align-items:center; gap:10px;
-      padding: 10px 14px;
-      border-radius: 999px;
+      padding: 10px 14px; border-radius: 999px;
       background: rgba(255,255,255,.05);
       border: 1px solid rgba(255,255,255,.10);
       color: rgba(255,255,255,.85);
-      font-weight: 950;
-      letter-spacing:-.2px;
+      font-weight: 950; letter-spacing:-.2px;
       white-space:nowrap;
     }
     .pillSite .tag{
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 900;
-      padding: 6px 10px;
-      border-radius: 999px;
+      font-size: 12px; color: var(--muted); font-weight: 900;
+      padding: 6px 10px; border-radius: 999px;
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(0,0,0,.10);
     }
@@ -548,14 +425,10 @@
     .band h3{ margin: 0 0 10px; font-size: 15px; font-weight: 950; letter-spacing: -.2px; }
     .band p{ margin:0; color: var(--muted); line-height: 1.7; font-weight: 600; font-size: 14.3px; max-width: 40ch; }
     .band .icon{
-      width: 40px; height: 40px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.10);
+      width: 40px; height: 40px; border-radius: 14px;
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.10);
       display:flex; align-items:center; justify-content:center;
-      font-weight: 950;
-      margin-bottom: 12px;
-      color: rgba(255,255,255,.9);
+      font-weight: 950; margin-bottom: 12px; color: rgba(255,255,255,.9);
     }
 
     .ctaLine{
@@ -571,25 +444,54 @@
       padding: 54px 0 44px;
       border-top: 1px solid rgba(255,255,255,.08);
       color: var(--muted2);
-      font-weight: 900;
-      font-size: 13px;
+      font-weight: 900; font-size: 13px;
       background: transparent;
     }
     .footRow{ display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; }
     .footRow a{color: var(--muted2)}
     .footRow a:hover{color: var(--text)}
     .fine{
-      margin-top: 10px;
-      max-width: 96ch;
+      margin-top: 10px; max-width: 96ch;
       color: rgba(255,255,255,.52);
-      line-height:1.65;
-      font-weight: 800;
-      font-size: 12.5px;
+      line-height:1.65; font-weight: 800; font-size: 12.5px;
     }
 
     @media (max-width: 980px){
       section{padding: 64px 0;}
       .bands{grid-template-columns: 1fr; gap: 18px;}
+    }
+
+    /* SVG anim improvements */
+    .flowLine{
+      stroke-dasharray: 7 10;
+      animation: dash 2.4s linear infinite;
+      opacity: .72;
+    }
+    .flowLine.slow{ animation-duration: 3.2s; opacity: .55; }
+    @keyframes dash{ to{ stroke-dashoffset: -34; } }
+
+    .nodeRing{
+      opacity: .92;
+      animation: ringPulse 2.6s ease-in-out infinite;
+      transform-origin: center;
+    }
+    @keyframes ringPulse{
+      0%,100%{ opacity:.75; }
+      50%{ opacity: 1; }
+    }
+
+    .nodeLabel{
+      font-weight: 950;
+      letter-spacing: -.2px;
+      fill: rgba(255,255,255,.86);
+    }
+    .nodeSub{
+      font-weight: 900;
+      fill: rgba(255,255,255,.58);
+    }
+
+    .pulseDot{
+      filter: drop-shadow(0 0 10px rgba(86,199,255,.25));
     }
   </style>
 </head>
@@ -622,6 +524,7 @@
       <nav class="nav" aria-label="Navigation principale">
         <a href="#top" class="navLink isActive">Accueil</a>
         <a href="#portfolio" class="navLink">Portfolio</a>
+        <a href="#systeme" class="navLink">Système</a>
         <a href="#partenaires" class="navLink">Contact</a>
       </nav>
 
@@ -636,50 +539,142 @@
       <div class="mobileMenuInner">
         <a href="#top" class="mLink">Accueil</a>
         <a href="#portfolio" class="mLink">Portfolio</a>
+        <a href="#systeme" class="mLink">Système</a>
         <a href="#partenaires" class="mLink">Contact</a>
         <a class="mCta" href="#partenaires">Réserver un appel</a>
       </div>
     </div>
   </header>
 
+  <!-- HERO -->
   <section id="top">
     <div class="wrap">
       <div class="heroGrid">
         <div>
           <div class="kicker"><span class="dot"></span> Réseau de propriétés locales</div>
           <h1>La demande locale devient un <span class="grad">flux qualifié</span>.</h1>
-          <p class="lead">On opère des sites verticalisés qui captent l’intention, qualifient, puis routent vers des partenaires disponibles.</p>
+          <p class="lead">Intention → filtre → qualification. Si qualifié : redirection immédiate vers une entreprise disponible.</p>
 
           <div class="heroActions">
             <a class="btn primary" href="#portfolio">Voir le portfolio</a>
-            <a class="btn" href="#partenaires">Partenaires</a>
+            <a class="btn" href="#systeme">Voir le système</a>
           </div>
 
           <div class="microStats">
-            <div class="chip"><span class="spark"></span> <b>Multi-vertical</b> <span class="nowrap">par secteur</span></div>
-            <div class="chip"><span class="spark"></span> <b>Routage local</b> <span class="nowrap">par région</span></div>
-            <div class="chip"><span class="spark"></span> <b>Mesurable</b> <span class="nowrap">ROI / qualité</span></div>
+            <div class="chip"><span class="spark"></span> <b>Multi-vertical</b></div>
+            <div class="chip"><span class="spark"></span> <b>Qualification</b></div>
+            <div class="chip"><span class="spark"></span> <b>Redirection</b></div>
           </div>
         </div>
 
-        <!-- DESKTOP: logo -->
-        <div class="logoStage" aria-label="Visuel">
-          <img class="logoImg" src="media/logob.png" alt="Logo Intermediaire.io" />
+        <!-- RIGHT -->
+        <div class="rightStage">
+          <!-- Desktop: Logo -->
+          <div class="logoWrap" aria-label="Logo Intermediaire">
+            <img class="logoImg" src="media/logob.png" alt="Logo Intermediaire.io" />
+          </div>
 
-          <!-- MOBILE: system motion -->
-          <div class="systemStage" aria-hidden="true">
-            <div class="sysGlow"></div>
-            <canvas class="sysCanvas" id="sysCanvas"></canvas>
+          <!-- Mobile: System diagram (big, readable) -->
+          <div class="systemHero systemCard" aria-label="Système en mouvement (mobile)">
+            <!-- same SVG used later -->
+            <svg class="systemSvg" viewBox="0 0 1200 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Intention vers filtre vers qualification, puis redirection">
+              <defs>
+                <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#56C7FF" stop-opacity="0.95"/>
+                  <stop offset="0.55" stop-color="#7C5CFF" stop-opacity="0.85"/>
+                  <stop offset="1" stop-color="#F6D365" stop-opacity="0.75"/>
+                </linearGradient>
+                <radialGradient id="gl" cx="50%" cy="50%" r="55%">
+                  <stop offset="0" stop-color="rgba(255,255,255,.08)"/>
+                  <stop offset="1" stop-color="rgba(255,255,255,0)"/>
+                </radialGradient>
+              </defs>
+
+              <!-- soft stage glow -->
+              <circle cx="600" cy="320" r="300" fill="url(#gl)" opacity="0.9"/>
+
+              <!-- paths -->
+              <path id="p1m" d="M230 320 C360 250, 430 250, 520 260" fill="none" stroke="url(#g)" stroke-width="4" class="flowLine"/>
+              <path id="p2m" d="M520 260 C640 260, 690 300, 760 320" fill="none" stroke="url(#g)" stroke-width="4" class="flowLine slow"/>
+              <!-- split -->
+              <path id="p3m" d="M760 320 C860 280, 930 260, 1010 250" fill="none" stroke="url(#g)" stroke-width="4" class="flowLine"/>
+              <path id="p4m" d="M760 320 C860 360, 930 390, 1010 410" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="3" stroke-dasharray="7 10" class="flowLine slow"/>
+
+              <!-- nodes -->
+              <!-- INTENTION -->
+              <g>
+                <circle cx="200" cy="320" r="68" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+                <circle cx="200" cy="320" r="86" fill="none" stroke="url(#g)" stroke-width="2" stroke-dasharray="10 16" class="nodeRing"/>
+                <text x="200" y="312" text-anchor="middle" class="nodeLabel" font-size="20">INTENTION</text>
+                <text x="200" y="338" text-anchor="middle" class="nodeSub" font-size="14">Demande</text>
+              </g>
+
+              <!-- FILTRE -->
+              <g>
+                <circle cx="560" cy="260" r="76" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+                <circle cx="560" cy="260" r="98" fill="none" stroke="url(#g)" stroke-width="2" stroke-dasharray="12 18" class="nodeRing"/>
+                <text x="560" y="252" text-anchor="middle" class="nodeLabel" font-size="22">FILTRE</text>
+                <text x="560" y="280" text-anchor="middle" class="nodeSub" font-size="14">Questions</text>
+              </g>
+
+              <!-- DECISION -->
+              <g>
+                <circle cx="760" cy="320" r="62" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+                <circle cx="760" cy="320" r="84" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="2" stroke-dasharray="2 12" class="nodeRing"/>
+                <text x="760" y="314" text-anchor="middle" class="nodeLabel" font-size="18">QUALIFIÉ ?</text>
+              </g>
+
+              <!-- REDIRECTION -->
+              <g>
+                <circle cx="1040" cy="250" r="74" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+                <circle cx="1040" cy="250" r="96" fill="none" stroke="url(#g)" stroke-width="2" stroke-dasharray="10 16" class="nodeRing"/>
+                <text x="1040" y="242" text-anchor="middle" class="nodeLabel" font-size="20">REDIRECTION</text>
+                <text x="1040" y="268" text-anchor="middle" class="nodeSub" font-size="14">Entreprise</text>
+              </g>
+
+              <!-- NON QUALIF -->
+              <g opacity="0.9">
+                <circle cx="1040" cy="410" r="58" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.10)" stroke-width="2"/>
+                <circle cx="1040" cy="410" r="76" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="2" stroke-dasharray="10 18" class="nodeRing"/>
+                <text x="1040" y="404" text-anchor="middle" class="nodeLabel" font-size="18" fill="rgba(255,255,255,.72)">NON</text>
+                <text x="1040" y="428" text-anchor="middle" class="nodeSub" font-size="13">Refus</text>
+              </g>
+
+              <!-- moving dots -->
+              <g class="pulseDot">
+                <circle r="7" fill="rgba(255,255,255,.92)">
+                  <animateMotion dur="2.6s" repeatCount="indefinite" rotate="auto"><mpath href="#p1m"/></animateMotion>
+                  <animate attributeName="opacity" values=".12;.95;.12" dur="2.6s" repeatCount="indefinite"/>
+                </circle>
+                <circle r="6" fill="rgba(86,199,255,.92)">
+                  <animateMotion dur="2.9s" repeatCount="indefinite" rotate="auto" begin="-1.1s"><mpath href="#p2m"/></animateMotion>
+                  <animate attributeName="opacity" values=".10;.9;.10" dur="2.9s" repeatCount="indefinite" begin="-1.1s"/>
+                </circle>
+
+                <!-- qualified stream (more frequent) -->
+                <circle r="6.5" fill="rgba(124,92,255,.92)">
+                  <animateMotion dur="2.4s" repeatCount="indefinite" rotate="auto"><mpath href="#p3m"/></animateMotion>
+                  <animate attributeName="opacity" values=".10;.95;.10" dur="2.4s" repeatCount="indefinite"/>
+                </circle>
+
+                <!-- non qualified stream (rarer: start later + slower) -->
+                <circle r="5.8" fill="rgba(255,255,255,.55)">
+                  <animateMotion dur="3.6s" repeatCount="indefinite" rotate="auto" begin="-2.2s"><mpath href="#p4m"/></animateMotion>
+                  <animate attributeName="opacity" values=".06;.55;.06" dur="3.6s" repeatCount="indefinite" begin="-2.2s"/>
+                </circle>
+              </g>
+            </svg>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- PORTFOLIO -->
   <section id="portfolio" style="padding-top:38px;">
     <div class="wrap">
       <h2>Portfolio <span class="grad">en expansion</span></h2>
-      <p class="lead" style="max-width:78ch;">Chaque propriété est conçue pour une verticale précise : intention → action → transfert.</p>
+      <p class="lead" style="max-width:78ch;">Chaque propriété est conçue pour une verticale précise : intention → qualification → transfert.</p>
     </div>
 
     <div class="marquee" aria-label="Propriétés">
@@ -718,6 +713,94 @@
     </div>
   </section>
 
+  <!-- SYSTEME (desktop + everyone) -->
+  <section id="systeme">
+    <div class="wrap">
+      <h2>Le système <span class="grad">en mouvement</span></h2>
+      <p class="lead" style="max-width:86ch;">Même logique partout : l’intention est filtrée. Si qualifié → redirection vers une entreprise.</p>
+
+      <div class="systemCard" style="margin-top:18px;">
+        <!-- same SVG as mobile but wider framing -->
+        <svg class="systemSvg" viewBox="0 0 1200 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Intention vers filtre vers qualification, puis redirection">
+          <defs>
+            <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#56C7FF" stop-opacity="0.95"/>
+              <stop offset="0.55" stop-color="#7C5CFF" stop-opacity="0.85"/>
+              <stop offset="1" stop-color="#F6D365" stop-opacity="0.75"/>
+            </linearGradient>
+            <radialGradient id="gl2" cx="50%" cy="50%" r="60%">
+              <stop offset="0" stop-color="rgba(255,255,255,.07)"/>
+              <stop offset="1" stop-color="rgba(255,255,255,0)"/>
+            </radialGradient>
+          </defs>
+
+          <circle cx="600" cy="260" r="260" fill="url(#gl2)" opacity="0.9"/>
+
+          <path id="p1" d="M200 260 C340 190, 420 190, 520 205" fill="none" stroke="url(#g2)" stroke-width="4" class="flowLine"/>
+          <path id="p2" d="M520 205 C650 205, 700 235, 780 260" fill="none" stroke="url(#g2)" stroke-width="4" class="flowLine slow"/>
+          <path id="p3" d="M780 260 C885 215, 945 200, 1040 190" fill="none" stroke="url(#g2)" stroke-width="4" class="flowLine"/>
+          <path id="p4" d="M780 260 C885 300, 945 330, 1040 340" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="3" stroke-dasharray="7 10" class="flowLine slow"/>
+
+          <!-- nodes -->
+          <g>
+            <circle cx="170" cy="260" r="62" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+            <circle cx="170" cy="260" r="82" fill="none" stroke="url(#g2)" stroke-width="2" stroke-dasharray="10 16" class="nodeRing"/>
+            <text x="170" y="252" text-anchor="middle" class="nodeLabel" font-size="18">INTENTION</text>
+            <text x="170" y="276" text-anchor="middle" class="nodeSub" font-size="13">Demande</text>
+          </g>
+
+          <g>
+            <circle cx="560" cy="205" r="70" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+            <circle cx="560" cy="205" r="92" fill="none" stroke="url(#g2)" stroke-width="2" stroke-dasharray="12 18" class="nodeRing"/>
+            <text x="560" y="198" text-anchor="middle" class="nodeLabel" font-size="20">FILTRE</text>
+            <text x="560" y="222" text-anchor="middle" class="nodeSub" font-size="13">Questions</text>
+          </g>
+
+          <g>
+            <circle cx="780" cy="260" r="56" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+            <circle cx="780" cy="260" r="76" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="2" stroke-dasharray="2 12" class="nodeRing"/>
+            <text x="780" y="255" text-anchor="middle" class="nodeLabel" font-size="16">QUALIFIÉ ?</text>
+          </g>
+
+          <g>
+            <circle cx="1070" cy="190" r="68" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+            <circle cx="1070" cy="190" r="90" fill="none" stroke="url(#g2)" stroke-width="2" stroke-dasharray="10 16" class="nodeRing"/>
+            <text x="1070" y="183" text-anchor="middle" class="nodeLabel" font-size="18">REDIRECTION</text>
+            <text x="1070" y="206" text-anchor="middle" class="nodeSub" font-size="13">Entreprise</text>
+          </g>
+
+          <g opacity="0.9">
+            <circle cx="1070" cy="340" r="52" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.10)" stroke-width="2"/>
+            <circle cx="1070" cy="340" r="70" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="2" stroke-dasharray="10 18" class="nodeRing"/>
+            <text x="1070" y="335" text-anchor="middle" class="nodeLabel" font-size="16" fill="rgba(255,255,255,.72)">NON</text>
+            <text x="1070" y="356" text-anchor="middle" class="nodeSub" font-size="12">Refus</text>
+          </g>
+
+          <!-- dots -->
+          <g class="pulseDot">
+            <circle r="7" fill="rgba(255,255,255,.92)">
+              <animateMotion dur="2.6s" repeatCount="indefinite" rotate="auto"><mpath href="#p1"/></animateMotion>
+              <animate attributeName="opacity" values=".12;.95;.12" dur="2.6s" repeatCount="indefinite"/>
+            </circle>
+            <circle r="6" fill="rgba(86,199,255,.92)">
+              <animateMotion dur="2.9s" repeatCount="indefinite" rotate="auto" begin="-1.1s"><mpath href="#p2"/></animateMotion>
+              <animate attributeName="opacity" values=".10;.9;.10" dur="2.9s" repeatCount="indefinite" begin="-1.1s"/>
+            </circle>
+            <circle r="6.5" fill="rgba(124,92,255,.92)">
+              <animateMotion dur="2.4s" repeatCount="indefinite" rotate="auto"><mpath href="#p3"/></animateMotion>
+              <animate attributeName="opacity" values=".10;.95;.10" dur="2.4s" repeatCount="indefinite"/>
+            </circle>
+            <circle r="5.8" fill="rgba(255,255,255,.55)">
+              <animateMotion dur="3.6s" repeatCount="indefinite" rotate="auto" begin="-2.2s"><mpath href="#p4"/></animateMotion>
+              <animate attributeName="opacity" values=".06;.55;.06" dur="3.6s" repeatCount="indefinite" begin="-2.2s"/>
+            </circle>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTENAIRES -->
   <section id="partenaires">
     <div class="wrap">
       <h2>Partenaires <span class="grad">recherchés</span></h2>
@@ -743,6 +826,7 @@
         <div>© <span id="y"></span> Intermediaire.io</div>
         <div style="display:flex; gap:14px; flex-wrap:wrap;">
           <a href="#portfolio">Portfolio</a>
+          <a href="#systeme">Système</a>
           <a href="#partenaires">Contact</a>
         </div>
       </div>
@@ -787,13 +871,8 @@
         if(a) closeMenu();
       });
 
-      document.addEventListener('keydown', (e) => {
-        if(e.key === 'Escape') closeMenu();
-      });
-
-      window.addEventListener('resize', () => {
-        if(window.innerWidth > 900) closeMenu();
-      });
+      document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeMenu(); });
+      window.addEventListener('resize', () => { if(window.innerWidth > 900) closeMenu(); });
     })();
 
     // Splash
@@ -812,315 +891,6 @@
           setTimeout(() => splash.remove(), 650);
         }, showMs);
       });
-    })();
-
-    /* =========================================================
-       MOBILE SYSTEM MOTION (Canvas) — Intention -> Filtre -> Decision
-       - super smooth on iPhone
-       - no text, only iconic nodes + flow + pulses
-       ========================================================= */
-    (function(){
-      const canvas = document.getElementById('sysCanvas');
-      if(!canvas) return;
-
-      const stage = canvas.parentElement;
-      const isMobile = () => window.innerWidth <= 900;
-
-      let ctx, dpr, w, h, raf;
-      let t0 = performance.now();
-
-      // system nodes (relative coords)
-      const nodes = {
-        intention: { x: 0.18, y: 0.55, r: 30 },
-        filtre:    { x: 0.48, y: 0.42, r: 34 },
-        gate:      { x: 0.48, y: 0.68, r: 26 }, // "decision gate"
-        redirect:  { x: 0.80, y: 0.50, r: 38 },
-        drop:      { x: 0.80, y: 0.78, r: 24 }  // non-qualified exit
-      };
-
-      const flows = [];
-      const MAX = 28;
-
-      function resize(){
-        const rect = stage.getBoundingClientRect();
-        dpr = Math.min(2, window.devicePixelRatio || 1);
-        w = Math.max(1, Math.floor(rect.width));
-        h = Math.max(1, Math.floor(rect.height));
-        canvas.width = Math.floor(w * dpr);
-        canvas.height = Math.floor(h * dpr);
-        canvas.style.width = w + 'px';
-        canvas.style.height = h + 'px';
-        ctx = canvas.getContext('2d');
-        ctx.setTransform(dpr,0,0,dpr,0,0);
-      }
-
-      function nx(k){ return nodes[k].x * w; }
-      function ny(k){ return nodes[k].y * h; }
-
-      function gradientStroke(x1,y1,x2,y2, a=1){
-        const g = ctx.createLinearGradient(x1,y1,x2,y2);
-        g.addColorStop(0, `rgba(86,199,255,${0.95*a})`);
-        g.addColorStop(0.55, `rgba(124,92,255,${0.85*a})`);
-        g.addColorStop(1, `rgba(246,211,101,${0.70*a})`);
-        return g;
-      }
-
-      function spawn(){
-        // 72% chance qualified, 28% drop (you can tweak)
-        const qualified = Math.random() < 0.72;
-
-        flows.push({
-          born: performance.now(),
-          dur: 2400 + Math.random()*900,
-          qualified,
-          wobble: 0.9 + Math.random()*1.2,
-          size: 2.2 + Math.random()*2.2
-        });
-
-        while(flows.length > MAX) flows.shift();
-      }
-
-      function easeInOut(t){
-        return t<0.5 ? 2*t*t : 1 - Math.pow(-2*t+2,2)/2;
-      }
-
-      function drawNode(x,y,r, mode){
-        // mode: "good" | "neutral" | "bad"
-        const pulse = 0.5 + 0.5*Math.sin((performance.now()-t0)/900);
-        const glow = 10 + pulse*10;
-
-        // outer glow
-        ctx.save();
-        ctx.globalCompositeOperation = 'lighter';
-        const g = ctx.createRadialGradient(x,y,0,x,y,r+glow);
-        if(mode === 'bad'){
-          g.addColorStop(0, 'rgba(255,255,255,0.06)');
-          g.addColorStop(0.35, 'rgba(255,255,255,0.03)');
-          g.addColorStop(1, 'rgba(0,0,0,0)');
-        } else {
-          g.addColorStop(0, 'rgba(86,199,255,0.10)');
-          g.addColorStop(0.45, 'rgba(124,92,255,0.08)');
-          g.addColorStop(1, 'rgba(0,0,0,0)');
-        }
-        ctx.fillStyle = g;
-        ctx.beginPath(); ctx.arc(x,y,r+glow,0,Math.PI*2); ctx.fill();
-        ctx.restore();
-
-        // core ring
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = (mode === 'bad')
-          ? 'rgba(255,255,255,.14)'
-          : gradientStroke(x-r,y-r,x+r,y+r, 0.95);
-        ctx.fillStyle = 'rgba(255,255,255,.05)';
-        ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill(); ctx.stroke();
-
-        // inner dot
-        ctx.fillStyle = (mode === 'bad') ? 'rgba(255,255,255,.20)' : 'rgba(255,255,255,.75)';
-        ctx.beginPath(); ctx.arc(x,y, Math.max(2.2, r*0.12),0,Math.PI*2); ctx.fill();
-
-        // dotted orbit
-        ctx.save();
-        ctx.globalAlpha = 0.55;
-        ctx.strokeStyle = (mode === 'bad') ? 'rgba(255,255,255,.10)' : 'rgba(255,255,255,.16)';
-        ctx.setLineDash([2,10]);
-        ctx.lineWidth = 1.4;
-        ctx.beginPath(); ctx.arc(x,y, r*1.45,0,Math.PI*2); ctx.stroke();
-        ctx.restore();
-      }
-
-      function drawCurvedLine(ax,ay, bx,by, bend, alpha){
-        const cx = (ax+bx)/2;
-        const cy = (ay+by)/2 + bend;
-        ctx.lineWidth = 3;
-        ctx.strokeStyle = gradientStroke(ax,ay,bx,by, alpha);
-        ctx.globalAlpha = 1;
-        ctx.beginPath();
-        ctx.moveTo(ax,ay);
-        ctx.quadraticCurveTo(cx,cy,bx,by);
-        ctx.stroke();
-
-        // soft highlight
-        ctx.save();
-        ctx.globalAlpha = 0.22 * alpha;
-        ctx.lineWidth = 9;
-        ctx.strokeStyle = gradientStroke(ax,ay,bx,by, 0.35);
-        ctx.beginPath();
-        ctx.moveTo(ax,ay);
-        ctx.quadraticCurveTo(cx,cy,bx,by);
-        ctx.stroke();
-        ctx.restore();
-      }
-
-      function pointOnQuadratic(ax,ay, cx,cy, bx,by, t){
-        const u = 1-t;
-        const x = u*u*ax + 2*u*t*cx + t*t*bx;
-        const y = u*u*ay + 2*u*t*cy + t*t*by;
-        return {x,y};
-      }
-
-      function drawFlow(f, now){
-        const age = now - f.born;
-        const p = Math.min(1, age / f.dur);
-        const e = easeInOut(p);
-
-        // segments:
-        // intention -> filtre
-        // filtre -> gate
-        // gate -> (redirect OR drop)
-        const A = {x:nx('intention'), y:ny('intention')};
-        const B = {x:nx('filtre'),    y:ny('filtre')};
-        const G = {x:nx('gate'),      y:ny('gate')};
-        const R = {x:nx('redirect'),  y:ny('redirect')};
-        const D = {x:nx('drop'),      y:ny('drop')};
-
-        // compute current position across 3 parts
-        let pos;
-        let glowAlpha = 0.9;
-
-        if(e < 0.46){
-          const tt = e/0.46;
-          const cx = (A.x+B.x)/2;
-          const cy = (A.y+B.y)/2 - (h*0.12);
-          pos = pointOnQuadratic(A.x,A.y,cx,cy,B.x,B.y,tt);
-          glowAlpha = 0.55 + 0.45*Math.sin((tt*3.14));
-        } else if(e < 0.68){
-          const tt = (e-0.46)/(0.22);
-          const cx = (B.x+G.x)/2;
-          const cy = (B.y+G.y)/2 + (h*0.10);
-          pos = pointOnQuadratic(B.x,B.y,cx,cy,G.x,G.y,tt);
-          glowAlpha = 0.7;
-        } else {
-          const target = f.qualified ? R : D;
-          const tt = (e-0.68)/(0.32);
-          const bend = f.qualified ? -(h*0.08) : (h*0.16);
-          const cx = (G.x+target.x)/2;
-          const cy = (G.y+target.y)/2 + bend;
-          pos = pointOnQuadratic(G.x,G.y,cx,cy,target.x,target.y,tt);
-          glowAlpha = f.qualified ? 0.9 : 0.55;
-        }
-
-        // draw particle
-        const wob = Math.sin((now - f.born) / 120) * f.wobble;
-        const px = pos.x + wob;
-        const py = pos.y;
-
-        // tail
-        ctx.save();
-        ctx.globalCompositeOperation = 'lighter';
-        const tail = ctx.createRadialGradient(px,py,0, px,py, 26);
-        if(f.qualified){
-          tail.addColorStop(0,'rgba(86,199,255,.30)');
-          tail.addColorStop(0.6,'rgba(124,92,255,.14)');
-          tail.addColorStop(1,'rgba(0,0,0,0)');
-        } else {
-          tail.addColorStop(0,'rgba(255,255,255,.14)');
-          tail.addColorStop(0.6,'rgba(255,255,255,.06)');
-          tail.addColorStop(1,'rgba(0,0,0,0)');
-        }
-        ctx.fillStyle = tail;
-        ctx.beginPath(); ctx.arc(px,py, 26, 0, Math.PI*2); ctx.fill();
-        ctx.restore();
-
-        ctx.fillStyle = f.qualified ? 'rgba(255,255,255,.92)' : 'rgba(255,255,255,.60)';
-        ctx.beginPath();
-        ctx.arc(px,py, f.size + (f.qualified?0.6:0), 0, Math.PI*2);
-        ctx.fill();
-      }
-
-      function draw(now){
-        ctx.clearRect(0,0,w,h);
-
-        // subtle vignette
-        const v = ctx.createRadialGradient(w*0.5,h*0.45, 40, w*0.5,h*0.55, Math.max(w,h)*0.75);
-        v.addColorStop(0, 'rgba(0,0,0,0)');
-        v.addColorStop(1, 'rgba(0,0,0,.35)');
-        ctx.fillStyle = v;
-        ctx.fillRect(0,0,w,h);
-
-        // backbone lines
-        const A = {x:nx('intention'), y:ny('intention')};
-        const B = {x:nx('filtre'),    y:ny('filtre')};
-        const G = {x:nx('gate'),      y:ny('gate')};
-        const R = {x:nx('redirect'),  y:ny('redirect')};
-        const D = {x:nx('drop'),      y:ny('drop')};
-
-        drawCurvedLine(A.x,A.y, B.x,B.y, -h*0.12, 0.75);
-        drawCurvedLine(B.x,B.y, G.x,G.y,  h*0.10, 0.65);
-        drawCurvedLine(G.x,G.y, R.x,R.y, -h*0.08, 0.80);
-        // non-qualified branch subtle
-        ctx.save();
-        ctx.globalAlpha = 0.45;
-        drawCurvedLine(G.x,G.y, D.x,D.y,  h*0.16, 0.35);
-        ctx.restore();
-
-        // nodes (big + readable)
-        drawNode(A.x,A.y, 34, 'neutral');   // INTENTION
-        drawNode(B.x,B.y, 38, 'neutral');   // FILTRE
-        drawNode(G.x,G.y, 30, 'neutral');   // GATE
-        drawNode(R.x,R.y, 44, 'good');      // REDIRECTION
-        drawNode(D.x,D.y, 26, 'bad');       // DROP
-
-        // animated pulses (flows)
-        for(const f of flows){
-          drawFlow(f, now);
-        }
-
-        // remove expired
-        for(let i=flows.length-1;i>=0;i--){
-          if(now - flows[i].born > flows[i].dur) flows.splice(i,1);
-        }
-
-        raf = requestAnimationFrame(draw);
-      }
-
-      function start(){
-        if(!isMobile()) return; // run only mobile
-        resize();
-        cancelAnimationFrame(raf);
-        flows.length = 0;
-        // warm start
-        for(let i=0;i<10;i++) spawn();
-        // spawn interval
-        const spawnTimer = setInterval(() => {
-          if(!isMobile()){ clearInterval(spawnTimer); return; }
-          spawn();
-        }, 320);
-
-        raf = requestAnimationFrame(draw);
-
-        // stop if user leaves mobile
-        const stopCheck = setInterval(() => {
-          if(!isMobile()){
-            clearInterval(stopCheck);
-            clearInterval(spawnTimer);
-            cancelAnimationFrame(raf);
-          }
-        }, 800);
-      }
-
-      // Resize / start on load
-      const onResize = () => {
-        if(isMobile()){
-          resize();
-        }
-      };
-      window.addEventListener('resize', onResize, {passive:true});
-
-      // Start after splash removal (so sizes are correct)
-      window.addEventListener('load', () => {
-        setTimeout(() => start(), 2400);
-      });
-
-      // Pause when tab not visible
-      document.addEventListener('visibilitychange', () => {
-        if(document.hidden){
-          cancelAnimationFrame(raf);
-        } else if(isMobile()){
-          cancelAnimationFrame(raf);
-          raf = requestAnimationFrame(draw);
-        }
-      });
-
     })();
   </script>
 </body>
