@@ -99,7 +99,7 @@
     .splash.hide{ animation: splashOut .62s ease forwards; }
     @keyframes splashOut{ to { opacity: 0; visibility: hidden; } }
 
-    /* Background blobs */
+    /* Background blobs (global) */
     .bg{ position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden; }
     .blob{
       position:absolute; width: 820px; height: 820px; border-radius: 999px;
@@ -231,11 +231,51 @@
     /* HERO */
     .heroSection{
       position: relative;
-      padding: 40px 0 44px;
+      padding: 34px 0 44px;
       isolation:isolate;
       overflow:hidden;
       contain: layout paint;
     }
+
+    /* ✅ REMIS : logo watermark derrière le contenu du haut (mobile + desktop) */
+    .heroSection::before{
+      content:"";
+      position:absolute;
+      left: 50%;
+      top: -10px;
+      width: min(900px, 120vw);
+      height: min(900px, 120vw);
+      transform: translateX(-52%) rotate(-6deg);
+      background: url("media/logob.png") center/contain no-repeat;
+      opacity: .19;
+      filter: blur(12px);
+      mix-blend-mode: screen;
+      pointer-events:none;
+      z-index: 0;
+      animation: markFloat 8.5s ease-in-out infinite;
+    }
+    .heroSection::after{
+      content:"";
+      position:absolute;
+      inset: -10%;
+      background:
+        radial-gradient(900px 520px at 50% 10%, rgba(86,199,255,.12), transparent 62%),
+        radial-gradient(900px 520px at 70% 35%, rgba(124,92,255,.10), transparent 64%),
+        radial-gradient(900px 520px at 30% 55%, rgba(246,211,101,.06), transparent 68%);
+      opacity: .9;
+      pointer-events:none;
+      z-index: 0;
+    }
+    @keyframes markFloat{
+      0%,100%{ transform: translateX(-52%) translateY(0px) rotate(-6deg) scale(1); opacity:.17; }
+      50%{ transform: translateX(-49%) translateY(10px) rotate(-3deg) scale(1.02); opacity:.22; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .heroSection::before{ animation:none !important; }
+    }
+
+    .heroSection > .wrap{ position: relative; z-index: 1; }
+
     .kicker{
       display:inline-flex; align-items:center; gap:10px;
       color: var(--muted);
@@ -274,7 +314,7 @@
     }
     @media (max-width: 900px){ .heroGrid{ grid-template-columns: 1fr; gap: 26px; } }
 
-    .heroActions{ display:flex; gap:14px; flex-wrap:wrap; margin-top: 26px; }
+    .heroActions{ display:flex; gap:14px; flex-wrap:wrap; margin-top: 22px; }
 
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
@@ -352,9 +392,9 @@
     .rating small{ color: rgba(255,255,255,.62); font-weight: 800; }
 
     /* Scroll hint */
-    .scrollHint{ margin-top: 26px; display:flex; justify-content:center; align-items:center; padding-bottom: 6px; }
+    .scrollHint{ margin-top: 20px; display:flex; justify-content:center; align-items:center; padding-bottom: 6px; }
     .chevWrap{
-      width: 56px; height: 56px; display:grid; place-items:center;
+      width: 52px; height: 52px; display:grid; place-items:center;
       border-radius: 999px; background: transparent; position: relative;
       transform: translateZ(0);
     }
@@ -480,22 +520,13 @@
       border: 1px solid rgba(255,255,255,.14);
       box-shadow: 0 0 0 8px rgba(255,255,255,.05);
     }
-    .sysCard:nth-child(1){ animation: cardFocus 2.8s ease-in-out infinite; animation-delay: 0s; }
-    .sysCard:nth-child(2){ animation: cardFocus 2.8s ease-in-out infinite; animation-delay: .7s; }
-    .sysCard:nth-child(3){ animation: cardFocus 2.8s ease-in-out infinite; animation-delay: 1.4s; }
-    .sysCard:nth-child(4){ animation: cardFocus 2.8s ease-in-out infinite; animation-delay: 2.1s; }
-    @keyframes cardFocus{
-      0%,100%{ box-shadow: 0 0 0 rgba(0,0,0,0); transform: translateY(0); }
-      50%{
-        box-shadow:
-          0 28px 90px rgba(124,92,255,.10),
-          0 0 80px rgba(86,199,255,.10);
-        transform: translateY(-1px);
-      }
+
+    @media (prefers-reduced-motion: reduce){
+      .systemDot{ animation:none !important; }
     }
 
     /* ===== RÉSULTATS ===== */
-    .resultsSection{ padding: 64px 0 20px; } /* un peu moins bas pour coller les avis */
+    .resultsSection{ padding: 64px 0 20px; }
     .resultsHead{
       display:flex; flex-direction:column; gap: 10px;
       margin-bottom: 26px;
@@ -587,9 +618,9 @@
       max-width: 60ch;
     }
 
-    /* ===== AVIS (eventail swipe) ===== */
+    /* ===== AVIS : HORIZONTAUX, EVENTAIL LÉGER, PAS DE FLÈCHES ===== */
     .reviewsSection{
-      padding: 26px 0 54px;
+      padding: 26px 0 58px;
       overflow:hidden;
     }
     .reviewsHead{
@@ -597,7 +628,7 @@
       align-items:flex-end;
       justify-content:space-between;
       gap: 16px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
     .reviewsTitle{
       margin:0;
@@ -610,38 +641,22 @@
       color: rgba(255,255,255,.62);
       font-weight: 750;
       line-height: 1.6;
-      max-width: 64ch;
+      max-width: 70ch;
       font-size: 15px;
     }
-    .reviewControls{
-      display:flex; gap: 10px; align-items:center;
-      flex-shrink:0;
-    }
-    .rBtn{
-      width: 44px; height: 44px; border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.045);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: rgba(255,255,255,.92);
-      cursor:pointer;
-      display:grid; place-items:center;
-      box-shadow: 0 18px 60px rgba(0,0,0,.25);
-      transition: transform .14s ease, background .14s ease;
-      user-select:none;
-    }
-    .rBtn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.06); }
-    .rBtn:active{ transform: translateY(0px) scale(.98); }
 
     .fanStage{
       position: relative;
-      height: 280px;
-      margin-top: 8px;
+      height: 220px; /* plus compact, horizontal */
+      margin-top: 14px;
       touch-action: pan-y;
       user-select:none;
+      overflow:hidden; /* ✅ empêche l'effet “ça sort de l’écran” */
+      border-radius: 26px; /* juste pour clipper proprement */
+      background: transparent;
     }
     @media (max-width: 520px){
-      .fanStage{ height: 300px; }
+      .fanStage{ height: 240px; }
     }
 
     .fanTrack{
@@ -649,39 +664,37 @@
       inset:0;
       display:grid;
       place-items:center;
-      perspective: 1400px;
     }
 
     .reviewCard{
       position:absolute;
-      width: min(520px, 86vw);
+      width: min(780px, 92vw);   /* ✅ très horizontal */
       border-radius: 22px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.12);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.035));
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       box-shadow:
-        0 38px 110px rgba(0,0,0,.38),
-        0 0 90px rgba(124,92,255,.10);
+        0 32px 90px rgba(0,0,0,.38),
+        0 0 110px rgba(124,92,255,.10);
       overflow:hidden;
-      transform: translateZ(0);
-      transition: transform .42s cubic-bezier(.2,.9,.2,1), opacity .32s ease, filter .32s ease;
+      transition: transform .42s cubic-bezier(.2,.9,.2,1), opacity .28s ease, filter .28s ease;
       will-change: transform;
+      transform: translateZ(0);
     }
-
     .reviewCard::before{
       content:"";
       position:absolute;
-      inset:-50%;
+      inset:-40%;
       background:
-        radial-gradient(circle at 25% 30%, rgba(86,199,255,.14), transparent 62%),
-        radial-gradient(circle at 75% 40%, rgba(124,92,255,.12), transparent 64%),
-        radial-gradient(circle at 55% 90%, rgba(246,211,101,.08), transparent 66%);
+        radial-gradient(circle at 18% 30%, rgba(86,199,255,.14), transparent 62%),
+        radial-gradient(circle at 78% 42%, rgba(124,92,255,.12), transparent 64%),
+        radial-gradient(circle at 58% 92%, rgba(246,211,101,.08), transparent 66%);
       filter: blur(18px);
-      opacity: .65;
+      opacity: .8;
       pointer-events:none;
     }
-
     .reviewInner{
       position:relative;
       padding: 18px 18px 16px;
@@ -699,10 +712,10 @@
       display:flex; align-items:center; gap: 12px; min-width:0;
     }
     .avatar{
-      width: 44px; height: 44px;
+      width: 46px; height: 46px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
+      background: rgba(255,255,255,.05);
       overflow:hidden;
       flex: 0 0 auto;
       box-shadow: 0 18px 70px rgba(0,0,0,.25);
@@ -713,7 +726,7 @@
       margin:0;
       font-weight: 950;
       letter-spacing: -.35px;
-      font-size: 15.5px;
+      font-size: 16px;
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
@@ -721,7 +734,7 @@
     .role{
       margin: 2px 0 0;
       color: rgba(255,255,255,.62);
-      font-weight: 850;
+      font-weight: 900;
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: .25px;
@@ -729,6 +742,7 @@
       overflow:hidden;
       text-overflow:ellipsis;
     }
+
     .miniStars{
       display:flex; gap: 3px; flex-shrink:0;
       filter: drop-shadow(0 12px 26px rgba(246,211,101,.14));
@@ -738,10 +752,10 @@
 
     .quote{
       margin:0;
-      color: rgba(255,255,255,.84);
+      color: rgba(255,255,255,.86);
       font-weight: 720;
-      line-height: 1.65;
-      font-size: 15.2px;
+      line-height: 1.6;
+      font-size: 15.4px;
     }
 
     .metaLine{
@@ -759,7 +773,7 @@
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.04);
-      color: rgba(255,255,255,.70);
+      color: rgba(255,255,255,.72);
       font-weight: 900;
       letter-spacing: .2px;
       display:inline-flex;
@@ -772,27 +786,26 @@
       box-shadow: 0 0 0 8px rgba(86,199,255,.08);
     }
 
-    /* Positions eventail via data-pos: center / left / right */
+    /* ✅ Eventail LÉGER (pas de 3D, pas de "sort de l’écran") */
     .reviewCard[data-pos="center"]{
       opacity: 1;
       filter: none;
-      transform: translate3d(0, 0, 0) rotateY(0deg) scale(1);
+      transform: translateX(0) rotate(0deg) scale(1);
       z-index: 3;
     }
     .reviewCard[data-pos="left"]{
-      opacity: .55;
-      filter: saturate(.85);
-      transform: translate3d(-44%, 10px, -120px) rotateY(18deg) scale(.92);
+      opacity: .62;
+      filter: saturate(.9);
+      transform: translateX(calc(-1 * clamp(60px, 16vw, 130px))) rotate(-4deg) scale(.96);
       z-index: 2;
     }
     .reviewCard[data-pos="right"]{
-      opacity: .55;
-      filter: saturate(.85);
-      transform: translate3d(44%, 10px, -120px) rotateY(-18deg) scale(.92);
+      opacity: .62;
+      filter: saturate(.9);
+      transform: translateX(clamp(60px, 16vw, 130px)) rotate(4deg) scale(.96);
       z-index: 2;
     }
 
-    /* Swipe feedback */
     .fanStage.dragging .reviewCard{ transition: none; }
 
     .dots{
@@ -812,15 +825,15 @@
     }
 
     @media (max-width: 900px){
-      .reviewsHead{ align-items:flex-start; }
-      .reviewControls{ display:none; } /* swipe first sur mobile */
-      .reviewCard{ width: min(520px, 90vw); }
-      .reviewCard[data-pos="left"]{ transform: translate3d(-48%, 12px, -120px) rotateY(16deg) scale(.92); }
-      .reviewCard[data-pos="right"]{ transform: translate3d(48%, 12px, -120px) rotateY(-16deg) scale(.92); }
+      .reviewCard{ width: min(760px, 94vw); }
+      .quote{ font-size: 15.2px; }
     }
-
-    @media (prefers-reduced-motion: reduce){
-      .reviewCard{ transition: none !important; }
+    @media (max-width: 520px){
+      .reviewCard{ width: 92vw; }
+      .reviewInner{ padding: 16px 16px 14px; }
+      .quote{ font-size: 14.9px; }
+      .reviewCard[data-pos="left"]{ transform: translateX(calc(-1 * clamp(46px, 14vw, 96px))) rotate(-3.5deg) scale(.965); }
+      .reviewCard[data-pos="right"]{ transform: translateX(clamp(46px, 14vw, 96px)) rotate(3.5deg) scale(.965); }
     }
 
     /* Footer */
@@ -841,7 +854,8 @@
     }
 
     @media (prefers-reduced-motion: reduce){
-      .systemDot, .sysCard, .blob, .btn, .stat::after { animation:none !important; }
+      .blob, .btn, .stat::after, .dot, .chev { animation:none !important; }
+      .reviewCard{ transition:none !important; }
     }
   </style>
 </head>
@@ -1014,29 +1028,19 @@
     </div>
   </section>
 
-  <!-- AVIS (NOUVEAU) -->
+  <!-- AVIS -->
   <section class="reviewsSection" aria-label="Avis de partenaires">
     <div class="wrap">
       <div class="reviewsHead">
         <div>
           <h2 class="reviewsTitle">Avis <span class="grad">partenaires</span></h2>
-          <p class="reviewsSub">Des pros locaux. Des demandes filtrées. Un transfert propre. Swipe pour voir les avis.</p>
-        </div>
-
-        <div class="reviewControls" aria-hidden="false">
-          <button class="rBtn" id="prevReview" type="button" aria-label="Avis précédent">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="rgba(255,255,255,.9)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <button class="rBtn" id="nextReview" type="button" aria-label="Avis suivant">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="rgba(255,255,255,.9)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
+          <p class="reviewsSub">Swipe pour voir les avis — éventail léger, premium, sans “sortir de l’écran”.</p>
         </div>
       </div>
 
       <div class="fanStage" id="fanStage" aria-label="Carrousel d'avis">
         <div class="fanTrack" id="fanTrack">
 
-          <!-- LEFT -->
           <article class="reviewCard" data-pos="left" data-index="0" aria-hidden="true">
             <div class="reviewInner">
               <div class="reviewTop">
@@ -1056,16 +1060,15 @@
                 </div>
               </div>
 
-              <p class="quote">“Ce que j’aime : rien de flou. Les gens arrivent déjà ‘qualifiés’. Le transfert est rapide et ça évite les appels inutiles.”</p>
+              <p class="quote">“Ce que j’aime : rien de flou. Les clients arrivent déjà qualifiés, et ça transfère vite. Moins de pertes de temps.”</p>
 
               <div class="metaLine">
                 <span class="tag"><span class="tagDot"></span>Appels propres</span>
-                <span>Routage en &lt; 1 min</span>
+                <span>Routage rapide</span>
               </div>
             </div>
           </article>
 
-          <!-- CENTER -->
           <article class="reviewCard" data-pos="center" data-index="1" aria-hidden="false">
             <div class="reviewInner">
               <div class="reviewTop">
@@ -1085,16 +1088,15 @@
                 </div>
               </div>
 
-              <p class="quote">“On reçoit moins, mais mieux. Les infos arrivent claires, et quand ça passe le filtre, c’est du sérieux. Ça se sent premium.”</p>
+              <p class="quote">“On reçoit moins, mais mieux. Les infos arrivent claires et le filtre fait la job. Ça feel premium.”</p>
 
               <div class="metaLine">
                 <span class="tag"><span class="tagDot"></span>Qualité &gt; quantité</span>
-                <span>Filtre “zéro flou”</span>
+                <span>Décision nette</span>
               </div>
             </div>
           </article>
 
-          <!-- RIGHT -->
           <article class="reviewCard" data-pos="right" data-index="2" aria-hidden="true">
             <div class="reviewInner">
               <div class="reviewTop">
@@ -1114,7 +1116,7 @@
                 </div>
               </div>
 
-              <p class="quote">“Le routing par dispo fait la différence. Quand je suis full, ça ne me dérange pas — on ne me spam pas. Quand je suis open, ça transfère.”</p>
+              <p class="quote">“Le routage par dispo est parfait. Quand je suis full, je ne suis pas spammé. Quand je suis open, ça transfère.”</p>
 
               <div class="metaLine">
                 <span class="tag"><span class="tagDot"></span>Routage par capacité</span>
@@ -1207,7 +1209,7 @@
       });
     })();
 
-    // ===== Count-up animation (0 -> target) when results section is visible =====
+    // Count-up results
     (function(){
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -1234,7 +1236,7 @@
 
         const step = (t) => {
           const p = Math.min(1, (t - start) / duration);
-          const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+          const eased = 1 - Math.pow(1 - p, 3);
           const val = startVal + (target - startVal) * eased;
           el.textContent = prefix + formatValue(val) + suffix;
           if(p < 1) requestAnimationFrame(step);
@@ -1259,16 +1261,13 @@
       io.observe(section);
     })();
 
-    // ===== Reviews fan swipe (3 cards) =====
+    // Reviews fan swipe (3 cards) - NO ARROWS
     (function(){
       const stage = document.getElementById('fanStage');
       const cards = Array.from(document.querySelectorAll('.reviewCard'));
       const dots = Array.from(document.querySelectorAll('.dotP'));
-      const prevBtn = document.getElementById('prevReview');
-      const nextBtn = document.getElementById('nextReview');
       if(!stage || cards.length !== 3) return;
 
-      // Order indexes: 0,1,2. Center starts at 1.
       let center = 1;
 
       const setDots = () => {
@@ -1295,15 +1294,11 @@
       };
 
       const go = (dir) => {
-        // dir: +1 => next (swipe left), -1 => prev (swipe right)
         center = (center + dir + 3) % 3;
         applyPositions();
       };
 
       applyPositions();
-
-      if(prevBtn) prevBtn.addEventListener('click', () => go(-1));
-      if(nextBtn) nextBtn.addEventListener('click', () => go(+1));
 
       // Swipe / Drag
       let startX = 0;
@@ -1320,10 +1315,8 @@
       const onMove = (x) => {
         if(!dragging) return;
         moved = x - startX;
-
-        // Micro-feedback: translate whole stage slightly (super léger)
-        const cap = Math.max(-36, Math.min(36, moved));
-        stage.style.transform = `translateX(${cap * 0.15}px)`;
+        const cap = Math.max(-44, Math.min(44, moved));
+        stage.style.transform = `translateX(${cap * 0.10}px)`;
       };
 
       const onUp = () => {
@@ -1333,8 +1326,8 @@
         stage.style.transform = '';
 
         const threshold = 55;
-        if(moved <= -threshold) go(+1);   // swipe left => next
-        else if(moved >= threshold) go(-1); // swipe right => prev
+        if(moved <= -threshold) go(+1);
+        else if(moved >= threshold) go(-1);
       };
 
       stage.addEventListener('pointerdown', (e) => {
@@ -1345,10 +1338,8 @@
       stage.addEventListener('pointerup', onUp);
       stage.addEventListener('pointercancel', onUp);
 
-      // Prevent images drag ghost
       stage.addEventListener('dragstart', (e) => e.preventDefault());
 
-      // Tap dots to jump
       dots.forEach(d => {
         d.style.cursor = 'pointer';
         d.addEventListener('click', () => {
@@ -1357,7 +1348,6 @@
         });
       });
 
-      // Keyboard
       stage.setAttribute('tabindex', '0');
       stage.addEventListener('keydown', (e) => {
         if(e.key === 'ArrowLeft') go(-1);
