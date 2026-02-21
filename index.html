@@ -237,7 +237,6 @@
       contain: layout paint;
     }
 
-    /* ✅ REMIS : logo watermark derrière le contenu du haut (mobile + desktop) */
     .heroSection::before{
       content:"";
       position:absolute;
@@ -618,17 +617,15 @@
       max-width: 60ch;
     }
 
-    /* ===== AVIS (MINIMALISTE - SCROLL SNAP) ===== */
+    /* ===== AVIS (VERTICAL, SIMPLE, PREMIUM) ===== */
     .reviewsSection{
       padding: 26px 0 58px;
-      overflow:hidden;
     }
     .reviewsHead{
       display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap: 16px;
-      margin-bottom: 12px;
+      flex-direction:column;
+      gap: 8px;
+      margin-bottom: 14px;
     }
     .reviewsTitle{
       margin:0;
@@ -645,33 +642,26 @@
       font-size: 15px;
     }
 
-    .reviewsRail{
-      display:flex;
-      gap: 14px;
-      overflow-x:auto;
-      padding: 10px 2px 2px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width:none;
-      user-select:none;
-      touch-action: pan-y;
+    .reviewsList{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 14px;
     }
-    .reviewsRail::-webkit-scrollbar{ display:none; }
 
-    .reviewMini{
-      flex: 0 0 min(560px, 88vw);
-      scroll-snap-align: center;
+    .reviewRow{
+      position: relative;
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.045);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       padding: 16px 16px 14px;
-      position: relative;
       overflow:hidden;
       transform: translateZ(0);
     }
-    .reviewMini::before{
+
+    .reviewRow::before{
       content:"";
       position:absolute;
       left: 16px; right: 16px; top: 0;
@@ -681,63 +671,54 @@
       opacity: .92;
     }
 
-    .reviewTopRow{
+    .reviewRowTop{
       display:flex;
-      align-items:flex-start;
+      align-items:center;
       justify-content:space-between;
       gap: 12px;
       margin-top: 6px;
     }
-    .reviewWho{ min-width:0; }
-    .reviewName{
+
+    .reviewRowName{
       margin:0;
       font-weight: 950;
       letter-spacing: -.35px;
       font-size: 15.5px;
-      white-space:nowrap;
+      white-space: nowrap;
       overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .reviewRole{
-      margin: 3px 0 0;
-      color: rgba(255,255,255,.58);
-      font-weight: 850;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: .25px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+      text-overflow: ellipsis;
+      max-width: 70%;
+      color: rgba(255,255,255,.92);
     }
 
-    .reviewStars{
+    .reviewRowStars{
       display:flex;
       gap: 3px;
       flex: 0 0 auto;
-      opacity: .95;
+      opacity:.95;
       filter: drop-shadow(0 10px 24px rgba(246,211,101,.12));
     }
-    .reviewStars svg{ width: 14px; height: 14px; }
+    .reviewRowStars svg{ width: 14px; height: 14px; }
 
-    .reviewQuote{
+    .reviewRowQuote{
       margin: 10px 0 0;
-      color: rgba(255,255,255,.86);
+      color: rgba(255,255,255,.84);
       font-weight: 720;
       line-height: 1.65;
       font-size: 15px;
     }
 
-    .reviewMeta{
+    .reviewRowFoot{
       margin-top: 12px;
       display:flex;
       align-items:center;
-      justify-content:space-between;
+      justify-content:flex-start;
       gap: 10px;
-      color: rgba(255,255,255,.55);
+      color: rgba(255,255,255,.58);
       font-weight: 850;
       font-size: 12.5px;
     }
-    .reviewTag{
+    .reviewPill{
       display:inline-flex;
       align-items:center;
       gap: 8px;
@@ -745,36 +726,20 @@
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.04);
-      color: rgba(255,255,255,.72);
+      color: rgba(255,255,255,.70);
       font-weight: 900;
       letter-spacing: .2px;
       white-space:nowrap;
     }
-    .reviewTagDot{
+    .reviewPillDot{
       width: 7px; height: 7px; border-radius: 999px;
       background: linear-gradient(135deg, var(--c1), var(--c2));
       box-shadow: 0 0 0 8px rgba(86,199,255,.08);
     }
 
-    .reviewsDots{
-      margin-top: 14px;
-      display:flex;
-      justify-content:center;
-      gap: 10px;
-    }
-    .reviewsDot{
-      width: 8px; height: 8px; border-radius: 999px;
-      background: rgba(255,255,255,.22);
-      border: 1px solid rgba(255,255,255,.10);
-      cursor:pointer;
-    }
-    .reviewsDot.active{
-      background: linear-gradient(135deg, var(--c1), var(--c2));
-      box-shadow: 0 0 0 10px rgba(124,92,255,.10);
-    }
-
     @media (max-width: 520px){
-      .reviewMini{ flex-basis: 92vw; }
+      .reviewRow{ padding: 15px 14px 13px; }
+      .reviewRowName{ max-width: 66%; }
     }
 
     /* Footer */
@@ -968,25 +933,19 @@
     </div>
   </section>
 
-  <!-- AVIS (MINIMAL) -->
+  <!-- AVIS (VERTICAL, SIMPLE) -->
   <section class="reviewsSection" aria-label="Avis de partenaires">
     <div class="wrap">
       <div class="reviewsHead">
-        <div>
-          <h2 class="reviewsTitle">Avis <span class="grad">partenaires</span></h2>
-          <p class="reviewsSub">Simple, clean. Glisse horizontalement pour lire.</p>
-        </div>
+        <h2 class="reviewsTitle">Avis <span class="grad">partenaires</span></h2>
+        <p class="reviewsSub">3 retours rapides. Simple, clair, premium.</p>
       </div>
 
-      <div class="reviewsRail" id="reviewsRail" aria-label="Carrousel d'avis">
-        <article class="reviewMini" data-index="0">
-          <div class="reviewTopRow">
-            <div class="reviewWho">
-              <p class="reviewName">Mathieu — Plombier</p>
-              <p class="reviewRole">Urgence &amp; service</p>
-            </div>
-
-            <div class="reviewStars" aria-label="5 étoiles">
+      <div class="reviewsList" role="list">
+        <article class="reviewRow" role="listitem">
+          <div class="reviewRowTop">
+            <p class="reviewRowName">Mathieu — Plombier</p>
+            <div class="reviewRowStars" aria-label="5 étoiles">
               <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
               <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
               <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
@@ -994,23 +953,16 @@
               <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
             </div>
           </div>
-
-          <p class="reviewQuote">“Rien de flou. Les clients arrivent déjà qualifiés, et ça transfère vite.”</p>
-
-          <div class="reviewMeta">
-            <span class="reviewTag"><span class="reviewTagDot"></span>Appels propres</span>
-            <span>Routage rapide</span>
+          <p class="reviewRowQuote">“Les clients arrivent déjà qualifiés. Ça transfère vite, sans perte de temps.”</p>
+          <div class="reviewRowFoot">
+            <span class="reviewPill"><span class="reviewPillDot"></span>Qualifié</span>
           </div>
         </article>
 
-        <article class="reviewMini" data-index="1">
-          <div class="reviewTopRow">
-            <div class="reviewWho">
-              <p class="reviewName">Éric — Électricien</p>
-              <p class="reviewRole">Résidentiel &amp; commercial</p>
-            </div>
-
-            <div class="reviewStars" aria-label="5 étoiles">
+        <article class="reviewRow" role="listitem">
+          <div class="reviewRowTop">
+            <p class="reviewRowName">Éric — Électricien</p>
+            <div class="reviewRowStars" aria-label="5 étoiles">
               <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
               <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
               <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
@@ -1018,23 +970,16 @@
               <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
             </div>
           </div>
-
-          <p class="reviewQuote">“On reçoit moins, mais mieux. Les infos arrivent claires et le filtre fait la job.”</p>
-
-          <div class="reviewMeta">
-            <span class="reviewTag"><span class="reviewTagDot"></span>Qualité &gt; quantité</span>
-            <span>Décision nette</span>
+          <p class="reviewRowQuote">“Moins de volume, mais plus de qualité. Les infos sont claires.”</p>
+          <div class="reviewRowFoot">
+            <span class="reviewPill"><span class="reviewPillDot"></span>Clair</span>
           </div>
         </article>
 
-        <article class="reviewMini" data-index="2">
-          <div class="reviewTopRow">
-            <div class="reviewWho">
-              <p class="reviewName">Nicolas — Serrurier</p>
-              <p class="reviewRole">Dépannage &amp; remplacement</p>
-            </div>
-
-            <div class="reviewStars" aria-label="5 étoiles">
+        <article class="reviewRow" role="listitem">
+          <div class="reviewRowTop">
+            <p class="reviewRowName">Nicolas — Serrurier</p>
+            <div class="reviewRowStars" aria-label="5 étoiles">
               <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
               <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
               <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
@@ -1042,20 +987,11 @@
               <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
             </div>
           </div>
-
-          <p class="reviewQuote">“Le routage par dispo est parfait. Quand je suis full, je ne suis pas spammé.”</p>
-
-          <div class="reviewMeta">
-            <span class="reviewTag"><span class="reviewTagDot"></span>Routage par capacité</span>
-            <span>Moins de spam</span>
+          <p class="reviewRowQuote">“Quand je suis full, je ne suis pas spammé. Quand je suis open, ça transfère.”</p>
+          <div class="reviewRowFoot">
+            <span class="reviewPill"><span class="reviewPillDot"></span>Routage</span>
           </div>
         </article>
-      </div>
-
-      <div class="reviewsDots" aria-label="Pagination avis">
-        <span class="reviewsDot active" data-dot="0" aria-label="Aller à l’avis 1"></span>
-        <span class="reviewsDot" data-dot="1" aria-label="Aller à l’avis 2"></span>
-        <span class="reviewsDot" data-dot="2" aria-label="Aller à l’avis 3"></span>
       </div>
     </div>
   </section>
@@ -1183,56 +1119,6 @@
       }, { threshold: 0.25 });
 
       io.observe(section);
-    })();
-
-    // Reviews minimal: dots follow scroll + click dot to scroll to card
-    (function(){
-      const rail = document.getElementById('reviewsRail');
-      const cards = rail ? Array.from(rail.querySelectorAll('.reviewMini')) : [];
-      const dots = Array.from(document.querySelectorAll('.reviewsDot'));
-      if(!rail || cards.length === 0 || dots.length !== cards.length) return;
-
-      const setActive = (i) => {
-        dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
-      };
-
-      // find nearest card to center of rail viewport
-      let raf = 0;
-      const onScroll = () => {
-        cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(() => {
-          const railRect = rail.getBoundingClientRect();
-          const centerX = railRect.left + railRect.width / 2;
-
-          let bestIdx = 0;
-          let bestDist = Infinity;
-
-          cards.forEach((c, i) => {
-            const r = c.getBoundingClientRect();
-            const cx = r.left + r.width / 2;
-            const dist = Math.abs(cx - centerX);
-            if(dist < bestDist){
-              bestDist = dist;
-              bestIdx = i;
-            }
-          });
-
-          setActive(bestIdx);
-        });
-      };
-
-      rail.addEventListener('scroll', onScroll, { passive:true });
-      window.addEventListener('resize', onScroll);
-
-      dots.forEach((d, i) => {
-        d.addEventListener('click', () => {
-          cards[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-          setActive(i);
-        });
-      });
-
-      // init
-      onScroll();
     })();
   </script>
 </body>
