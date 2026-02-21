@@ -272,8 +272,8 @@
     .systemStage{
       position:relative;
       width:100%;
-      height: 520px;
-      min-height: 520px;
+      height: 540px;
+      min-height: 540px;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -282,8 +282,8 @@
     }
     @media (max-width: 900px){
       .systemStage{
-        height: 560px;
-        min-height: 560px;
+        height: 610px;
+        min-height: 610px;
         margin-top: 8px;
       }
     }
@@ -295,9 +295,9 @@
       z-index:0;
       pointer-events:none;
       background:
-        radial-gradient(560px 360px at 50% 18%, rgba(86,199,255,.12), transparent 62%),
-        radial-gradient(600px 400px at 50% 52%, rgba(124,92,255,.12), transparent 64%),
-        radial-gradient(560px 380px at 50% 82%, rgba(246,211,101,.10), transparent 66%);
+        radial-gradient(560px 360px at 50% 18%, rgba(86,199,255,.11), transparent 62%),
+        radial-gradient(600px 400px at 50% 52%, rgba(124,92,255,.11), transparent 64%),
+        radial-gradient(560px 380px at 50% 82%, rgba(246,211,101,.09), transparent 66%);
       filter: blur(10px);
       opacity: .95;
       transform: translateZ(0);
@@ -306,13 +306,13 @@
     .systemSvg{
       position:relative;
       z-index:1;
-      width: 112%;
-      max-width: 720px;
+      width: 114%;
+      max-width: 740px;
       height:auto;
       display:block;
     }
     @media (max-width: 900px){
-      .systemSvg{ width: 118%; max-width: 760px; }
+      .systemSvg{ width: 118%; max-width: 780px; }
     }
 
     .heroActions{ display:flex; gap:12px; flex-wrap:wrap; margin-top: 16px; }
@@ -432,13 +432,14 @@
       0%,100%{ opacity:.74; }
       50%{ opacity: 1; }
     }
+
     .nodeLabel{ font-weight: 950; letter-spacing: -.25px; fill: rgba(255,255,255,.90); }
     .nodeSub{ font-weight: 900; fill: rgba(255,255,255,.60); }
+    .stepExplain{ font-weight: 850; fill: rgba(255,255,255,.66); letter-spacing: -.15px; }
     .pulseDot{ filter: drop-shadow(0 0 10px rgba(86,199,255,.22)); }
 
-    /* small junction dots */
     .junction{
-      fill: rgba(255,255,255,.75);
+      fill: rgba(255,255,255,.78);
       opacity:.55;
     }
   </style>
@@ -513,12 +514,11 @@
           </div>
         </div>
 
-        <!-- PERFECT / UNIFORM SYSTEM -->
+        <!-- PERFECT / UNIFORM SYSTEM + BEAUTIFUL EXPLAINS -->
         <div class="systemStage" aria-label="Système en mouvement">
-          <!-- Perfect symmetry & uniform sizes: centerX=400, identical radii, equal spacing -->
-          <svg class="systemSvg" viewBox="0 0 800 900" xmlns="http://www.w3.org/2000/svg" role="img"
+          <!-- Higher viewBox: more breathing space between nodes, while CSS keeps it compact -->
+          <svg class="systemSvg" viewBox="0 0 800 1280" xmlns="http://www.w3.org/2000/svg" role="img"
                aria-label="Intention vers filtre vers qualifié/non, puis redirection">
-
             <defs>
               <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0" stop-color="#56C7FF" stop-opacity="0.95"/>
@@ -533,98 +533,129 @@
             </defs>
 
             <!-- glow center -->
-            <circle cx="400" cy="420" r="360" fill="url(#gl)" opacity="0.85"/>
+            <circle cx="400" cy="640" r="520" fill="url(#gl)" opacity="0.85"/>
 
-            <!-- GEOMETRY CONSTANTS (mentally):
-                 centerX = 400
-                 nodesY = 140, 370, 600, branchesY = 795
-                 nodeRadius = 104 (all equal)
-                 ringRadius = 134 (all equal)
-                 branchX = 190 and 610 (symmetry around 400 with dx=210)
+            <!-- CONSTANTS (perfect):
+              centerX=400
+              r=104 (ALL NODES)
+              ring=134 (ALL RINGS)
+              y1=170, y2=520, y3=870, yBranch=1130
+              branchX=190 and 610 (symmetry)
+              junctionY=1010
             -->
 
-            <!-- Paths (all with same dash style & stroke width) -->
-            <path id="p1" d="M400 244 C400 292, 400 308, 400 334" fill="none" stroke="url(#g)" stroke-width="6" class="flowLine"/>
-            <path id="p2" d="M400 474 C400 522, 400 538, 400 564" fill="none" stroke="url(#g)" stroke-width="6" class="flowLine"/>
+            <!-- Paths (all same style) -->
+            <path id="p1" d="M400 274 C400 342, 400 366, 400 416" fill="none" stroke="url(#g)" stroke-width="6" class="flowLine"/>
+            <path id="p2" d="M400 624 C400 692, 400 716, 400 766" fill="none" stroke="url(#g)" stroke-width="6" class="flowLine"/>
 
-            <!-- split (symmetrical) -->
-            <path id="p3" d="M400 704 C334 730, 268 756, 190 795" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="6" class="flowLine"/>
-            <path id="p4" d="M400 704 C466 730, 532 756, 610 795" fill="none" stroke="url(#g)" stroke-width="6" class="flowLine"/>
+            <path id="pMid" d="M400 974 C400 988, 400 998, 400 1010" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="6" class="flowLine"/>
 
-            <!-- little junction dots (for perfection feel) -->
-            <circle class="junction" cx="400" cy="334" r="4.5"/>
-            <circle class="junction" cx="400" cy="564" r="4.5"/>
-            <circle class="junction" cx="400" cy="704" r="4.5"/>
+            <!-- symmetrical split -->
+            <path id="pLeft"  d="M400 1010 C332 1046, 260 1086, 190 1130" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="6" class="flowLine"/>
+            <path id="pRight" d="M400 1010 C468 1046, 540 1086, 610 1130" fill="none" stroke="url(#g)" stroke-width="6" class="flowLine"/>
 
-            <!-- Nodes (ALL SAME SIZE) -->
+            <!-- junction dots -->
+            <circle class="junction" cx="400" cy="416" r="4.5"/>
+            <circle class="junction" cx="400" cy="766" r="4.5"/>
+            <circle class="junction" cx="400" cy="1010" r="4.5"/>
+
+            <!-- NODES (ALL SAME SIZE) -->
             <!-- INTENTION -->
             <g>
-              <circle cx="400" cy="140" r="104" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
-              <circle cx="400" cy="140" r="134" fill="none" stroke="url(#g)" stroke-width="2" stroke-dasharray="14 22" class="nodeRing"/>
-              <text x="400" y="134" text-anchor="middle" class="nodeLabel" font-size="26">INTENTION</text>
-              <text x="400" y="166" text-anchor="middle" class="nodeSub" font-size="16">Demande</text>
+              <circle cx="400" cy="170" r="104" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+              <circle cx="400" cy="170" r="134" fill="none" stroke="url(#g)" stroke-width="2" stroke-dasharray="14 22" class="nodeRing"/>
+              <text x="400" y="164" text-anchor="middle" class="nodeLabel" font-size="26">INTENTION</text>
+              <text x="400" y="196" text-anchor="middle" class="nodeSub" font-size="16">Demande</text>
+
+              <!-- explanation (beautiful + short) -->
+              <text x="400" y="312" text-anchor="middle" class="stepExplain" font-size="16">
+                Le client exprime son besoin, simplement.
+              </text>
             </g>
 
             <!-- FILTRE -->
             <g>
-              <circle cx="400" cy="370" r="104" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
-              <circle cx="400" cy="370" r="134" fill="none" stroke="url(#g)" stroke-width="2" stroke-dasharray="14 22" class="nodeRing"/>
-              <text x="400" y="363" text-anchor="middle" class="nodeLabel" font-size="28">FILTRE</text>
-              <text x="400" y="395" text-anchor="middle" class="nodeSub" font-size="16">Questions</text>
+              <circle cx="400" cy="520" r="104" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+              <circle cx="400" cy="520" r="134" fill="none" stroke="url(#g)" stroke-width="2" stroke-dasharray="14 22" class="nodeRing"/>
+              <text x="400" y="513" text-anchor="middle" class="nodeLabel" font-size="28">FILTRE</text>
+              <text x="400" y="545" text-anchor="middle" class="nodeSub" font-size="16">Questions</text>
+
+              <text x="400" y="662" text-anchor="middle" class="stepExplain" font-size="16">
+                On clarifie et on classe la demande.
+              </text>
             </g>
 
             <!-- QUALIFIÉ ? -->
             <g>
-              <circle cx="400" cy="600" r="104" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
-              <circle cx="400" cy="600" r="134" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="2" stroke-dasharray="14 22" class="nodeRing"/>
-              <text x="400" y="594" text-anchor="middle" class="nodeLabel" font-size="22">QUALIFIÉ ?</text>
-              <text x="400" y="626" text-anchor="middle" class="nodeSub" font-size="16">Décision</text>
+              <circle cx="400" cy="870" r="104" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+              <circle cx="400" cy="870" r="134" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="2" stroke-dasharray="14 22" class="nodeRing"/>
+              <text x="400" y="864" text-anchor="middle" class="nodeLabel" font-size="22">QUALIFIÉ ?</text>
+              <text x="400" y="896" text-anchor="middle" class="nodeSub" font-size="16">Décision</text>
+
+              <text x="400" y="1012" text-anchor="middle" class="stepExplain" font-size="16">
+                Oui : action. Non : on stoppe proprement.
+              </text>
             </g>
 
             <!-- NON -->
             <g opacity="0.95">
-              <circle cx="190" cy="795" r="104" fill="rgba(255,255,255,.035)" stroke="rgba(255,255,255,.10)" stroke-width="2"/>
-              <circle cx="190" cy="795" r="134" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="2" stroke-dasharray="14 22" class="nodeRing"/>
-              <text x="190" y="789" text-anchor="middle" class="nodeLabel" font-size="24" fill="rgba(255,255,255,.76)">NON</text>
-              <text x="190" y="821" text-anchor="middle" class="nodeSub" font-size="16">Refus</text>
+              <circle cx="190" cy="1130" r="104" fill="rgba(255,255,255,.035)" stroke="rgba(255,255,255,.10)" stroke-width="2"/>
+              <circle cx="190" cy="1130" r="134" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="2" stroke-dasharray="14 22" class="nodeRing"/>
+              <text x="190" y="1124" text-anchor="middle" class="nodeLabel" font-size="24" fill="rgba(255,255,255,.76)">NON</text>
+              <text x="190" y="1156" text-anchor="middle" class="nodeSub" font-size="16">Refus</text>
+
+              <text x="190" y="1268" text-anchor="middle" class="stepExplain" font-size="15">
+                Message clair, pas de perte de temps.
+              </text>
             </g>
 
             <!-- REDIRECTION -->
             <g>
-              <circle cx="610" cy="795" r="104" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
-              <circle cx="610" cy="795" r="134" fill="none" stroke="url(#g)" stroke-width="2" stroke-dasharray="14 22" class="nodeRing"/>
-              <text x="610" y="788" text-anchor="middle" class="nodeLabel" font-size="22">REDIRECTION</text>
-              <text x="610" y="820" text-anchor="middle" class="nodeSub" font-size="16">Entreprise</text>
+              <circle cx="610" cy="1130" r="104" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+              <circle cx="610" cy="1130" r="134" fill="none" stroke="url(#g)" stroke-width="2" stroke-dasharray="14 22" class="nodeRing"/>
+              <text x="610" y="1123" text-anchor="middle" class="nodeLabel" font-size="22">REDIRECTION</text>
+              <text x="610" y="1155" text-anchor="middle" class="nodeSub" font-size="16">Entreprise</text>
+
+              <text x="610" y="1268" text-anchor="middle" class="stepExplain" font-size="15">
+                Transfert instantané vers un partenaire.
+              </text>
             </g>
 
-            <!-- Moving dots (clean, consistent) -->
+            <!-- Moving dots (consistent) -->
             <g class="pulseDot">
-              <circle r="7.8" fill="rgba(255,255,255,.92)">
+              <circle r="7.6" fill="rgba(255,255,255,.92)">
                 <animateMotion dur="2.8s" repeatCount="indefinite" rotate="auto">
                   <mpath href="#p1"/>
                 </animateMotion>
                 <animate attributeName="opacity" values=".12;.95;.12" dur="2.8s" repeatCount="indefinite"/>
               </circle>
 
-              <circle r="7.2" fill="rgba(86,199,255,.92)">
+              <circle r="7.0" fill="rgba(86,199,255,.92)">
                 <animateMotion dur="3.0s" repeatCount="indefinite" rotate="auto" begin="-1.1s">
                   <mpath href="#p2"/>
                 </animateMotion>
                 <animate attributeName="opacity" values=".10;.9;.10" dur="3.0s" repeatCount="indefinite" begin="-1.1s"/>
               </circle>
 
-              <!-- Qualified branch -->
-              <circle r="7.4" fill="rgba(124,92,255,.92)">
+              <circle r="6.9" fill="rgba(255,255,255,.70)">
+                <animateMotion dur="2.2s" repeatCount="indefinite" rotate="auto">
+                  <mpath href="#pMid"/>
+                </animateMotion>
+                <animate attributeName="opacity" values=".06;.55;.06" dur="2.2s" repeatCount="indefinite"/>
+              </circle>
+
+              <!-- Right (qualified) -->
+              <circle r="7.2" fill="rgba(124,92,255,.92)">
                 <animateMotion dur="2.6s" repeatCount="indefinite" rotate="auto">
-                  <mpath href="#p4"/>
+                  <mpath href="#pRight"/>
                 </animateMotion>
                 <animate attributeName="opacity" values=".10;.95;.10" dur="2.6s" repeatCount="indefinite"/>
               </circle>
 
-              <!-- Non branch (rarer) -->
-              <circle r="6.3" fill="rgba(255,255,255,.62)">
+              <!-- Left (non) -->
+              <circle r="6.1" fill="rgba(255,255,255,.62)">
                 <animateMotion dur="3.6s" repeatCount="indefinite" rotate="auto" begin="-2.0s">
-                  <mpath href="#p3"/>
+                  <mpath href="#pLeft"/>
                 </animateMotion>
                 <animate attributeName="opacity" values=".06;.55;.06" dur="3.6s" repeatCount="indefinite" begin="-2.0s"/>
               </circle>
