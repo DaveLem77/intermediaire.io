@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Intermediaire.io | Réseau de propriétés locales</title>
-  <meta name="description" content="Intermediaire.io — Réseau de propriétés locales. On capte l’intention, on filtre, on qualifie, puis on route vers un partenaire disponible." />
+  <title>INTERMEDIAIRE.io | Réseau de propriétés locales</title>
+  <meta name="description" content="Intermediaire.io — Réseau de propriétés locales. Intention → Filtre → Qualification → Redirection vers partenaire disponible." />
   <meta name="robots" content="index,follow" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,50 +13,47 @@
 
   <style>
     :root{
-      --text:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.72);
-      --muted2:rgba(255,255,255,.55);
-
       --c1:#56C7FF;
       --c2:#7C5CFF;
       --c3:#F6D365;
 
+      --bg0:#05060c;
+      --bg1:#070a18;
+
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.72);
+
+      --line:rgba(255,255,255,.10);
+      --line2:rgba(255,255,255,.07);
+
+      --glassA:rgba(255,255,255,.06);
+      --glassB:rgba(255,255,255,.035);
+
       --max:1160px;
-
-      --hdrA: rgba(6, 9, 22, .82);
-      --hdrB: rgba(6, 10, 24, .64);
-      --hdrLine: rgba(255,255,255,.07);
-
-      --bgA:#05060c;
-      --bgB:#070a18;
-
-      --cardBorder: rgba(255,255,255,.12);
-      --cardA: rgba(255,255,255,.06);
-      --cardB: rgba(255,255,255,.035);
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    html{overflow-x:hidden}
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    html{ overflow-x:hidden; }
     body{
       margin:0;
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
-      background: linear-gradient(180deg, var(--bgA), var(--bgB));
+      background: linear-gradient(180deg, var(--bg0), var(--bg1));
       overflow-x:hidden;
       max-width:100vw;
-      padding-top: 86px;
       -webkit-font-smoothing:antialiased;
       text-rendering:optimizeLegibility;
+      padding-top: 86px; /* header space */
     }
     @media (max-width: 900px){ body{ padding-top: 92px; } }
 
-    /* anti horizontal scroll */
-    body, section, header, nav, .wrap, .hero, .heroGrid, .menuPanel{max-width:100vw; overflow-x:hidden;}
-    img, svg{max-width:100%; height:auto; display:block}
+    /* hard anti horizontal scroll */
+    body, header, main, section, footer, .wrap { max-width:100vw; overflow-x:hidden; }
+    img, svg{ max-width:100%; height:auto; display:block; }
 
     .wrap{ width:min(var(--max), calc(100% - 44px)); margin:0 auto; }
-    @media (max-width: 520px){ .wrap{ width:calc(100% - 34px);} }
+    @media (max-width: 520px){ .wrap{ width:calc(100% - 34px); } }
 
     .grad{
       background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
@@ -74,88 +71,109 @@
       opacity:.95;
     }
 
-    /* header */
-    .siteHeader{
-      position:fixed; top:6px; left:0; right:0;
+    /* HEADER */
+    .header{
+      position:fixed;
+      top:6px; left:0; right:0;
       z-index:9998;
-      background: linear-gradient(180deg, var(--hdrA), var(--hdrB));
-      border-bottom: 1px solid var(--hdrLine);
+      background: linear-gradient(180deg, rgba(8,10,22,.78), rgba(8,10,22,.56));
+      border-bottom:1px solid var(--line2);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
     }
-    .navInner{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:18px; padding:18px 0;
-    }
-    .brand{
-      display:flex; align-items:center; gap:14px;
-      user-select:none;
-    }
-    .brandLogo{
-      width:44px; height:44px; flex:0 0 auto;
-      filter: drop-shadow(0 10px 34px rgba(86,199,255,.18));
-    }
-    .brandLogo img{ width:44px; height:44px; object-fit:contain; transform: translateZ(0); }
-    .brandText{
-      display:flex; align-items:baseline; gap:0;
-      line-height:1; letter-spacing:-.4px;
-      font-weight:900; font-style:italic;
-      text-transform:uppercase; white-space:nowrap;
-    }
-    .brandText .main{ font-size:22px; color:rgba(255,255,255,.92); }
-    .brandText .tld{
-      font-size:15px; color:rgba(255,255,255,.72);
-      text-transform:none; font-style:italic; margin-left:6px;
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding: 18px 0;
     }
 
-    .navLinks{ display:flex; align-items:center; gap:26px; }
-    .navLinks a{
-      color: rgba(255,255,255,.78);
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      user-select:none;
+      min-width: 260px;
+    }
+    .brandLogo{
+      width:46px; height:46px;
+      filter: drop-shadow(0 14px 44px rgba(86,199,255,.18));
+      flex:0 0 auto;
+    }
+    .brandLogo img{ width:46px; height:46px; object-fit:contain; }
+
+    .brandName{
+      display:flex;
+      align-items:baseline;
+      font-weight:950;
+      font-style:italic;
+      letter-spacing:-.6px;
+      text-transform:uppercase;
+      white-space:nowrap;
+      line-height:1;
+    }
+    .brandName .main{ font-size:22px; color:rgba(255,255,255,.92); }
+    .brandName .tld{ font-size:15px; margin-left:6px; opacity:.72; text-transform:none; }
+
+    .links{
+      display:flex;
+      align-items:center;
+      gap:26px;
+    }
+    .links a{
       text-decoration:none;
-      font-weight:750;
+      color:rgba(255,255,255,.78);
+      font-weight:780;
       letter-spacing:-.2px;
       padding:10px 10px;
       border-radius:12px;
       transition:.18s ease;
     }
-    .navLinks a:hover{ color: rgba(255,255,255,.95); background: rgba(255,255,255,.05); }
+    .links a:hover{ background: rgba(255,255,255,.05); color:rgba(255,255,255,.95); }
 
-    .navCta{ display:flex; align-items:center; gap:14px; }
+    .ctaRow{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
 
     .btn{
-      border:0; cursor:pointer;
-      font-weight:900; letter-spacing:-.25px;
+      border:0;
+      cursor:pointer;
+      font-weight:950;
+      letter-spacing:-.25px;
       font-size:16px;
-      padding: 14px 18px;
-      border-radius: 16px;
+      padding: 16px 22px;          /* gros */
+      border-radius: 14px;         /* coins moins arrondis */
       color:#0b1020;
-      background: linear-gradient(90deg, rgba(86,199,255,1), rgba(124,92,255,1), rgba(246,211,101,1));
+      background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
       box-shadow:
-        0 18px 52px rgba(124,92,255,.18),
-        0 22px 82px rgba(86,199,255,.14);
-      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+        0 22px 70px rgba(124,92,255,.22),
+        0 24px 92px rgba(86,199,255,.18);
+      transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
       transform: translateZ(0);
     }
     .btn:hover{
       transform: translateY(-1px);
-      filter:saturate(1.05);
+      filter:saturate(1.06);
       box-shadow:
-        0 22px 62px rgba(124,92,255,.22),
-        0 26px 96px rgba(86,199,255,.18);
+        0 26px 86px rgba(124,92,255,.28),
+        0 30px 116px rgba(86,199,255,.22);
     }
-    .btn.pulse{ animation: ctaPulse 2.2s ease-in-out infinite; }
-    @keyframes ctaPulse{
+    .btn.pulse{ animation: pulse 2.25s ease-in-out infinite; }
+    @keyframes pulse{
       0%,100%{
-        box-shadow:
-          0 18px 52px rgba(124,92,255,.18),
-          0 22px 82px rgba(86,199,255,.14);
         transform: translateZ(0) scale(1);
+        box-shadow:
+          0 22px 70px rgba(124,92,255,.22),
+          0 24px 92px rgba(86,199,255,.18);
       }
       50%{
-        box-shadow:
-          0 26px 74px rgba(124,92,255,.26),
-          0 30px 118px rgba(86,199,255,.22);
         transform: translateZ(0) scale(1.02);
+        box-shadow:
+          0 30px 104px rgba(124,92,255,.34),
+          0 34px 138px rgba(86,199,255,.26);
       }
     }
 
@@ -163,7 +181,7 @@
     .hamburger{
       display:none;
       width:56px; height:46px;
-      border-radius:16px;
+      border-radius: 14px;
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.04);
       backdrop-filter: blur(12px);
@@ -175,32 +193,34 @@
     .hamburger span{
       position:absolute;
       left:14px; right:14px;
-      height:4px; border-radius:10px;
-      background: rgba(255,255,255,.86);
+      height:4px;
+      border-radius:10px;
+      background: rgba(255,255,255,.88);
       top:14px;
     }
     .hamburger span:nth-child(2){ top:21px; opacity:.92; }
     .hamburger span:nth-child(3){ top:28px; opacity:.78; }
 
     @media (max-width: 900px){
-      .navLinks{ display:none; }
-      .navCta .btn{ display:none; }
+      .links{ display:none; }
+      .ctaRow .btn{ display:none; }
       .hamburger{ display:block; }
-      .brandLogo{ width:40px; height:40px; }
-      .brandLogo img{ width:40px; height:40px; }
-      .brandText .main{ font-size:20px; }
+      .brand{ min-width:auto; }
+      .brandLogo{ width:42px; height:42px; }
+      .brandLogo img{ width:42px; height:42px; }
+      .brandName .main{ font-size:20px; }
     }
 
     /* mobile menu */
-    .menuSheet{ position:fixed; inset:0; z-index:9997; display:none; }
-    .menuSheet.show{ display:block; }
-    .menuBackdrop{
+    .sheet{ position:fixed; inset:0; z-index:9997; display:none; }
+    .sheet.show{ display:block; }
+    .sheetBg{
       position:absolute; inset:0;
       background: rgba(0,0,0,.55);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
     }
-    .menuPanel{
+    .sheetPanel{
       position:absolute;
       right:14px; top: 88px;
       width:min(420px, calc(100% - 28px));
@@ -211,7 +231,7 @@
       padding:14px;
       overflow:hidden;
     }
-    .menuPanel::before{
+    .sheetPanel::before{
       content:"";
       position:absolute; inset:-40%;
       background:
@@ -222,12 +242,12 @@
       opacity:.9;
       pointer-events:none;
     }
-    .menuPanel a{
+    .sheetPanel a{
       position:relative;
       display:block;
       text-decoration:none;
-      color: rgba(255,255,255,.9);
-      font-weight:850;
+      color: rgba(255,255,255,.92);
+      font-weight:900;
       padding: 14px 14px;
       border-radius: 16px;
       border: 1px solid rgba(255,255,255,.10);
@@ -235,82 +255,84 @@
       margin: 10px 0;
       transition:.16s ease;
     }
-    .menuPanel a:hover{ background: rgba(255,255,255,.07); transform: translateY(-1px); }
-    .menuPanel .menuBtn{ width:100%; margin-top: 8px; }
+    .sheetPanel a:hover{ background: rgba(255,255,255,.07); transform: translateY(-1px); }
+    .sheetPanel .sheetBtn{ width:100%; margin-top: 8px; }
 
     /* HERO */
     .hero{
-      padding: 10px 0 14px;
+      padding: 6px 0 20px;  /* moins d’espace sous la navbar */
       position:relative;
       overflow:hidden;
     }
-    /* blurred logo in background (hero) */
-    .heroBgLogo{
+
+    /* background logo visible */
+    .bgLogo{
       position:absolute;
       inset:-80px -40px auto -40px;
       height: 520px;
       pointer-events:none;
       z-index:0;
-      opacity: .26;
+      opacity: .30;
     }
-    .heroBgLogo::before{
+    .bgLogo::before{
       content:"";
       position:absolute;
       left:50%; top: 38%;
-      width: 560px; height: 560px;
+      width: 620px; height: 620px;
       transform: translate(-50%,-50%);
       background:
         radial-gradient(circle at 40% 40%, rgba(86,199,255,.26), transparent 58%),
         radial-gradient(circle at 70% 30%, rgba(124,92,255,.24), transparent 60%),
         radial-gradient(circle at 55% 75%, rgba(246,211,101,.18), transparent 62%);
       filter: blur(18px);
-      opacity:.90;
+      opacity:.92;
     }
-    .heroBgLogo img{
+    .bgLogo img{
       position:absolute;
       left:50%; top: 38%;
-      width: 280px; height: 280px;
+      width: 300px; height: 300px;
       transform: translate(-50%,-50%);
-      opacity:.78;
+      opacity:.88;
       filter: blur(1px);
-      animation: floatLogo 6.5s ease-in-out infinite;
+      animation: floatLogo 6.4s ease-in-out infinite;
       will-change: transform;
-      transform-origin:center;
     }
     @keyframes floatLogo{
       0%,100%{ transform: translate(-50%,-50%) scale(1) rotate(-2deg); }
       50%{ transform: translate(-50%,-53%) scale(1.045) rotate(2deg); }
     }
     @media (max-width: 900px){
-      .heroBgLogo{ height: 470px; opacity:.30; }
-      .heroBgLogo img{ width: 245px; height: 245px; opacity:.82; }
+      .bgLogo{ height: 480px; opacity:.34; }
+      .bgLogo img{ width: 265px; height: 265px; opacity:.92; }
     }
 
     .heroGrid{
-      position:relative; z-index:1;
+      position:relative;
+      z-index:1;
       display:grid;
-      grid-template-columns: 1.1fr .9fr;
+      grid-template-columns: 1.08fr .92fr;
       gap: 28px;
       align-items:center;
-      padding-top: 4px;
+      padding-top: 2px;
     }
     @media (max-width: 900px){
       .heroGrid{ grid-template-columns: 1fr; gap: 18px; }
     }
 
-    /* reduce gap between navbar and kicker */
     .kicker{
-      display:flex; align-items:center; gap:10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
       color: rgba(255,255,255,.72);
-      font-weight:850;
+      font-weight:900;
       letter-spacing:.6px;
       text-transform:uppercase;
       font-size: 13px;
-      margin: 6px 0 12px;
+      margin: 8px 0 12px;
     }
     .dot{
       width:10px; height:10px; border-radius:50%;
-      background: rgba(246,211,101,.85);
+      background: rgba(246,211,101,.88);
       box-shadow: 0 0 0 4px rgba(246,211,101,.10);
     }
 
@@ -325,24 +347,20 @@
       color: rgba(255,255,255,.72);
       font-size: clamp(16px, 1.5vw, 18.5px);
       line-height: 1.65;
-      font-weight: 680;
+      font-weight: 700;
       max-width: 58ch;
     }
 
-    .heroActions{
-      display:flex; gap:12px; align-items:center;
-      margin-top: 18px; flex-wrap:wrap;
-    }
-
-    /* google rating row */
     .trustRow{
-      display:flex; align-items:center; gap:10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
       margin-top: 14px;
       color: rgba(255,255,255,.72);
-      font-weight:850;
+      font-weight:900;
     }
     .trustRow img{
-      width:22px; height:22px; object-fit:contain;
+      width:22px; height:22px;
       opacity:.92;
       filter: drop-shadow(0 10px 24px rgba(0,0,0,.35));
     }
@@ -355,97 +373,63 @@
       color:transparent;
       opacity:.98;
     }
-    .ratingText{
-      font-weight:950;
-      letter-spacing:-.2px;
-      color: rgba(255,255,255,.82);
-    }
+    .ratingText{ font-weight:950; letter-spacing:-.2px; color: rgba(255,255,255,.82); }
 
-    /* scroll hint (premium, centered, no text) */
-    .scrollHint{ margin-top: 18px; display:flex; justify-content:center; }
-    .scrollPill{
-      width:54px; height:54px;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
+    .heroActions{ margin-top: 18px; display:flex; gap:12px; flex-wrap:wrap; }
+
+    /* scroll hint no boxy / clean */
+    .scrollHint{
+      margin-top: 18px;
+      display:flex;
+      justify-content:center;
+    }
+    .scrollDot{
+      width: 48px; height: 48px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      display:grid; place-items:center;
+      display:grid;
+      place-items:center;
       box-shadow: 0 24px 90px rgba(0,0,0,.34);
       animation: hintFloat 1.9s ease-in-out infinite;
     }
-    .scrollPill svg{ width:18px; height:18px; opacity:.92; }
-    @keyframes hintFloat{
-      0%,100%{ transform: translateY(0); }
-      50%{ transform: translateY(6px); }
-    }
+    .scrollDot svg{ width:18px; height:18px; opacity:.92; }
+    @keyframes hintFloat{ 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(6px);} }
 
-    /* right orb visual (light, not huge) */
-    .heroOrb{
+    /* right visual (simple + light) */
+    .sideCard{
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.035));
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 34px 120px rgba(0,0,0,.45);
+      overflow:hidden;
+      padding: 18px;
       position:relative;
-      min-height: 320px;
+      min-height: 210px;
       display:flex;
       align-items:center;
-      justify-content:center;
     }
-    .orb{
-      width: min(360px, 92%);
-      aspect-ratio: 1/1;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background:
-        radial-gradient(circle at 35% 30%, rgba(86,199,255,.20), transparent 55%),
-        radial-gradient(circle at 75% 35%, rgba(124,92,255,.16), transparent 58%),
-        radial-gradient(circle at 55% 80%, rgba(246,211,101,.12), transparent 62%),
-        rgba(255,255,255,.03);
-      box-shadow: 0 50px 160px rgba(0,0,0,.55);
-      position:relative;
-      overflow:hidden;
-      transform: translateZ(0);
-    }
-    .orb::before{
+    .sideCard::before{
       content:"";
-      position:absolute; inset:-30%;
+      position:absolute; inset:-40%;
       background:
-        conic-gradient(from 180deg, rgba(86,199,255,.0), rgba(86,199,255,.18), rgba(124,92,255,.18), rgba(246,211,101,.10), rgba(86,199,255,.0));
+        radial-gradient(circle at 18% 30%, rgba(86,199,255,.16), transparent 60%),
+        radial-gradient(circle at 78% 42%, rgba(124,92,255,.14), transparent 62%),
+        radial-gradient(circle at 58% 92%, rgba(246,211,101,.10), transparent 66%);
       filter: blur(18px);
-      opacity:.62;
-      animation: spin 10s linear infinite;
+      opacity: .86;
+      pointer-events:none;
     }
-    .orb::after{
-      content:"";
-      position:absolute; inset: 18%;
-      border-radius: 999px;
-      border: 1px dashed rgba(255,255,255,.16);
-      opacity:.55;
-      animation: spinReverse 16s linear infinite;
-    }
-    @keyframes spin{ to{ transform: rotate(360deg); } }
-    @keyframes spinReverse{ to{ transform: rotate(-360deg); } }
-    .orbCenter{
-      position:absolute; inset:0;
-      display:grid; place-items:center;
-      text-align:center;
-      padding:22px;
-      z-index:1;
-    }
-    .orbTitle{
-      font-weight:950;
-      letter-spacing:-.8px;
-      font-size: 22px;
-      margin:0;
-    }
-    .orbSub{
-      margin:10px 0 0;
-      color: rgba(255,255,255,.72);
-      font-weight:760;
-      line-height: 1.5;
-      font-size: 14.5px;
-      max-width: 26ch;
-    }
+    .sideInner{ position:relative; }
+    .sideTitle{ margin:0; font-weight:950; letter-spacing:-.6px; font-size: 20px; }
+    .sideSub{ margin:10px 0 0; color: rgba(255,255,255,.72); font-weight:750; line-height:1.55; }
 
     /* sections */
-    .section{ padding: 54px 0; position:relative; }
+    .section{ padding: 54px 0; }
     .sectionTitle{
       margin: 0 0 10px;
       font-size: clamp(26px, 3vw, 40px);
@@ -455,7 +439,7 @@
     .sectionLead{
       margin:0 0 26px;
       color: rgba(255,255,255,.72);
-      font-weight:680;
+      font-weight:700;
       line-height: 1.65;
       max-width: 70ch;
     }
@@ -468,18 +452,18 @@
     }
     @media (max-width: 900px){ .resultsGrid{ grid-template-columns: 1fr; } }
 
-    .resultCard{
+    .card{
       position:relative;
       border-radius: 22px;
-      border: 1px solid var(--cardBorder);
-      background: linear-gradient(180deg, var(--cardA), var(--cardB));
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.035));
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       padding: 18px;
       box-shadow: 0 26px 80px rgba(0,0,0,.38);
       overflow:hidden;
     }
-    .resultCard::before{
+    .card::before{
       content:"";
       position:absolute; inset:-45%;
       background:
@@ -490,16 +474,16 @@
       opacity: .85;
       pointer-events:none;
     }
-    .resultLabel{
+    .label{
       position:relative;
       margin: 4px 0 10px;
       color: rgba(255,255,255,.70);
-      font-weight:850;
+      font-weight:900;
       letter-spacing:.4px;
       text-transform:uppercase;
       font-size: 12.5px;
     }
-    .resultValue{
+    .value{
       position:relative;
       margin:0;
       font-weight:950;
@@ -507,42 +491,41 @@
       font-size: 44px;
       line-height:1.05;
     }
-    .resultNote{
+    .note{
       position:relative;
       margin: 10px 0 0;
       color: rgba(255,255,255,.72);
-      font-weight:680;
+      font-weight:700;
       line-height:1.6;
       max-width: 42ch;
     }
 
-    /* ===== AVIS PREMIUM SIMPLE (SEULEMENT ICI) ===== */
-    .simpleReviews{ padding: 16px 0 70px; }
-    .simpleReviewsTitle{
+    /* ===== AVIS PREMIUM SIMPLE ===== */
+    .reviews{ padding: 18px 0 70px; }
+    .reviewsTitle{
       margin: 0 0 14px;
       font-size: clamp(24px, 2.6vw, 34px);
       letter-spacing: -.8px;
       line-height: 1.08;
     }
-    .simpleReviewsStack{
+    .reviewsStack{
       display:grid;
       grid-template-columns: 1fr;
       gap: 16px;
       max-width: 920px;
     }
-    .simpleReviewCard{
+    .review{
       position:relative;
       border-radius: 22px;
       border: 1px solid rgba(255,255,255,.12);
-      background: rgba(8,10,18,.78); /* plus solide */
+      background: rgba(8,10,18,.78);
       box-shadow: 0 26px 90px rgba(0,0,0,.42);
       padding: 18px 18px 18px;
       overflow:hidden;
     }
-    .simpleReviewCard::before{
+    .review::before{
       content:"";
-      position:absolute;
-      inset:-40%;
+      position:absolute; inset:-40%;
       background:
         radial-gradient(circle at 18% 35%, rgba(86,199,255,.14), transparent 62%),
         radial-gradient(circle at 78% 40%, rgba(124,92,255,.12), transparent 64%),
@@ -551,7 +534,7 @@
       opacity: .92;
       pointer-events:none;
     }
-    .starsRow{
+    .stars{
       position:relative;
       display:flex;
       gap: 8px;
@@ -559,7 +542,7 @@
       opacity:.96;
       filter: drop-shadow(0 12px 26px rgba(246,211,101,.14));
     }
-    .starsRow .s{
+    .stars span{
       font-size: 22px;
       line-height: 1;
       background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
@@ -567,31 +550,22 @@
       background-clip:text;
       color: transparent;
     }
-    .simpleQuote{
+    .quote{
       position:relative;
       margin: 0;
       color: rgba(255,255,255,.86);
-      font-weight: 720;
+      font-weight: 730;
       line-height: 1.65;
       font-size: 16px;
     }
     @media (max-width: 520px){
-      .simpleReviews{ padding: 18px 0 60px; }
-      .simpleReviewCard{ padding: 18px 16px; }
-      .simpleQuote{ font-size: 15.5px; }
+      .review{ padding: 18px 16px; }
+      .quote{ font-size: 15.5px; }
     }
 
     /* contact */
-    .form{
-      max-width: 760px;
-      display:grid;
-      gap: 14px;
-    }
-    .row2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
+    .form{ max-width:760px; display:grid; gap:14px; }
+    .row2{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
     @media (max-width: 700px){ .row2{ grid-template-columns:1fr; } }
     .field, .area{
       width:100%;
@@ -600,7 +574,7 @@
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.04);
       color: rgba(255,255,255,.92);
-      font-weight:750;
+      font-weight:800;
       outline:none;
     }
     .area{ resize:vertical; min-height: 120px; }
@@ -609,17 +583,18 @@
       padding: 42px 0 34px;
       border-top: 1px solid rgba(255,255,255,.06);
       color: rgba(255,255,255,.60);
-      font-weight:650;
+      font-weight:700;
     }
 
     /* LOADER */
     .loader{
       position:fixed;
       inset:0;
-      background: radial-gradient(circle at 40% 35%, rgba(86,199,255,.10), transparent 55%),
-                  radial-gradient(circle at 70% 30%, rgba(124,92,255,.10), transparent 58%),
-                  radial-gradient(circle at 50% 80%, rgba(246,211,101,.06), transparent 62%),
-                  linear-gradient(180deg, #05060c, #070a18);
+      background:
+        radial-gradient(circle at 40% 35%, rgba(86,199,255,.10), transparent 55%),
+        radial-gradient(circle at 70% 30%, rgba(124,92,255,.10), transparent 58%),
+        radial-gradient(circle at 50% 80%, rgba(246,211,101,.06), transparent 62%),
+        linear-gradient(180deg, #05060c, #070a18);
       display:grid;
       place-items:center;
       z-index:10000;
@@ -631,7 +606,7 @@
       filter: drop-shadow(0 24px 80px rgba(86,199,255,.18));
       animation: loaderPulse 1.7s ease-in-out infinite;
     }
-    .loaderLogo img{ width:92px; height:92px; object-fit:contain; display:block; }
+    .loaderLogo img{ width:92px; height:92px; object-fit:contain; }
     @keyframes loaderPulse{
       0%,100%{ transform: scale(1); opacity:.98; }
       50%{ transform: scale(1.06); opacity:1; }
@@ -674,7 +649,6 @@
       100%{ transform: translateX(220%); }
     }
 
-    /* reduced motion */
     @media (prefers-reduced-motion: reduce){
       *{ animation:none!important; transition:none!important; scroll-behavior:auto!important; }
     }
@@ -695,26 +669,22 @@
 
   <div class="topLine"></div>
 
-  <header class="siteHeader">
+  <header class="header">
     <div class="wrap">
-      <div class="navInner">
+      <div class="nav">
         <div class="brand">
-          <div class="brandLogo">
-            <img src="media/logob.png" alt="Logo Intermediaire.io">
-          </div>
-          <div class="brandText" aria-label="intermediaire.io">
-            <span class="main">INTERMEDIAIRE</span><span class="tld">.io</span>
-          </div>
+          <div class="brandLogo"><img src="media/logob.png" alt="Logo"></div>
+          <div class="brandName"><span class="main">INTERMEDIAIRE</span><span class="tld">.io</span></div>
         </div>
 
-        <nav class="navLinks" aria-label="Navigation principale">
+        <nav class="links" aria-label="Navigation">
           <a href="#accueil">Accueil</a>
           <a href="#resultats">Résultats</a>
           <a href="#avis">Avis</a>
           <a href="#contact">Contact</a>
         </nav>
 
-        <div class="navCta">
+        <div class="ctaRow">
           <button class="btn pulse" id="ctaTop">Devenir partenaire</button>
           <button class="hamburger" id="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
             <span></span><span></span><span></span>
@@ -724,21 +694,21 @@
     </div>
   </header>
 
-  <!-- Mobile Menu -->
-  <div class="menuSheet" id="menuSheet" aria-hidden="true">
-    <div class="menuBackdrop" id="menuBackdrop"></div>
-    <div class="menuPanel" role="dialog" aria-modal="true" aria-label="Menu">
+  <!-- Mobile menu -->
+  <div class="sheet" id="sheet" aria-hidden="true">
+    <div class="sheetBg" id="sheetBg"></div>
+    <div class="sheetPanel" role="dialog" aria-modal="true" aria-label="Menu">
       <a href="#accueil" class="mLink">Accueil</a>
       <a href="#resultats" class="mLink">Résultats</a>
       <a href="#avis" class="mLink">Avis</a>
       <a href="#contact" class="mLink">Contact</a>
-      <button class="btn pulse menuBtn" id="menuBtn">Devenir partenaire</button>
+      <button class="btn pulse sheetBtn" id="menuBtn">Devenir partenaire</button>
     </div>
   </div>
 
   <!-- HERO -->
   <main id="accueil" class="hero">
-    <div class="heroBgLogo" aria-hidden="true">
+    <div class="bgLogo" aria-hidden="true">
       <img src="media/logob.png" alt="">
     </div>
 
@@ -748,7 +718,6 @@
           <div class="kicker"><span class="dot"></span> RÉSEAU DE PROPRIÉTÉS LOCALES</div>
 
           <h1>La demande locale devient un <span class="grad">flux qualifié</span>.</h1>
-
           <p class="sub">
             On capte l’intention, on filtre, on qualifie. Si c’est qualifié : redirection immédiate vers une entreprise disponible.
           </p>
@@ -762,11 +731,11 @@
             <div class="starsMini" aria-hidden="true">
               <span class="st">★</span><span class="st">★</span><span class="st">★</span><span class="st">★</span><span class="st">★</span>
             </div>
-            <span class="ratingText">4.9 <span style="opacity:.65;font-weight:850">/ 5</span></span>
+            <span class="ratingText">4.9 <span style="opacity:.65;font-weight:900">/ 5</span></span>
           </div>
 
           <div class="scrollHint" aria-hidden="true">
-            <div class="scrollPill">
+            <div class="scrollDot">
               <svg viewBox="0 0 24 24" fill="none">
                 <path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.86)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -774,12 +743,10 @@
           </div>
         </div>
 
-        <div class="heroOrb" aria-hidden="true">
-          <div class="orb">
-            <div class="orbCenter">
-              <p class="orbTitle">Intention → Filtre</p>
-              <p class="orbSub">Décision claire. Routage immédiat. Zéro flou.</p>
-            </div>
+        <div class="sideCard" aria-hidden="true">
+          <div class="sideInner">
+            <p class="sideTitle">Intention → Filtre → Qualification</p>
+            <p class="sideSub">Décision nette. Zéro flou. Puis routage vers un partenaire disponible.</p>
           </div>
         </div>
 
@@ -796,52 +763,52 @@
       </p>
 
       <div class="resultsGrid">
-        <article class="resultCard">
-          <div class="resultLabel">Demandes traitées</div>
-          <p class="resultValue"><span class="grad"><span data-count="12840">0</span>+</span></p>
-          <p class="resultNote">Intentions captées et normalisées pour un tri propre.</p>
+        <article class="card">
+          <div class="label">Demandes traitées</div>
+          <p class="value"><span class="grad"><span data-count="12840">0</span>+</span></p>
+          <p class="note">Intentions captées et normalisées pour un tri propre.</p>
         </article>
 
-        <article class="resultCard">
-          <div class="resultLabel">Taux de qualification</div>
-          <p class="resultValue"><span class="grad"><span data-count="62">0</span>%</span></p>
-          <p class="resultNote">Moins de bruit. Plus de dossiers actionnables.</p>
+        <article class="card">
+          <div class="label">Taux de qualification</div>
+          <p class="value"><span class="grad"><span data-count="62">0</span>%</span></p>
+          <p class="note">Moins de bruit. Plus de dossiers actionnables.</p>
         </article>
 
-        <article class="resultCard">
-          <div class="resultLabel">Transfert moyen</div>
-          <p class="resultValue"><span class="grad"><span data-count="18">0</span>s</span></p>
-          <p class="resultNote">Si c’est qualifié : routage rapide vers un partenaire dispo.</p>
+        <article class="card">
+          <div class="label">Transfert moyen</div>
+          <p class="value"><span class="grad"><span data-count="18">0</span>s</span></p>
+          <p class="note">Si c’est qualifié : routage rapide vers un partenaire dispo.</p>
         </article>
       </div>
     </div>
   </section>
 
   <!-- AVIS (premium simple) -->
-  <section id="avis" class="simpleReviews" aria-label="Avis">
+  <section id="avis" class="reviews" aria-label="Avis">
     <div class="wrap">
-      <h2 class="simpleReviewsTitle">Avis <span class="grad">partenaires</span></h2>
+      <h2 class="reviewsTitle">Avis <span class="grad">partenaires</span></h2>
 
-      <div class="simpleReviewsStack">
-        <article class="simpleReviewCard">
-          <div class="starsRow" aria-hidden="true">
-            <span class="s">★</span><span class="s">★</span><span class="s">★</span><span class="s">★</span><span class="s">★</span>
+      <div class="reviewsStack">
+        <article class="review">
+          <div class="stars" aria-hidden="true">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
           </div>
-          <p class="simpleQuote">« On perd zéro temps. Les demandes arrivent claires, et quand c’est qualifié, ça transfère vite. »</p>
+          <p class="quote">« On perd zéro temps. Les demandes arrivent claires, et quand c’est qualifié, ça transfère vite. »</p>
         </article>
 
-        <article class="simpleReviewCard">
-          <div class="starsRow" aria-hidden="true">
-            <span class="s">★</span><span class="s">★</span><span class="s">★</span><span class="s">★</span><span class="s">★</span>
+        <article class="review">
+          <div class="stars" aria-hidden="true">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
           </div>
-          <p class="simpleQuote">« Simple, propre, premium. Moins de bruit, plus de vrais clients. Exactement ce qu’on veut. »</p>
+          <p class="quote">« Simple, propre, premium. Moins de bruit, plus de vrais clients. Exactement ce qu’on veut. »</p>
         </article>
 
-        <article class="simpleReviewCard">
-          <div class="starsRow" aria-hidden="true">
-            <span class="s">★</span><span class="s">★</span><span class="s">★</span><span class="s">★</span><span class="s">★</span>
+        <article class="review">
+          <div class="stars" aria-hidden="true">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
           </div>
-          <p class="simpleQuote">« Le routage par disponibilité est parfait : quand je suis full, ça ne force pas. Quand je suis dispo, ça route. »</p>
+          <p class="quote">« Le routage par disponibilité est parfait : quand je suis full, ça ne force pas. Quand je suis dispo, ça route. »</p>
         </article>
       </div>
     </div>
@@ -851,9 +818,7 @@
   <section id="contact" class="section">
     <div class="wrap">
       <h2 class="sectionTitle">Devenir <span class="grad">partenaire</span></h2>
-      <p class="sectionLead">
-        Laisse tes infos. On te rappelle avec un plan simple (secteur, ville, capacité, heures).
-      </p>
+      <p class="sectionLead">Laisse tes infos. On te rappelle avec un plan simple (secteur, ville, capacité, heures).</p>
 
       <form class="form" onsubmit="event.preventDefault(); alert('Reçu ✅ (branche ton webhook Make ici)');">
         <div class="row2">
@@ -865,9 +830,7 @@
           <input class="field" required placeholder="Région / ville">
         </div>
         <textarea class="area" required placeholder="Disponibilités / capacité (ex: 8 appels/jour, 24/7, etc.)"></textarea>
-        <div>
-          <button class="btn pulse" type="submit">Envoyer</button>
-        </div>
+        <button class="btn pulse" type="submit">Envoyer</button>
       </form>
     </div>
   </section>
@@ -879,7 +842,7 @@
   </footer>
 
   <script>
-    // Loader (un peu plus long)
+    // Loader (ouverture d'app)
     window.addEventListener("load", () => {
       const loader = document.getElementById("loader");
       setTimeout(() => {
@@ -889,18 +852,17 @@
       }, 1150);
     });
 
-    // Year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Smooth scroll to contact
+    // Smooth scroll -> contact
     const goContact = () => document.getElementById("contact").scrollIntoView({behavior:"smooth"});
     document.getElementById("ctaTop").addEventListener("click", goContact);
     document.getElementById("ctaHero").addEventListener("click", goContact);
 
     // Mobile menu
     const hamburger = document.getElementById("hamburger");
-    const sheet = document.getElementById("menuSheet");
-    const backdrop = document.getElementById("menuBackdrop");
+    const sheet = document.getElementById("sheet");
+    const sheetBg = document.getElementById("sheetBg");
     const menuBtn = document.getElementById("menuBtn");
     const mLinks = Array.from(document.querySelectorAll(".mLink"));
 
@@ -914,10 +876,8 @@
       sheet.setAttribute("aria-hidden","true");
       hamburger.setAttribute("aria-expanded","false");
     }
-    hamburger.addEventListener("click", () => {
-      if(sheet.classList.contains("show")) closeMenu(); else openMenu();
-    });
-    backdrop.addEventListener("click", closeMenu);
+    hamburger.addEventListener("click", () => sheet.classList.contains("show") ? closeMenu() : openMenu());
+    sheetBg.addEventListener("click", closeMenu);
     mLinks.forEach(a => a.addEventListener("click", (e) => {
       e.preventDefault();
       closeMenu();
@@ -927,38 +887,29 @@
     }));
     menuBtn.addEventListener("click", () => { closeMenu(); goContact(); });
 
-    // Counter animation (0 -> target)
+    // Counters
     function animateCount(el, to, duration=1200){
       const start = performance.now();
-      const isInt = Number.isInteger(to);
-      const formatter = (v) => {
-        if (!isInt) return v.toFixed(0);
-        return Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-      };
+      const formatter = (v) => Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
       function tick(now){
         const t = Math.min(1, (now - start) / duration);
         const eased = 1 - Math.pow(1 - t, 3);
         el.textContent = formatter(to * eased);
-        if (t < 1) requestAnimationFrame(tick);
+        if(t < 1) requestAnimationFrame(tick);
       }
       requestAnimationFrame(tick);
     }
-
     const counters = Array.from(document.querySelectorAll("[data-count]"));
     let ran = false;
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if(e.isIntersecting && !ran){
           ran = true;
-          counters.forEach((el, i) => {
-            const target = Number(el.getAttribute("data-count")) || 0;
-            animateCount(el, target, 1050 + i*180);
-          });
+          counters.forEach((el, i) => animateCount(el, Number(el.dataset.count)||0, 1050 + i*180));
           io.disconnect();
         }
       });
     }, { threshold: 0.25 });
-
     const results = document.getElementById("resultats");
     results && io.observe(results);
   </script>
