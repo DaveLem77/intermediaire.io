@@ -17,6 +17,7 @@
       --muted:rgba(255,255,255,.72);
       --muted2:rgba(255,255,255,.55);
 
+      /* TES COULEURS */
       --c1:#56C7FF;
       --c2:#7C5CFF;
       --c3:#F6D365;
@@ -29,6 +30,9 @@
 
       --baseA:#04050a;
       --baseB:#06081a;
+
+      --card: rgba(255,255,255,.045);
+      --line: rgba(255,255,255,.10);
     }
 
     *{box-sizing:border-box}
@@ -236,7 +240,6 @@
       overflow:hidden;
       contain: layout paint;
     }
-
     .heroSection::before{
       content:"";
       position:absolute;
@@ -272,7 +275,6 @@
     @media (prefers-reduced-motion: reduce){
       .heroSection::before{ animation:none !important; }
     }
-
     .heroSection > .wrap{ position: relative; z-index: 1; }
 
     .kicker{
@@ -618,37 +620,12 @@
     }
 
     /* ===== AVIS (VERTICAL, SIMPLE, PREMIUM) ===== */
-    .reviewsSection{
-      padding: 26px 0 58px;
-    }
-    .reviewsHead{
-      display:flex;
-      flex-direction:column;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-    .reviewsTitle{
-      margin:0;
-      font-size: clamp(22px, 2.6vw, 32px);
-      letter-spacing: -.6px;
-      line-height: 1.1;
-    }
-    .reviewsSub{
-      margin:0;
-      color: rgba(255,255,255,.62);
-      font-weight: 750;
-      line-height: 1.6;
-      max-width: 70ch;
-      font-size: 15px;
-    }
+    .reviewsSection{ padding: 26px 0 58px; }
+    .reviewsHead{ display:flex; flex-direction:column; gap: 8px; margin-bottom: 14px; }
+    .reviewsTitle{ margin:0; font-size: clamp(22px, 2.6vw, 32px); letter-spacing: -.6px; line-height: 1.1; }
+    .reviewsSub{ margin:0; color: rgba(255,255,255,.62); font-weight: 750; line-height: 1.6; max-width: 70ch; font-size: 15px; }
 
-    .reviewsList{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin-top: 14px;
-    }
-
+    .reviewsList{ display:grid; grid-template-columns: 1fr; gap: 12px; margin-top: 14px; }
     .reviewRow{
       position: relative;
       border-radius: 18px;
@@ -660,7 +637,6 @@
       overflow:hidden;
       transform: translateZ(0);
     }
-
     .reviewRow::before{
       content:"";
       position:absolute;
@@ -670,15 +646,7 @@
       background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
       opacity: .92;
     }
-
-    .reviewRowTop{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 12px;
-      margin-top: 6px;
-    }
-
+    .reviewRowTop{ display:flex; align-items:center; justify-content:space-between; gap: 12px; margin-top: 6px; }
     .reviewRowName{
       margin:0;
       font-weight: 950;
@@ -690,56 +658,207 @@
       max-width: 70%;
       color: rgba(255,255,255,.92);
     }
-
-    .reviewRowStars{
-      display:flex;
-      gap: 3px;
-      flex: 0 0 auto;
-      opacity:.95;
-      filter: drop-shadow(0 10px 24px rgba(246,211,101,.12));
-    }
+    .reviewRowStars{ display:flex; gap: 3px; flex: 0 0 auto; opacity:.95; filter: drop-shadow(0 10px 24px rgba(246,211,101,.12)); }
     .reviewRowStars svg{ width: 14px; height: 14px; }
-
-    .reviewRowQuote{
-      margin: 10px 0 0;
-      color: rgba(255,255,255,.84);
-      font-weight: 720;
-      line-height: 1.65;
-      font-size: 15px;
-    }
-
-    .reviewRowFoot{
-      margin-top: 12px;
-      display:flex;
-      align-items:center;
-      justify-content:flex-start;
-      gap: 10px;
-      color: rgba(255,255,255,.58);
-      font-weight: 850;
-      font-size: 12.5px;
-    }
+    .reviewRowQuote{ margin: 10px 0 0; color: rgba(255,255,255,.84); font-weight: 720; line-height: 1.65; font-size: 15px; }
+    .reviewRowFoot{ margin-top: 12px; display:flex; align-items:center; justify-content:flex-start; gap: 10px; color: rgba(255,255,255,.58); font-weight: 850; font-size: 12.5px; }
     .reviewPill{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      padding: 7px 10px;
-      border-radius: 999px;
+      display:inline-flex; align-items:center; gap: 8px;
+      padding: 7px 10px; border-radius: 999px;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.04);
       color: rgba(255,255,255,.70);
-      font-weight: 900;
-      letter-spacing: .2px;
-      white-space:nowrap;
+      font-weight: 900; letter-spacing: .2px; white-space:nowrap;
     }
     .reviewPillDot{
       width: 7px; height: 7px; border-radius: 999px;
       background: linear-gradient(135deg, var(--c1), var(--c2));
       box-shadow: 0 0 0 8px rgba(86,199,255,.08);
     }
-
     @media (max-width: 520px){
       .reviewRow{ padding: 15px 14px 13px; }
       .reviewRowName{ max-width: 66%; }
+    }
+
+    /* ===== PARTENAIRES / OFFRE (STYLE EXACTEMENT COMME TA PHOTO) ===== */
+    .partnerSection{ padding: 72px 0 78px; }
+
+    .partnerGrid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 26px;
+      align-items:start;
+    }
+    @media (max-width: 900px){
+      .partnerGrid{ grid-template-columns: 1fr; }
+    }
+
+    .partnerIntro h2{
+      margin:0 0 10px;
+      font-size: clamp(26px, 3.0vw, 40px);
+      letter-spacing: -.9px;
+      line-height: 1.06;
+    }
+    .partnerIntro p{
+      margin:0;
+      color: rgba(255,255,255,.70);
+      font-weight: 750;
+      line-height: 1.65;
+      max-width: 72ch;
+      font-size: 15.6px;
+    }
+
+    /* Carte “forfait” avec contour gradient + intérieur dark (comme la photo) */
+    .offerFrame{
+      border-radius: 26px;
+      padding: 3px; /* épaisseur du contour */
+      background: linear-gradient(90deg,
+        rgba(246,211,101,1),
+        rgba(124,92,255,1),
+        rgba(86,199,255,1),
+        rgba(246,211,101,1)
+      );
+      box-shadow:
+        0 28px 90px rgba(0,0,0,.42),
+        0 0 120px rgba(246,211,101,.10);
+    }
+    .offerCard{
+      border-radius: 23px;
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.08);
+      padding: 20px 18px 18px;
+      position: relative;
+      overflow:hidden;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .offerCard::before{
+      content:"";
+      position:absolute;
+      inset:-45%;
+      background:
+        radial-gradient(circle at 22% 22%, rgba(246,211,101,.16), transparent 60%),
+        radial-gradient(circle at 80% 40%, rgba(124,92,255,.12), transparent 62%),
+        radial-gradient(circle at 45% 95%, rgba(86,199,255,.10), transparent 64%);
+      filter: blur(18px);
+      opacity: .85;
+      pointer-events:none;
+    }
+    .offerInner{ position:relative; z-index:1; }
+
+    .offerTop{
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .offerKicker{
+      font-weight: 950;
+      color: rgba(255,255,255,.86);
+      letter-spacing: .2px;
+      font-size: 14px;
+    }
+
+    .offerPrice{
+      margin: 0;
+      font-weight: 950;
+      letter-spacing: -1px;
+      line-height: 1.05;
+      font-size: clamp(34px, 5.2vw, 50px);
+      color: rgba(255,255,255,.92);
+    }
+    .offerPrice .muted{
+      color: rgba(255,255,255,.50);
+      font-weight: 900;
+      font-size: .92em;
+      letter-spacing: -.2px;
+    }
+
+    .offerMeta{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.70);
+      font-weight: 900;
+      font-size: 12.5px;
+      letter-spacing: .15px;
+      white-space:nowrap;
+    }
+    .chipDot{
+      width: 8px; height: 8px; border-radius: 999px;
+      background: linear-gradient(135deg, var(--c3), var(--c2));
+      box-shadow: 0 0 0 10px rgba(246,211,101,.07);
+    }
+
+    .offerList{
+      margin: 14px 0 0;
+      padding: 0;
+      list-style:none;
+      display:grid;
+      gap: 10px;
+    }
+    .offerList li{
+      display:flex;
+      align-items:flex-start;
+      gap: 10px;
+      color: rgba(255,255,255,.80);
+      font-weight: 750;
+      line-height: 1.55;
+      font-size: 15px;
+    }
+    .tick{
+      flex: 0 0 auto;
+      width: 18px; height: 18px;
+      border-radius: 6px;
+      margin-top: 2px;
+      background: rgba(246,211,101,.18);
+      border: 1px solid rgba(246,211,101,.30);
+      box-shadow: 0 14px 40px rgba(246,211,101,.10);
+      position: relative;
+    }
+    .tick::after{
+      content:"";
+      position:absolute;
+      left: 5px; top: 3px;
+      width: 6px; height: 10px;
+      border-right: 3px solid rgba(246,211,101,.92);
+      border-bottom: 3px solid rgba(246,211,101,.92);
+      transform: rotate(40deg);
+    }
+
+    .offerBtn{
+      margin-top: 18px;
+      display:block;
+      width: 100%;
+      text-align:center;
+      padding: 16px 16px;
+      border-radius: 16px;
+      font-weight: 950;
+      font-size: 18px;
+      color: rgba(0,0,0,.88);
+      background: linear-gradient(90deg, rgba(246,211,101,1), rgba(246,211,101,.92));
+      box-shadow:
+        0 18px 60px rgba(0,0,0,.40),
+        0 0 60px rgba(246,211,101,.16);
+      transition: transform .15s ease, filter .15s ease;
+    }
+    .offerBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .offerFine{
+      margin: 12px 0 0;
+      color: rgba(255,255,255,.56);
+      font-weight: 800;
+      font-size: 12.8px;
+      line-height: 1.6;
     }
 
     /* Footer */
@@ -760,7 +879,7 @@
     }
 
     @media (prefers-reduced-motion: reduce){
-      .blob, .btn, .stat::after, .dot, .chev { animation:none !important; }
+      .blob, .btn, .stat::after, .dot, .chev, .splashLogo { animation:none !important; }
     }
   </style>
 </head>
@@ -792,10 +911,10 @@
       <nav class="nav" aria-label="Navigation principale">
         <a href="#top" class="navLink">Accueil</a>
         <a href="#resultats" class="navLink">Résultats</a>
-        <a href="#partenaires" class="navLink">Contact</a>
+        <a href="#partenaires" class="navLink">Partenaires</a>
       </nav>
 
-      <a class="ctaBtn" href="#partenaires">Réserver un appel</a>
+      <a class="ctaBtn" href="#partenaires">Voir l’offre</a>
 
       <button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu">
         <span></span><span></span><span></span>
@@ -806,8 +925,8 @@
       <div class="mobileMenuInner">
         <a href="#top" class="mLink">Accueil</a>
         <a href="#resultats" class="mLink">Résultats</a>
-        <a href="#partenaires" class="mLink">Contact</a>
-        <a class="mCta" href="#partenaires">Réserver un appel</a>
+        <a href="#partenaires" class="mLink">Partenaires</a>
+        <a class="mCta" href="#partenaires">Voir l’offre</a>
       </div>
     </div>
   </header>
@@ -822,7 +941,7 @@
           <p class="lead">On capte l’intention, on filtre, on qualifie. Si c’est qualifié : redirection immédiate vers une entreprise disponible.</p>
 
           <div class="heroActions">
-            <a class="btn" href="#partenaires"><span>Devenir partenaire</span></a>
+            <a class="btn" href="#partenaires"><span>Voir l’offre partenaire</span></a>
           </div>
 
           <div class="trustRow" aria-label="Avis Google">
@@ -933,7 +1052,7 @@
     </div>
   </section>
 
-  <!-- AVIS (VERTICAL, SIMPLE) -->
+  <!-- AVIS -->
   <section class="reviewsSection" aria-label="Avis de partenaires">
     <div class="wrap">
       <div class="reviewsHead">
@@ -955,7 +1074,7 @@
           </div>
           <p class="reviewRowQuote">“Les clients arrivent déjà qualifiés. Ça transfère vite, sans perte de temps.”</p>
           <div class="reviewRowFoot">
-            <span class="reviewPill"><span class="reviewPillDot"></span>Qualifié</span>
+            <span class="reviewPill"><span class="reviewPillDot"></span>Qualité</span>
           </div>
         </article>
 
@@ -996,13 +1115,50 @@
     </div>
   </section>
 
-  <!-- PARTENAIRES -->
-  <section id="partenaires" style="padding:72px 0;">
+  <!-- PARTENAIRES (LA CARTE EXACTE STYLE PHOTO) -->
+  <section id="partenaires" class="partnerSection" aria-label="Recherche de partenaires">
     <div class="wrap">
-      <h2>Partenaires <span class="grad">recherchés</span></h2>
-      <p class="lead" style="max-width:86ch;">Entreprises locales : si vous avez de la capacité et vous voulez recevoir des demandes qualifiées, on vous parle.</p>
-      <div style="margin-top:22px;">
-        <a class="btn" href="mailto:partenaires@intermediaire.io?subject=Partenariat%20-%20Intermediaire.io"><span>Écrire pour partenariat</span></a>
+      <div class="partnerGrid">
+        <div class="partnerIntro">
+          <h2>Recherche de <span class="grad">partenaire</span></h2>
+          <p>
+            Tu veux recevoir des demandes locales <b>déjà filtrées</b> et être transféré seulement quand c’est <b>qualifié</b> ?
+            Ici c’est simple : <b>un seul forfait</b>, pas d’abonnement, pas de paiement d’avance.
+          </p>
+        </div>
+
+        <div class="offerFrame" role="region" aria-label="Forfait partenaire">
+          <div class="offerCard">
+            <div class="offerInner">
+
+              <div class="offerTop">
+                <div class="offerKicker">Forfait unique</div>
+                <p class="offerPrice">50$ <span class="muted">/ appel qualifié</span></p>
+
+                <div class="offerMeta">
+                  <span class="chip"><span class="chipDot"></span>Estimation : 3–15 / semaine</span>
+                  <span class="chip"><span class="chipDot"></span>Aucun paiement préalable</span>
+                </div>
+              </div>
+
+              <ul class="offerList">
+                <li><span class="tick" aria-hidden="true"></span>Tu paies <b>seulement</b> quand l’appel est qualifié.</li>
+                <li><span class="tick" aria-hidden="true"></span>Transfert rapide dès que la demande est validée.</li>
+                <li><span class="tick" aria-hidden="true"></span>Moins de temps perdu : on coupe le “non qualifié” proprement.</li>
+                <li><span class="tick" aria-hidden="true"></span>Facturation simple : récap hebdo / mensuel (selon ton choix).</li>
+                <li><span class="tick" aria-hidden="true"></span>Objectif : <b>flux stable</b> et <b>propre</b>, sans spam.</li>
+              </ul>
+
+              <!-- IMPORTANT : remplace le numéro dans href tel: -->
+              <a class="offerBtn" href="tel:0000000000" aria-label="Nous appeler">Nous appeler</a>
+              <p class="offerFine">
+                Remplace <b>tel:0000000000</b> par ton numéro. Le bouton ouvre l’app Téléphone directement sur mobile.
+              </p>
+
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1013,7 +1169,7 @@
         <div>© <span id="y"></span> Intermediaire.io</div>
         <div style="display:flex; gap:14px; flex-wrap:wrap;">
           <a href="#resultats">Résultats</a>
-          <a href="#partenaires">Contact</a>
+          <a href="#partenaires">Partenaires</a>
         </div>
       </div>
       <div class="fine">
