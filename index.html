@@ -618,7 +618,7 @@
       max-width: 60ch;
     }
 
-    /* ===== AVIS : HORIZONTAUX, EVENTAIL LÉGER, PAS DE FLÈCHES ===== */
+    /* ===== AVIS (MINIMALISTE - SCROLL SNAP) ===== */
     .reviewsSection{
       padding: 26px 0 58px;
       overflow:hidden;
@@ -645,96 +645,63 @@
       font-size: 15px;
     }
 
-    .fanStage{
-      position: relative;
-      height: 220px; /* plus compact, horizontal */
-      margin-top: 14px;
-      touch-action: pan-y;
+    .reviewsRail{
+      display:flex;
+      gap: 14px;
+      overflow-x:auto;
+      padding: 10px 2px 2px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width:none;
       user-select:none;
-      overflow:hidden; /* ✅ empêche l'effet “ça sort de l’écran” */
-      border-radius: 26px; /* juste pour clipper proprement */
-      background: transparent;
+      touch-action: pan-y;
     }
-    @media (max-width: 520px){
-      .fanStage{ height: 240px; }
-    }
+    .reviewsRail::-webkit-scrollbar{ display:none; }
 
-    .fanTrack{
-      position:absolute;
-      inset:0;
-      display:grid;
-      place-items:center;
-    }
-
-    .reviewCard{
-      position:absolute;
-      width: min(780px, 92vw);   /* ✅ très horizontal */
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,.12);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.035));
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow:
-        0 32px 90px rgba(0,0,0,.38),
-        0 0 110px rgba(124,92,255,.10);
+    .reviewMini{
+      flex: 0 0 min(560px, 88vw);
+      scroll-snap-align: center;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.045);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 16px 16px 14px;
+      position: relative;
       overflow:hidden;
-      transition: transform .42s cubic-bezier(.2,.9,.2,1), opacity .28s ease, filter .28s ease;
-      will-change: transform;
       transform: translateZ(0);
     }
-    .reviewCard::before{
+    .reviewMini::before{
       content:"";
       position:absolute;
-      inset:-40%;
-      background:
-        radial-gradient(circle at 18% 30%, rgba(86,199,255,.14), transparent 62%),
-        radial-gradient(circle at 78% 42%, rgba(124,92,255,.12), transparent 64%),
-        radial-gradient(circle at 58% 92%, rgba(246,211,101,.08), transparent 66%);
-      filter: blur(18px);
-      opacity: .8;
-      pointer-events:none;
-    }
-    .reviewInner{
-      position:relative;
-      padding: 18px 18px 16px;
-      display:grid;
-      gap: 12px;
+      left: 16px; right: 16px; top: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
+      opacity: .92;
     }
 
-    .reviewTop{
+    .reviewTopRow{
       display:flex;
-      align-items:center;
+      align-items:flex-start;
       justify-content:space-between;
       gap: 12px;
+      margin-top: 6px;
     }
-    .pro{
-      display:flex; align-items:center; gap: 12px; min-width:0;
-    }
-    .avatar{
-      width: 46px; height: 46px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.05);
-      overflow:hidden;
-      flex: 0 0 auto;
-      box-shadow: 0 18px 70px rgba(0,0,0,.25);
-    }
-    .avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .who{ min-width:0; }
-    .name{
+    .reviewWho{ min-width:0; }
+    .reviewName{
       margin:0;
       font-weight: 950;
       letter-spacing: -.35px;
-      font-size: 16px;
+      font-size: 15.5px;
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
     }
-    .role{
-      margin: 2px 0 0;
-      color: rgba(255,255,255,.62);
-      font-weight: 900;
+    .reviewRole{
+      margin: 3px 0 0;
+      color: rgba(255,255,255,.58);
+      font-weight: 850;
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: .25px;
@@ -743,32 +710,37 @@
       text-overflow:ellipsis;
     }
 
-    .miniStars{
-      display:flex; gap: 3px; flex-shrink:0;
-      filter: drop-shadow(0 12px 26px rgba(246,211,101,.14));
-      opacity:.95;
+    .reviewStars{
+      display:flex;
+      gap: 3px;
+      flex: 0 0 auto;
+      opacity: .95;
+      filter: drop-shadow(0 10px 24px rgba(246,211,101,.12));
     }
-    .miniStars svg{ width: 15px; height: 15px; }
+    .reviewStars svg{ width: 14px; height: 14px; }
 
-    .quote{
-      margin:0;
+    .reviewQuote{
+      margin: 10px 0 0;
       color: rgba(255,255,255,.86);
       font-weight: 720;
-      line-height: 1.6;
-      font-size: 15.4px;
+      line-height: 1.65;
+      font-size: 15px;
     }
 
-    .metaLine{
+    .reviewMeta{
+      margin-top: 12px;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap: 10px;
-      margin-top: 2px;
       color: rgba(255,255,255,.55);
       font-weight: 850;
       font-size: 12.5px;
     }
-    .tag{
+    .reviewTag{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
       padding: 7px 10px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.10);
@@ -776,64 +748,33 @@
       color: rgba(255,255,255,.72);
       font-weight: 900;
       letter-spacing: .2px;
-      display:inline-flex;
-      gap: 8px;
-      align-items:center;
+      white-space:nowrap;
     }
-    .tagDot{
+    .reviewTagDot{
       width: 7px; height: 7px; border-radius: 999px;
-      background: linear-gradient(135deg, rgba(86,199,255,1), rgba(124,92,255,1));
+      background: linear-gradient(135deg, var(--c1), var(--c2));
       box-shadow: 0 0 0 8px rgba(86,199,255,.08);
     }
 
-    /* ✅ Eventail LÉGER (pas de 3D, pas de "sort de l’écran") */
-    .reviewCard[data-pos="center"]{
-      opacity: 1;
-      filter: none;
-      transform: translateX(0) rotate(0deg) scale(1);
-      z-index: 3;
-    }
-    .reviewCard[data-pos="left"]{
-      opacity: .62;
-      filter: saturate(.9);
-      transform: translateX(calc(-1 * clamp(60px, 16vw, 130px))) rotate(-4deg) scale(.96);
-      z-index: 2;
-    }
-    .reviewCard[data-pos="right"]{
-      opacity: .62;
-      filter: saturate(.9);
-      transform: translateX(clamp(60px, 16vw, 130px)) rotate(4deg) scale(.96);
-      z-index: 2;
-    }
-
-    .fanStage.dragging .reviewCard{ transition: none; }
-
-    .dots{
+    .reviewsDots{
       margin-top: 14px;
       display:flex;
       justify-content:center;
       gap: 10px;
     }
-    .dotP{
+    .reviewsDot{
       width: 8px; height: 8px; border-radius: 999px;
       background: rgba(255,255,255,.22);
       border: 1px solid rgba(255,255,255,.10);
+      cursor:pointer;
     }
-    .dotP.active{
-      background: linear-gradient(135deg, rgba(86,199,255,1), rgba(124,92,255,1));
+    .reviewsDot.active{
+      background: linear-gradient(135deg, var(--c1), var(--c2));
       box-shadow: 0 0 0 10px rgba(124,92,255,.10);
     }
 
-    @media (max-width: 900px){
-      .reviewCard{ width: min(760px, 94vw); }
-      .quote{ font-size: 15.2px; }
-    }
     @media (max-width: 520px){
-      .reviewCard{ width: 92vw; }
-      .reviewInner{ padding: 16px 16px 14px; }
-      .quote{ font-size: 14.9px; }
-      .reviewCard[data-pos="left"]{ transform: translateX(calc(-1 * clamp(46px, 14vw, 96px))) rotate(-3.5deg) scale(.965); }
-      .reviewCard[data-pos="right"]{ transform: translateX(clamp(46px, 14vw, 96px)) rotate(3.5deg) scale(.965); }
+      .reviewMini{ flex-basis: 92vw; }
     }
 
     /* Footer */
@@ -855,7 +796,6 @@
 
     @media (prefers-reduced-motion: reduce){
       .blob, .btn, .stat::after, .dot, .chev { animation:none !important; }
-      .reviewCard{ transition:none !important; }
     }
   </style>
 </head>
@@ -1028,110 +968,94 @@
     </div>
   </section>
 
-  <!-- AVIS -->
+  <!-- AVIS (MINIMAL) -->
   <section class="reviewsSection" aria-label="Avis de partenaires">
     <div class="wrap">
       <div class="reviewsHead">
         <div>
           <h2 class="reviewsTitle">Avis <span class="grad">partenaires</span></h2>
-          <p class="reviewsSub">Swipe pour voir les avis — éventail léger, premium, sans “sortir de l’écran”.</p>
+          <p class="reviewsSub">Simple, clean. Glisse horizontalement pour lire.</p>
         </div>
       </div>
 
-      <div class="fanStage" id="fanStage" aria-label="Carrousel d'avis">
-        <div class="fanTrack" id="fanTrack">
-
-          <article class="reviewCard" data-pos="left" data-index="0" aria-hidden="true">
-            <div class="reviewInner">
-              <div class="reviewTop">
-                <div class="pro">
-                  <div class="avatar"><img src="media/plombier.png" alt="Profil plombier" /></div>
-                  <div class="who">
-                    <p class="name">Mathieu — Plombier</p>
-                    <p class="role">Urgence & service</p>
-                  </div>
-                </div>
-                <div class="miniStars" aria-label="5 étoiles">
-                  <svg viewBox="0 0 24 24" fill="#F6D365"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
-                  <svg viewBox="0 0 24 24" fill="#F6D365"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
-                  <svg viewBox="0 0 24 24" fill="#F6D365"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
-                  <svg viewBox="0 0 24 24" fill="#F6D365"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
-                  <svg viewBox="0 0 24 24" fill="#F6D365"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
-                </div>
-              </div>
-
-              <p class="quote">“Ce que j’aime : rien de flou. Les clients arrivent déjà qualifiés, et ça transfère vite. Moins de pertes de temps.”</p>
-
-              <div class="metaLine">
-                <span class="tag"><span class="tagDot"></span>Appels propres</span>
-                <span>Routage rapide</span>
-              </div>
+      <div class="reviewsRail" id="reviewsRail" aria-label="Carrousel d'avis">
+        <article class="reviewMini" data-index="0">
+          <div class="reviewTopRow">
+            <div class="reviewWho">
+              <p class="reviewName">Mathieu — Plombier</p>
+              <p class="reviewRole">Urgence &amp; service</p>
             </div>
-          </article>
 
-          <article class="reviewCard" data-pos="center" data-index="1" aria-hidden="false">
-            <div class="reviewInner">
-              <div class="reviewTop">
-                <div class="pro">
-                  <div class="avatar"><img src="media/electricien.png" alt="Profil électricien" /></div>
-                  <div class="who">
-                    <p class="name">Éric — Électricien</p>
-                    <p class="role">Résidentiel & commercial</p>
-                  </div>
-                </div>
-                <div class="miniStars" aria-label="5 étoiles">
-                  <svg viewBox="0 0 24 24" fill="#F6D365"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
-                  <svg viewBox="0 0 24 24" fill="#F6D365"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
-                  <svg viewBox="0 0 24 24" fill="#F6D365"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
-                  <svg viewBox="0 0 24 24" fill="#F6D365"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
-                  <svg viewBox="0 0 24 24" fill="#F6D365"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
-                </div>
-              </div>
-
-              <p class="quote">“On reçoit moins, mais mieux. Les infos arrivent claires et le filtre fait la job. Ça feel premium.”</p>
-
-              <div class="metaLine">
-                <span class="tag"><span class="tagDot"></span>Qualité &gt; quantité</span>
-                <span>Décision nette</span>
-              </div>
+            <div class="reviewStars" aria-label="5 étoiles">
+              <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
             </div>
-          </article>
+          </div>
 
-          <article class="reviewCard" data-pos="right" data-index="2" aria-hidden="true">
-            <div class="reviewInner">
-              <div class="reviewTop">
-                <div class="pro">
-                  <div class="avatar"><img src="media/serrurier.png" alt="Profil serrurier" /></div>
-                  <div class="who">
-                    <p class="name">Nicolas — Serrurier</p>
-                    <p class="role">Dépannage & remplacement</p>
-                  </div>
-                </div>
-                <div class="miniStars" aria-label="5 étoiles">
-                  <svg viewBox="0 0 24 24" fill="#F6D365"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
-                  <svg viewBox="0 0 24 24" fill="#F6D365"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
-                  <svg viewBox="0 0 24 24" fill="#F6D365"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
-                  <svg viewBox="0 0 24 24" fill="#F6D365"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
-                  <svg viewBox="0 0 24 24" fill="#F6D365"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
-                </div>
-              </div>
+          <p class="reviewQuote">“Rien de flou. Les clients arrivent déjà qualifiés, et ça transfère vite.”</p>
 
-              <p class="quote">“Le routage par dispo est parfait. Quand je suis full, je ne suis pas spammé. Quand je suis open, ça transfère.”</p>
+          <div class="reviewMeta">
+            <span class="reviewTag"><span class="reviewTagDot"></span>Appels propres</span>
+            <span>Routage rapide</span>
+          </div>
+        </article>
 
-              <div class="metaLine">
-                <span class="tag"><span class="tagDot"></span>Routage par capacité</span>
-                <span>Moins de spam</span>
-              </div>
+        <article class="reviewMini" data-index="1">
+          <div class="reviewTopRow">
+            <div class="reviewWho">
+              <p class="reviewName">Éric — Électricien</p>
+              <p class="reviewRole">Résidentiel &amp; commercial</p>
             </div>
-          </article>
 
-        </div>
+            <div class="reviewStars" aria-label="5 étoiles">
+              <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
+            </div>
+          </div>
+
+          <p class="reviewQuote">“On reçoit moins, mais mieux. Les infos arrivent claires et le filtre fait la job.”</p>
+
+          <div class="reviewMeta">
+            <span class="reviewTag"><span class="reviewTagDot"></span>Qualité &gt; quantité</span>
+            <span>Décision nette</span>
+          </div>
+        </article>
+
+        <article class="reviewMini" data-index="2">
+          <div class="reviewTopRow">
+            <div class="reviewWho">
+              <p class="reviewName">Nicolas — Serrurier</p>
+              <p class="reviewRole">Dépannage &amp; remplacement</p>
+            </div>
+
+            <div class="reviewStars" aria-label="5 étoiles">
+              <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#F6D365" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.3l-5.4 3 1-6.1-4.4-4.3 6.1-.9L12 3.5l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-3z"/></svg>
+            </div>
+          </div>
+
+          <p class="reviewQuote">“Le routage par dispo est parfait. Quand je suis full, je ne suis pas spammé.”</p>
+
+          <div class="reviewMeta">
+            <span class="reviewTag"><span class="reviewTagDot"></span>Routage par capacité</span>
+            <span>Moins de spam</span>
+          </div>
+        </article>
       </div>
 
-      <div class="dots" aria-label="Pagination avis">
-        <span class="dotP" data-dot="0"></span>
-        <span class="dotP active" data-dot="1"></span>
-        <span class="dotP" data-dot="2"></span>
+      <div class="reviewsDots" aria-label="Pagination avis">
+        <span class="reviewsDot active" data-dot="0" aria-label="Aller à l’avis 1"></span>
+        <span class="reviewsDot" data-dot="1" aria-label="Aller à l’avis 2"></span>
+        <span class="reviewsDot" data-dot="2" aria-label="Aller à l’avis 3"></span>
       </div>
     </div>
   </section>
@@ -1261,98 +1185,54 @@
       io.observe(section);
     })();
 
-    // Reviews fan swipe (3 cards) - NO ARROWS
+    // Reviews minimal: dots follow scroll + click dot to scroll to card
     (function(){
-      const stage = document.getElementById('fanStage');
-      const cards = Array.from(document.querySelectorAll('.reviewCard'));
-      const dots = Array.from(document.querySelectorAll('.dotP'));
-      if(!stage || cards.length !== 3) return;
+      const rail = document.getElementById('reviewsRail');
+      const cards = rail ? Array.from(rail.querySelectorAll('.reviewMini')) : [];
+      const dots = Array.from(document.querySelectorAll('.reviewsDot'));
+      if(!rail || cards.length === 0 || dots.length !== cards.length) return;
 
-      let center = 1;
-
-      const setDots = () => {
-        dots.forEach(d => d.classList.toggle('active', Number(d.dataset.dot) === center));
+      const setActive = (i) => {
+        dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
       };
 
-      const applyPositions = () => {
-        const left = (center + 2) % 3;
-        const right = (center + 1) % 3;
+      // find nearest card to center of rail viewport
+      let raf = 0;
+      const onScroll = () => {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          const railRect = rail.getBoundingClientRect();
+          const centerX = railRect.left + railRect.width / 2;
 
-        cards.forEach((c, i) => {
-          if(i === center){
-            c.dataset.pos = "center";
-            c.setAttribute('aria-hidden', 'false');
-          } else if(i === left){
-            c.dataset.pos = "left";
-            c.setAttribute('aria-hidden', 'true');
-          } else {
-            c.dataset.pos = "right";
-            c.setAttribute('aria-hidden', 'true');
-          }
+          let bestIdx = 0;
+          let bestDist = Infinity;
+
+          cards.forEach((c, i) => {
+            const r = c.getBoundingClientRect();
+            const cx = r.left + r.width / 2;
+            const dist = Math.abs(cx - centerX);
+            if(dist < bestDist){
+              bestDist = dist;
+              bestIdx = i;
+            }
+          });
+
+          setActive(bestIdx);
         });
-        setDots();
       };
 
-      const go = (dir) => {
-        center = (center + dir + 3) % 3;
-        applyPositions();
-      };
+      rail.addEventListener('scroll', onScroll, { passive:true });
+      window.addEventListener('resize', onScroll);
 
-      applyPositions();
-
-      // Swipe / Drag
-      let startX = 0;
-      let dragging = false;
-      let moved = 0;
-
-      const onDown = (x) => {
-        dragging = true;
-        moved = 0;
-        startX = x;
-        stage.classList.add('dragging');
-      };
-
-      const onMove = (x) => {
-        if(!dragging) return;
-        moved = x - startX;
-        const cap = Math.max(-44, Math.min(44, moved));
-        stage.style.transform = `translateX(${cap * 0.10}px)`;
-      };
-
-      const onUp = () => {
-        if(!dragging) return;
-        dragging = false;
-        stage.classList.remove('dragging');
-        stage.style.transform = '';
-
-        const threshold = 55;
-        if(moved <= -threshold) go(+1);
-        else if(moved >= threshold) go(-1);
-      };
-
-      stage.addEventListener('pointerdown', (e) => {
-        stage.setPointerCapture?.(e.pointerId);
-        onDown(e.clientX);
-      });
-      stage.addEventListener('pointermove', (e) => onMove(e.clientX));
-      stage.addEventListener('pointerup', onUp);
-      stage.addEventListener('pointercancel', onUp);
-
-      stage.addEventListener('dragstart', (e) => e.preventDefault());
-
-      dots.forEach(d => {
-        d.style.cursor = 'pointer';
+      dots.forEach((d, i) => {
         d.addEventListener('click', () => {
-          center = Number(d.dataset.dot);
-          applyPositions();
+          cards[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+          setActive(i);
         });
       });
 
-      stage.setAttribute('tabindex', '0');
-      stage.addEventListener('keydown', (e) => {
-        if(e.key === 'ArrowLeft') go(-1);
-        if(e.key === 'ArrowRight') go(+1);
-      });
+      // init
+      onScroll();
     })();
   </script>
 </body>
