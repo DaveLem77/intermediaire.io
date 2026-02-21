@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Intermediaire.io | Réseau de propriétés locales</title>
-  <meta name="description" content="Intermediaire.io — Réseau de propriétés locales. Intention → Filtre → Qualification → Redirection." />
+  <meta name="description" content="Intermediaire.io — Réseau de propriétés locales. Intention → Filtre → Qualification → Routage." />
   <meta name="robots" content="index,follow" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,7 +45,7 @@
     @media (max-width: 900px){ body{ padding-top: 91px; } }
 
     /* hard stop to prevent sideways scroll on iOS */
-    body, section, .wrap, .heroSection, .sysStage{ max-width:100vw; overflow-x:hidden; }
+    body, section, .wrap, .heroSection{ max-width:100vw; overflow-x:hidden; }
     img, svg{ max-width:100%; height:auto; }
 
     body::before{
@@ -241,7 +241,7 @@
         inset: -10% -20% auto -20%;
         height: 760px;
         background: url("media/logob.png") center/contain no-repeat;
-        opacity: .30; /* slightly more visible as you asked */
+        opacity: .30;
         filter: blur(8px);
         transform: translateZ(0) rotate(-8deg);
         z-index: -1;
@@ -296,10 +296,10 @@
 
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
-      padding: 20px 30px;             /* bigger */
-      border-radius: 14px;            /* less round than “pill”, still premium */
+      padding: 20px 30px;
+      border-radius: 14px;
       font-weight: 950;
-      font-size: 19px;                 /* bigger */
+      font-size: 19px;
       border: none;
       background: linear-gradient(135deg, rgba(86,199,255,.98), rgba(124,92,255,.92));
       color: rgba(255,255,255,.98);
@@ -363,7 +363,7 @@
       50%{ transform: rotate(45deg) translate(0,9px); }
     }
 
-    /* ===== SYSTEM (FIXED FOR MOBILE) ===== */
+    /* ===== SYSTEM TITLES ===== */
     .sysTitleRow{ margin: 6px 0 0; display:flex; flex-direction: column; gap: 10px; }
     .sysTitle{
       margin:0;
@@ -380,285 +380,257 @@
       font-size: 15.6px;
     }
 
-    .sysStage{
-      position: relative;
-      margin-top: 18px;
-      padding: 16px 0 6px;
-      overflow:hidden;
-      max-width:100%;
+    /* ===== SYSTEM V2 (compact + premium + mobile first) ===== */
+    .sysStage{ overflow:hidden; }
+
+    .flowV2{
+      position:relative;
+      width:min(720px, 100%);
+      margin: 12px auto 0;
+      padding: 10px 0 6px;
     }
-    .sysStage::before{
+
+    .flowV2::before{
       content:"";
       position:absolute;
-      inset:-12% -12%;
+      inset:-12% -14%;
       pointer-events:none;
       background:
-        radial-gradient(720px 520px at 50% 10%, rgba(86,199,255,.10), transparent 62%),
-        radial-gradient(820px 560px at 50% 52%, rgba(124,92,255,.12), transparent 64%),
-        radial-gradient(760px 540px at 50% 92%, rgba(246,211,101,.08), transparent 66%);
-      filter: blur(14px);
-      opacity: .95;
+        radial-gradient(520px 360px at 30% 18%, rgba(86,199,255,.10), transparent 62%),
+        radial-gradient(520px 360px at 70% 55%, rgba(124,92,255,.12), transparent 64%),
+        radial-gradient(520px 360px at 55% 92%, rgba(246,211,101,.08), transparent 66%);
+      filter: blur(16px);
+      opacity:.9;
       transform: translateZ(0);
-      z-index:0;
     }
 
-    .flow{
-      position: relative;
-      z-index:1;
-      width: 100%;
-      max-width: 760px;
-      margin: 0 auto;
-      display:flex;
-      flex-direction: column;
-      align-items:center;
-      gap: 40px;          /* more breathing */
-      padding: 10px 0 26px;
-    }
-    @media (max-width: 900px){
-      .flow{
-        width: min(92vw, 520px);
-        gap: 36px;
-        padding: 12px 0 30px;
-      }
-    }
-
-    .node{
-      position: relative;
-      width: 100%;
-      display:flex;
-      flex-direction: column;
-      align-items:center;
-      gap: 14px;
-      text-align:center;
-    }
-
-    /* bubble sizing = clamp so it NEVER explodes / crops */
-    .bubble{
-      --b: clamp(240px, 68vw, 320px);
-      width: var(--b);
-      height: var(--b);
-      border-radius: 999px;
-      position: relative;
+    .rail{
+      position:relative;
       display:grid;
-      place-items:center;
-      background: radial-gradient(circle at 50% 40%, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow:
-        0 30px 90px rgba(0,0,0,.22),
-        0 0 50px rgba(124,92,255,.10);
-      transform: translateZ(0);
-      overflow: visible;
+      grid-template-columns: 34px 1fr;
+      gap: 14px 18px;
+      padding: 18px 0 10px;
     }
 
-    /* reduce ring sizes on mobile so it stays premium */
-    .bubble::before{
-      content:"";
-      position:absolute;
-      inset: clamp(-22px, -5.5vw, -28px);
-      border-radius: 999px;
-      border: 2px dashed rgba(255,255,255,.16);
-      opacity: .95;
-      animation: ringRotate 12s linear infinite;
-    }
-    .bubble::after{
-      content:"";
-      position:absolute;
-      inset: clamp(-28px, -7vw, -36px);
-      border-radius: 999px;
-      background:
-        conic-gradient(from 90deg,
-          rgba(86,199,255,.0),
-          rgba(86,199,255,.16),
-          rgba(124,92,255,.16),
-          rgba(246,211,101,.12),
-          rgba(86,199,255,.0)
-        );
-      filter: blur(18px);
-      opacity: .82;
-      animation: glowSpin 6.5s linear infinite;
-      pointer-events:none;
-    }
-    @keyframes ringRotate{ to{ transform: rotate(360deg); } }
-    @keyframes glowSpin{ to{ transform: rotate(-360deg); } }
-
-    .bubbleInner{
-      width: 78%;
-      height: 78%;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.10);
-      display:flex;
-      flex-direction: column;
-      align-items:center;
-      justify-content:center;
-      gap: 10px;
-      padding: 18px;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-
-    .label{
-      font-weight: 950;
-      letter-spacing: -.4px;
-      font-size: 22px;
-      color: rgba(255,255,255,.94);
-      text-transform: uppercase;
-    }
-    .sub{
-      font-weight: 900;
-      font-size: 14px;
-      color: rgba(255,255,255,.62);
-      letter-spacing: .2px;
-    }
-    .desc{
-      margin: 0;
-      color: rgba(255,255,255,.72);
-      font-weight: 750;
-      font-size: 15.8px;
-      line-height: 1.55;
-      max-width: 44ch;
-    }
-
-    /* vertical connector: identical everywhere */
-    .connector{
+    .railLine{
+      grid-column: 1;
+      grid-row: 1 / -1;
       width: 6px;
-      height: 46px;
+      justify-self:center;
       border-radius: 999px;
-      position: relative;
       background:
         repeating-linear-gradient(
           to bottom,
-          rgba(255,255,255,.0) 0px,
-          rgba(255,255,255,.0) 8px,
-          rgba(255,255,255,.30) 8px,
-          rgba(255,255,255,.30) 14px
+          rgba(255,255,255,.00) 0px,
+          rgba(255,255,255,.00) 10px,
+          rgba(255,255,255,.22) 10px,
+          rgba(255,255,255,.22) 18px
         );
-      opacity: .92;
-      mask-image: linear-gradient(to bottom, transparent, black 18%, black 82%, transparent);
-      -webkit-mask-image: linear-gradient(to bottom, transparent, black 18%, black 82%, transparent);
+      opacity: .95;
+      mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+      -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
       overflow:hidden;
+      position:relative;
     }
-    .connector::after{
+
+    .railLine::after{
       content:"";
       position:absolute;
-      inset:-60px -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 22px;
+      height: 90px;
+      top: -90px;
+      border-radius: 999px;
       background: linear-gradient(
         to bottom,
         rgba(86,199,255,0),
         rgba(86,199,255,.55),
         rgba(124,92,255,.55),
-        rgba(246,211,101,.40),
+        rgba(246,211,101,.35),
         rgba(86,199,255,0)
       );
       filter: blur(10px);
-      opacity: .65;
-      animation: streamDown 1.8s linear infinite;
+      opacity: .75;
+      animation: railFlow 1.9s linear infinite;
     }
-    @keyframes streamDown{
-      from{ transform: translateY(-50px); }
-      to{ transform: translateY(120px); }
-    }
+    @keyframes railFlow{ to{ top: calc(100% + 90px); } }
 
-    /* desktop split */
-    .splitDesktop{
-      width: 100%;
-      max-width: 740px;
+    .step{
+      grid-column: 1 / -1;
       display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 26px;
-      align-items:start;
-      justify-content:center;
-    }
-
-    /* mobile split becomes vertical (PREVENTS CROPPING) */
-    .splitMobile{
-      display:none;
-      width: 100%;
-      max-width: 520px;
-      flex-direction: column;
+      grid-template-columns: 34px 1fr;
       align-items:center;
-      gap: 34px;
+      gap: 12px 18px;
+      position:relative;
     }
 
-    .bubble.small{
-      --b: clamp(220px, 62vw, 290px);
-      width: var(--b);
-      height: var(--b);
+    .badge{
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display:grid;
+      place-items:center;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      box-shadow:
+        0 18px 60px rgba(0,0,0,.20),
+        0 0 40px rgba(124,92,255,.10);
+      position:relative;
+      transform: translateZ(0);
     }
 
-    /* branch lines desktop only */
-    .splitLines{
-      width: 100%;
-      max-width: 700px;
-      height: 62px;
-      position: relative;
-      margin: 4px 0 -10px;
-      overflow:hidden;
-    }
-    .splitLines::before,
-    .splitLines::after{
+    .badge::before{
       content:"";
       position:absolute;
-      top: 28px;
-      width: 48%;
-      height: 6px;
-      border-radius: 999px;
+      inset:-10px;
+      border-radius:999px;
+      border: 1px dashed rgba(255,255,255,.14);
+      opacity:.9;
+      animation: badgeSpin 10s linear infinite;
+    }
+    @keyframes badgeSpin{ to{ transform: rotate(360deg); } }
+
+    .badge i{
+      width: 10px; height: 10px; border-radius:999px;
+      background: linear-gradient(135deg, rgba(86,199,255,1), rgba(124,92,255,1));
+      box-shadow: 0 0 0 8px rgba(86,199,255,.08);
+    }
+
+    .stepText{
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .stepTitle{
+      margin:0;
+      font-weight: 950;
+      letter-spacing: -.35px;
+      font-size: 16px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.92);
+    }
+
+    .stepDesc{
+      margin: 6px 0 0;
+      color: rgba(255,255,255,.66);
+      font-weight: 700;
+      line-height: 1.55;
+      font-size: 14.2px;
+    }
+
+    /* Split (compact) */
+    .splitV2{
+      margin-top: 14px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      position:relative;
+      padding-left: 52px;
+    }
+
+    .splitV2::before{
+      content:"";
+      position:absolute;
+      left: 17px;
+      top: -26px;
+      width: 6px;
+      height: 26px;
+      border-radius:999px;
       background:
         repeating-linear-gradient(
-          to right,
-          rgba(255,255,255,.0) 0px,
-          rgba(255,255,255,.0) 10px,
-          rgba(255,255,255,.32) 10px,
-          rgba(255,255,255,.32) 18px
+          to bottom,
+          rgba(255,255,255,.00) 0px,
+          rgba(255,255,255,.00) 10px,
+          rgba(255,255,255,.22) 10px,
+          rgba(255,255,255,.22) 18px
         );
-      opacity:.92;
-      mask-image: linear-gradient(to right, transparent, black 18%, black 82%, transparent);
-      -webkit-mask-image: linear-gradient(to right, transparent, black 18%, black 82%, transparent);
+      opacity:.9;
+    }
+
+    .branch{
+      position:relative;
+      border-radius: 18px;
+      padding: 14px 14px 12px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
       overflow:hidden;
     }
-    .splitLines::before{ left: 2%; transform: rotate(-16deg); transform-origin: left center; }
-    .splitLines::after{ right: 2%; transform: rotate(16deg); transform-origin: right center; }
 
-    .splitGlowL, .splitGlowR{
+    .branch::before{
+      content:"";
       position:absolute;
-      top: 9px;
-      width: 18px; height: 18px;
-      border-radius: 999px;
-      box-shadow: 0 0 18px rgba(124,92,255,.26);
-      background: linear-gradient(135deg, rgba(86,199,255,.92), rgba(124,92,255,.90));
-      opacity: .9;
+      inset:-40%;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(86,199,255,.10), transparent 60%),
+        radial-gradient(circle at 70% 60%, rgba(124,92,255,.10), transparent 60%),
+        radial-gradient(circle at 55% 85%, rgba(246,211,101,.08), transparent 65%);
+      filter: blur(16px);
+      opacity:.8;
+      pointer-events:none;
     }
-    .splitGlowL{ left: 12%; animation: branchL 1.9s linear infinite; }
-    .splitGlowR{ right: 12%; animation: branchR 1.9s linear infinite; }
-    @keyframes branchL{
-      0%{ transform: translate3d(0,0,0); opacity:.05; }
-      15%{ opacity:.9; }
-      85%{ opacity:.9; }
-      100%{ transform: translate3d(-210px, 34px, 0); opacity:.05; }
+
+    .branchTop{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      position:relative;
+      z-index:1;
     }
-    @keyframes branchR{
-      0%{ transform: translate3d(0,0,0); opacity:.05; }
-      15%{ opacity:.9; }
-      85%{ opacity:.9; }
-      100%{ transform: translate3d(210px, 34px, 0); opacity:.05; }
+
+    .miniDot{
+      width: 10px; height: 10px; border-radius:999px;
+      background: rgba(255,255,255,.26);
+      box-shadow: 0 0 0 8px rgba(255,255,255,.06);
+    }
+    .branch.good .miniDot{
+      background: linear-gradient(135deg, rgba(86,199,255,1), rgba(124,92,255,1));
+      box-shadow: 0 0 0 8px rgba(86,199,255,.08);
+    }
+    .branch.bad .miniDot{
+      background: rgba(255,255,255,.28);
+      box-shadow: 0 0 0 8px rgba(255,255,255,.06);
+    }
+
+    .branchTitle{
+      margin:0;
+      font-weight: 950;
+      letter-spacing: -.3px;
+      font-size: 15px;
+      color: rgba(255,255,255,.92);
+      text-transform: uppercase;
+    }
+
+    .branchDesc{
+      margin: 8px 0 0;
+      position:relative;
+      z-index:1;
+      color: rgba(255,255,255,.64);
+      font-weight: 750;
+      font-size: 13.8px;
+      line-height: 1.45;
     }
 
     @media (max-width: 740px){
-      .splitLines, .splitDesktop{ display:none; }
-      .splitMobile{ display:flex; }
-      /* more breathing below decision before branches */
-      .flow{ gap: 42px; }
+      .rail{ grid-template-columns: 30px 1fr; gap: 12px 14px; }
+      .badge{ width:30px; height:30px; }
+      .splitV2{
+        grid-template-columns: 1fr;
+        padding-left: 0;
+        gap: 10px;
+      }
+      .splitV2::before{ display:none; }
     }
 
     @media (prefers-reduced-motion: reduce){
-      .connector::after,
-      .bubble::before,
-      .bubble::after,
-      .splitGlowL,
-      .splitGlowR{ animation:none !important; }
+      .railLine::after, .badge::before{ animation:none !important; }
     }
 
-    /* Portfolio / footer (same as before, keep simple) */
+    /* Portfolio */
     .marquee{ position:relative; overflow:hidden; margin-top: 20px; background: transparent; border: none; }
     .marqueeTrack{ display:flex; width:max-content; gap: 26px; padding: 18px 0; animation: marquee 22s linear infinite; }
     .marquee:hover .marqueeTrack{ animation-play-state: paused; }
@@ -769,101 +741,66 @@
             <p class="sysSubtitle">Intention → filtre → décision → routage (ou fermeture propre).</p>
           </div>
 
-          <!-- SYSTEM -->
+          <!-- SYSTEM V2 -->
           <div class="sysStage" aria-label="Système en mouvement">
-            <div class="flow">
+            <div class="flowV2">
+              <div class="rail">
+                <div class="railLine" aria-hidden="true"></div>
 
-              <div class="node">
-                <div class="bubble" aria-hidden="true">
-                  <div class="bubbleInner">
-                    <div class="label">INTENTION</div>
-                    <div class="sub">Demande</div>
+                <div class="step">
+                  <div class="badge" aria-hidden="true"><i></i></div>
+                  <div class="stepText">
+                    <p class="stepTitle">Intention</p>
+                    <p class="stepDesc">Le client dit son besoin. Une phrase suffit.</p>
                   </div>
                 </div>
-                <p class="desc">Une demande claire, captée en une phrase.</p>
-              </div>
 
-              <div class="connector" aria-hidden="true"></div>
-
-              <div class="node">
-                <div class="bubble" aria-hidden="true">
-                  <div class="bubbleInner">
-                    <div class="label">FILTRE</div>
-                    <div class="sub">Questions</div>
+                <div class="step">
+                  <div class="badge" aria-hidden="true"><i></i></div>
+                  <div class="stepText">
+                    <p class="stepTitle">Filtre</p>
+                    <p class="stepDesc">On confirme les infos clés. Zéro flou.</p>
                   </div>
                 </div>
-                <p class="desc">On vérifie les infos clés. Rien de flou.</p>
-              </div>
 
-              <div class="connector" aria-hidden="true"></div>
-
-              <div class="node">
-                <div class="bubble" aria-hidden="true">
-                  <div class="bubbleInner">
-                    <div class="label">QUALIFIÉ ?</div>
-                    <div class="sub">Décision</div>
+                <div class="step">
+                  <div class="badge" aria-hidden="true"><i></i></div>
+                  <div class="stepText">
+                    <p class="stepTitle">Qualification</p>
+                    <p class="stepDesc">Décision nette : qualifié… ou non.</p>
                   </div>
                 </div>
-                <p class="desc">Oui : transfert. Non : fermeture propre.</p>
-              </div>
 
-              <!-- DESKTOP BRANCH -->
-              <div class="splitLines" aria-hidden="true">
-                <span class="splitGlowL"></span>
-                <span class="splitGlowR"></span>
-              </div>
-              <div class="splitDesktop">
-                <div class="node">
-                  <div class="bubble small" aria-hidden="true">
-                    <div class="bubbleInner">
-                      <div class="label">NON</div>
-                      <div class="sub">Refus</div>
+                <div class="step">
+                  <div class="badge" aria-hidden="true"><i></i></div>
+                  <div class="stepText">
+                    <p class="stepTitle">Routage</p>
+                    <p class="stepDesc">Si qualifié : transfert immédiat au partenaire disponible.</p>
+                  </div>
+                </div>
+
+                <div class="splitV2" aria-label="Résultat">
+                  <div class="branch good">
+                    <div class="branchTop">
+                      <span class="miniDot" aria-hidden="true"></span>
+                      <p class="branchTitle">Redirection</p>
                     </div>
+                    <p class="branchDesc">Transfert vers une entreprise prête à agir.</p>
                   </div>
-                  <p class="desc">Poli. Rapide. Sans détour.</p>
+
+                  <div class="branch bad">
+                    <div class="branchTop">
+                      <span class="miniDot" aria-hidden="true"></span>
+                      <p class="branchTitle">Non qualifié</p>
+                    </div>
+                    <p class="branchDesc">Fermeture propre. Pas de perte de temps.</p>
+                  </div>
                 </div>
 
-                <div class="node">
-                  <div class="bubble small" aria-hidden="true">
-                    <div class="bubbleInner">
-                      <div class="label">REDIRECTION</div>
-                      <div class="sub">Entreprise</div>
-                    </div>
-                  </div>
-                  <p class="desc">Transfert vers un partenaire prêt.</p>
-                </div>
               </div>
-
-              <!-- MOBILE BRANCH (VERTICAL, NEVER CROPS) -->
-              <div class="splitMobile" aria-hidden="false">
-                <div class="connector" aria-hidden="true"></div>
-
-                <div class="node">
-                  <div class="bubble small" aria-hidden="true">
-                    <div class="bubbleInner">
-                      <div class="label">REDIRECTION</div>
-                      <div class="sub">Entreprise</div>
-                    </div>
-                  </div>
-                  <p class="desc">Transfert vers un partenaire prêt.</p>
-                </div>
-
-                <div class="connector" aria-hidden="true"></div>
-
-                <div class="node">
-                  <div class="bubble small" aria-hidden="true">
-                    <div class="bubbleInner">
-                      <div class="label">NON</div>
-                      <div class="sub">Refus</div>
-                    </div>
-                  </div>
-                  <p class="desc">Poli. Rapide. Sans détour.</p>
-                </div>
-              </div>
-
             </div>
           </div>
-          <!-- /SYSTEM -->
+          <!-- /SYSTEM V2 -->
         </div>
       </div>
     </div>
