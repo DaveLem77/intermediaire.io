@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Intermediaire.io | Connectez votre besoin à la bonne solution</title>
+  <title>Intermediaire.io | Votre besoin, bien dirigé</title>
   <meta name="description" content="Intermediaire.io vous aide à connecter votre besoin au bon contracteur, simplement et rapidement." />
   <link rel="icon" type="image/png" href="media/logob.png" />
   <link rel="apple-touch-icon" href="media/logob.png" />
@@ -22,18 +22,21 @@
       --line-strong:rgba(18,55,83,.16);
       --accent:#2f80ed;
       --accent2:#64bfff;
-      --accent3:#f0b45a;
       --field-bg:rgba(255,255,255,.84);
       --max:620px;
     }
 
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
+    html,body{
+      margin:0;
+      padding:0;
+      min-height:100%;
+    }
+
     body{
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
       background:linear-gradient(180deg, var(--bg2), var(--bg));
-      min-height:100vh;
       overflow-x:hidden;
       position:relative;
     }
@@ -90,11 +93,12 @@
     .shell{
       position:relative;
       z-index:1;
+      min-height:100svh;
       min-height:100vh;
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:34px 24px;
+      padding:24px 24px;
     }
 
     .formZone{
@@ -107,7 +111,7 @@
       flex-direction:column;
       align-items:center;
       text-align:center;
-      margin-bottom:18px;
+      margin-bottom:16px;
     }
 
     .brandLogo{
@@ -133,7 +137,7 @@
       align-items:center;
       justify-content:center;
       gap:8px;
-      margin:0 0 12px;
+      margin:0 0 10px;
       color:#5c7688;
       font-size:11.5px;
       font-weight:800;
@@ -151,25 +155,16 @@
 
     .formTop{
       text-align:center;
-      margin:0 auto 18px;
-      max-width:520px;
+      margin:0 auto 16px;
+      max-width:420px;
     }
 
     .formTop h1{
-      margin:0 0 10px;
+      margin:0;
       color:var(--title);
-      font-size:clamp(31px, 4vw, 48px);
+      font-size:clamp(29px, 4vw, 42px);
       line-height:1.02;
-      letter-spacing:-1.25px;
-    }
-
-    .formTop p{
-      margin:0 auto;
-      color:var(--muted);
-      font-size:14.5px;
-      line-height:1.6;
-      font-weight:600;
-      max-width:36ch;
+      letter-spacing:-1.2px;
     }
 
     form{
@@ -321,7 +316,7 @@
 
     @media (max-width: 640px){
       .shell{
-        padding:20px 18px;
+        padding:18px 18px;
       }
 
       .brandLogo{
@@ -336,20 +331,16 @@
 
       .miniTag{
         font-size:11px;
-        margin-bottom:10px;
+        margin-bottom:8px;
       }
 
       .formTop{
-        margin-bottom:16px;
+        margin-bottom:14px;
+        max-width:320px;
       }
 
       .formTop h1{
-        font-size:30px;
-      }
-
-      .formTop p{
-        font-size:14px;
-        max-width:31ch;
+        font-size:28px;
       }
 
       .row2{
@@ -394,8 +385,7 @@
       </div>
 
       <div class="formTop">
-        <h1>Connectez votre besoin au bon contracteur</h1>
-        <p>Expliquez votre besoin une seule fois. On vous aide à le diriger vers le bon professionnel de votre région.</p>
+        <h1>Votre besoin, bien dirigé.</h1>
       </div>
 
       <form action="#" method="post">
