@@ -1,13 +1,15 @@
 <!doctype html>
 <html lang="fr">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Intermediaire.io | Toiture</title>
 
-<link rel="icon" type="image/png" href="media/logob.png" />
+<link rel="icon" type="image/png" href="media/logob.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
@@ -25,7 +27,9 @@
 --max:660px;
 }
 
-*{box-sizing:border-box}
+*{
+box-sizing:border-box;
+}
 
 html,body{
 margin:0;
@@ -224,7 +228,9 @@ box-shadow:0 8px 22px rgba(16,44,68,.05);
 outline:none;
 }
 
-input{height:58px;}
+input{
+height:58px;
+}
 
 textarea{
 min-height:118px;
@@ -236,6 +242,8 @@ border-color:rgba(47,128,237,.4);
 box-shadow:0 0 0 4px rgba(47,128,237,.08);
 }
 
+/* checkbox corrigée */
+
 .consent{
 display:flex;
 align-items:flex-start;
@@ -244,10 +252,20 @@ font-size:12px;
 color:#5a7081;
 }
 
-.consent input{
+.consent input[type="checkbox"]{
 width:18px;
 height:18px;
+min-width:18px;
+margin-top:2px;
+cursor:pointer;
 accent-color:var(--accent);
+border:1.5px solid rgba(18,55,83,.25);
+border-radius:4px;
+background:white;
+}
+
+.consent input[type="checkbox"]:hover{
+border-color:var(--accent);
 }
 
 .submitBtn{
@@ -296,15 +314,27 @@ height:26px;
 
 @media(max-width:640px){
 
-.shell{padding:6px 18px 18px;align-items:flex-start;}
+.shell{
+padding:6px 18px 18px;
+align-items:flex-start;
+}
 
-.brandLogo{width:96px;height:96px;}
+.brandLogo{
+width:96px;
+height:96px;
+}
 
-.row2{grid-template-columns:1fr;}
+.row2{
+grid-template-columns:1fr;
+}
 
-.formTop h1{font-size:28px;}
+.formTop h1{
+font-size:28px;
+}
 
-.infoRow{font-size:12px}
+.infoRow{
+font-size:12px;
+}
 
 }
 
@@ -381,7 +411,9 @@ Contracteur local
 
 <div class="consent">
 <input type="checkbox" required>
-<label>Je confirme qu’il s’agit d’un vrai besoin et j’accepte que mes informations soient envoyées à des contracteurs de ma région.</label>
+<label>
+Je confirme qu’il s’agit d’un vrai besoin et j’accepte que mes informations soient envoyées à des contracteurs de ma région.
+</label>
 </div>
 
 <button class="submitBtn">Trouver le bon contracteur</button>
