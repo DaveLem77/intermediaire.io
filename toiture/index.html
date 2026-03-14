@@ -13,50 +13,101 @@
 
   <style>
     :root{
-      --bg:#f6f9fc;
+      --bg:#f5f9fc;
       --bg2:#eef5fb;
-      --text:#183042;
-      --title:#0f2233;
-      --muted:#6b8090;
-      --soft:#8da0ae;
-      --line:rgba(20,56,84,.10);
-      --line-hover:rgba(20,56,84,.16);
+      --text:#173246;
+      --title:#0d2233;
+      --muted:#6d8191;
+      --line:rgba(19,56,83,.10);
+      --line-strong:rgba(19,56,83,.16);
       --accent:#2f80ed;
-      --accent2:#5db8ff;
-      --accent3:#f2b45d;
-      --max:1160px;
+      --accent2:#5fbaff;
+      --accent3:#f0b45a;
+      --white:rgba(255,255,255,.78);
+      --max:1180px;
     }
 
     *{box-sizing:border-box}
     html,body{margin:0;padding:0}
+    html{scroll-behavior:smooth}
+
     body{
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
-      background:
-        radial-gradient(900px 500px at 0% 0%, rgba(93,184,255,.10), transparent 58%),
-        radial-gradient(700px 420px at 100% 0%, rgba(242,180,93,.10), transparent 56%),
-        linear-gradient(180deg, var(--bg2), var(--bg));
+      background:linear-gradient(180deg, var(--bg2), var(--bg));
       overflow-x:hidden;
+      min-height:100vh;
+      position:relative;
+    }
+
+    .bg{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      z-index:0;
+    }
+
+    .orb{
+      position:absolute;
+      border-radius:999px;
+      filter:blur(60px);
+      opacity:.45;
+      animation:float 16s ease-in-out infinite;
+      will-change:transform;
+    }
+
+    .orb1{
+      width:420px;
+      height:420px;
+      left:-120px;
+      top:-80px;
+      background:rgba(95,186,255,.22);
+    }
+
+    .orb2{
+      width:360px;
+      height:360px;
+      right:-100px;
+      top:80px;
+      background:rgba(240,180,90,.16);
+      animation-delay:-5s;
+    }
+
+    .orb3{
+      width:300px;
+      height:300px;
+      left:42%;
+      bottom:-120px;
+      background:rgba(47,128,237,.10);
+      animation-delay:-9s;
+    }
+
+    @keyframes float{
+      0%,100%{transform:translate3d(0,0,0) scale(1)}
+      50%{transform:translate3d(0,-24px,0) scale(1.05)}
     }
 
     .wrap{
       max-width:var(--max);
       margin:0 auto;
-      padding:0 22px;
+      padding:0 34px;
+      position:relative;
+      z-index:1;
     }
 
     .hero{
       min-height:100vh;
       display:flex;
       align-items:center;
-      padding:26px 0;
+      padding:36px 0;
     }
 
     .heroGrid{
       width:100%;
       display:grid;
-      grid-template-columns:minmax(0, 560px) minmax(0, 1fr);
-      gap:56px;
+      grid-template-columns:minmax(0,560px) minmax(0,1fr);
+      gap:72px;
       align-items:center;
     }
 
@@ -68,35 +119,26 @@
       display:flex;
       flex-direction:column;
       align-items:center;
-      justify-content:center;
       text-align:center;
-      margin-bottom:26px;
+      margin-bottom:22px;
     }
 
     .brandLogo{
-      width:90px;
-      height:90px;
+      width:110px;
+      height:110px;
       object-fit:contain;
       display:block;
       margin:0 auto 14px;
+      filter:drop-shadow(0 12px 24px rgba(47,128,237,.10));
     }
 
     .brandName{
+      margin:0;
       color:var(--title);
-      font-size:22px;
+      font-size:24px;
       font-weight:900;
       letter-spacing:-.03em;
       line-height:1;
-      margin:0;
-    }
-
-    .brandSub{
-      margin:7px 0 0;
-      color:var(--muted);
-      font-size:13px;
-      font-weight:700;
-      letter-spacing:.04em;
-      text-transform:uppercase;
     }
 
     .miniTag{
@@ -105,10 +147,10 @@
       justify-content:center;
       gap:8px;
       margin:0 0 14px;
-      color:#5d7687;
-      font-size:12px;
+      color:#5f7889;
+      font-size:11.5px;
       font-weight:800;
-      letter-spacing:.08em;
+      letter-spacing:.10em;
       text-transform:uppercase;
     }
 
@@ -121,14 +163,15 @@
     }
 
     .formTop{
-      text-align:left;
-      margin-bottom:18px;
+      text-align:center;
+      margin:0 auto 20px;
+      max-width:560px;
     }
 
     .formTop h1{
-      margin:0 0 10px;
+      margin:0 0 8px;
       color:var(--title);
-      font-size:clamp(32px, 4vw, 48px);
+      font-size:clamp(30px, 4vw, 46px);
       line-height:1.02;
       letter-spacing:-1.2px;
     }
@@ -136,10 +179,11 @@
     .formTop p{
       margin:0;
       color:var(--muted);
-      font-size:15px;
-      line-height:1.68;
+      font-size:14.5px;
+      line-height:1.6;
       font-weight:600;
-      max-width:50ch;
+      max-width:38ch;
+      margin-inline:auto;
     }
 
     form{
@@ -166,20 +210,21 @@
       width:100%;
       border:1px solid var(--line);
       outline:none;
-      border-radius:16px;
-      padding:15px 15px;
+      border-radius:18px;
+      padding:16px 16px;
       font:inherit;
       color:var(--title);
-      background:rgba(255,255,255,.82);
-      transition:border-color .18s ease, box-shadow .18s ease, background .18s ease;
+      background:var(--white);
+      backdrop-filter:blur(8px);
+      transition:border-color .18s ease, box-shadow .18s ease, background .18s ease, transform .18s ease;
       -webkit-appearance:none;
       appearance:none;
-      backdrop-filter:blur(8px);
     }
 
     input:hover,
     textarea:hover{
-      border-color:var(--line-hover);
+      border-color:var(--line-strong);
+      background:rgba(255,255,255,.88);
     }
 
     input:focus,
@@ -191,11 +236,11 @@
 
     input::placeholder,
     textarea::placeholder{
-      color:#97a8b7;
+      color:#97a8b6;
     }
 
     textarea{
-      min-height:108px;
+      min-height:112px;
       resize:vertical;
       line-height:1.55;
     }
@@ -204,7 +249,7 @@
       margin-top:4px;
       width:100%;
       border:none;
-      border-radius:16px;
+      border-radius:18px;
       padding:17px 18px;
       font-size:16px;
       font-weight:900;
@@ -212,25 +257,25 @@
       color:#fff;
       cursor:pointer;
       background:linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow:0 14px 32px rgba(47,128,237,.18);
+      box-shadow:0 14px 34px rgba(47,128,237,.18);
       transition:transform .15s ease, filter .15s ease, box-shadow .15s ease;
     }
 
     .submitBtn:hover{
       transform:translateY(-1px);
       filter:brightness(1.02);
-      box-shadow:0 16px 36px rgba(47,128,237,.20);
+      box-shadow:0 18px 38px rgba(47,128,237,.20);
     }
 
     .contentCol{
-      padding-top:16px;
+      padding-top:10px;
     }
 
     .eyebrow{
       display:inline-flex;
       align-items:center;
       gap:10px;
-      color:#567287;
+      color:#5a7486;
       font-size:12px;
       font-weight:900;
       text-transform:uppercase;
@@ -249,9 +294,9 @@
     .contentCol h2{
       margin:0 0 14px;
       color:var(--title);
-      font-size:clamp(40px, 5.2vw, 66px);
+      font-size:clamp(42px, 5.2vw, 68px);
       line-height:.96;
-      letter-spacing:-1.7px;
+      letter-spacing:-1.8px;
       max-width:8ch;
     }
 
@@ -261,17 +306,17 @@
       font-size:17px;
       line-height:1.8;
       font-weight:600;
-      max-width:52ch;
+      max-width:50ch;
     }
 
     .points{
-      margin-top:24px;
+      margin-top:26px;
       display:grid;
       gap:12px;
     }
 
     .points div{
-      color:#355168;
+      color:#365168;
       font-size:15px;
       line-height:1.6;
       font-weight:700;
@@ -283,15 +328,15 @@
       margin-right:8px;
     }
 
-    @media (max-width: 940px){
+    @media (max-width: 980px){
       .hero{
         min-height:auto;
-        padding:18px 0 20px;
+        padding:22px 0 24px;
       }
 
       .heroGrid{
         grid-template-columns:1fr;
-        gap:26px;
+        gap:34px;
         align-items:start;
       }
 
@@ -306,25 +351,43 @@
 
     @media (max-width: 640px){
       .wrap{
-        padding:0 14px;
+        padding:0 22px;
       }
 
       .hero{
-        padding:10px 0 18px;
+        padding:16px 0 18px;
+      }
+
+      .brandBlock{
+        margin-bottom:18px;
       }
 
       .brandLogo{
-        width:80px;
-        height:80px;
+        width:96px;
+        height:96px;
         margin-bottom:12px;
       }
 
       .brandName{
-        font-size:20px;
+        font-size:22px;
+      }
+
+      .miniTag{
+        margin-bottom:12px;
+        font-size:11px;
+      }
+
+      .formTop{
+        margin-bottom:18px;
       }
 
       .formTop h1{
         font-size:29px;
+      }
+
+      .formTop p{
+        font-size:14px;
+        max-width:30ch;
       }
 
       .row2{
@@ -332,7 +395,7 @@
       }
 
       .contentCol h2{
-        font-size:clamp(31px, 10vw, 42px);
+        font-size:clamp(32px, 10vw, 42px);
         max-width:none;
       }
 
@@ -342,7 +405,7 @@
       }
 
       textarea{
-        min-height:98px;
+        min-height:100px;
       }
 
       .submitBtn{
@@ -352,6 +415,12 @@
   </style>
 </head>
 <body>
+  <div class="bg" aria-hidden="true">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+  </div>
+
   <main class="hero">
     <div class="wrap">
       <div class="heroGrid">
@@ -360,17 +429,16 @@
           <div class="brandBlock">
             <img class="brandLogo" src="media/logob.png" alt="Logo Intermediaire.io">
             <p class="brandName">Intermediaire.io</p>
-            <p class="brandSub">Demande de soumission toiture</p>
           </div>
 
           <div class="miniTag">
             <span class="miniTagDot"></span>
-            Rapide · simple · efficace
+            Soumission toiture
           </div>
 
           <div class="formTop">
-            <h1>Obtenez une soumission pour vos travaux de toiture</h1>
-            <p>Décrivez votre besoin en moins d’une minute. Réparation, fuite, inspection ou remplacement complet.</p>
+            <h1>Obtenez une soumission rapide</h1>
+            <p>Réparation, fuite, inspection ou remplacement.</p>
           </div>
 
           <form action="#" method="post">
@@ -388,7 +456,7 @@
 
             <div class="row2">
               <div class="field">
-                <label for="telephone">Numéro de téléphone</label>
+                <label for="telephone">Téléphone</label>
                 <input id="telephone" name="telephone" type="tel" inputmode="tel" placeholder="(555) 555-5555" required>
               </div>
 
@@ -399,8 +467,8 @@
             </div>
 
             <div class="field">
-              <label for="travaux">Quels travaux avez-vous besoin ?</label>
-              <textarea id="travaux" name="travaux" placeholder="Ex. : infiltration d’eau, bardeaux abîmés, inspection, réparation ou remplacement du toit..." required></textarea>
+              <label for="travaux">Travaux nécessaires</label>
+              <textarea id="travaux" name="travaux" placeholder="Ex. : fuite, bardeaux abîmés, inspection, réparation ou remplacement du toit..." required></textarea>
             </div>
 
             <button class="submitBtn" type="submit">Envoyer ma demande</button>
@@ -410,19 +478,19 @@
         <section class="contentCol">
           <div class="eyebrow">
             <span class="eyebrowDot"></span>
-            Service orienté toiture
+            Toiture
           </div>
 
-          <h2>Plus simple. Plus beau. Plus direct.</h2>
+          <h2>Plus propre. Plus léger. Plus beau.</h2>
 
           <p class="lead">
-            Le formulaire prend moins de hauteur, garde un style propre et respire davantage. Le branding est mieux placé, plus assumé, et rien ne vient alourdir le bas du formulaire.
+            Le formulaire est recentré, raccourci et allégé visuellement. Le haut est plus net, l’espace mobile est meilleur, et le fond bouge légèrement sans distraire.
           </p>
 
           <div class="points">
-            <div><span>—</span>Logo plus gros et vraiment mis en avant</div>
-            <div><span>—</span>Aucun contenu sous le bouton</div>
-            <div><span>—</span>Formulaire plus compact visuellement</div>
+            <div><span>—</span>Rien sous le formulaire</div>
+            <div><span>—</span>Texte du haut réduit au minimum</div>
+            <div><span>—</span>Animation de fond légère et premium</div>
           </div>
         </section>
 
