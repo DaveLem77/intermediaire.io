@@ -13,45 +13,69 @@
 
   <style>
     :root{
-      --text:#163047;
-      --title:#0f2233;
-      --muted:#5b7285;
-      --soft:#7f94a5;
-      --line:#d8e4ec;
+      --text:#183246;
+      --title:#0d2233;
+      --muted:#647b8d;
+      --soft:#7f93a3;
+      --line:#d8e5ee;
       --card:#ffffff;
-      --bg:#f4f8fb;
-      --bg2:#ecf4f9;
+      --bg:#f3f8fc;
+      --bg2:#edf5fb;
+      --bg3:#f8fbfe;
       --accent:#2f80ed;
-      --accent2:#39a6ff;
-      --accent3:#ffb74d;
-      --ok:#2bb673;
-      --max:1120px;
-      --shadow:0 22px 60px rgba(21,47,71,.10);
-      --radius:24px;
+      --accent2:#58b4ff;
+      --accent3:#f6b24d;
+      --accentDark:#1f63bc;
+      --ok:#28b46e;
+      --max:1180px;
+      --shadow:0 24px 70px rgba(19,47,72,.10);
+      --shadow-soft:0 10px 30px rgba(16,42,67,.06);
+      --radius:28px;
     }
 
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;min-height:100%}
+
     body{
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
       background:
-        radial-gradient(800px 420px at 0% 0%, rgba(57,166,255,.10), transparent 58%),
-        radial-gradient(700px 380px at 100% 0%, rgba(255,183,77,.12), transparent 55%),
+        radial-gradient(900px 500px at 0% 0%, rgba(88,180,255,.14), transparent 56%),
+        radial-gradient(700px 420px at 100% 0%, rgba(246,178,77,.12), transparent 55%),
         linear-gradient(180deg, var(--bg2), var(--bg));
       overflow-x:hidden;
+      position:relative;
     }
 
-    .wrap{max-width:var(--max);margin:0 auto;padding:0 18px}
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.22) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.22) 1px, transparent 1px);
+      background-size:30px 30px;
+      mask-image:linear-gradient(180deg, rgba(0,0,0,.25), transparent 70%);
+      opacity:.28;
+    }
+
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:0 18px;
+      position:relative;
+      z-index:1;
+    }
 
     .hero{
-      padding:18px 0 34px;
+      padding:20px 0 38px;
     }
 
     .heroGrid{
       display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap:26px;
+      grid-template-columns: minmax(0, 560px) minmax(0, 1fr);
+      gap:28px;
       align-items:start;
     }
 
@@ -59,20 +83,120 @@
     .contentCol{order:2}
 
     .formWrap{
-      background:linear-gradient(180deg, #ffffff, #fbfdff);
+      position:relative;
+      background:linear-gradient(180deg, rgba(255,255,255,.97), rgba(250,253,255,.96));
       border:1px solid rgba(47,128,237,.12);
-      border-radius:28px;
+      border-radius:30px;
       box-shadow:var(--shadow);
       overflow:hidden;
+      backdrop-filter: blur(10px);
+      isolation:isolate;
+    }
+
+    .formWrap::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background:
+        radial-gradient(260px 120px at 10% 0%, rgba(88,180,255,.12), transparent 70%),
+        radial-gradient(220px 140px at 100% 0%, rgba(246,178,77,.14), transparent 70%);
+      z-index:0;
+      pointer-events:none;
     }
 
     .formTopBand{
       height:7px;
       background:linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+      position:relative;
+      z-index:1;
     }
 
     .formCard{
+      position:relative;
+      z-index:1;
       padding:22px;
+    }
+
+    .brandBar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:14px 16px;
+      margin-bottom:16px;
+      border-radius:20px;
+      background:linear-gradient(180deg, rgba(245,250,255,.98), rgba(255,255,255,.92));
+      border:1px solid rgba(47,128,237,.10);
+      box-shadow:var(--shadow-soft);
+    }
+
+    .brandLeft{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+
+    .brandLogo{
+      width:48px;
+      height:48px;
+      object-fit:contain;
+      display:block;
+      flex:0 0 auto;
+      border-radius:14px;
+      background:#fff;
+      padding:6px;
+      box-shadow:0 8px 20px rgba(32,77,118,.08);
+      border:1px solid rgba(47,128,237,.08);
+    }
+
+    .brandText{
+      min-width:0;
+    }
+
+    .brandText strong{
+      display:block;
+      color:var(--title);
+      font-size:15px;
+      line-height:1.1;
+      font-weight:900;
+      letter-spacing:-.2px;
+    }
+
+    .brandText span{
+      display:block;
+      margin-top:3px;
+      color:var(--muted);
+      font-size:12.5px;
+      line-height:1.35;
+      font-weight:700;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .brandBadge{
+      flex:0 0 auto;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 12px;
+      border-radius:999px;
+      background:#eef7ff;
+      border:1px solid #dcecff;
+      color:#38607d;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.15px;
+      white-space:nowrap;
+    }
+
+    .brandBadgeDot{
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background:linear-gradient(135deg, var(--ok), #5ed39a);
+      box-shadow:0 0 0 4px rgba(40,180,110,.10);
     }
 
     .roofPills{
@@ -88,8 +212,8 @@
       gap:8px;
       padding:8px 11px;
       border-radius:999px;
-      background:#f2f8fd;
-      border:1px solid #dbeaf5;
+      background:#f3f8fd;
+      border:1px solid #dcebF7;
       color:#436179;
       font-size:12px;
       font-weight:800;
@@ -106,24 +230,24 @@
     .formTop h1{
       margin:0 0 10px;
       color:var(--title);
-      font-size:clamp(28px, 4vw, 40px);
-      line-height:1.04;
-      letter-spacing:-.9px;
+      font-size:clamp(30px, 4vw, 42px);
+      line-height:1.02;
+      letter-spacing:-1px;
     }
 
     .formTop p{
       margin:0;
       color:var(--muted);
       font-size:15px;
-      line-height:1.62;
+      line-height:1.65;
       font-weight:600;
       max-width:56ch;
     }
 
     form{
       display:grid;
-      gap:12px;
-      margin-top:18px;
+      gap:13px;
+      margin-top:20px;
     }
 
     .row2{
@@ -137,34 +261,46 @@
       margin:0 0 7px;
       font-size:13.5px;
       font-weight:800;
-      color:#29455d;
+      color:#28455d;
+      letter-spacing:.1px;
+    }
+
+    .inputWrap{
+      position:relative;
     }
 
     input,textarea{
       width:100%;
       border:1px solid var(--line);
       outline:none;
-      border-radius:16px;
-      padding:15px 15px;
+      border-radius:18px;
+      padding:16px 16px;
       font:inherit;
       color:var(--title);
-      background:#fff;
-      transition:border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+      background:linear-gradient(180deg, #ffffff, #fbfdff);
+      transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease, background .18s ease;
       -webkit-appearance:none;
       appearance:none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.75);
     }
 
     textarea{
-      min-height:126px;
+      min-height:136px;
       resize:vertical;
       line-height:1.58;
     }
 
-    input::placeholder,textarea::placeholder{color:#97a9b8}
+    input::placeholder,textarea::placeholder{
+      color:#9aabba;
+    }
+
+    input:hover,textarea:hover{
+      border-color:#c6dceb;
+    }
 
     input:focus,textarea:focus{
-      border-color:rgba(47,128,237,.55);
-      box-shadow:0 0 0 4px rgba(47,128,237,.10);
+      border-color:rgba(47,128,237,.58);
+      box-shadow:0 0 0 5px rgba(47,128,237,.10);
       background:#fff;
     }
 
@@ -172,18 +308,42 @@
       margin-top:6px;
       width:100%;
       border:none;
-      border-radius:17px;
+      border-radius:18px;
       padding:18px 18px;
       font-size:17px;
       font-weight:900;
       color:#fff;
       cursor:pointer;
       background:linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow:0 18px 36px rgba(47,128,237,.20);
-      transition:transform .15s ease, filter .15s ease;
+      box-shadow:0 18px 36px rgba(47,128,237,.22);
+      transition:transform .15s ease, filter .15s ease, box-shadow .15s ease;
+      letter-spacing:-.2px;
     }
 
-    .submitBtn:hover{transform:translateY(-1px);filter:brightness(1.03)}
+    .submitBtn:hover{
+      transform:translateY(-1px);
+      filter:brightness(1.03);
+      box-shadow:0 22px 42px rgba(47,128,237,.25);
+    }
+
+    .trustRow{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .trustItem{
+      padding:12px 10px;
+      border-radius:16px;
+      text-align:center;
+      background:#f7fbff;
+      border:1px solid #deebf5;
+      color:#557185;
+      font-size:12px;
+      font-weight:800;
+      line-height:1.35;
+    }
 
     .microTrust{
       margin-top:12px;
@@ -195,18 +355,18 @@
     }
 
     .contentCol{
-      padding-top:8px;
+      padding-top:10px;
     }
 
     .eyebrow{
       display:inline-flex;
       align-items:center;
       gap:10px;
-      padding:8px 12px;
+      padding:9px 13px;
       border-radius:999px;
-      background:rgba(255,255,255,.72);
+      background:rgba(255,255,255,.82);
       border:1px solid rgba(47,128,237,.10);
-      color:#4e6b82;
+      color:#4d6c83;
       font-size:12px;
       font-weight:900;
       text-transform:uppercase;
@@ -224,23 +384,56 @@
     .contentCol h2{
       margin:16px 0 12px;
       color:var(--title);
-      font-size:clamp(34px, 5.2vw, 58px);
-      line-height:1.02;
-      letter-spacing:-1.1px;
-      max-width:10ch;
+      font-size:clamp(36px, 5.1vw, 60px);
+      line-height:1.01;
+      letter-spacing:-1.3px;
+      max-width:11ch;
     }
 
     .contentCol .lead{
       margin:0;
       color:var(--muted);
       font-size:17px;
-      line-height:1.72;
+      line-height:1.75;
       font-weight:600;
       max-width:58ch;
     }
 
-    .benefits{
+    .statsRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
       margin-top:22px;
+    }
+
+    .statCard{
+      min-width:150px;
+      padding:16px 16px;
+      border-radius:20px;
+      background:rgba(255,255,255,.76);
+      border:1px solid rgba(47,128,237,.10);
+      box-shadow:0 10px 28px rgba(21,47,71,.05);
+    }
+
+    .statCard strong{
+      display:block;
+      color:var(--title);
+      font-size:24px;
+      line-height:1;
+      letter-spacing:-.8px;
+      font-weight:900;
+      margin-bottom:7px;
+    }
+
+    .statCard span{
+      color:#607688;
+      font-size:13px;
+      line-height:1.45;
+      font-weight:700;
+    }
+
+    .benefits{
+      margin-top:18px;
       display:grid;
       gap:12px;
     }
@@ -248,29 +441,32 @@
     .benefit{
       display:flex;
       align-items:flex-start;
-      gap:12px;
+      gap:13px;
       padding:16px 16px;
-      border-radius:18px;
-      background:rgba(255,255,255,.72);
+      border-radius:20px;
+      background:rgba(255,255,255,.78);
       border:1px solid rgba(47,128,237,.10);
       box-shadow:0 10px 28px rgba(21,47,71,.05);
     }
 
     .benefitIcon{
-      width:18px;
-      height:18px;
+      width:22px;
+      height:22px;
       flex:0 0 auto;
       position:relative;
       margin-top:2px;
+      border-radius:999px;
+      background:linear-gradient(135deg, rgba(40,180,110,.12), rgba(40,180,110,.05));
+      border:1px solid rgba(40,180,110,.16);
     }
 
     .benefitIcon::after{
       content:"";
       position:absolute;
-      left:4px;
-      top:2px;
-      width:7px;
-      height:12px;
+      left:7px;
+      top:4px;
+      width:6px;
+      height:10px;
       border-right:3px solid var(--ok);
       border-bottom:3px solid var(--ok);
       transform:rotate(40deg);
@@ -292,12 +488,19 @@
       font-weight:650;
     }
 
-    @media (max-width: 920px){
-      .hero{padding:10px 0 24px}
-      .heroGrid{grid-template-columns:1fr;gap:18px}
+    @media (max-width: 980px){
+      .hero{
+        padding:12px 0 24px;
+      }
+
+      .heroGrid{
+        grid-template-columns:1fr;
+        gap:18px;
+      }
+
       .formCol{order:1}
       .contentCol{order:2;padding-top:0}
-      .contentCol h2{max-width:12ch}
+      .contentCol h2{max-width:13ch}
     }
 
     @media (max-width: 640px){
@@ -305,13 +508,50 @@
       .hero{padding:8px 0 18px}
       .formCard{padding:16px}
       .row2{grid-template-columns:1fr}
-      .formTop h1{font-size:26px}
-      .contentCol h2{font-size:clamp(28px, 10vw, 40px);max-width:none}
-      .contentCol .lead{font-size:15.5px;line-height:1.65}
-      .benefit{padding:14px 14px}
-      .pill{font-size:11.5px;padding:7px 10px}
-      textarea{min-height:112px}
-      .submitBtn{padding:17px 16px;font-size:16px}
+      .brandBar{
+        padding:12px;
+        gap:10px;
+        align-items:flex-start;
+        flex-direction:column;
+      }
+      .brandBadge{
+        align-self:flex-start;
+      }
+      .brandLogo{
+        width:44px;
+        height:44px;
+      }
+      .formTop h1{
+        font-size:27px;
+      }
+      .contentCol h2{
+        font-size:clamp(28px, 10vw, 40px);
+        max-width:none;
+      }
+      .contentCol .lead{
+        font-size:15.5px;
+        line-height:1.66;
+      }
+      .benefit{
+        padding:14px 14px;
+      }
+      .pill{
+        font-size:11.5px;
+        padding:7px 10px;
+      }
+      textarea{
+        min-height:112px;
+      }
+      .submitBtn{
+        padding:17px 16px;
+        font-size:16px;
+      }
+      .trustRow{
+        grid-template-columns:1fr;
+      }
+      .statCard{
+        flex:1 1 100%;
+      }
     }
   </style>
 </head>
@@ -319,87 +559,146 @@
   <main class="hero">
     <div class="wrap">
       <div class="heroGrid">
+
         <section class="formCol">
           <div class="formWrap" aria-label="Formulaire toiture en premier écran">
             <div class="formTopBand"></div>
+
             <div class="formCard">
+              <div class="brandBar">
+                <div class="brandLeft">
+                  <img class="brandLogo" src="media/logob.png" alt="Logo Intermediaire.io">
+                  <div class="brandText">
+                    <strong>Intermediaire.io</strong>
+                    <span>Demande de soumission en toiture</span>
+                  </div>
+                </div>
+
+                <div class="brandBadge">
+                  <span class="brandBadgeDot"></span>
+                  Service simple et rapide
+                </div>
+              </div>
+
               <div class="roofPills">
                 <span class="pill"><span class="pillDot"></span>Toiture</span>
-                <span class="pill"><span class="pillDot"></span>Demande rapide</span>
-                <span class="pill"><span class="pillDot"></span>Formulaire simple</span>
+                <span class="pill"><span class="pillDot"></span>Réponse rapide</span>
+                <span class="pill"><span class="pillDot"></span>Sans complication</span>
               </div>
 
               <div class="formTop">
                 <h1>Obtenez une soumission pour vos travaux de toiture</h1>
-                <p>Expliquez votre besoin en moins d’une minute. Réparation, fuite, inspection ou remplacement complet.</p>
+                <p>Décrivez votre besoin en moins d’une minute. Fuite, réparation, inspection ou remplacement complet — nous vous aidons à démarrer rapidement.</p>
               </div>
 
               <form action="#" method="post">
                 <div class="row2">
                   <div>
                     <label for="prenom">Prénom</label>
-                    <input id="prenom" name="prenom" type="text" placeholder="Votre prénom" required>
+                    <div class="inputWrap">
+                      <input id="prenom" name="prenom" type="text" placeholder="Votre prénom" required>
+                    </div>
                   </div>
+
                   <div>
                     <label for="nom">Nom</label>
-                    <input id="nom" name="nom" type="text" placeholder="Votre nom" required>
+                    <div class="inputWrap">
+                      <input id="nom" name="nom" type="text" placeholder="Votre nom" required>
+                    </div>
                   </div>
                 </div>
 
                 <div>
                   <label for="telephone">Numéro de téléphone</label>
-                  <input id="telephone" name="telephone" type="tel" inputmode="tel" placeholder="(555) 555-5555" required>
+                  <div class="inputWrap">
+                    <input id="telephone" name="telephone" type="tel" inputmode="tel" placeholder="(555) 555-5555" required>
+                  </div>
                 </div>
 
                 <div>
                   <label for="courriel">Courriel</label>
-                  <input id="courriel" name="courriel" type="email" placeholder="vous@exemple.com" required>
+                  <div class="inputWrap">
+                    <input id="courriel" name="courriel" type="email" placeholder="vous@exemple.com" required>
+                  </div>
                 </div>
 
                 <div>
                   <label for="travaux">Quels travaux avez-vous besoin ?</label>
-                  <textarea id="travaux" name="travaux" placeholder="Ex. : infiltration d’eau, bardeaux abîmés, inspection, réparation ou remplacement du toit..." required></textarea>
+                  <div class="inputWrap">
+                    <textarea id="travaux" name="travaux" placeholder="Ex. : infiltration d’eau, bardeaux abîmés, réparation urgente, inspection ou remplacement du toit..." required></textarea>
+                  </div>
                 </div>
 
                 <button class="submitBtn" type="submit">Envoyer ma demande</button>
               </form>
 
-              <div class="microTrust">Vos informations servent uniquement à traiter votre demande de soumission.</div>
+              <div class="trustRow">
+                <div class="trustItem">Formulaire rapide à remplir</div>
+                <div class="trustItem">Demande claire et professionnelle</div>
+                <div class="trustItem">Vos infos restent confidentielles</div>
+              </div>
+
+              <div class="microTrust">
+                Vos informations servent uniquement à traiter votre demande de soumission.
+              </div>
             </div>
           </div>
         </section>
 
         <section class="contentCol">
-          <div class="eyebrow"><span class="eyebrowDot"></span> Service orienté toiture</div>
-          <h2>Simple, clair, pensé pour rassurer.</h2>
-          <p class="lead">Le formulaire est placé en premier pour que le visiteur comprenne tout de suite quoi faire. Le style est plus lumineux, plus propre sur mobile, et davantage axé sur les vrais besoins en toiture.</p>
+          <div class="eyebrow">
+            <span class="eyebrowDot"></span>
+            Service orienté toiture
+          </div>
+
+          <h2>Une première impression qui inspire confiance.</h2>
+
+          <p class="lead">
+            Le formulaire est immédiatement visible, le design est plus propre, plus lumineux et beaucoup plus rassurant. L’objectif est que la personne comprenne instantanément qu’elle est au bon endroit pour demander une soumission de toiture.
+          </p>
+
+          <div class="statsRow">
+            <div class="statCard">
+              <strong>1 min</strong>
+              <span>Pour remplir la demande</span>
+            </div>
+            <div class="statCard">
+              <strong>Clair</strong>
+              <span>Chaque champ va droit au but</span>
+            </div>
+            <div class="statCard">
+              <strong>Mobile</strong>
+              <span>Optimisé pour téléphone</span>
+            </div>
+          </div>
 
           <div class="benefits">
             <div class="benefit">
               <span class="benefitIcon" aria-hidden="true"></span>
               <div>
-                <strong>Axé toiture</strong>
-                <span>Le texte parle directement de fuite, réparation, inspection et remplacement de toit.</span>
+                <strong>Logo bien placé</strong>
+                <span>Le branding Intermediaire.io est visible dès le haut du formulaire pour donner une présence plus sérieuse et mémorable.</span>
               </div>
             </div>
 
             <div class="benefit">
               <span class="benefitIcon" aria-hidden="true"></span>
               <div>
-                <strong>Confiance visuelle</strong>
-                <span>Palette plus claire, carte blanche, champs propres et ambiance moins agressive que le thème sombre.</span>
+                <strong>Plus premium</strong>
+                <span>Meilleures cartes, meilleures ombres, meilleurs espacements et une hiérarchie visuelle plus forte pour inspirer confiance rapidement.</span>
               </div>
             </div>
 
             <div class="benefit">
               <span class="benefitIcon" aria-hidden="true"></span>
               <div>
-                <strong>Beau sur mobile</strong>
-                <span>Le formulaire passe en premier, prend toute la largeur et reste simple à lire et remplir sur téléphone.</span>
+                <strong>Plus rassurant</strong>
+                <span>Le formulaire reste simple et léger visuellement, sans faire peur au visiteur ni lui donner l’impression que c’est compliqué.</span>
               </div>
             </div>
           </div>
         </section>
+
       </div>
     </div>
   </main>
