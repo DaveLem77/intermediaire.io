@@ -27,9 +27,7 @@
 --max:660px;
 }
 
-*{
-box-sizing:border-box;
-}
+*{box-sizing:border-box;}
 
 html,body{
 margin:0;
@@ -44,6 +42,8 @@ color:var(--text);
 overflow-x:hidden;
 position:relative;
 }
+
+/* background animation */
 
 .bg{
 position:fixed;
@@ -60,8 +60,8 @@ background:
 radial-gradient(circle at 15% 20%, rgba(105,194,255,.18), transparent 18%),
 radial-gradient(circle at 85% 20%, rgba(240,180,90,.15), transparent 16%),
 radial-gradient(circle at 50% 85%, rgba(47,128,237,.10), transparent 18%);
-filter:blur(20px);
-animation:meshMove 16s ease-in-out infinite alternate;
+filter:blur(22px);
+animation:meshMove 18s ease-in-out infinite alternate;
 opacity:.9;
 }
 
@@ -78,7 +78,7 @@ height:420px;
 left:-100px;
 top:-90px;
 background:rgba(105,194,255,.20);
-animation:floatA 12s ease-in-out infinite;
+animation:floatA 14s ease-in-out infinite;
 }
 
 .orb2{
@@ -87,7 +87,7 @@ height:320px;
 right:-70px;
 top:120px;
 background:rgba(240,180,90,.15);
-animation:floatB 14s ease-in-out infinite;
+animation:floatB 16s ease-in-out infinite;
 }
 
 .orb3{
@@ -96,28 +96,30 @@ height:300px;
 left:45%;
 bottom:-120px;
 background:rgba(47,128,237,.12);
-animation:floatC 16s ease-in-out infinite;
+animation:floatC 20s ease-in-out infinite;
 }
 
 @keyframes floatA{
 0%,100%{transform:translate3d(0,0,0)}
-50%{transform:translate3d(26px,-18px,0)}
+50%{transform:translate3d(28px,-20px,0)}
 }
 
 @keyframes floatB{
 0%,100%{transform:translate3d(0,0,0)}
-50%{transform:translate3d(-20px,22px,0)}
+50%{transform:translate3d(-24px,20px,0)}
 }
 
 @keyframes floatC{
 0%,100%{transform:translate3d(0,0,0)}
-50%{transform:translate3d(16px,-20px,0)}
+50%{transform:translate3d(20px,-18px,0)}
 }
 
 @keyframes meshMove{
 0%{transform:translateY(0)}
-100%{transform:translateY(-16px)}
+100%{transform:translateY(-20px)}
 }
+
+/* layout */
 
 .shell{
 position:relative;
@@ -134,6 +136,8 @@ width:100%;
 max-width:var(--max);
 }
 
+/* logo animation */
+
 .brandBlock{
 display:flex;
 flex-direction:column;
@@ -148,6 +152,12 @@ height:108px;
 object-fit:contain;
 margin-bottom:10px;
 filter:drop-shadow(0 14px 28px rgba(47,128,237,.12));
+animation:logoFloat 6s ease-in-out infinite;
+}
+
+@keyframes logoFloat{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-6px)}
 }
 
 .brandName{
@@ -156,6 +166,8 @@ font-size:23px;
 font-weight:900;
 color:var(--title);
 }
+
+/* badge */
 
 .miniTag{
 width:max-content;
@@ -169,7 +181,15 @@ font-weight:800;
 letter-spacing:.1em;
 text-transform:uppercase;
 color:#4f6a7c;
+animation:badgePulse 5s ease-in-out infinite;
 }
+
+@keyframes badgePulse{
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.04)}
+}
+
+/* header */
 
 .formTop{
 text-align:center;
@@ -183,6 +203,8 @@ line-height:1.1;
 color:var(--title);
 letter-spacing:-1px;
 }
+
+/* icons row */
 
 .infoRow{
 display:flex;
@@ -203,7 +225,15 @@ gap:6px;
 .infoIcon{
 width:16px;
 height:16px;
+animation:iconFloat 4s ease-in-out infinite;
 }
+
+@keyframes iconFloat{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-2px)}
+}
+
+/* form */
 
 form{
 display:grid;
@@ -226,11 +256,10 @@ font-weight:600;
 background:var(--field-bg);
 box-shadow:0 8px 22px rgba(16,44,68,.05);
 outline:none;
+transition:all .25s ease;
 }
 
-input{
-height:58px;
-}
+input{height:58px;}
 
 textarea{
 min-height:118px;
@@ -240,9 +269,10 @@ resize:vertical;
 input:focus,textarea:focus{
 border-color:rgba(47,128,237,.4);
 box-shadow:0 0 0 4px rgba(47,128,237,.08);
+transform:translateY(-1px);
 }
 
-/* checkbox corrigée */
+/* checkbox améliorée */
 
 .consent{
 display:flex;
@@ -259,14 +289,17 @@ min-width:18px;
 margin-top:2px;
 cursor:pointer;
 accent-color:var(--accent);
-border:1.5px solid rgba(18,55,83,.25);
+border:1px solid rgba(18,55,83,.18);
 border-radius:4px;
 background:white;
+transition:.2s;
 }
 
 .consent input[type="checkbox"]:hover{
 border-color:var(--accent);
 }
+
+/* button */
 
 .submitBtn{
 margin-top:2px;
@@ -282,7 +315,7 @@ background:linear-gradient(135deg,var(--accent),var(--accent2));
 box-shadow:0 18px 40px rgba(47,128,237,.20);
 position:relative;
 overflow:hidden;
-animation:buttonBreath 3.4s ease-in-out infinite;
+animation:buttonBreath 3.6s ease-in-out infinite;
 }
 
 .submitBtn::before{
@@ -294,7 +327,7 @@ width:70%;
 height:100%;
 background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
 transform:skewX(-20deg);
-animation:shine 3.8s infinite;
+animation:shine 4s infinite;
 }
 
 @keyframes shine{
@@ -311,6 +344,8 @@ animation:shine 3.8s infinite;
 .bottomSpace{
 height:26px;
 }
+
+/* mobile */
 
 @media(max-width:640px){
 
