@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Soumission toiture | Intermediaire.io</title>
-  <meta name="description" content="Recevez rapidement une soumission pour vos travaux de toiture." />
+  <title>Intermediaire.io | Connectez votre besoin à la bonne solution</title>
+  <meta name="description" content="Intermediaire.io vous aide à connecter votre besoin au bon contracteur, simplement et rapidement." />
   <link rel="icon" type="image/png" href="media/logob.png" />
   <link rel="apple-touch-icon" href="media/logob.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,17 +14,17 @@
   <style>
     :root{
       --bg:#f5f9fc;
-      --bg2:#eef5fb;
-      --text:#173246;
+      --bg2:#edf5fb;
+      --text:#183246;
       --title:#0d2233;
-      --muted:#6d8191;
-      --line:rgba(19,56,83,.10);
-      --line-strong:rgba(19,56,83,.16);
+      --muted:#6c8191;
+      --line:rgba(18,55,83,.10);
+      --line-strong:rgba(18,55,83,.16);
       --accent:#2f80ed;
-      --accent2:#67c0ff;
+      --accent2:#64bfff;
       --accent3:#f0b45a;
-      --white:rgba(255,255,255,.80);
-      --max:1180px;
+      --field-bg:rgba(255,255,255,.84);
+      --max:620px;
     }
 
     *{box-sizing:border-box}
@@ -33,8 +33,8 @@
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
       background:linear-gradient(180deg, var(--bg2), var(--bg));
-      overflow-x:hidden;
       min-height:100vh;
+      overflow-x:hidden;
       position:relative;
     }
 
@@ -49,8 +49,8 @@
     .orb{
       position:absolute;
       border-radius:999px;
-      filter:blur(60px);
-      opacity:.42;
+      filter:blur(64px);
+      opacity:.40;
       animation:float 16s ease-in-out infinite;
       will-change:transform;
     }
@@ -60,23 +60,24 @@
       height:430px;
       left:-120px;
       top:-90px;
-      background:rgba(103,192,255,.20);
+      background:rgba(100,191,255,.22);
     }
 
     .orb2{
       width:340px;
       height:340px;
       right:-90px;
-      top:100px;
+      top:90px;
       background:rgba(240,180,90,.14);
       animation-delay:-5s;
     }
 
     .orb3{
-      width:290px;
-      height:290px;
-      left:45%;
+      width:280px;
+      height:280px;
+      left:50%;
       bottom:-120px;
+      transform:translateX(-50%);
       background:rgba(47,128,237,.10);
       animation-delay:-9s;
     }
@@ -86,31 +87,19 @@
       50%{transform:translate3d(0,-22px,0) scale(1.04)}
     }
 
-    .wrap{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:0 36px;
+    .shell{
       position:relative;
       z-index:1;
-    }
-
-    .hero{
       min-height:100vh;
       display:flex;
       align-items:center;
-      padding:34px 0;
+      justify-content:center;
+      padding:34px 24px;
     }
 
-    .heroGrid{
+    .formZone{
       width:100%;
-      display:grid;
-      grid-template-columns:minmax(0,560px) minmax(0,1fr);
-      gap:72px;
-      align-items:center;
-    }
-
-    .formCol{
-      width:100%;
+      max-width:var(--max);
     }
 
     .brandBlock{
@@ -122,12 +111,12 @@
     }
 
     .brandLogo{
-      width:116px;
-      height:116px;
+      width:118px;
+      height:118px;
       object-fit:contain;
       display:block;
       margin:0 auto 14px;
-      filter:drop-shadow(0 14px 26px rgba(47,128,237,.10));
+      filter:drop-shadow(0 14px 30px rgba(47,128,237,.10));
     }
 
     .brandName{
@@ -135,8 +124,8 @@
       color:var(--title);
       font-size:24px;
       font-weight:900;
-      letter-spacing:-.03em;
       line-height:1;
+      letter-spacing:-.03em;
     }
 
     .miniTag{
@@ -145,7 +134,7 @@
       justify-content:center;
       gap:8px;
       margin:0 0 12px;
-      color:#5f7889;
+      color:#5c7688;
       font-size:11.5px;
       font-weight:800;
       letter-spacing:.10em;
@@ -162,26 +151,25 @@
 
     .formTop{
       text-align:center;
-      margin:0 auto 16px;
-      max-width:540px;
+      margin:0 auto 18px;
+      max-width:520px;
     }
 
     .formTop h1{
-      margin:0 0 8px;
+      margin:0 0 10px;
       color:var(--title);
-      font-size:clamp(30px, 4vw, 46px);
+      font-size:clamp(31px, 4vw, 48px);
       line-height:1.02;
-      letter-spacing:-1.2px;
+      letter-spacing:-1.25px;
     }
 
     .formTop p{
-      margin:0;
+      margin:0 auto;
       color:var(--muted);
       font-size:14.5px;
-      line-height:1.58;
+      line-height:1.6;
       font-weight:600;
-      max-width:34ch;
-      margin-inline:auto;
+      max-width:36ch;
     }
 
     form{
@@ -195,10 +183,6 @@
       gap:10px;
     }
 
-    .field{
-      position:relative;
-    }
-
     input, textarea{
       width:100%;
       border:1px solid var(--line);
@@ -209,8 +193,11 @@
       font-size:15px;
       font-weight:600;
       color:var(--title);
-      background:var(--white);
+      background:var(--field-bg);
       backdrop-filter:blur(8px);
+      box-shadow:
+        0 6px 18px rgba(16,44,68,.05),
+        0 1px 0 rgba(255,255,255,.70) inset;
       transition:border-color .18s ease, box-shadow .18s ease, background .18s ease, transform .18s ease;
       -webkit-appearance:none;
       appearance:none;
@@ -229,14 +216,19 @@
     input:hover,
     textarea:hover{
       border-color:var(--line-strong);
-      background:rgba(255,255,255,.88);
+      background:rgba(255,255,255,.90);
+      box-shadow:
+        0 10px 22px rgba(16,44,68,.07),
+        0 1px 0 rgba(255,255,255,.78) inset;
     }
 
     input:focus,
     textarea:focus{
       border-color:rgba(47,128,237,.42);
-      box-shadow:0 0 0 4px rgba(47,128,237,.08);
       background:#fff;
+      box-shadow:
+        0 10px 26px rgba(47,128,237,.10),
+        0 0 0 4px rgba(47,128,237,.08);
     }
 
     input::placeholder,
@@ -245,32 +237,32 @@
       font-weight:600;
     }
 
-    .confirmWrap{
+    .consent{
       display:flex;
       align-items:flex-start;
-      gap:12px;
+      gap:10px;
       margin-top:2px;
-      padding:6px 2px 2px;
+      padding:2px 2px 0;
     }
 
-    .confirmWrap input[type="checkbox"]{
-      width:20px;
-      height:20px;
-      min-width:20px;
+    .consent input[type="checkbox"]{
+      width:18px;
+      height:18px;
+      min-width:18px;
       margin:2px 0 0;
       padding:0;
-      border-radius:6px;
+      border-radius:5px;
       accent-color:var(--accent);
       box-shadow:none;
       background:#fff;
       cursor:pointer;
     }
 
-    .confirmWrap label{
+    .consent label{
       margin:0;
-      color:#4d6578;
-      font-size:13.5px;
-      line-height:1.5;
+      color:#5a7081;
+      font-size:12px;
+      line-height:1.45;
       font-weight:600;
       cursor:pointer;
     }
@@ -289,7 +281,7 @@
       color:#fff;
       cursor:pointer;
       background:linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow:0 14px 34px rgba(47,128,237,.18);
+      box-shadow:0 16px 36px rgba(47,128,237,.18);
       transition:transform .16s ease, filter .16s ease, box-shadow .16s ease;
       animation:buttonBreath 3.4s ease-in-out infinite;
     }
@@ -299,7 +291,7 @@
       position:absolute;
       top:0;
       left:-120%;
-      width:70%;
+      width:68%;
       height:100%;
       background:linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
       transform:skewX(-20deg);
@@ -309,7 +301,11 @@
     .submitBtn:hover{
       transform:translateY(-1px);
       filter:brightness(1.03);
-      box-shadow:0 18px 40px rgba(47,128,237,.22);
+      box-shadow:0 20px 42px rgba(47,128,237,.22);
+    }
+
+    .submitBtn:active{
+      transform:translateY(0);
     }
 
     @keyframes shine{
@@ -319,108 +315,18 @@
     }
 
     @keyframes buttonBreath{
-      0%,100%{box-shadow:0 14px 34px rgba(47,128,237,.18)}
-      50%{box-shadow:0 18px 40px rgba(47,128,237,.24)}
-    }
-
-    .contentCol{
-      padding-top:10px;
-    }
-
-    .eyebrow{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      color:#5a7486;
-      font-size:12px;
-      font-weight:900;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      margin-bottom:14px;
-    }
-
-    .eyebrowDot{
-      width:7px;
-      height:7px;
-      border-radius:999px;
-      background:linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow:0 0 0 6px rgba(47,128,237,.08);
-    }
-
-    .contentCol h2{
-      margin:0 0 14px;
-      color:var(--title);
-      font-size:clamp(42px, 5.2vw, 68px);
-      line-height:.96;
-      letter-spacing:-1.8px;
-      max-width:8ch;
-    }
-
-    .lead{
-      margin:0;
-      color:var(--muted);
-      font-size:17px;
-      line-height:1.8;
-      font-weight:600;
-      max-width:50ch;
-    }
-
-    .points{
-      margin-top:26px;
-      display:grid;
-      gap:12px;
-    }
-
-    .points div{
-      color:#365168;
-      font-size:15px;
-      line-height:1.6;
-      font-weight:700;
-    }
-
-    .points span{
-      color:var(--accent);
-      font-weight:900;
-      margin-right:8px;
-    }
-
-    @media (max-width: 980px){
-      .hero{
-        min-height:auto;
-        padding:22px 0 24px;
-      }
-
-      .heroGrid{
-        grid-template-columns:1fr;
-        gap:34px;
-        align-items:start;
-      }
-
-      .contentCol{
-        padding-top:0;
-      }
-
-      .contentCol h2{
-        max-width:12ch;
-      }
+      0%,100%{box-shadow:0 16px 36px rgba(47,128,237,.18)}
+      50%{box-shadow:0 20px 42px rgba(47,128,237,.24)}
     }
 
     @media (max-width: 640px){
-      .wrap{
-        padding:0 22px;
-      }
-
-      .hero{
-        padding:16px 0 18px;
-      }
-
-      .brandBlock{
-        margin-bottom:16px;
+      .shell{
+        padding:20px 18px;
       }
 
       .brandLogo{
-        width:102px;
-        height:102px;
+        width:104px;
+        height:104px;
         margin-bottom:12px;
       }
 
@@ -429,21 +335,21 @@
       }
 
       .miniTag{
-        margin-bottom:10px;
         font-size:11px;
+        margin-bottom:10px;
       }
 
       .formTop{
-        margin-bottom:14px;
+        margin-bottom:16px;
       }
 
       .formTop h1{
-        font-size:29px;
+        font-size:30px;
       }
 
       .formTop p{
         font-size:14px;
-        max-width:28ch;
+        max-width:31ch;
       }
 
       .row2{
@@ -458,14 +364,8 @@
         min-height:108px;
       }
 
-      .contentCol h2{
-        font-size:clamp(32px, 10vw, 42px);
-        max-width:none;
-      }
-
-      .lead{
-        font-size:15.5px;
-        line-height:1.7;
+      .consent label{
+        font-size:11.5px;
       }
 
       .submitBtn{
@@ -481,66 +381,46 @@
     <div class="orb orb3"></div>
   </div>
 
-  <main class="hero">
-    <div class="wrap">
-      <div class="heroGrid">
-
-        <section class="formCol">
-          <div class="brandBlock">
-            <img class="brandLogo" src="media/logob.png" alt="Logo Intermediaire.io">
-            <p class="brandName">Intermediaire.io</p>
-          </div>
-
-          <div class="miniTag">
-            <span class="miniTagDot"></span>
-            Soumission toiture
-          </div>
-
-          <div class="formTop">
-            <h1>Obtenez une soumission rapide</h1>
-            <p>Réparation, fuite, inspection ou remplacement.</p>
-          </div>
-
-          <form action="#" method="post">
-            <div class="row2">
-              <div class="field">
-                <input id="prenom" name="prenom" type="text" placeholder="Prénom" required>
-              </div>
-
-              <div class="field">
-                <input id="nom" name="nom" type="text" placeholder="Nom" required>
-              </div>
-            </div>
-
-            <div class="row2">
-              <div class="field">
-                <input id="telephone" name="telephone" type="tel" inputmode="tel" placeholder="Téléphone" required>
-              </div>
-
-              <div class="field">
-                <input id="courriel" name="courriel" type="email" placeholder="Courriel" required>
-              </div>
-            </div>
-
-            <div class="field">
-              <textarea id="travaux" name="travaux" placeholder="Décrivez vos travaux de toiture..." required></textarea>
-            </div>
-
-            <div class="confirmWrap">
-              <input id="confirmation" name="confirmation" type="checkbox" required>
-              <label for="confirmation">
-                Je confirme que les informations inscrites représentent une demande réelle de travaux et j’accepte qu’elles soient transmises à des contracteurs de ma région pour le service concerné.
-              </label>
-            </div>
-
-            <button class="submitBtn" type="submit">Envoyer ma demande</button>
-          </form>
-        </section>
-
-        
-
+  <main class="shell">
+    <section class="formZone">
+      <div class="brandBlock">
+        <img class="brandLogo" src="media/logob.png" alt="Logo Intermediaire.io">
+        <p class="brandName">Intermediaire.io</p>
       </div>
-    </div>
+
+      <div class="miniTag">
+        <span class="miniTagDot"></span>
+        Trouvez la bonne solution
+      </div>
+
+      <div class="formTop">
+        <h1>Connectez votre besoin au bon contracteur</h1>
+        <p>Expliquez votre besoin une seule fois. On vous aide à le diriger vers le bon professionnel de votre région.</p>
+      </div>
+
+      <form action="#" method="post">
+        <div class="row2">
+          <input id="prenom" name="prenom" type="text" placeholder="Prénom" required>
+          <input id="nom" name="nom" type="text" placeholder="Nom" required>
+        </div>
+
+        <div class="row2">
+          <input id="telephone" name="telephone" type="tel" inputmode="tel" placeholder="Téléphone" required>
+          <input id="courriel" name="courriel" type="email" placeholder="Courriel" required>
+        </div>
+
+        <textarea id="travaux" name="travaux" placeholder="Décrivez votre besoin..." required></textarea>
+
+        <div class="consent">
+          <input id="confirmation" name="confirmation" type="checkbox" required>
+          <label for="confirmation">
+            Je confirme qu’il s’agit d’un vrai besoin et j’accepte que mes informations soient partagées à des contracteurs de ma région.
+          </label>
+        </div>
+
+        <button class="submitBtn" type="submit">Me connecter au bon contracteur</button>
+      </form>
+    </section>
   </main>
 </body>
 </html>
