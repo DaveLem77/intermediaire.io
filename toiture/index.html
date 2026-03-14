@@ -13,24 +13,22 @@
 
   <style>
     :root{
-      --text:#183246;
+      --text:#193246;
       --title:#0d2233;
-      --muted:#647b8d;
-      --soft:#7f93a3;
-      --line:#d8e5ee;
-      --card:#ffffff;
-      --bg:#f3f8fc;
-      --bg2:#edf5fb;
-      --bg3:#f8fbfe;
+      --muted:#6a8091;
+      --soft:#8ea0ae;
+      --line:rgba(20,56,84,.10);
+      --line-strong:rgba(20,56,84,.16);
+      --card:rgba(255,255,255,.88);
+      --bg:#f5f9fc;
+      --bg2:#edf4fa;
       --accent:#2f80ed;
-      --accent2:#58b4ff;
-      --accent3:#f6b24d;
-      --accentDark:#1f63bc;
-      --ok:#28b46e;
-      --max:1180px;
-      --shadow:0 24px 70px rgba(19,47,72,.10);
-      --shadow-soft:0 10px 30px rgba(16,42,67,.06);
+      --accent2:#5db8ff;
+      --accent3:#f0b45a;
+      --max:1140px;
       --radius:28px;
+      --shadow:0 24px 70px rgba(18,45,68,.08);
+      --shadow-soft:0 10px 30px rgba(18,45,68,.05);
     }
 
     *{box-sizing:border-box}
@@ -40,214 +38,138 @@
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
       background:
-        radial-gradient(900px 500px at 0% 0%, rgba(88,180,255,.14), transparent 56%),
-        radial-gradient(700px 420px at 100% 0%, rgba(246,178,77,.12), transparent 55%),
+        radial-gradient(900px 500px at 0% 0%, rgba(93,184,255,.10), transparent 58%),
+        radial-gradient(800px 440px at 100% 0%, rgba(240,180,90,.10), transparent 56%),
         linear-gradient(180deg, var(--bg2), var(--bg));
       overflow-x:hidden;
-      position:relative;
-    }
-
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      background-image:
-        linear-gradient(rgba(255,255,255,.22) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.22) 1px, transparent 1px);
-      background-size:30px 30px;
-      mask-image:linear-gradient(180deg, rgba(0,0,0,.25), transparent 70%);
-      opacity:.28;
     }
 
     .wrap{
       max-width:var(--max);
       margin:0 auto;
-      padding:0 18px;
-      position:relative;
-      z-index:1;
+      padding:0 20px;
     }
 
     .hero{
-      padding:20px 0 38px;
+      padding:28px 0 36px;
     }
 
     .heroGrid{
       display:grid;
-      grid-template-columns: minmax(0, 560px) minmax(0, 1fr);
-      gap:28px;
-      align-items:start;
+      grid-template-columns:minmax(0, 560px) minmax(0, 1fr);
+      gap:42px;
+      align-items:center;
     }
-
-    .formCol{order:1}
-    .contentCol{order:2}
 
     .formWrap{
       position:relative;
-      background:linear-gradient(180deg, rgba(255,255,255,.97), rgba(250,253,255,.96));
-      border:1px solid rgba(47,128,237,.12);
-      border-radius:30px;
+      background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.82));
+      border:1px solid rgba(255,255,255,.7);
+      border-radius:32px;
       box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
       overflow:hidden;
-      backdrop-filter: blur(10px);
-      isolation:isolate;
     }
 
-    .formWrap::before{
-      content:"";
+    .formGlow{
       position:absolute;
-      inset:-1px;
-      background:
-        radial-gradient(260px 120px at 10% 0%, rgba(88,180,255,.12), transparent 70%),
-        radial-gradient(220px 140px at 100% 0%, rgba(246,178,77,.14), transparent 70%);
-      z-index:0;
+      inset:0;
       pointer-events:none;
+      background:
+        radial-gradient(280px 140px at 0% 0%, rgba(93,184,255,.10), transparent 70%),
+        radial-gradient(240px 140px at 100% 0%, rgba(240,180,90,.10), transparent 70%);
     }
 
-    .formTopBand{
-      height:7px;
+    .formTopLine{
+      height:4px;
       background:linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
-      position:relative;
-      z-index:1;
+      opacity:.95;
     }
 
     .formCard{
       position:relative;
-      z-index:1;
       padding:22px;
+      z-index:1;
     }
 
-    .brandBar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      padding:14px 16px;
-      margin-bottom:16px;
-      border-radius:20px;
-      background:linear-gradient(180deg, rgba(245,250,255,.98), rgba(255,255,255,.92));
-      border:1px solid rgba(47,128,237,.10);
-      box-shadow:var(--shadow-soft);
-    }
-
-    .brandLeft{
+    .brandRow{
       display:flex;
       align-items:center;
       gap:12px;
-      min-width:0;
+      margin-bottom:18px;
     }
 
     .brandLogo{
-      width:48px;
-      height:48px;
+      width:46px;
+      height:46px;
       object-fit:contain;
       display:block;
       flex:0 0 auto;
-      border-radius:14px;
-      background:#fff;
-      padding:6px;
-      box-shadow:0 8px 20px rgba(32,77,118,.08);
-      border:1px solid rgba(47,128,237,.08);
     }
 
     .brandText{
+      display:flex;
+      flex-direction:column;
       min-width:0;
     }
 
     .brandText strong{
-      display:block;
       color:var(--title);
       font-size:15px;
-      line-height:1.1;
       font-weight:900;
+      line-height:1.05;
       letter-spacing:-.2px;
     }
 
     .brandText span{
-      display:block;
-      margin-top:3px;
+      margin-top:4px;
       color:var(--muted);
       font-size:12.5px;
-      line-height:1.35;
       font-weight:700;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+      line-height:1.3;
     }
 
-    .brandBadge{
-      flex:0 0 auto;
+    .miniTag{
       display:inline-flex;
       align-items:center;
-      gap:8px;
-      padding:9px 12px;
-      border-radius:999px;
-      background:#eef7ff;
-      border:1px solid #dcecff;
-      color:#38607d;
-      font-size:12px;
-      font-weight:900;
-      letter-spacing:.15px;
-      white-space:nowrap;
-    }
-
-    .brandBadgeDot{
-      width:8px;
-      height:8px;
-      border-radius:999px;
-      background:linear-gradient(135deg, var(--ok), #5ed39a);
-      box-shadow:0 0 0 4px rgba(40,180,110,.10);
-    }
-
-    .roofPills{
-      display:flex;
-      flex-wrap:wrap;
       gap:8px;
       margin-bottom:14px;
-    }
-
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 11px;
-      border-radius:999px;
-      background:#f3f8fd;
-      border:1px solid #dcebF7;
-      color:#436179;
+      color:#557186;
       font-size:12px;
       font-weight:800;
-      letter-spacing:.1px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
     }
 
-    .pillDot{
-      width:8px;
-      height:8px;
+    .miniTagDot{
+      width:7px;
+      height:7px;
       border-radius:999px;
       background:linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow:0 0 0 6px rgba(47,128,237,.08);
     }
 
     .formTop h1{
       margin:0 0 10px;
       color:var(--title);
-      font-size:clamp(30px, 4vw, 42px);
+      font-size:clamp(30px, 4vw, 44px);
       line-height:1.02;
-      letter-spacing:-1px;
+      letter-spacing:-1.1px;
     }
 
     .formTop p{
       margin:0;
       color:var(--muted);
       font-size:15px;
-      line-height:1.65;
+      line-height:1.68;
       font-weight:600;
-      max-width:56ch;
+      max-width:52ch;
     }
 
     form{
       display:grid;
       gap:13px;
-      margin-top:20px;
+      margin-top:22px;
     }
 
     .row2{
@@ -259,17 +181,13 @@
     label{
       display:block;
       margin:0 0 7px;
+      color:#27445c;
       font-size:13.5px;
       font-weight:800;
-      color:#28455d;
-      letter-spacing:.1px;
+      letter-spacing:.01em;
     }
 
-    .inputWrap{
-      position:relative;
-    }
-
-    input,textarea{
+    input, textarea{
       width:100%;
       border:1px solid var(--line);
       outline:none;
@@ -277,30 +195,33 @@
       padding:16px 16px;
       font:inherit;
       color:var(--title);
-      background:linear-gradient(180deg, #ffffff, #fbfdff);
-      transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease, background .18s ease;
+      background:rgba(255,255,255,.9);
+      transition:border-color .18s ease, box-shadow .18s ease, background .18s ease, transform .18s ease;
       -webkit-appearance:none;
       appearance:none;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.75);
+      box-shadow:0 1px 0 rgba(255,255,255,.8) inset;
     }
 
     textarea{
-      min-height:136px;
+      min-height:130px;
       resize:vertical;
       line-height:1.58;
     }
 
-    input::placeholder,textarea::placeholder{
-      color:#9aabba;
+    input::placeholder,
+    textarea::placeholder{
+      color:#97a8b6;
     }
 
-    input:hover,textarea:hover{
-      border-color:#c6dceb;
+    input:hover,
+    textarea:hover{
+      border-color:var(--line-strong);
     }
 
-    input:focus,textarea:focus{
-      border-color:rgba(47,128,237,.58);
-      box-shadow:0 0 0 5px rgba(47,128,237,.10);
+    input:focus,
+    textarea:focus{
+      border-color:rgba(47,128,237,.45);
+      box-shadow:0 0 0 4px rgba(47,128,237,.08);
       background:#fff;
     }
 
@@ -310,247 +231,162 @@
       border:none;
       border-radius:18px;
       padding:18px 18px;
-      font-size:17px;
+      font-size:16.5px;
       font-weight:900;
+      letter-spacing:-.02em;
       color:#fff;
       cursor:pointer;
       background:linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow:0 18px 36px rgba(47,128,237,.22);
-      transition:transform .15s ease, filter .15s ease, box-shadow .15s ease;
-      letter-spacing:-.2px;
+      box-shadow:0 16px 34px rgba(47,128,237,.18);
+      transition:transform .16s ease, filter .16s ease, box-shadow .16s ease;
     }
 
     .submitBtn:hover{
       transform:translateY(-1px);
-      filter:brightness(1.03);
-      box-shadow:0 22px 42px rgba(47,128,237,.25);
-    }
-
-    .trustRow{
-      display:grid;
-      grid-template-columns:repeat(3, 1fr);
-      gap:10px;
-      margin-top:14px;
-    }
-
-    .trustItem{
-      padding:12px 10px;
-      border-radius:16px;
-      text-align:center;
-      background:#f7fbff;
-      border:1px solid #deebf5;
-      color:#557185;
-      font-size:12px;
-      font-weight:800;
-      line-height:1.35;
+      filter:brightness(1.02);
+      box-shadow:0 18px 38px rgba(47,128,237,.20);
     }
 
     .microTrust{
       margin-top:12px;
+      text-align:center;
       color:var(--soft);
       font-size:12.5px;
-      line-height:1.55;
       font-weight:700;
-      text-align:center;
+      line-height:1.5;
     }
 
     .contentCol{
-      padding-top:10px;
+      padding-top:6px;
     }
 
     .eyebrow{
       display:inline-flex;
       align-items:center;
       gap:10px;
-      padding:9px 13px;
-      border-radius:999px;
-      background:rgba(255,255,255,.82);
-      border:1px solid rgba(47,128,237,.10);
-      color:#4d6c83;
+      color:#577287;
       font-size:12px;
       font-weight:900;
       text-transform:uppercase;
-      letter-spacing:.22px;
-      box-shadow:0 8px 24px rgba(21,47,71,.05);
+      letter-spacing:.08em;
     }
 
     .eyebrowDot{
-      width:8px;
-      height:8px;
+      width:7px;
+      height:7px;
       border-radius:999px;
       background:linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow:0 0 0 6px rgba(47,128,237,.08);
     }
 
     .contentCol h2{
-      margin:16px 0 12px;
+      margin:18px 0 14px;
       color:var(--title);
-      font-size:clamp(36px, 5.1vw, 60px);
-      line-height:1.01;
-      letter-spacing:-1.3px;
-      max-width:11ch;
+      font-size:clamp(40px, 5.2vw, 64px);
+      line-height:.98;
+      letter-spacing:-1.6px;
+      max-width:8ch;
     }
 
-    .contentCol .lead{
+    .lead{
       margin:0;
       color:var(--muted);
       font-size:17px;
-      line-height:1.75;
+      line-height:1.8;
       font-weight:600;
-      max-width:58ch;
+      max-width:52ch;
     }
 
-    .statsRow{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      margin-top:22px;
-    }
-
-    .statCard{
-      min-width:150px;
-      padding:16px 16px;
-      border-radius:20px;
-      background:rgba(255,255,255,.76);
-      border:1px solid rgba(47,128,237,.10);
-      box-shadow:0 10px 28px rgba(21,47,71,.05);
-    }
-
-    .statCard strong{
-      display:block;
-      color:var(--title);
-      font-size:24px;
-      line-height:1;
-      letter-spacing:-.8px;
-      font-weight:900;
-      margin-bottom:7px;
-    }
-
-    .statCard span{
-      color:#607688;
-      font-size:13px;
-      line-height:1.45;
-      font-weight:700;
-    }
-
-    .benefits{
-      margin-top:18px;
+    .simplePoints{
+      margin-top:24px;
       display:grid;
       gap:12px;
     }
 
-    .benefit{
-      display:flex;
-      align-items:flex-start;
-      gap:13px;
-      padding:16px 16px;
-      border-radius:20px;
-      background:rgba(255,255,255,.78);
-      border:1px solid rgba(47,128,237,.10);
-      box-shadow:0 10px 28px rgba(21,47,71,.05);
+    .simplePoints div{
+      color:#355168;
+      font-size:15px;
+      line-height:1.65;
+      font-weight:700;
     }
 
-    .benefitIcon{
-      width:22px;
-      height:22px;
-      flex:0 0 auto;
-      position:relative;
-      margin-top:2px;
-      border-radius:999px;
-      background:linear-gradient(135deg, rgba(40,180,110,.12), rgba(40,180,110,.05));
-      border:1px solid rgba(40,180,110,.16);
-    }
-
-    .benefitIcon::after{
-      content:"";
-      position:absolute;
-      left:7px;
-      top:4px;
-      width:6px;
-      height:10px;
-      border-right:3px solid var(--ok);
-      border-bottom:3px solid var(--ok);
-      transform:rotate(40deg);
-    }
-
-    .benefit strong{
-      display:block;
-      margin-bottom:4px;
-      color:#18334a;
-      font-size:14px;
+    .simplePoints span{
+      color:var(--accent);
       font-weight:900;
-      letter-spacing:.1px;
+      margin-right:8px;
     }
 
-    .benefit span{
-      color:#5d7386;
-      font-size:14px;
-      line-height:1.56;
-      font-weight:650;
-    }
-
-    @media (max-width: 980px){
+    @media (max-width: 940px){
       .hero{
-        padding:12px 0 24px;
+        padding:12px 0 22px;
       }
 
       .heroGrid{
         grid-template-columns:1fr;
-        gap:18px;
+        gap:22px;
+        align-items:start;
       }
 
-      .formCol{order:1}
-      .contentCol{order:2;padding-top:0}
-      .contentCol h2{max-width:13ch}
+      .contentCol{
+        padding-top:0;
+      }
+
+      .contentCol h2{
+        max-width:12ch;
+      }
     }
 
     @media (max-width: 640px){
-      .wrap{padding:0 14px}
-      .hero{padding:8px 0 18px}
-      .formCard{padding:16px}
-      .row2{grid-template-columns:1fr}
-      .brandBar{
-        padding:12px;
-        gap:10px;
-        align-items:flex-start;
-        flex-direction:column;
+      .wrap{
+        padding:0 14px;
       }
-      .brandBadge{
-        align-self:flex-start;
+
+      .hero{
+        padding:8px 0 18px;
       }
+
+      .formCard{
+        padding:16px;
+      }
+
+      .row2{
+        grid-template-columns:1fr;
+      }
+
+      .brandRow{
+        margin-bottom:16px;
+      }
+
       .brandLogo{
-        width:44px;
-        height:44px;
+        width:42px;
+        height:42px;
       }
+
       .formTop h1{
-        font-size:27px;
+        font-size:28px;
       }
+
       .contentCol h2{
-        font-size:clamp(28px, 10vw, 40px);
+        font-size:clamp(30px, 10vw, 42px);
         max-width:none;
       }
-      .contentCol .lead{
+
+      .lead{
         font-size:15.5px;
-        line-height:1.66;
+        line-height:1.7;
       }
-      .benefit{
-        padding:14px 14px;
-      }
-      .pill{
-        font-size:11.5px;
-        padding:7px 10px;
-      }
+
       textarea{
         min-height:112px;
       }
+
       .submitBtn{
         padding:17px 16px;
         font-size:16px;
       }
-      .trustRow{
-        grid-template-columns:1fr;
-      }
-      .statCard{
-        flex:1 1 100%;
+
+      .simplePoints div{
+        font-size:14px;
       }
     }
   </style>
@@ -561,85 +397,61 @@
       <div class="heroGrid">
 
         <section class="formCol">
-          <div class="formWrap" aria-label="Formulaire toiture en premier écran">
-            <div class="formTopBand"></div>
+          <div class="formWrap" aria-label="Formulaire toiture">
+            <div class="formGlow"></div>
+            <div class="formTopLine"></div>
 
             <div class="formCard">
-              <div class="brandBar">
-                <div class="brandLeft">
-                  <img class="brandLogo" src="media/logob.png" alt="Logo Intermediaire.io">
-                  <div class="brandText">
-                    <strong>Intermediaire.io</strong>
-                    <span>Demande de soumission en toiture</span>
-                  </div>
-                </div>
-
-                <div class="brandBadge">
-                  <span class="brandBadgeDot"></span>
-                  Service simple et rapide
+              <div class="brandRow">
+                <img class="brandLogo" src="media/logob.png" alt="Logo Intermediaire.io">
+                <div class="brandText">
+                  <strong>Intermediaire.io</strong>
+                  <span>Demande de soumission en toiture</span>
                 </div>
               </div>
 
-              <div class="roofPills">
-                <span class="pill"><span class="pillDot"></span>Toiture</span>
-                <span class="pill"><span class="pillDot"></span>Réponse rapide</span>
-                <span class="pill"><span class="pillDot"></span>Sans complication</span>
+              <div class="miniTag">
+                <span class="miniTagDot"></span>
+                Rapide · simple · rassurant
               </div>
 
               <div class="formTop">
                 <h1>Obtenez une soumission pour vos travaux de toiture</h1>
-                <p>Décrivez votre besoin en moins d’une minute. Fuite, réparation, inspection ou remplacement complet — nous vous aidons à démarrer rapidement.</p>
+                <p>Décrivez votre besoin en moins d’une minute. Réparation, fuite, inspection ou remplacement complet.</p>
               </div>
 
               <form action="#" method="post">
                 <div class="row2">
                   <div>
                     <label for="prenom">Prénom</label>
-                    <div class="inputWrap">
-                      <input id="prenom" name="prenom" type="text" placeholder="Votre prénom" required>
-                    </div>
+                    <input id="prenom" name="prenom" type="text" placeholder="Votre prénom" required>
                   </div>
-
                   <div>
                     <label for="nom">Nom</label>
-                    <div class="inputWrap">
-                      <input id="nom" name="nom" type="text" placeholder="Votre nom" required>
-                    </div>
+                    <input id="nom" name="nom" type="text" placeholder="Votre nom" required>
                   </div>
                 </div>
 
                 <div>
                   <label for="telephone">Numéro de téléphone</label>
-                  <div class="inputWrap">
-                    <input id="telephone" name="telephone" type="tel" inputmode="tel" placeholder="(555) 555-5555" required>
-                  </div>
+                  <input id="telephone" name="telephone" type="tel" inputmode="tel" placeholder="(555) 555-5555" required>
                 </div>
 
                 <div>
                   <label for="courriel">Courriel</label>
-                  <div class="inputWrap">
-                    <input id="courriel" name="courriel" type="email" placeholder="vous@exemple.com" required>
-                  </div>
+                  <input id="courriel" name="courriel" type="email" placeholder="vous@exemple.com" required>
                 </div>
 
                 <div>
                   <label for="travaux">Quels travaux avez-vous besoin ?</label>
-                  <div class="inputWrap">
-                    <textarea id="travaux" name="travaux" placeholder="Ex. : infiltration d’eau, bardeaux abîmés, réparation urgente, inspection ou remplacement du toit..." required></textarea>
-                  </div>
+                  <textarea id="travaux" name="travaux" placeholder="Ex. : infiltration d’eau, bardeaux abîmés, inspection, réparation ou remplacement du toit..." required></textarea>
                 </div>
 
                 <button class="submitBtn" type="submit">Envoyer ma demande</button>
               </form>
 
-              <div class="trustRow">
-                <div class="trustItem">Formulaire rapide à remplir</div>
-                <div class="trustItem">Demande claire et professionnelle</div>
-                <div class="trustItem">Vos infos restent confidentielles</div>
-              </div>
-
               <div class="microTrust">
-                Vos informations servent uniquement à traiter votre demande de soumission.
+                Vos informations servent uniquement à traiter votre demande.
               </div>
             </div>
           </div>
@@ -651,51 +463,16 @@
             Service orienté toiture
           </div>
 
-          <h2>Une première impression qui inspire confiance.</h2>
+          <h2>Minimal, propre, crédible.</h2>
 
           <p class="lead">
-            Le formulaire est immédiatement visible, le design est plus propre, plus lumineux et beaucoup plus rassurant. L’objectif est que la personne comprenne instantanément qu’elle est au bon endroit pour demander une soumission de toiture.
+            Le formulaire reste la première chose qu’on voit, sans surcharge visuelle. Le design est plus léger, plus élégant et plus rassurant, avec juste assez de détails pour paraître sérieux sans devenir chargé.
           </p>
 
-          <div class="statsRow">
-            <div class="statCard">
-              <strong>1 min</strong>
-              <span>Pour remplir la demande</span>
-            </div>
-            <div class="statCard">
-              <strong>Clair</strong>
-              <span>Chaque champ va droit au but</span>
-            </div>
-            <div class="statCard">
-              <strong>Mobile</strong>
-              <span>Optimisé pour téléphone</span>
-            </div>
-          </div>
-
-          <div class="benefits">
-            <div class="benefit">
-              <span class="benefitIcon" aria-hidden="true"></span>
-              <div>
-                <strong>Logo bien placé</strong>
-                <span>Le branding Intermediaire.io est visible dès le haut du formulaire pour donner une présence plus sérieuse et mémorable.</span>
-              </div>
-            </div>
-
-            <div class="benefit">
-              <span class="benefitIcon" aria-hidden="true"></span>
-              <div>
-                <strong>Plus premium</strong>
-                <span>Meilleures cartes, meilleures ombres, meilleurs espacements et une hiérarchie visuelle plus forte pour inspirer confiance rapidement.</span>
-              </div>
-            </div>
-
-            <div class="benefit">
-              <span class="benefitIcon" aria-hidden="true"></span>
-              <div>
-                <strong>Plus rassurant</strong>
-                <span>Le formulaire reste simple et léger visuellement, sans faire peur au visiteur ni lui donner l’impression que c’est compliqué.</span>
-              </div>
-            </div>
+          <div class="simplePoints">
+            <div><span>—</span>Formulaire visible dès l’arrivée</div>
+            <div><span>—</span>Logo Intermediaire.io intégré proprement</div>
+            <div><span>—</span>Aucun bloc inutile sous le formulaire</div>
           </div>
         </section>
 
