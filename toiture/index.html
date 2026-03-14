@@ -8,7 +8,7 @@
 <link rel="icon" type="image/png" href="media/logob.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -182,13 +182,50 @@ body{
   object-fit:contain;
   margin-bottom:10px;
   filter:drop-shadow(0 14px 28px rgba(47,128,237,.12));
+  animation:logoFloat 6.5s ease-in-out infinite;
 }
 
 .brandName{
   margin:0;
-  font-size:23px;
-  font-weight:900;
+  font-family:"Plus Jakarta Sans", Inter, sans-serif;
+  font-size:24px;
+  font-weight:800;
+  letter-spacing:-0.04em;
   color:var(--title);
+  position:relative;
+  display:inline-block;
+  text-shadow:0 1px 0 rgba(255,255,255,.65);
+  animation:brandGlow 5.8s ease-in-out infinite;
+}
+
+.brandName::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-140%;
+  width:70%;
+  height:100%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.65), transparent);
+  transform:skewX(-18deg);
+  animation:brandShine 6.8s ease-in-out infinite;
+  pointer-events:none;
+}
+
+@keyframes logoFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-5px)}
+}
+
+@keyframes brandGlow{
+  0%,100%{opacity:1; transform:translateY(0)}
+  50%{opacity:.96; transform:translateY(-1px)}
+}
+
+@keyframes brandShine{
+  0%{left:-140%}
+  20%{left:-140%}
+  55%{left:150%}
+  100%{left:150%}
 }
 
 .miniTag{
@@ -385,6 +422,10 @@ textarea::placeholder{
   .brandLogo{
     width:96px;
     height:96px;
+  }
+
+  .brandName{
+    font-size:22px;
   }
 
   .row2{
