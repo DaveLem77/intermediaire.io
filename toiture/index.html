@@ -6,440 +6,422 @@
 <title>Intermediaire.io | Toiture</title>
 
 <link rel="icon" type="image/png" href="media/logob.png">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 
 <style>
-
 :root{
---bg:#f4f8fc;
---bg2:#edf5fb;
---text:#183246;
---title:#0d2233;
---muted:#6a7f90;
---line:rgba(18,55,83,.10);
---accent:#2f80ed;
---accent2:#69c2ff;
---field-bg:rgba(255,255,255,.88);
---max:660px;
+  --bg:#f4f8fc;
+  --bg2:#edf5fb;
+  --text:#183246;
+  --title:#0d2233;
+  --muted:#6a7f90;
+  --line:rgba(18,55,83,.10);
+  --accent:#2f80ed;
+  --accent2:#69c2ff;
+  --field-bg:rgba(255,255,255,.88);
+  --max:660px;
 }
 
 *{box-sizing:border-box}
 
 html,body{
-margin:0;
-padding:0;
-min-height:100%;
-background:linear-gradient(180deg,#edf5fb,#f4f8fc);
+  margin:0;
+  padding:0;
+  min-height:100%;
+  background:linear-gradient(180deg,#edf5fb,#f4f8fc);
 }
 
 body{
-font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-color:var(--text);
-overflow-x:hidden;
-position:relative;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--text);
+  overflow-x:hidden;
+  position:relative;
 }
 
 /* BACKGROUND */
 
 .bg{
-position:fixed;
-inset:-22vh;
-pointer-events:none;
-overflow:hidden;
-z-index:0;
+  position:fixed;
+  inset:-22vh;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:0;
 }
 
 .bgBase{
-position:absolute;
-inset:0;
-background:
-radial-gradient(1200px 700px at 0% 0%, rgba(105,194,255,.12), transparent 60%),
-radial-gradient(1000px 620px at 100% 0%, rgba(240,180,90,.10), transparent 58%),
-linear-gradient(180deg, #edf5fb, #f4f8fc);
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(1200px 700px at 0% 0%, rgba(105,194,255,.12), transparent 60%),
+    radial-gradient(1000px 620px at 100% 0%, rgba(240,180,90,.10), transparent 58%),
+    linear-gradient(180deg, #edf5fb, #f4f8fc);
 }
 
 .mesh{
-position:absolute;
-inset:-12%;
-background:
-radial-gradient(circle at 14% 18%, rgba(105,194,255,.22), transparent 16%),
-radial-gradient(circle at 82% 18%, rgba(240,180,90,.16), transparent 14%),
-radial-gradient(circle at 52% 82%, rgba(47,128,237,.12), transparent 16%);
-filter:blur(24px);
-opacity:.92;
-animation:meshMove 18s ease-in-out infinite alternate;
+  position:absolute;
+  inset:-12%;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(105,194,255,.22), transparent 16%),
+    radial-gradient(circle at 82% 18%, rgba(240,180,90,.16), transparent 14%),
+    radial-gradient(circle at 52% 82%, rgba(47,128,237,.12), transparent 16%);
+  filter:blur(24px);
+  opacity:.92;
+  animation:meshMove 18s ease-in-out infinite alternate;
 }
 
 .orb{
-position:absolute;
-border-radius:999px;
-filter:blur(75px);
-opacity:.58;
+  position:absolute;
+  border-radius:999px;
+  filter:blur(75px);
+  opacity:.58;
 }
 
 .orb1{
-width:440px;
-height:440px;
-left:-110px;
-top:-100px;
-background:rgba(105,194,255,.22);
-animation:floatA 16s ease-in-out infinite;
+  width:440px;
+  height:440px;
+  left:-110px;
+  top:-100px;
+  background:rgba(105,194,255,.22);
+  animation:floatA 16s ease-in-out infinite;
 }
 
 .orb2{
-width:340px;
-height:340px;
-right:-70px;
-top:120px;
-background:rgba(240,180,90,.16);
-animation:floatB 18s ease-in-out infinite;
+  width:340px;
+  height:340px;
+  right:-70px;
+  top:120px;
+  background:rgba(240,180,90,.16);
+  animation:floatB 18s ease-in-out infinite;
 }
 
 .orb3{
-width:320px;
-height:320px;
-left:46%;
-bottom:-130px;
-background:rgba(47,128,237,.13);
-animation:floatC 20s ease-in-out infinite;
+  width:320px;
+  height:320px;
+  left:46%;
+  bottom:-130px;
+  background:rgba(47,128,237,.13);
+  animation:floatC 20s ease-in-out infinite;
 }
 
 @keyframes floatA{
-0%,100%{transform:translate3d(0,0,0)}
-50%{transform:translate3d(34px,-26px,0)}
+  0%,100%{transform:translate3d(0,0,0)}
+  50%{transform:translate3d(34px,-26px,0)}
 }
 
 @keyframes floatB{
-0%,100%{transform:translate3d(0,0,0)}
-50%{transform:translate3d(-28px,24px,0)}
+  0%,100%{transform:translate3d(0,0,0)}
+  50%{transform:translate3d(-28px,24px,0)}
 }
 
 @keyframes floatC{
-0%,100%{transform:translate3d(0,0,0)}
-50%{transform:translate3d(22px,-24px,0)}
+  0%,100%{transform:translate3d(0,0,0)}
+  50%{transform:translate3d(22px,-24px,0)}
 }
 
 @keyframes meshMove{
-0%{transform:translateY(0)}
-100%{transform:translateY(-18px)}
+  0%{transform:translateY(0)}
+  100%{transform:translateY(-18px)}
 }
 
 /* LAYOUT */
 
 .shell{
-position:relative;
-z-index:1;
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:10px 24px 24px;
+  position:relative;
+  z-index:1;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 24px 24px;
 }
 
 .formZone{
-width:100%;
-max-width:var(--max);
+  width:100%;
+  max-width:var(--max);
 }
 
 /* LOGO */
 
 .brandBlock{
-display:flex;
-flex-direction:column;
-align-items:center;
-text-align:center;
-margin-bottom:10px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  margin-bottom:10px;
 }
 
 .brandLink{
-display:flex;
-flex-direction:column;
-align-items:center;
-text-decoration:none;
-color:inherit;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-decoration:none;
+  color:inherit;
 }
 
 .brandLogo{
-width:108px;
-height:108px;
-object-fit:contain;
-margin-bottom:10px;
-filter:drop-shadow(0 14px 28px rgba(47,128,237,.12));
-animation:logoFloat 6.5s ease-in-out infinite;
+  width:108px;
+  height:108px;
+  object-fit:contain;
+  margin-bottom:10px;
+  filter:drop-shadow(0 14px 28px rgba(47,128,237,.12));
+  animation:logoFloat 6.5s ease-in-out infinite;
 }
 
 .brandName{
-margin:0;
-font-family:"Plus Jakarta Sans", Inter, sans-serif;
-font-size:24px;
-font-weight:800;
-letter-spacing:-0.04em;
-color:var(--title);
-position:relative;
-display:inline-block;
+  margin:0;
+  font-family:"Plus Jakarta Sans", Inter, sans-serif;
+  font-size:24px;
+  font-weight:800;
+  letter-spacing:-0.04em;
+  color:var(--title);
+  position:relative;
+  display:inline-block;
 }
 
 @keyframes logoFloat{
-0%,100%{transform:translateY(0)}
-50%{transform:translateY(-5px)}
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-5px)}
 }
 
 /* TAG */
 
 .miniTag{
-width:max-content;
-margin:0 auto 10px;
-padding:8px 14px;
-border-radius:999px;
-border:1px solid rgba(18,55,83,.08);
-background:rgba(255,255,255,.55);
-font-size:11.5px;
-font-weight:800;
-letter-spacing:.1em;
-text-transform:uppercase;
-color:#4f6a7c;
+  width:max-content;
+  margin:0 auto 10px;
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid rgba(18,55,83,.08);
+  background:rgba(255,255,255,.55);
+  font-size:11.5px;
+  font-weight:800;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:#4f6a7c;
 }
 
 /* TITLE */
 
 .formTop{
-text-align:center;
-margin-bottom:14px;
+  text-align:center;
+  margin-bottom:14px;
 }
 
 .formTop h1{
-margin:0 0 8px;
-font-size:34px;
-line-height:1.1;
-color:var(--title);
-letter-spacing:-1px;
+  margin:0 0 8px;
+  font-size:34px;
+  line-height:1.1;
+  color:var(--title);
+  letter-spacing:-1px;
 }
 
 /* INFO */
 
 .infoRow{
-display:flex;
-justify-content:center;
-gap:14px;
-flex-wrap:wrap;
-font-size:13px;
-font-weight:700;
-color:var(--muted);
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  flex-wrap:wrap;
+  font-size:13px;
+  font-weight:700;
+  color:var(--muted);
 }
 
 .infoItem{
-display:flex;
-align-items:center;
-gap:6px;
+  display:flex;
+  align-items:center;
+  gap:6px;
 }
 
 .infoIcon{
-width:16px;
-height:16px;
+  width:16px;
+  height:16px;
 }
 
 /* FORM */
 
 form{
-display:grid;
-gap:10px;
+  display:grid;
+  gap:10px;
 }
 
 .row2{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
 }
 
 input,textarea{
-width:100%;
-border:1px solid var(--line);
-border-radius:18px;
-padding:18px;
-font:inherit;
-font-weight:600;
-background:var(--field-bg);
-box-shadow:0 8px 22px rgba(16,44,68,.05);
-outline:none;
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:18px;
+  font:inherit;
+  font-weight:600;
+  background:var(--field-bg);
+  box-shadow:0 8px 22px rgba(16,44,68,.05);
+  outline:none;
 }
 
 input{height:58px;}
 
 textarea{
-min-height:118px;
-resize:vertical;
+  min-height:118px;
+  resize:vertical;
 }
 
 input:focus,textarea:focus{
-border-color:rgba(47,128,237,.4);
-box-shadow:0 0 0 4px rgba(47,128,237,.08);
+  border-color:rgba(47,128,237,.4);
+  box-shadow:0 0 0 4px rgba(47,128,237,.08);
 }
 
 /* CHECKBOX */
 
 .consent{
-display:flex;
-align-items:flex-start;
-gap:10px;
-font-size:12px;
-color:#5a7081;
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  font-size:12px;
+  color:#5a7081;
 }
 
 .consent input[type="checkbox"]{
-width:18px;
-height:18px;
-min-width:18px;
-margin-top:2px;
-cursor:pointer;
-accent-color:var(--accent);
-border:1px solid rgba(18,55,83,.16);
-border-radius:4px;
-background:white;
+  width:18px;
+  height:18px;
+  min-width:18px;
+  margin-top:2px;
+  cursor:pointer;
+  accent-color:var(--accent);
+  border:1px solid rgba(18,55,83,.16);
+  border-radius:4px;
+  background:white;
 }
 
 /* BUTTON */
 
 .submitBtn{
-margin-top:2px;
-width:100%;
-border:none;
-border-radius:18px;
-padding:18px;
-font-size:16px;
-font-weight:900;
-color:white;
-cursor:pointer;
-background:linear-gradient(135deg,var(--accent),var(--accent2));
-box-shadow:0 18px 40px rgba(47,128,237,.20);
+  margin-top:2px;
+  width:100%;
+  border:none;
+  border-radius:18px;
+  padding:18px;
+  font-size:16px;
+  font-weight:900;
+  color:white;
+  cursor:pointer;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  box-shadow:0 18px 40px rgba(47,128,237,.20);
 }
 
 .bottomSpace{
-height:26px;
+  height:26px;
 }
 
 @media(max-width:640px){
+  .shell{
+    padding:6px 18px 18px;
+    align-items:flex-start;
+  }
 
-.shell{
-padding:6px 18px 18px;
-align-items:flex-start;
+  .brandLogo{
+    width:96px;
+    height:96px;
+  }
+
+  .row2{
+    grid-template-columns:1fr;
+  }
+
+  .formTop h1{
+    font-size:28px;
+  }
+
+  .infoRow{
+    font-size:12px;
+  }
 }
-
-.brandLogo{
-width:96px;
-height:96px;
-}
-
-.row2{
-grid-template-columns:1fr;
-}
-
-.formTop h1{
-font-size:28px;
-}
-
-.infoRow{
-font-size:12px;
-}
-
-}
-
 </style>
 </head>
 
 <body>
 
 <div class="bg">
-<div class="bgBase"></div>
-<div class="mesh"></div>
-<div class="orb orb1"></div>
-<div class="orb orb2"></div>
-<div class="orb orb3"></div>
+  <div class="bgBase"></div>
+  <div class="mesh"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
 </div>
 
 <main class="shell">
+  <section class="formZone">
 
-<section class="formZone">
+    <div class="brandBlock">
+      <a href="https://www.intermediaire.io" class="brandLink">
+        <img class="brandLogo" src="media/logob.png" alt="Intermediaire.io">
+        <span class="brandName">Intermediaire.io</span>
+      </a>
+    </div>
 
-<div class="brandBlock">
+    <div class="miniTag">Toiture</div>
 
-<a href="https://www.intermediaire.io" class="brandLink">
+    <div class="formTop">
+      <h1>Décrivez votre besoin en toiture</h1>
 
-<img class="brandLogo" src="media/logob.png" alt="Intermediaire.io">
+      <div class="infoRow">
+        <span class="infoItem">
+          <svg class="infoIcon" viewBox="0 0 24 24" fill="none">
+            <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2"/>
+            <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          Une seule demande
+        </span>
 
-<span class="brandName">Intermediaire.io</span>
+        <span class="infoItem">
+          <svg class="infoIcon" viewBox="0 0 24 24" fill="none">
+            <path d="M4 12h16" stroke="currentColor" stroke-width="2"/>
+            <path d="M13 5l7 7-7 7" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          Sans appeler partout
+        </span>
 
-</a>
+        <span class="infoItem">
+          <svg class="infoIcon" viewBox="0 0 24 24" fill="none">
+            <path d="M7 12.5l3 3 7-7" stroke="currentColor" stroke-width="2"/>
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          Contracteur local
+        </span>
+      </div>
+    </div>
 
-</div>
+    <form action="https://hook.us2.make.com/to346qlepm88si74k1dngnwnawkd3b79" method="post">
+      <div class="row2">
+        <input type="text" name="prenom" placeholder="Prénom" required>
+        <input type="text" name="ville" placeholder="Ville" required>
+      </div>
 
-<div class="miniTag">Toiture</div>
+      <div class="row2">
+        <input type="tel" name="telephone" placeholder="Téléphone" required>
+        <input type="email" name="courriel" placeholder="Courriel" required>
+      </div>
 
-<div class="formTop">
+      <textarea name="travaux" placeholder="Décrivez vos travaux de toiture..." required></textarea>
 
-<h1>Décrivez votre besoin en toiture</h1>
+      <div class="consent">
+        <input type="checkbox" id="confirmation" name="confirmation" value="oui" required>
+        <label for="confirmation">
+          Je confirme qu’il s’agit d’un vrai besoin et j’accepte que mes informations soient envoyées à des contracteurs de ma région.
+        </label>
+      </div>
 
-<div class="infoRow">
+      <button class="submitBtn" type="submit">Trouver le bon contracteur</button>
 
-<span class="infoItem">
-<svg class="infoIcon" viewBox="0 0 24 24" fill="none">
-<path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2"/>
-<circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/>
-</svg>
-Une seule demande
-</span>
+      <div class="bottomSpace"></div>
+    </form>
 
-<span class="infoItem">
-<svg class="infoIcon" viewBox="0 0 24 24" fill="none">
-<path d="M4 12h16" stroke="currentColor" stroke-width="2"/>
-<path d="M13 5l7 7-7 7" stroke="currentColor" stroke-width="2"/>
-</svg>
-Sans appeler partout
-</span>
-
-<span class="infoItem">
-<svg class="infoIcon" viewBox="0 0 24 24" fill="none">
-<path d="M7 12.5l3 3 7-7" stroke="currentColor" stroke-width="2"/>
-<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
-</svg>
-Contracteur local
-</span>
-
-</div>
-
-</div>
-
-<form>
-
-<div class="row2">
-<input type="text" placeholder="Prénom" required>
-<input type="text" placeholder="Ville" required>
-</div>
-
-<div class="row2">
-<input type="tel" placeholder="Téléphone" required>
-<input type="email" placeholder="Courriel" required>
-</div>
-
-<textarea placeholder="Décrivez vos travaux de toiture..." required></textarea>
-
-<div class="consent">
-<input type="checkbox" required>
-<label>
-Je confirme qu’il s’agit d’un vrai besoin et j’accepte que mes informations soient envoyées à des contracteurs de ma région.
-</label>
-</div>
-
-<button class="submitBtn">Trouver le bon contracteur</button>
-
-<div class="bottomSpace"></div>
-
-</form>
-
-</section>
+  </section>
 </main>
 
 </body>
