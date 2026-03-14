@@ -17,14 +17,14 @@
       --bg2:#edf5fb;
       --text:#183246;
       --title:#0d2233;
-      --muted:#677d8d;
+      --muted:#6a7f90;
       --line:rgba(18,55,83,.10);
       --line-strong:rgba(18,55,83,.16);
       --accent:#2f80ed;
       --accent2:#69c2ff;
       --accent3:#f0b45a;
       --field-bg:rgba(255,255,255,.88);
-      --max:640px;
+      --max:660px;
     }
 
     *{box-sizing:border-box}
@@ -38,7 +38,7 @@
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
       background:
-        radial-gradient(1200px 700px at 0% 0%, rgba(105,194,255,.10), transparent 60%),
+        radial-gradient(1200px 700px at 0% 0%, rgba(105,194,255,.11), transparent 60%),
         radial-gradient(1000px 620px at 100% 0%, rgba(240,180,90,.10), transparent 58%),
         linear-gradient(180deg, var(--bg2), var(--bg));
       overflow-x:hidden;
@@ -60,8 +60,8 @@
         radial-gradient(circle at 15% 20%, rgba(105,194,255,.18), transparent 18%),
         radial-gradient(circle at 85% 20%, rgba(240,180,90,.15), transparent 16%),
         radial-gradient(circle at 50% 85%, rgba(47,128,237,.10), transparent 18%);
-      filter:blur(18px);
-      animation:meshMove 18s ease-in-out infinite alternate;
+      filter:blur(20px);
+      animation:meshMove 16s ease-in-out infinite alternate;
       opacity:.95;
     }
 
@@ -69,7 +69,7 @@
       position:absolute;
       border-radius:999px;
       filter:blur(70px);
-      opacity:.55;
+      opacity:.58;
       will-change:transform;
     }
 
@@ -79,7 +79,7 @@
       left:-100px;
       top:-90px;
       background:rgba(105,194,255,.20);
-      animation:floatA 13s ease-in-out infinite;
+      animation:floatA 12s ease-in-out infinite;
     }
 
     .orb2{
@@ -88,7 +88,7 @@
       right:-70px;
       top:120px;
       background:rgba(240,180,90,.15);
-      animation:floatB 15s ease-in-out infinite;
+      animation:floatB 14s ease-in-out infinite;
     }
 
     .orb3{
@@ -97,44 +97,27 @@
       left:45%;
       bottom:-120px;
       background:rgba(47,128,237,.12);
-      animation:floatC 17s ease-in-out infinite;
-    }
-
-    .grain{
-      position:absolute;
-      inset:0;
-      opacity:.06;
-      background-image:
-        linear-gradient(rgba(255,255,255,.8) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.8) 1px, transparent 1px);
-      background-size:26px 26px;
-      mask-image:linear-gradient(180deg, rgba(0,0,0,.8), rgba(0,0,0,.25));
-      animation:gridDrift 20s linear infinite;
+      animation:floatC 16s ease-in-out infinite;
     }
 
     @keyframes floatA{
       0%,100%{transform:translate3d(0,0,0) scale(1)}
-      50%{transform:translate3d(28px, -20px, 0) scale(1.06)}
+      50%{transform:translate3d(26px,-18px,0) scale(1.06)}
     }
 
     @keyframes floatB{
       0%,100%{transform:translate3d(0,0,0) scale(1)}
-      50%{transform:translate3d(-22px, 26px, 0) scale(1.05)}
+      50%{transform:translate3d(-20px,22px,0) scale(1.05)}
     }
 
     @keyframes floatC{
       0%,100%{transform:translate3d(0,0,0) scale(1)}
-      50%{transform:translate3d(14px, -24px, 0) scale(1.08)}
+      50%{transform:translate3d(16px,-20px,0) scale(1.08)}
     }
 
     @keyframes meshMove{
       0%{transform:translate3d(0,0,0) scale(1)}
-      100%{transform:translate3d(0,-18px,0) scale(1.04)}
-    }
-
-    @keyframes gridDrift{
-      0%{transform:translateY(0)}
-      100%{transform:translateY(26px)}
+      100%{transform:translate3d(0,-16px,0) scale(1.04)}
     }
 
     .shell{
@@ -145,7 +128,7 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:14px 24px 24px;
+      padding:10px 24px 24px;
     }
 
     .formZone{
@@ -162,8 +145,8 @@
     }
 
     .brandLogo{
-      width:110px;
-      height:110px;
+      width:108px;
+      height:108px;
       object-fit:contain;
       display:block;
       margin:0 auto 10px;
@@ -180,47 +163,61 @@
     }
 
     .miniTag{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      margin:0 0 8px;
-      color:#597385;
+      width:max-content;
+      max-width:100%;
+      margin:0 auto 8px;
+      padding:9px 14px;
+      border-radius:999px;
+      border:1px solid rgba(18,55,83,.08);
+      background:rgba(255,255,255,.54);
+      backdrop-filter:blur(10px);
+      color:#4f6a7c;
       font-size:11.5px;
       font-weight:800;
       letter-spacing:.10em;
       text-transform:uppercase;
-    }
-
-    .miniTagDot{
-      width:7px;
-      height:7px;
-      border-radius:999px;
-      background:linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow:0 0 0 6px rgba(47,128,237,.08);
+      box-shadow:0 8px 18px rgba(16,44,68,.04);
     }
 
     .formTop{
       text-align:center;
-      margin:0 auto 16px;
+      margin:0 auto 12px;
       max-width:520px;
     }
 
     .formTop h1{
-      margin:0 0 10px;
+      margin:0 0 8px;
       color:var(--title);
-      font-size:clamp(30px, 4vw, 42px);
-      line-height:1.03;
-      letter-spacing:-1.2px;
+      font-size:clamp(29px, 4vw, 40px);
+      line-height:1.04;
+      letter-spacing:-1.15px;
     }
 
-    .formTop p{
-      margin:0 auto;
+    .infoRow{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:14px;
+      flex-wrap:wrap;
       color:var(--muted);
-      font-size:14px;
-      line-height:1.62;
-      font-weight:600;
-      max-width:39ch;
+      font-size:13px;
+      font-weight:700;
+      line-height:1.4;
+    }
+
+    .infoItem{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      white-space:nowrap;
+    }
+
+    .infoIcon{
+      width:16px;
+      height:16px;
+      display:inline-block;
+      flex:0 0 auto;
+      opacity:.88;
     }
 
     form{
@@ -331,8 +328,7 @@
       letter-spacing:-.02em;
       color:#fff;
       cursor:pointer;
-      background:
-        linear-gradient(135deg, var(--accent), var(--accent2));
+      background:linear-gradient(135deg, var(--accent), var(--accent2));
       box-shadow:
         0 18px 40px rgba(47,128,237,.20),
         0 0 0 1px rgba(255,255,255,.08) inset;
@@ -373,6 +369,10 @@
       50%{box-shadow:0 22px 46px rgba(47,128,237,.26)}
     }
 
+    .bottomSpace{
+      height:20px;
+    }
+
     @media (max-width: 640px){
       .shell{
         padding:8px 18px 18px;
@@ -384,8 +384,8 @@
       }
 
       .brandLogo{
-        width:100px;
-        height:100px;
+        width:98px;
+        height:98px;
         margin-bottom:8px;
       }
 
@@ -396,20 +396,22 @@
       .miniTag{
         font-size:11px;
         margin-bottom:8px;
+        padding:8px 12px;
       }
 
       .formTop{
-        margin-bottom:14px;
-        max-width:330px;
+        margin-bottom:12px;
+        max-width:340px;
       }
 
       .formTop h1{
-        font-size:28px;
+        font-size:27px;
+        margin-bottom:8px;
       }
 
-      .formTop p{
-        font-size:13.5px;
-        max-width:31ch;
+      .infoRow{
+        gap:10px 12px;
+        font-size:12.5px;
       }
 
       .row2{
@@ -431,6 +433,10 @@
       .submitBtn{
         padding:17px 18px;
       }
+
+      .bottomSpace{
+        height:14px;
+      }
     }
   </style>
 </head>
@@ -440,7 +446,6 @@
     <div class="orb orb1"></div>
     <div class="orb orb2"></div>
     <div class="orb orb3"></div>
-    <div class="grain"></div>
   </div>
 
   <main class="shell">
@@ -450,14 +455,36 @@
         <p class="brandName">Intermediaire.io</p>
       </div>
 
-      <div class="miniTag">
-        <span class="miniTagDot"></span>
-        Toiture
-      </div>
+      <div class="miniTag">Toiture</div>
 
       <div class="formTop">
         <h1>Décrivez votre besoin en toiture.</h1>
-        <p>Évitez de chercher, comparer et appeler plusieurs compagnies vous-même. Remplissez une seule fois et votre demande peut être dirigée vers le bon contracteur de votre région.</p>
+
+        <div class="infoRow">
+          <span class="infoItem">
+            <svg class="infoIcon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            Une seule demande
+          </span>
+
+          <span class="infoItem">
+            <svg class="infoIcon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Sans appeler partout
+          </span>
+
+          <span class="infoItem">
+            <svg class="infoIcon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 12.5l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            Bon contracteur local
+          </span>
+        </div>
       </div>
 
       <form action="#" method="post">
@@ -481,6 +508,8 @@
         </div>
 
         <button class="submitBtn" type="submit">Trouver le bon contracteur</button>
+
+        <div class="bottomSpace" aria-hidden="true"></div>
       </form>
     </section>
   </main>
