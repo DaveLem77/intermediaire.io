@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Intermediaire.io | Mise en relation locale</title>
+  <title>Intermediaire.io | Connexion locale simple</title>
   <meta name="description" content="Intermediaire.io connecte les personnes qui cherchent un service avec des entrepreneurs locaux." />
   <meta name="robots" content="index,follow" />
 
@@ -18,20 +18,16 @@
     :root{
       --bg:#f5f9fd;
       --bg2:#edf5fb;
-      --surface:rgba(255,255,255,.72);
-      --surface-strong:rgba(255,255,255,.9);
+      --paper:#fcfeff;
       --text:#0e2233;
-      --title:#091b2a;
-      --muted:#668095;
-      --line:rgba(14,34,51,.08);
+      --title:#081a28;
+      --muted:#688197;
+      --line:rgba(8,26,40,.10);
+      --line-soft:rgba(8,26,40,.06);
       --accent:#2f80ed;
       --accent2:#69c2ff;
-      --accent3:#a9ddff;
-      --success:#10a36c;
-      --shadow:0 20px 60px rgba(20,46,70,.08);
-      --shadow-soft:0 12px 34px rgba(20,46,70,.06);
-      --max:1180px;
-      --radius:24px;
+      --accent3:#b8e5ff;
+      --max:1220px;
     }
 
     *{box-sizing:border-box}
@@ -41,8 +37,8 @@
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
       background:
-        radial-gradient(900px 520px at 0% 0%, rgba(105,194,255,.18), transparent 62%),
-        radial-gradient(720px 480px at 100% 0%, rgba(47,128,237,.10), transparent 58%),
+        radial-gradient(900px 560px at 0% 0%, rgba(105,194,255,.16), transparent 60%),
+        radial-gradient(820px 520px at 100% 0%, rgba(47,128,237,.08), transparent 58%),
         linear-gradient(180deg,var(--bg2),var(--bg));
     }
 
@@ -58,42 +54,45 @@
       overflow:hidden;
     }
 
-    .orb{
+    .blur{
       position:absolute;
       border-radius:999px;
-      filter:blur(70px);
+      filter:blur(80px);
       opacity:.55;
     }
-    .orb.a{
-      width:420px;height:420px;
-      left:-120px;top:-120px;
-      background:rgba(105,194,255,.20);
-      animation:floatA 16s ease-in-out infinite;
-    }
-    .orb.b{
-      width:300px;height:300px;
-      right:-80px;top:80px;
-      background:rgba(47,128,237,.14);
-      animation:floatB 18s ease-in-out infinite;
-    }
-    .orb.c{
-      width:320px;height:320px;
-      left:40%;bottom:-140px;
-      background:rgba(169,221,255,.24);
-      animation:floatC 20s ease-in-out infinite;
+
+    .blur.b1{
+      width:380px;height:380px;
+      top:-120px;left:-120px;
+      background:rgba(105,194,255,.18);
+      animation:float1 16s ease-in-out infinite;
     }
 
-    @keyframes floatA{
-      0%,100%{transform:translate3d(0,0,0)}
-      50%{transform:translate3d(28px,-20px,0)}
+    .blur.b2{
+      width:300px;height:300px;
+      top:110px;right:-90px;
+      background:rgba(47,128,237,.12);
+      animation:float2 18s ease-in-out infinite;
     }
-    @keyframes floatB{
-      0%,100%{transform:translate3d(0,0,0)}
-      50%{transform:translate3d(-24px,26px,0)}
+
+    .blur.b3{
+      width:360px;height:360px;
+      bottom:-140px;left:42%;
+      background:rgba(184,229,255,.24);
+      animation:float3 20s ease-in-out infinite;
     }
-    @keyframes floatC{
+
+    @keyframes float1{
       0%,100%{transform:translate3d(0,0,0)}
-      50%{transform:translate3d(18px,-16px,0)}
+      50%{transform:translate3d(24px,-18px,0)}
+    }
+    @keyframes float2{
+      0%,100%{transform:translate3d(0,0,0)}
+      50%{transform:translate3d(-24px,22px,0)}
+    }
+    @keyframes float3{
+      0%,100%{transform:translate3d(0,0,0)}
+      50%{transform:translate3d(18px,-18px,0)}
     }
 
     .site{
@@ -102,27 +101,28 @@
     }
 
     .wrap{
+      width:100%;
       max-width:var(--max);
       margin:0 auto;
-      padding:0 24px;
+      padding:0 28px;
     }
 
-    .topbar{
+    .header{
       position:sticky;
       top:0;
-      z-index:30;
+      z-index:50;
       backdrop-filter:blur(16px);
       -webkit-backdrop-filter:blur(16px);
-      background:rgba(245,249,253,.72);
-      border-bottom:1px solid rgba(14,34,51,.05);
+      background:rgba(245,249,253,.62);
+      border-bottom:1px solid rgba(8,26,40,.05);
     }
 
-    .topbarInner{
+    .headerInner{
       min-height:84px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:18px;
+      gap:20px;
     }
 
     .brand{
@@ -133,11 +133,11 @@
     }
 
     .brand img{
-      width:50px;
-      height:50px;
+      width:52px;
+      height:52px;
       object-fit:contain;
-      filter:drop-shadow(0 12px 20px rgba(47,128,237,.12));
-      animation:logoFloat 5.8s ease-in-out infinite;
+      filter:drop-shadow(0 14px 22px rgba(47,128,237,.12));
+      animation:logoFloat 6s ease-in-out infinite;
     }
 
     @keyframes logoFloat{
@@ -154,8 +154,8 @@
     .brandText strong{
       font-size:18px;
       font-weight:900;
-      letter-spacing:-.04em;
       color:var(--title);
+      letter-spacing:-.04em;
     }
 
     .brandText span{
@@ -173,140 +173,62 @@
     }
 
     .nav a{
-      padding:11px 14px;
-      border-radius:999px;
       font-size:14px;
       font-weight:800;
-      color:#33536a;
+      color:#355268;
+      padding:10px 12px;
+      border-radius:999px;
       transition:.18s ease;
     }
 
     .nav a:hover{
-      background:rgba(255,255,255,.82);
       color:var(--title);
+      background:rgba(255,255,255,.7);
     }
 
     .hero{
-      padding:42px 0 28px;
-    }
-
-    .heroShell{
       position:relative;
-      min-height:78vh;
-      border-radius:34px;
-      overflow:hidden;
-      background:
-        linear-gradient(135deg, rgba(255,255,255,.74), rgba(255,255,255,.50)),
-        radial-gradient(circle at 20% 20%, rgba(105,194,255,.18), transparent 30%),
-        radial-gradient(circle at 80% 20%, rgba(47,128,237,.14), transparent 26%),
-        radial-gradient(circle at 50% 100%, rgba(169,221,255,.18), transparent 34%);
-      border:1px solid rgba(255,255,255,.74);
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(14px);
-      -webkit-backdrop-filter:blur(14px);
+      min-height:calc(100vh - 84px);
+      display:flex;
+      align-items:center;
+      padding:48px 0 24px;
+    }
+
+    .heroGrid{
       display:grid;
-      place-items:center;
-      padding:38px;
-      isolation:isolate;
+      grid-template-columns:1.05fr .95fr;
+      gap:32px;
+      align-items:center;
     }
 
-    .heroShell::before{
-      content:"";
-      position:absolute;
-      inset:auto auto -120px -120px;
-      width:360px;
-      height:360px;
-      border-radius:999px;
-      background:radial-gradient(circle, rgba(105,194,255,.22), transparent 65%);
-      animation:haloA 8s ease-in-out infinite;
-      pointer-events:none;
-    }
-
-    .heroShell::after{
-      content:"";
-      position:absolute;
-      top:-90px;
-      right:-90px;
-      width:320px;
-      height:320px;
-      border-radius:999px;
-      background:radial-gradient(circle, rgba(47,128,237,.14), transparent 68%);
-      animation:haloB 10s ease-in-out infinite;
-      pointer-events:none;
-    }
-
-    @keyframes haloA{
-      0%,100%{transform:scale(1)}
-      50%{transform:scale(1.08)}
-    }
-    @keyframes haloB{
-      0%,100%{transform:scale(1)}
-      50%{transform:scale(1.06)}
-    }
-
-    .heroContent{
-      position:relative;
-      z-index:2;
-      text-align:center;
-      max-width:900px;
-    }
-
-    .heroLogoWrap{
-      width:104px;
-      height:104px;
-      margin:0 auto 22px;
-      border-radius:28px;
-      display:grid;
-      place-items:center;
-      background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.75));
-      border:1px solid rgba(255,255,255,.85);
-      box-shadow:
-        0 18px 40px rgba(47,128,237,.10),
-        inset 0 1px 0 rgba(255,255,255,.9);
-    }
-
-    .heroLogoWrap img{
-      width:68px;
-      height:68px;
-      object-fit:contain;
-      animation:heroLogoFloat 6s ease-in-out infinite;
-    }
-
-    @keyframes heroLogoFloat{
-      0%,100%{transform:translateY(0)}
-      50%{transform:translateY(-5px)}
-    }
-
-    .heroKicker{
+    .eyebrow{
       display:inline-flex;
       align-items:center;
       gap:10px;
-      padding:10px 14px;
-      border-radius:999px;
-      background:rgba(255,255,255,.82);
-      border:1px solid rgba(14,34,51,.06);
-      color:#4d6b82;
+      color:#56738a;
       font-size:12px;
       font-weight:900;
-      letter-spacing:.08em;
+      letter-spacing:.10em;
       text-transform:uppercase;
       margin-bottom:18px;
     }
 
-    .heroKickerDot{
+    .eyebrow i{
       width:8px;
       height:8px;
       border-radius:999px;
+      display:block;
       background:linear-gradient(135deg,var(--accent),var(--accent2));
-      box-shadow:0 0 0 8px rgba(47,128,237,.09);
+      box-shadow:0 0 0 8px rgba(47,128,237,.08);
     }
 
     h1{
       margin:0;
-      font-size:clamp(42px,6vw,78px);
-      line-height:.98;
-      letter-spacing:-.06em;
+      font-size:clamp(48px,7vw,96px);
+      line-height:.94;
+      letter-spacing:-.07em;
       color:var(--title);
+      max-width:9ch;
     }
 
     .grad{
@@ -316,30 +238,29 @@
       color:transparent;
     }
 
-    .heroSub{
-      margin:18px auto 0;
-      max-width:740px;
+    .heroText{
+      margin-top:22px;
+      max-width:62ch;
+      color:#47657c;
       font-size:20px;
-      line-height:1.7;
-      color:#456278;
+      line-height:1.75;
       font-weight:600;
     }
 
-    .heroSub strong{
+    .heroText strong{
       color:var(--title);
       font-weight:800;
     }
 
     .heroActions{
       display:flex;
-      justify-content:center;
       gap:14px;
       flex-wrap:wrap;
       margin-top:28px;
     }
 
     .btnPrimary,
-    .btnGhost{
+    .btnSecondary{
       min-height:58px;
       padding:0 22px;
       border-radius:18px;
@@ -359,64 +280,158 @@
 
     .btnPrimary:hover{transform:translateY(-1px)}
 
-    .btnGhost{
+    .btnSecondary{
       color:var(--title);
-      background:rgba(255,255,255,.82);
-      border:1px solid rgba(14,34,51,.08);
+      border:1px solid rgba(8,26,40,.08);
+      background:rgba(255,255,255,.72);
     }
 
-    .heroStrip{
-      margin-top:34px;
+    .heroNotes{
       display:flex;
-      justify-content:center;
-      gap:14px;
+      gap:18px;
       flex-wrap:wrap;
+      margin-top:30px;
+      color:#58758b;
+      font-size:13px;
+      font-weight:800;
     }
 
-    .heroPill{
+    .heroNotes span{
       display:inline-flex;
       align-items:center;
       gap:10px;
-      padding:12px 16px;
-      border-radius:999px;
-      background:rgba(255,255,255,.72);
-      border:1px solid rgba(14,34,51,.06);
-      color:#456278;
-      font-size:13px;
-      font-weight:800;
-      box-shadow:var(--shadow-soft);
     }
 
-    .heroPill i{
-      width:8px;
-      height:8px;
+    .heroNotes span::before{
+      content:"";
+      width:7px;
+      height:7px;
       border-radius:999px;
       background:linear-gradient(135deg,var(--accent),var(--accent2));
-      display:block;
+      flex:0 0 auto;
+    }
+
+    .heroVisual{
+      position:relative;
+      min-height:560px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .ring{
+      position:absolute;
+      border-radius:999px;
+      border:1px solid rgba(47,128,237,.12);
+    }
+
+    .ring.r1{
+      width:520px;height:520px;
+      animation:spinSlow 26s linear infinite;
+    }
+
+    .ring.r2{
+      width:410px;height:410px;
+      animation:spinSlowReverse 20s linear infinite;
+    }
+
+    .ring.r3{
+      width:290px;height:290px;
+      animation:spinSlow 16s linear infinite;
+    }
+
+    @keyframes spinSlow{
+      from{transform:rotate(0deg)}
+      to{transform:rotate(360deg)}
+    }
+
+    @keyframes spinSlowReverse{
+      from{transform:rotate(360deg)}
+      to{transform:rotate(0deg)}
+    }
+
+    .orbitDot{
+      position:absolute;
+      width:14px;
+      height:14px;
+      border-radius:999px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      box-shadow:0 0 0 10px rgba(47,128,237,.07);
+    }
+
+    .r1 .orbitDot{top:72px;left:86px}
+    .r2 .orbitDot{right:58px;bottom:64px}
+    .r3 .orbitDot{left:50%;top:-7px;transform:translateX(-50%)}
+
+    .centerMark{
+      position:relative;
+      width:210px;
+      height:210px;
+      border-radius:44px;
+      display:grid;
+      place-items:center;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.90), rgba(255,255,255,.60));
+      border:1px solid rgba(255,255,255,.92);
+      box-shadow:
+        0 32px 80px rgba(20,46,70,.10),
+        inset 0 1px 0 rgba(255,255,255,.94);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+      animation:centerFloat 7s ease-in-out infinite;
+    }
+
+    .centerMark::before,
+    .centerMark::after{
+      content:"";
+      position:absolute;
+      inset:16px;
+      border-radius:34px;
+      border:1px solid rgba(47,128,237,.08);
+    }
+
+    .centerMark::after{
+      inset:auto;
+      width:110%;
+      height:110%;
+      border-radius:54px;
+      border:1px solid rgba(47,128,237,.06);
+    }
+
+    .centerMark img{
+      width:104px;
+      height:104px;
+      object-fit:contain;
+      filter:drop-shadow(0 18px 30px rgba(47,128,237,.12));
+    }
+
+    @keyframes centerFloat{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-8px)}
     }
 
     .section{
-      padding:70px 0 20px;
+      padding:90px 0 10px;
     }
 
-    .sectionHead{
+    .sectionTop{
       display:grid;
-      grid-template-columns:1.05fr .95fr;
-      gap:24px;
+      grid-template-columns:1fr .9fr;
+      gap:28px;
       align-items:end;
-      margin-bottom:28px;
+      margin-bottom:34px;
     }
 
     .sectionTag{
       display:inline-flex;
       align-items:center;
-      gap:8px;
-      color:#55748c;
+      gap:10px;
+      color:#58758b;
       font-size:12px;
       font-weight:900;
-      letter-spacing:.08em;
+      letter-spacing:.10em;
       text-transform:uppercase;
-      margin-bottom:12px;
+      margin-bottom:14px;
     }
 
     .sectionTag i{
@@ -425,227 +440,168 @@
       display:block;
     }
 
-    .sectionHead h2{
+    .sectionTop h2{
       margin:0;
-      font-size:clamp(30px,4vw,52px);
-      line-height:1.02;
-      letter-spacing:-.05em;
+      font-size:clamp(34px,4.7vw,64px);
+      line-height:.98;
+      letter-spacing:-.06em;
       color:var(--title);
+      max-width:12ch;
     }
 
-    .sectionHead p{
+    .sectionTop p{
       margin:0;
       color:var(--muted);
-      font-size:16px;
-      line-height:1.8;
+      font-size:17px;
+      line-height:1.85;
       font-weight:600;
       max-width:56ch;
     }
 
-    .clientScene{
+    .divider{
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(8,26,40,.12), transparent);
+      margin:0 0 40px;
+    }
+
+    .clientGrid{
       display:grid;
-      grid-template-columns:1fr .96fr;
-      gap:30px;
-      align-items:center;
+      grid-template-columns:.95fr 1.05fr;
+      gap:36px;
+      align-items:start;
     }
 
-    .flow{
+    .steps{
+      display:grid;
+      gap:34px;
+      padding-top:10px;
+    }
+
+    .step{
       position:relative;
-      min-height:520px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:20px 0;
+      padding-left:38px;
     }
 
-    .flowLine{
+    .step::before{
+      content:"";
       position:absolute;
-      left:50%;
-      top:54px;
-      bottom:54px;
-      width:2px;
-      transform:translateX(-50%);
-      background:linear-gradient(to bottom, rgba(47,128,237,.08), rgba(47,128,237,.35), rgba(105,194,255,.12));
+      left:7px;
+      top:8px;
+      bottom:-34px;
+      width:1px;
+      background:linear-gradient(to bottom, rgba(47,128,237,.28), rgba(47,128,237,.04));
     }
 
-    .flowDot{
+    .step:last-child::before{
+      display:none;
+    }
+
+    .step::after{
+      content:"";
       position:absolute;
-      left:50%;
-      top:54px;
-      width:12px;
-      height:12px;
+      left:0;
+      top:6px;
+      width:14px;
+      height:14px;
       border-radius:999px;
-      transform:translateX(-50%);
       background:linear-gradient(135deg,var(--accent),var(--accent2));
-      box-shadow:0 0 0 12px rgba(47,128,237,.08), 0 14px 24px rgba(47,128,237,.18);
-      animation:travel 3.2s ease-in-out infinite;
+      box-shadow:0 0 0 10px rgba(47,128,237,.07);
     }
 
-    @keyframes travel{
-      0%{top:54px}
-      50%{top:calc(50% - 6px)}
-      100%{top:calc(100% - 66px)}
-    }
-
-    .flowSteps{
-      position:relative;
-      z-index:2;
-      width:100%;
-      display:grid;
-      gap:30px;
-    }
-
-    .flowRow{
-      display:grid;
-      grid-template-columns:1fr 120px 1fr;
-      align-items:center;
-    }
-
-    .flowCard{
-      padding:20px 4px;
-    }
-
-    .flowMini{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      width:42px;
-      height:42px;
-      border-radius:16px;
-      background:linear-gradient(135deg,rgba(47,128,237,.12),rgba(105,194,255,.22));
-      color:#2369bf;
-      margin-bottom:12px;
-      box-shadow:var(--shadow-soft);
-    }
-
-    .flowCard strong{
+    .step strong{
       display:block;
-      font-size:22px;
-      letter-spacing:-.03em;
+      font-size:28px;
       color:var(--title);
-      margin-bottom:8px;
+      letter-spacing:-.04em;
+      margin-bottom:10px;
     }
 
-    .flowCard span{
-      display:block;
-      font-size:15px;
-      line-height:1.75;
+    .step p{
+      margin:0;
       color:var(--muted);
+      font-size:15px;
+      line-height:1.8;
       font-weight:600;
-      max-width:34ch;
+      max-width:40ch;
     }
 
-    .flowCard.right{
-      text-align:left;
-      justify-self:start;
-    }
-
-    .flowCard.left{
-      text-align:right;
-      justify-self:end;
-    }
-
-    .flowCard.left span{
-      margin-left:auto;
-    }
-
-    .formWrap{
+    .formArea{
       position:relative;
-    }
-
-    .formGlow{
-      position:absolute;
-      inset:auto -30px -40px auto;
-      width:220px;
-      height:220px;
-      border-radius:999px;
-      background:radial-gradient(circle, rgba(105,194,255,.18), transparent 68%);
-      pointer-events:none;
     }
 
     .formSurface{
       position:relative;
-      z-index:2;
-      padding:28px;
-      border-radius:30px;
-      background:linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.78));
-      border:1px solid rgba(255,255,255,.94);
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(14px);
-      -webkit-backdrop-filter:blur(14px);
+      padding-top:8px;
     }
 
-    .formTop{
-      margin-bottom:16px;
-    }
-
-    .formTop strong{
-      display:block;
-      font-size:28px;
-      letter-spacing:-.04em;
-      color:var(--title);
-      margin-bottom:8px;
-    }
-
-    .formTop span{
-      display:block;
-      color:var(--muted);
-      line-height:1.7;
-      font-size:14px;
-      font-weight:600;
-      max-width:52ch;
-    }
-
-    form{
-      display:grid;
-      gap:12px;
-    }
-
-    .row2{
+    .fieldGrid{
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:12px;
+      margin-bottom:12px;
+    }
+
+    .field{
+      position:relative;
+    }
+
+    .field label{
+      display:block;
+      margin-bottom:8px;
+      color:#56738a;
+      font-size:12px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.08em;
     }
 
     input,textarea,select{
       width:100%;
-      border:1px solid rgba(14,34,51,.08);
-      border-radius:18px;
-      background:rgba(251,253,255,.95);
+      border:none;
+      border-bottom:1px solid rgba(8,26,40,.14);
+      background:transparent;
+      padding:12px 0 14px;
       color:var(--title);
-      padding:17px 16px;
-      font-size:15px;
-      font-weight:600;
+      font-size:16px;
+      font-weight:700;
       outline:none;
       transition:.18s ease;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.8);
+      border-radius:0;
     }
 
     input::placeholder,
     textarea::placeholder{
-      color:#8ca1b1;
+      color:#8aa0b0;
+      font-weight:600;
     }
 
     input:focus,
     textarea:focus,
     select:focus{
-      border-color:rgba(47,128,237,.35);
-      box-shadow:0 0 0 4px rgba(47,128,237,.08);
-      background:#fff;
+      border-bottom-color:var(--accent);
+      box-shadow:0 10px 0 -9px rgba(47,128,237,.22);
+    }
+
+    select{
+      appearance:none;
+      -webkit-appearance:none;
+      -moz-appearance:none;
+      cursor:pointer;
     }
 
     textarea{
-      min-height:126px;
+      min-height:120px;
       resize:vertical;
     }
 
     .consent{
       display:flex;
       align-items:flex-start;
-      gap:10px;
-      font-size:12.5px;
-      line-height:1.55;
+      gap:12px;
+      margin-top:16px;
       color:#647d90;
+      font-size:12.5px;
+      line-height:1.6;
       font-weight:600;
     }
 
@@ -657,13 +613,25 @@
       margin-top:2px;
     }
 
+    .submitRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+      margin-top:26px;
+      padding-top:20px;
+      border-top:1px solid rgba(8,26,40,.08);
+    }
+
     .submitBtn{
-      min-height:58px;
+      min-height:56px;
+      padding:0 22px;
       border:none;
       border-radius:18px;
       background:linear-gradient(135deg,var(--accent),var(--accent2));
       color:#fff;
-      font-size:16px;
+      font-size:15px;
       font-weight:900;
       cursor:pointer;
       box-shadow:0 18px 36px rgba(47,128,237,.18);
@@ -672,232 +640,237 @@
 
     .submitBtn:hover{transform:translateY(-1px)}
 
-    .partnersScene{
+    .submitNote{
+      color:#698297;
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .partnerGrid{
       display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:28px;
+      grid-template-columns:1.02fr .98fr;
+      gap:36px;
       align-items:center;
     }
 
-    .partnerVisual{
-      position:relative;
-      min-height:520px;
+    .partnerText{
       display:grid;
-      place-items:center;
+      gap:28px;
     }
 
-    .phone{
-      width:min(100%, 390px);
-      border-radius:36px;
-      padding:16px;
-      background:linear-gradient(180deg,#fafdff,#f4f9ff);
-      border:1px solid rgba(14,34,51,.08);
-      box-shadow:0 26px 80px rgba(14,34,51,.10);
-      transform:rotate(-4deg);
+    .lineItem{
       position:relative;
-      overflow:hidden;
+      padding-left:34px;
     }
 
-    .phone::before{
+    .lineItem::before{
       content:"";
       position:absolute;
-      inset:0;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(105,194,255,.10), transparent 30%),
-        radial-gradient(circle at 80% 20%, rgba(47,128,237,.08), transparent 26%);
-      pointer-events:none;
+      left:0;
+      top:11px;
+      width:18px;
+      height:1px;
+      background:linear-gradient(90deg,var(--accent),transparent);
     }
 
-    .phoneTop{
-      position:relative;
-      z-index:2;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:14px;
-    }
-
-    .phoneTop strong{
+    .lineItem strong{
+      display:block;
       color:var(--title);
-      font-size:15px;
-      font-weight:900;
+      font-size:28px;
+      letter-spacing:-.04em;
+      margin-bottom:8px;
     }
 
-    .live{
+    .lineItem p{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.8;
+      font-weight:600;
+      max-width:42ch;
+    }
+
+    .partnerActions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      padding-top:8px;
+    }
+
+    .leadScene{
+      position:relative;
+      min-height:520px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .leadBackdrop{
+      position:absolute;
+      width:100%;
+      max-width:520px;
+      height:420px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(105,194,255,.18), transparent 68%);
+      filter:blur(12px);
+    }
+
+    .leadSheet{
+      position:relative;
+      width:min(100%, 470px);
+      padding:28px 0 0;
+      transform:rotate(-3deg);
+      animation:sheetFloat 7s ease-in-out infinite;
+    }
+
+    @keyframes sheetFloat{
+      0%,100%{transform:rotate(-3deg) translateY(0)}
+      50%{transform:rotate(-1.5deg) translateY(-8px)}
+    }
+
+    .leadTop{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:20px;
+    }
+
+    .leadTop strong{
+      display:block;
+      color:var(--title);
+      font-size:34px;
+      letter-spacing:-.05em;
+    }
+
+    .leadTop span{
+      display:block;
+      color:#58758b;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      margin-bottom:8px;
+    }
+
+    .leadBadge{
       display:inline-flex;
       align-items:center;
       gap:8px;
-      padding:8px 12px;
-      border-radius:999px;
-      background:rgba(16,163,108,.10);
-      color:var(--success);
-      font-size:11px;
+      color:#167b58;
+      font-size:12px;
       font-weight:900;
-      letter-spacing:.06em;
+      letter-spacing:.08em;
       text-transform:uppercase;
     }
 
-    .live i{
-      width:7px;height:7px;border-radius:999px;
-      background:var(--success);
+    .leadBadge i{
+      width:7px;
+      height:7px;
+      border-radius:999px;
+      background:#10a36c;
       box-shadow:0 0 0 8px rgba(16,163,108,.10);
       display:block;
     }
 
-    .leadCard{
-      position:relative;
-      z-index:2;
-      border-radius:24px;
-      background:#fff;
-      border:1px solid rgba(14,34,51,.08);
-      padding:18px;
-      box-shadow:var(--shadow-soft);
-    }
-
-    .leadHeader{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:16px;
-    }
-
-    .leadHeader strong{
-      font-size:22px;
-      color:var(--title);
-      letter-spacing:-.03em;
-    }
-
-    .price{
-      font-size:12px;
-      font-weight:900;
-      color:#2369bf;
-      background:rgba(47,128,237,.10);
-      padding:8px 11px;
-      border-radius:999px;
-    }
-
     .leadRows{
       display:grid;
-      gap:12px;
+      gap:16px;
+      padding-top:20px;
+      border-top:1px solid rgba(8,26,40,.10);
+      border-bottom:1px solid rgba(8,26,40,.10);
+      padding-bottom:20px;
     }
 
     .leadRow{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      font-size:14px;
-      line-height:1.6;
-      color:#39566b;
+      display:grid;
+      grid-template-columns:92px 1fr;
+      gap:18px;
+      align-items:start;
+      color:#355268;
+      font-size:15px;
+      line-height:1.75;
       font-weight:700;
     }
 
     .leadRow b{
-      min-width:86px;
-      color:#7a92a5;
-      font-weight:800;
+      color:#7b93a6;
+      font-weight:900;
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      padding-top:3px;
     }
 
-    .leadAction{
-      margin-top:16px;
-      display:grid;
-      grid-template-columns:1fr 1fr;
+    .leadBottom{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      padding-top:20px;
+    }
+
+    .leadValue{
+      color:#2369bf;
+      font-size:13px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .leadBtns{
+      display:flex;
       gap:10px;
+      flex-wrap:wrap;
     }
 
-    .leadBtn,
-    .leadGhost{
+    .miniBtn,
+    .miniGhost{
       min-height:46px;
+      padding:0 16px;
       border-radius:14px;
+      border:none;
       font-size:14px;
       font-weight:900;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
       cursor:pointer;
-      border:none;
     }
 
-    .leadBtn{
+    .miniBtn{
       color:#fff;
       background:linear-gradient(135deg,var(--accent),var(--accent2));
     }
 
-    .leadGhost{
+    .miniGhost{
       color:var(--title);
-      background:#fff;
-      border:1px solid rgba(14,34,51,.10);
-    }
-
-    .partnerCopy{
-      display:grid;
-      gap:26px;
-    }
-
-    .zig{
-      display:grid;
-      gap:18px;
-    }
-
-    .zigItem{
-      display:grid;
-      grid-template-columns:54px 1fr;
-      gap:14px;
-      align-items:start;
-    }
-
-    .zigIcon{
-      width:54px;
-      height:54px;
-      border-radius:18px;
-      display:grid;
-      place-items:center;
-      background:linear-gradient(135deg,rgba(47,128,237,.12),rgba(105,194,255,.20));
-      color:#2369bf;
-      box-shadow:var(--shadow-soft);
-    }
-
-    .zigItem strong{
-      display:block;
-      font-size:22px;
-      color:var(--title);
-      letter-spacing:-.03em;
-      margin-bottom:6px;
-    }
-
-    .zigItem span{
-      display:block;
-      color:var(--muted);
-      line-height:1.75;
-      font-size:15px;
-      font-weight:600;
-      max-width:38ch;
+      background:rgba(255,255,255,.76);
+      border:1px solid rgba(8,26,40,.10);
     }
 
     .footer{
-      padding:60px 0 42px;
+      padding:80px 0 44px;
     }
 
     .footerLine{
       height:1px;
-      background:linear-gradient(90deg, transparent, rgba(14,34,51,.10), transparent);
+      background:linear-gradient(90deg, transparent, rgba(8,26,40,.12), transparent);
       margin-bottom:24px;
     }
 
     .footerRow{
       display:flex;
-      justify-content:space-between;
-      gap:16px;
-      flex-wrap:wrap;
       align-items:center;
-      color:#58738a;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+      color:#58758b;
       font-size:13px;
       font-weight:700;
     }
 
     .footerLinks{
       display:flex;
-      gap:16px;
+      gap:18px;
       flex-wrap:wrap;
     }
 
@@ -905,115 +878,56 @@
       color:var(--title);
     }
 
-    @media (max-width: 1000px){
-      .sectionHead,
-      .clientScene,
-      .partnersScene{
+    @media (max-width: 1040px){
+      .heroGrid,
+      .sectionTop,
+      .clientGrid,
+      .partnerGrid{
         grid-template-columns:1fr;
       }
 
-      .flow{
-        min-height:auto;
-        padding:0;
+      h1,
+      .sectionTop h2{
+        max-width:none;
       }
 
-      .flowLine,
-      .flowDot{
-        display:none;
-      }
-
-      .flowSteps{
-        gap:18px;
-      }
-
-      .flowRow{
-        grid-template-columns:1fr;
-      }
-
-      .flowCard.left,
-      .flowCard.right{
-        text-align:left;
-        justify-self:start;
-      }
-
-      .flowCard.left span{
-        margin-left:0;
-      }
-
-      .partnerVisual{
-        min-height:auto;
-      }
-
-      .phone{
-        transform:none;
+      .heroVisual{
+        min-height:420px;
       }
     }
 
     @media (max-width: 760px){
-      .topbarInner{
-        min-height:76px;
-      }
-
-      .nav{
-        display:none;
-      }
-
-      .hero{
-        padding:22px 0 14px;
-      }
-
-      .heroShell{
-        min-height:auto;
-        padding:28px 18px;
-        border-radius:26px;
-      }
-
-      .heroLogoWrap{
-        width:88px;
-        height:88px;
-        border-radius:22px;
-      }
-
-      .heroLogoWrap img{
-        width:56px;
-        height:56px;
-      }
-
-      h1{
-        font-size:42px;
-      }
-
-      .heroSub{
-        font-size:17px;
-      }
-
-      .section{
-        padding:54px 0 12px;
-      }
-
-      .row2,
-      .leadAction{
-        grid-template-columns:1fr;
-      }
-
-      .formSurface{
-        padding:20px;
-        border-radius:24px;
-      }
+      .wrap{padding:0 18px}
+      .nav{display:none}
+      .headerInner{min-height:76px}
+      .hero{min-height:auto;padding:28px 0 10px}
+      h1{font-size:52px}
+      .heroText{font-size:17px}
+      .heroVisual{min-height:340px}
+      .ring.r1{width:360px;height:360px}
+      .ring.r2{width:280px;height:280px}
+      .ring.r3{width:200px;height:200px}
+      .centerMark{width:150px;height:150px;border-radius:30px}
+      .centerMark img{width:76px;height:76px}
+      .section{padding:60px 0 6px}
+      .fieldGrid{grid-template-columns:1fr}
+      .submitRow{align-items:flex-start}
+      .leadSheet{transform:none;animation:none}
+      .leadRow{grid-template-columns:1fr;gap:6px}
     }
   </style>
 </head>
 <body>
   <div class="bg" aria-hidden="true">
-    <div class="orb a"></div>
-    <div class="orb b"></div>
-    <div class="orb c"></div>
+    <div class="blur b1"></div>
+    <div class="blur b2"></div>
+    <div class="blur b3"></div>
   </div>
 
   <div class="site">
-    <header class="topbar">
+    <header class="header">
       <div class="wrap">
-        <div class="topbarInner">
+        <div class="headerInner">
           <a class="brand" href="#top" aria-label="Intermediaire.io">
             <img src="media/logob.png" alt="Logo Intermediaire.io">
             <div class="brandText">
@@ -1022,7 +936,7 @@
             </div>
           </a>
 
-          <nav class="nav" aria-label="Navigation">
+          <nav class="nav" aria-label="Navigation principale">
             <a href="#client">Je cherche un service</a>
             <a href="#entrepreneur">Je suis entrepreneur</a>
           </nav>
@@ -1033,33 +947,39 @@
     <main>
       <section id="top" class="hero">
         <div class="wrap">
-          <div class="heroShell">
-            <div class="heroContent">
-              <div class="heroLogoWrap">
-                <img src="media/logob.png" alt="Intermediaire.io">
-              </div>
-
-              <div class="heroKicker">
-                <span class="heroKickerDot"></span>
+          <div class="heroGrid">
+            <div>
+              <div class="eyebrow">
+                <i></i>
                 Plateforme locale
               </div>
 
-              <h1>Le bon <span class="grad">service</span>, au bon endroit.</h1>
+              <h1>Le bon <span class="grad">contact</span> au bon moment.</h1>
 
-              <p class="heroSub">
-                <strong>Intermediaire.io connecte les personnes qui cherchent un service avec des entrepreneurs locaux,</strong>
-                dans une expérience simple, rapide et claire pour les deux côtés.
+              <p class="heroText">
+                <strong>Intermediaire.io connecte les personnes qui cherchent un service avec des entrepreneurs locaux</strong>,
+                dans une expérience plus simple, plus claire et plus directe pour les deux côtés.
               </p>
 
               <div class="heroActions">
                 <a class="btnPrimary" href="#client">Je cherche un service</a>
-                <a class="btnGhost" href="#entrepreneur">Je suis entrepreneur</a>
+                <a class="btnSecondary" href="#entrepreneur">Je suis entrepreneur</a>
               </div>
 
-              <div class="heroStrip">
-                <div class="heroPill"><i></i>Une demande simple</div>
-                <div class="heroPill"><i></i>Des leads plus clairs</div>
-                <div class="heroPill"><i></i>Connexion locale</div>
+              <div class="heroNotes">
+                <span>Une seule demande claire</span>
+                <span>Des leads plus lisibles</span>
+                <span>Connexion locale</span>
+              </div>
+            </div>
+
+            <div class="heroVisual" aria-hidden="true">
+              <div class="ring r1"><span class="orbitDot"></span></div>
+              <div class="ring r2"><span class="orbitDot"></span></div>
+              <div class="ring r3"><span class="orbitDot"></span></div>
+
+              <div class="centerMark">
+                <img src="media/logob.png" alt="">
               </div>
             </div>
           </div>
@@ -1068,99 +988,79 @@
 
       <section id="client" class="section">
         <div class="wrap">
-          <div class="sectionHead">
+          <div class="sectionTop">
             <div>
               <div class="sectionTag"><i></i>Pour les clients</div>
-              <h2>Vous cherchez un entrepreneur sans perdre votre temps.</h2>
+              <h2>Trouvez un entrepreneur sans courir partout.</h2>
             </div>
+
             <p>
-              Une seule demande claire. Vous expliquez votre besoin, vous laissez vos coordonnées, et votre demande peut être dirigée vers un entrepreneur de votre région.
+              Une seule demande. Vous décrivez votre besoin, vous laissez vos coordonnées, et votre demande peut être dirigée vers un entrepreneur de votre région.
             </p>
           </div>
 
-          <div class="clientScene">
-            <div class="flow">
-              <div class="flowLine"></div>
-              <div class="flowDot"></div>
+          <div class="divider"></div>
 
-              <div class="flowSteps">
-                <div class="flowRow">
-                  <div class="flowCard left">
-                    <div class="flowMini">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <path d="M4 7h16" stroke="currentColor" stroke-width="2"/>
-                        <path d="M4 12h16" stroke="currentColor" stroke-width="2"/>
-                        <path d="M4 17h10" stroke="currentColor" stroke-width="2"/>
-                      </svg>
-                    </div>
-                    <strong>Décrivez votre besoin</strong>
-                    <span>Dites simplement ce que vous cherchez et dans quelle ville.</span>
-                  </div>
-                  <div></div>
-                  <div></div>
-                </div>
+          <div class="clientGrid">
+            <div class="steps">
+              <div class="step">
+                <strong>Décrivez votre besoin</strong>
+                <p>Dites simplement ce que vous cherchez et dans quelle ville. Pas besoin de faire compliqué.</p>
+              </div>
 
-                <div class="flowRow">
-                  <div></div>
-                  <div></div>
-                  <div class="flowCard right">
-                    <div class="flowMini">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <path d="M4 19v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2" stroke="currentColor" stroke-width="2"/>
-                        <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
-                      </svg>
-                    </div>
-                    <strong>Ajoutez vos coordonnées</strong>
-                    <span>Téléphone, courriel, ville. Juste l’essentiel.</span>
-                  </div>
-                </div>
+              <div class="step">
+                <strong>Laissez l’essentiel</strong>
+                <p>Téléphone, courriel, type de service. Juste les infos utiles pour être recontacté.</p>
+              </div>
 
-                <div class="flowRow">
-                  <div class="flowCard left">
-                    <div class="flowMini">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <path d="M13 5l7 7-7 7" stroke="currentColor" stroke-width="2"/>
-                        <path d="M4 12h16" stroke="currentColor" stroke-width="2"/>
-                      </svg>
-                    </div>
-                    <strong>Mise en relation locale</strong>
-                    <span>Votre demande peut ensuite être transmise au bon entrepreneur.</span>
-                  </div>
-                  <div></div>
-                  <div></div>
-                </div>
+              <div class="step">
+                <strong>Mise en relation locale</strong>
+                <p>Votre demande peut ensuite être transmise à un entrepreneur qui correspond à votre besoin.</p>
               </div>
             </div>
 
-            <div class="formWrap">
-              <div class="formGlow"></div>
-
+            <div class="formArea">
               <div class="formSurface">
-                <div class="formTop">
-                  <strong>Faire une demande</strong>
-                  <span>Gardez ça simple et clair. Plus votre demande est facile à comprendre, plus elle est utile.</span>
-                </div>
-
                 <form action="https://hook.us2.make.com/to346qlepm88si74k1dngnwnawkd3b79" method="post">
-                  <div class="row2">
-                    <input type="text" name="prenom" placeholder="Prénom et nom" required>
-                    <input type="text" name="ville" placeholder="Ville" required>
+                  <div class="fieldGrid">
+                    <div class="field">
+                      <label for="prenom">Nom</label>
+                      <input id="prenom" type="text" name="prenom" placeholder="Prénom et nom" required>
+                    </div>
+
+                    <div class="field">
+                      <label for="ville">Ville</label>
+                      <input id="ville" type="text" name="ville" placeholder="Votre ville" required>
+                    </div>
                   </div>
 
-                  <div class="row2">
-                    <input type="tel" name="telephone" placeholder="Téléphone" required>
-                    <input type="email" name="courriel" placeholder="Courriel" required>
+                  <div class="fieldGrid">
+                    <div class="field">
+                      <label for="telephone">Téléphone</label>
+                      <input id="telephone" type="tel" name="telephone" placeholder="Votre numéro" required>
+                    </div>
+
+                    <div class="field">
+                      <label for="courriel">Courriel</label>
+                      <input id="courriel" type="email" name="courriel" placeholder="Votre courriel" required>
+                    </div>
                   </div>
 
-                  <select name="service" required>
-                    <option value="">Type de service</option>
-                    <option value="toiture">Toiture</option>
-                    <option value="plomberie">Plomberie</option>
-                    <option value="electricite">Électricité</option>
-                    <option value="autre">Autre</option>
-                  </select>
+                  <div class="field">
+                    <label for="service">Type de service</label>
+                    <select id="service" name="service" required>
+                      <option value="">Choisir un service</option>
+                      <option value="toiture">Toiture</option>
+                      <option value="plomberie">Plomberie</option>
+                      <option value="electricite">Électricité</option>
+                      <option value="autre">Autre</option>
+                    </select>
+                  </div>
 
-                  <textarea name="travaux" placeholder="Décrivez votre besoin..." required></textarea>
+                  <div class="field">
+                    <label for="travaux">Votre besoin</label>
+                    <textarea id="travaux" name="travaux" placeholder="Décrivez votre besoin..." required></textarea>
+                  </div>
 
                   <div class="consent">
                     <input type="checkbox" id="confirmation" name="confirmation" value="oui" required>
@@ -1169,7 +1069,10 @@
                     </label>
                   </div>
 
-                  <button class="submitBtn" type="submit">Envoyer ma demande</button>
+                  <div class="submitRow">
+                    <button class="submitBtn" type="submit">Envoyer ma demande</button>
+                    <div class="submitNote">Une demande claire aide à créer une meilleure connexion.</div>
+                  </div>
                 </form>
               </div>
             </div>
@@ -1179,89 +1082,88 @@
 
       <section id="entrepreneur" class="section">
         <div class="wrap">
-          <div class="sectionHead">
+          <div class="sectionTop">
             <div>
               <div class="sectionTag"><i></i>Pour les entrepreneurs</div>
-              <h2>Recevez des leads plus clairs, pas juste plus de bruit.</h2>
+              <h2>Recevez des leads plus clairs.</h2>
             </div>
+
             <p>
-              Le but n’est pas de vous noyer avec des demandes vagues. Le but est de vous montrer des demandes lisibles, locales et plus faciles à juger rapidement.
+              Le but n’est pas juste d’envoyer plus de messages. Le but est de présenter des demandes plus lisibles, plus locales et plus faciles à juger rapidement.
             </p>
           </div>
 
-          <div class="partnersScene">
-            <div class="partnerVisual">
-              <div class="phone">
-                <div class="phoneTop">
-                  <strong>Aperçu d’un lead</strong>
-                  <div class="live"><i></i>Exemple</div>
-                </div>
+          <div class="divider"></div>
 
-                <div class="leadCard">
-                  <div class="leadHeader">
-                    <strong id="leadService">Toiture</strong>
-                    <span class="price" id="leadPrice">Lead présenté clairement</span>
-                  </div>
+          <div class="partnerGrid">
+            <div class="partnerText">
+              <div class="lineItem">
+                <strong>Des infos déjà réunies</strong>
+                <p>Vous voyez le service, la ville, le besoin et les coordonnées dans un format plus simple à lire.</p>
+              </div>
 
-                  <div class="leadRows">
-                    <div class="leadRow"><b>Ville</b><span id="leadVille">Sherbrooke</span></div>
-                    <div class="leadRow"><b>Client</b><span id="leadClient">David M.</span></div>
-                    <div class="leadRow"><b>Besoin</b><span id="leadDesc">Infiltration d’eau près du toit. Souhaite une vérification rapide.</span></div>
-                    <div class="leadRow"><b>Contact</b><span id="leadContact">(819) 555-2147 · david@email.com</span></div>
-                  </div>
+              <div class="lineItem">
+                <strong>Plus rapide à évaluer</strong>
+                <p>En quelques secondes, vous pouvez voir si la demande correspond à votre zone et à votre service.</p>
+              </div>
 
-                  <div class="leadAction">
-                    <button type="button" class="leadBtn" id="nextLeadBtn">Voir un autre lead</button>
-                    <a class="leadGhost" href="tel:+18733391815">Nous appeler</a>
-                  </div>
-                </div>
+              <div class="lineItem">
+                <strong>Moins de flou</strong>
+                <p>Ce n’est pas juste un message vague. C’est une demande mieux présentée, donc plus utile pour vous.</p>
+              </div>
+
+              <div class="partnerActions">
+                <a class="btnPrimary" href="tel:+18733391815">Parler à quelqu’un</a>
+                <a class="btnSecondary" href="#top">Retour en haut</a>
               </div>
             </div>
 
-            <div class="partnerCopy">
-              <div class="zig">
-                <div class="zigItem">
-                  <div class="zigIcon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                      <path d="M4 12h16" stroke="currentColor" stroke-width="2"/>
-                      <path d="M12 4v16" stroke="currentColor" stroke-width="2"/>
-                    </svg>
-                  </div>
+            <div class="leadScene">
+              <div class="leadBackdrop"></div>
+
+              <div class="leadSheet">
+                <div class="leadTop">
                   <div>
-                    <strong>Des infos déjà réunies</strong>
-                    <span>Vous voyez le service, la ville, le besoin et les coordonnées dans un format beaucoup plus simple à lire.</span>
+                    <span>Aperçu lead</span>
+                    <strong id="leadService">Toiture</strong>
+                  </div>
+
+                  <div class="leadBadge">
+                    <i></i>
+                    Exemple
                   </div>
                 </div>
 
-                <div class="zigItem">
-                  <div class="zigIcon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                      <path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2"/>
-                    </svg>
+                <div class="leadRows">
+                  <div class="leadRow">
+                    <b>Ville</b>
+                    <div id="leadVille">Sherbrooke</div>
                   </div>
-                  <div>
-                    <strong>Plus rapide à juger</strong>
-                    <span>En quelques secondes, vous pouvez voir si le lead correspond à votre zone et à votre service.</span>
+
+                  <div class="leadRow">
+                    <b>Client</b>
+                    <div id="leadClient">David M.</div>
+                  </div>
+
+                  <div class="leadRow">
+                    <b>Besoin</b>
+                    <div id="leadDesc">Infiltration d’eau près du toit. Souhaite une vérification rapide.</div>
+                  </div>
+
+                  <div class="leadRow">
+                    <b>Contact</b>
+                    <div id="leadContact">(819) 555-2147 · david@email.com</div>
                   </div>
                 </div>
 
-                <div class="zigItem">
-                  <div class="zigIcon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                      <path d="M12 3v18" stroke="currentColor" stroke-width="2"/>
-                      <path d="M17 8H9.5a2.5 2.5 0 1 0 0 5H14a2.5 2.5 0 1 1 0 5H6" stroke="currentColor" stroke-width="2"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <strong>Une présentation plus utile</strong>
-                    <span>Ce n’est pas juste “un message de plus”. C’est une demande rendue plus propre et plus exploitable.</span>
+                <div class="leadBottom">
+                  <div class="leadValue" id="leadValue">Lead présenté clairement</div>
+
+                  <div class="leadBtns">
+                    <button class="miniBtn" type="button" id="nextLeadBtn">Voir un autre lead</button>
+                    <a class="miniGhost" href="tel:+18733391815">Nous appeler</a>
                   </div>
                 </div>
-              </div>
-
-              <div class="heroActions" style="justify-content:flex-start; margin-top:0;">
-                <a class="btnPrimary" href="tel:+18733391815">Parler à quelqu’un</a>
-                <a class="btnGhost" href="#top">Retour en haut</a>
               </div>
             </div>
           </div>
@@ -1273,6 +1175,7 @@
           <div class="footerLine"></div>
           <div class="footerRow">
             <div>© <span id="y"></span> Intermediaire.io</div>
+
             <div class="footerLinks">
               <a href="#client">Je cherche un service</a>
               <a href="#entrepreneur">Je suis entrepreneur</a>
@@ -1294,7 +1197,7 @@
           client:"David M.",
           desc:"Infiltration d’eau près du toit. Souhaite une vérification rapide.",
           contact:"(819) 555-2147 · david@email.com",
-          price:"Lead présenté clairement"
+          value:"Lead présenté clairement"
         },
         {
           service:"Plomberie",
@@ -1302,7 +1205,7 @@
           client:"Marie L.",
           desc:"Fuite sous l’évier de cuisine. Cherche quelqu’un disponible cette semaine.",
           contact:"(873) 555-1082 · marie@email.com",
-          price:"Demande locale"
+          value:"Demande locale"
         },
         {
           service:"Électricité",
@@ -1310,21 +1213,21 @@
           client:"Alex P.",
           desc:"Certaines prises ne fonctionnent plus. Veut une visite et une estimation.",
           contact:"(819) 555-6767 · alex@email.com",
-          price:"Lead lisible"
+          value:"Lead lisible"
         }
       ];
 
       let i = 0;
 
-      const service = document.getElementById('leadService');
-      const ville = document.getElementById('leadVille');
-      const client = document.getElementById('leadClient');
-      const desc = document.getElementById('leadDesc');
-      const contact = document.getElementById('leadContact');
-      const price = document.getElementById('leadPrice');
-      const btn = document.getElementById('nextLeadBtn');
+      const service = document.getElementById("leadService");
+      const ville = document.getElementById("leadVille");
+      const client = document.getElementById("leadClient");
+      const desc = document.getElementById("leadDesc");
+      const contact = document.getElementById("leadContact");
+      const value = document.getElementById("leadValue");
+      const btn = document.getElementById("nextLeadBtn");
 
-      btn.addEventListener('click', () => {
+      btn.addEventListener("click", () => {
         i = (i + 1) % leads.length;
         const lead = leads[i];
         service.textContent = lead.service;
@@ -1332,7 +1235,7 @@
         client.textContent = lead.client;
         desc.textContent = lead.desc;
         contact.textContent = lead.contact;
-        price.textContent = lead.price;
+        value.textContent = lead.value;
       });
     })();
   </script>
