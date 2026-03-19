@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Intermediaire.io | Connexion locale simple</title>
-  <meta name="description" content="Intermediaire.io connecte les personnes qui cherchent un service avec des entrepreneurs locaux." />
+  <title>Intermediaire.io | Trouver un service local</title>
+  <meta name="description" content="Intermediaire.io aide à trouver le bon service local simplement." />
   <meta name="robots" content="index,follow" />
 
   <link rel="icon" type="image/png" href="media/logob.png" />
@@ -12,22 +12,23 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#f5f9fd;
-      --bg2:#edf5fb;
-      --paper:#fcfeff;
-      --text:#0e2233;
-      --title:#081a28;
-      --muted:#688197;
-      --line:rgba(8,26,40,.10);
-      --line-soft:rgba(8,26,40,.06);
+      --bg:#f6fafd;
+      --bg2:#eef5fb;
+      --white:rgba(255,255,255,.82);
+      --text:#102435;
+      --title:#0b1d2c;
+      --muted:#70879a;
+      --line:rgba(16,36,53,.08);
       --accent:#2f80ed;
       --accent2:#69c2ff;
-      --accent3:#b8e5ff;
-      --max:1220px;
+      --shadow:0 18px 55px rgba(16,36,53,.07);
+      --shadow-soft:0 10px 30px rgba(16,36,53,.05);
+      --max:1180px;
+      --radius:22px;
     }
 
     *{box-sizing:border-box}
@@ -37,8 +38,8 @@
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
       background:
-        radial-gradient(900px 560px at 0% 0%, rgba(105,194,255,.16), transparent 60%),
-        radial-gradient(820px 520px at 100% 0%, rgba(47,128,237,.08), transparent 58%),
+        radial-gradient(900px 520px at 0% 0%, rgba(105,194,255,.14), transparent 60%),
+        radial-gradient(700px 460px at 100% 0%, rgba(47,128,237,.08), transparent 58%),
         linear-gradient(180deg,var(--bg2),var(--bg));
     }
 
@@ -49,50 +50,50 @@
     .bg{
       position:fixed;
       inset:0;
-      pointer-events:none;
       z-index:0;
+      pointer-events:none;
       overflow:hidden;
     }
 
-    .blur{
+    .orb{
       position:absolute;
       border-radius:999px;
-      filter:blur(80px);
+      filter:blur(75px);
       opacity:.55;
     }
 
-    .blur.b1{
+    .orb.a{
       width:380px;height:380px;
-      top:-120px;left:-120px;
+      left:-110px;top:-120px;
       background:rgba(105,194,255,.18);
-      animation:float1 16s ease-in-out infinite;
+      animation:floatA 14s ease-in-out infinite;
     }
 
-    .blur.b2{
-      width:300px;height:300px;
-      top:110px;right:-90px;
+    .orb.b{
+      width:280px;height:280px;
+      right:-80px;top:110px;
       background:rgba(47,128,237,.12);
-      animation:float2 18s ease-in-out infinite;
+      animation:floatB 17s ease-in-out infinite;
     }
 
-    .blur.b3{
-      width:360px;height:360px;
-      bottom:-140px;left:42%;
-      background:rgba(184,229,255,.24);
-      animation:float3 20s ease-in-out infinite;
+    .orb.c{
+      width:320px;height:320px;
+      left:42%;bottom:-140px;
+      background:rgba(105,194,255,.12);
+      animation:floatC 20s ease-in-out infinite;
     }
 
-    @keyframes float1{
+    @keyframes floatA{
       0%,100%{transform:translate3d(0,0,0)}
-      50%{transform:translate3d(24px,-18px,0)}
+      50%{transform:translate3d(22px,-18px,0)}
     }
-    @keyframes float2{
+    @keyframes floatB{
       0%,100%{transform:translate3d(0,0,0)}
-      50%{transform:translate3d(-24px,22px,0)}
+      50%{transform:translate3d(-22px,22px,0)}
     }
-    @keyframes float3{
+    @keyframes floatC{
       0%,100%{transform:translate3d(0,0,0)}
-      50%{transform:translate3d(18px,-18px,0)}
+      50%{transform:translate3d(16px,-18px,0)}
     }
 
     .site{
@@ -101,42 +102,61 @@
     }
 
     .wrap{
-      width:100%;
       max-width:var(--max);
       margin:0 auto;
-      padding:0 28px;
+      padding:0 24px;
     }
 
-    .header{
+    .topbar{
       position:sticky;
       top:0;
-      z-index:50;
-      backdrop-filter:blur(16px);
-      -webkit-backdrop-filter:blur(16px);
-      background:rgba(245,249,253,.62);
-      border-bottom:1px solid rgba(8,26,40,.05);
+      z-index:30;
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+      background:rgba(246,250,253,.68);
+      border-bottom:1px solid rgba(16,36,53,.04);
     }
 
-    .headerInner{
-      min-height:84px;
+    .topbarInner{
+      min-height:74px;
       display:flex;
       align-items:center;
-      justify-content:space-between;
-      gap:20px;
+      justify-content:flex-end;
+      gap:8px;
     }
 
-    .brand{
+    .topbar a{
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:14px;
+      font-weight:800;
+      color:#45657d;
+      transition:.18s ease;
+    }
+
+    .topbar a:hover{
+      background:rgba(255,255,255,.76);
+      color:var(--title);
+    }
+
+    .hero{
+      min-height:calc(100vh - 74px);
       display:flex;
       align-items:center;
-      gap:12px;
-      min-width:0;
+      padding:24px 0 40px;
     }
 
-    .brand img{
-      width:52px;
-      height:52px;
+    .heroInner{
+      width:100%;
+      text-align:center;
+    }
+
+    .heroLogo{
+      width:94px;
+      height:94px;
       object-fit:contain;
-      filter:drop-shadow(0 14px 22px rgba(47,128,237,.12));
+      margin:0 auto 18px;
+      filter:drop-shadow(0 18px 30px rgba(47,128,237,.12));
       animation:logoFloat 6s ease-in-out infinite;
     }
 
@@ -145,125 +165,42 @@
       50%{transform:translateY(-4px)}
     }
 
-    .brandText{
-      display:flex;
-      flex-direction:column;
-      line-height:1;
-    }
-
-    .brandText strong{
-      font-size:18px;
-      font-weight:900;
-      color:var(--title);
-      letter-spacing:-.04em;
-    }
-
-    .brandText span{
-      margin-top:6px;
-      font-size:12px;
-      color:var(--muted);
-      font-weight:700;
-    }
-
-    .nav{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-
-    .nav a{
-      font-size:14px;
-      font-weight:800;
-      color:#355268;
-      padding:10px 12px;
-      border-radius:999px;
-      transition:.18s ease;
-    }
-
-    .nav a:hover{
-      color:var(--title);
-      background:rgba(255,255,255,.7);
-    }
-
-    .hero{
-      position:relative;
-      min-height:calc(100vh - 84px);
-      display:flex;
-      align-items:center;
-      padding:48px 0 24px;
-    }
-
-    .heroGrid{
-      display:grid;
-      grid-template-columns:1.05fr .95fr;
-      gap:32px;
-      align-items:center;
-    }
-
-    .eyebrow{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      color:#56738a;
-      font-size:12px;
-      font-weight:900;
-      letter-spacing:.10em;
-      text-transform:uppercase;
-      margin-bottom:18px;
-    }
-
-    .eyebrow i{
-      width:8px;
-      height:8px;
-      border-radius:999px;
-      display:block;
-      background:linear-gradient(135deg,var(--accent),var(--accent2));
-      box-shadow:0 0 0 8px rgba(47,128,237,.08);
-    }
-
-    h1{
+    .brand{
       margin:0;
-      font-size:clamp(48px,7vw,96px);
-      line-height:.94;
-      letter-spacing:-.07em;
+      font-family:"Plus Jakarta Sans", Inter, sans-serif;
+      font-size:clamp(34px,5vw,58px);
+      font-weight:800;
+      letter-spacing:-.06em;
       color:var(--title);
-      max-width:9ch;
     }
 
-    .grad{
-      background:linear-gradient(135deg,var(--accent),var(--accent2));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-    }
-
-    .heroText{
-      margin-top:22px;
-      max-width:62ch;
-      color:#47657c;
-      font-size:20px;
+    .heroSub{
+      margin:12px auto 0;
+      max-width:720px;
+      font-size:18px;
       line-height:1.75;
+      color:#537086;
       font-weight:600;
     }
 
-    .heroText strong{
+    .heroSub strong{
       color:var(--title);
       font-weight:800;
     }
 
     .heroActions{
       display:flex;
-      gap:14px;
+      justify-content:center;
+      gap:12px;
       flex-wrap:wrap;
-      margin-top:28px;
+      margin-top:24px;
     }
 
     .btnPrimary,
-    .btnSecondary{
-      min-height:58px;
-      padding:0 22px;
-      border-radius:18px;
+    .btnSoft{
+      min-height:54px;
+      padding:0 20px;
+      border-radius:17px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
@@ -275,163 +212,128 @@
     .btnPrimary{
       color:#fff;
       background:linear-gradient(135deg,var(--accent),var(--accent2));
-      box-shadow:0 18px 36px rgba(47,128,237,.18);
+      box-shadow:0 16px 34px rgba(47,128,237,.18);
     }
 
     .btnPrimary:hover{transform:translateY(-1px)}
 
-    .btnSecondary{
+    .btnSoft{
       color:var(--title);
-      border:1px solid rgba(8,26,40,.08);
-      background:rgba(255,255,255,.72);
+      background:rgba(255,255,255,.7);
+      border:1px solid rgba(16,36,53,.08);
     }
 
-    .heroNotes{
-      display:flex;
-      gap:18px;
-      flex-wrap:wrap;
-      margin-top:30px;
-      color:#58758b;
-      font-size:13px;
-      font-weight:800;
-    }
-
-    .heroNotes span{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-    }
-
-    .heroNotes span::before{
-      content:"";
-      width:7px;
-      height:7px;
-      border-radius:999px;
-      background:linear-gradient(135deg,var(--accent),var(--accent2));
-      flex:0 0 auto;
-    }
-
-    .heroVisual{
-      position:relative;
-      min-height:560px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .ring{
-      position:absolute;
-      border-radius:999px;
-      border:1px solid rgba(47,128,237,.12);
-    }
-
-    .ring.r1{
-      width:520px;height:520px;
-      animation:spinSlow 26s linear infinite;
-    }
-
-    .ring.r2{
-      width:410px;height:410px;
-      animation:spinSlowReverse 20s linear infinite;
-    }
-
-    .ring.r3{
-      width:290px;height:290px;
-      animation:spinSlow 16s linear infinite;
-    }
-
-    @keyframes spinSlow{
-      from{transform:rotate(0deg)}
-      to{transform:rotate(360deg)}
-    }
-
-    @keyframes spinSlowReverse{
-      from{transform:rotate(360deg)}
-      to{transform:rotate(0deg)}
-    }
-
-    .orbitDot{
-      position:absolute;
-      width:14px;
-      height:14px;
-      border-radius:999px;
-      background:linear-gradient(135deg,var(--accent),var(--accent2));
-      box-shadow:0 0 0 10px rgba(47,128,237,.07);
-    }
-
-    .r1 .orbitDot{top:72px;left:86px}
-    .r2 .orbitDot{right:58px;bottom:64px}
-    .r3 .orbitDot{left:50%;top:-7px;transform:translateX(-50%)}
-
-    .centerMark{
-      position:relative;
-      width:210px;
-      height:210px;
-      border-radius:44px;
-      display:grid;
-      place-items:center;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.90), rgba(255,255,255,.60));
+    .searchShell{
+      margin:34px auto 0;
+      max-width:760px;
+      padding:18px;
+      border-radius:28px;
+      background:linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.72));
       border:1px solid rgba(255,255,255,.92);
-      box-shadow:
-        0 32px 80px rgba(20,46,70,.10),
-        inset 0 1px 0 rgba(255,255,255,.94);
-      backdrop-filter:blur(12px);
-      -webkit-backdrop-filter:blur(12px);
-      animation:centerFloat 7s ease-in-out infinite;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
     }
 
-    .centerMark::before,
-    .centerMark::after{
-      content:"";
-      position:absolute;
-      inset:16px;
-      border-radius:34px;
-      border:1px solid rgba(47,128,237,.08);
+    .searchLabel{
+      text-align:left;
+      margin-bottom:12px;
+      color:#637e92;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.09em;
+      text-transform:uppercase;
     }
 
-    .centerMark::after{
-      inset:auto;
-      width:110%;
-      height:110%;
-      border-radius:54px;
-      border:1px solid rgba(47,128,237,.06);
+    .searchBar{
+      display:grid;
+      grid-template-columns:1.25fr .9fr auto;
+      gap:10px;
+      align-items:end;
     }
 
-    .centerMark img{
-      width:104px;
-      height:104px;
-      object-fit:contain;
-      filter:drop-shadow(0 18px 30px rgba(47,128,237,.12));
+    .searchField label,
+    .miniField label{
+      display:block;
+      margin-bottom:8px;
+      color:#6f8799;
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      text-align:left;
     }
 
-    @keyframes centerFloat{
-      0%,100%{transform:translateY(0)}
-      50%{transform:translateY(-8px)}
+    .searchField select,
+    .searchField input,
+    .miniField input,
+    .miniField textarea{
+      width:100%;
+      border:none;
+      border-bottom:1px solid rgba(16,36,53,.12);
+      background:transparent;
+      padding:12px 0 13px;
+      font-size:16px;
+      font-weight:700;
+      color:var(--title);
+      outline:none;
+      transition:.18s ease;
+      border-radius:0;
     }
+
+    .searchField select:focus,
+    .searchField input:focus,
+    .miniField input:focus,
+    .miniField textarea:focus{
+      border-bottom-color:var(--accent);
+      box-shadow:0 10px 0 -9px rgba(47,128,237,.22);
+    }
+
+    .searchField select{
+      appearance:none;
+      -webkit-appearance:none;
+      -moz-appearance:none;
+      cursor:pointer;
+    }
+
+    .searchBtn{
+      min-width:148px;
+      min-height:54px;
+      border:none;
+      border-radius:16px;
+      color:#fff;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      font-size:15px;
+      font-weight:900;
+      cursor:pointer;
+      box-shadow:0 16px 34px rgba(47,128,237,.16);
+      transition:.18s ease;
+    }
+
+    .searchBtn:hover{transform:translateY(-1px)}
 
     .section{
-      padding:90px 0 10px;
+      padding:44px 0 20px;
     }
 
     .sectionTop{
       display:grid;
-      grid-template-columns:1fr .9fr;
+      grid-template-columns:1fr .95fr;
       gap:28px;
       align-items:end;
-      margin-bottom:34px;
+      margin-bottom:24px;
     }
 
     .sectionTag{
       display:inline-flex;
       align-items:center;
-      gap:10px;
-      color:#58758b;
+      gap:9px;
+      margin-bottom:12px;
+      color:#648094;
       font-size:12px;
       font-weight:900;
-      letter-spacing:.10em;
+      letter-spacing:.09em;
       text-transform:uppercase;
-      margin-bottom:14px;
     }
 
     .sectionTag i{
@@ -442,326 +344,290 @@
 
     .sectionTop h2{
       margin:0;
-      font-size:clamp(34px,4.7vw,64px);
-      line-height:.98;
+      font-size:clamp(30px,4vw,52px);
+      line-height:1;
       letter-spacing:-.06em;
       color:var(--title);
-      max-width:12ch;
     }
 
     .sectionTop p{
       margin:0;
       color:var(--muted);
-      font-size:17px;
-      line-height:1.85;
+      font-size:16px;
+      line-height:1.8;
       font-weight:600;
-      max-width:56ch;
+      max-width:54ch;
     }
 
-    .divider{
+    .line{
       height:1px;
-      background:linear-gradient(90deg, transparent, rgba(8,26,40,.12), transparent);
-      margin:0 0 40px;
+      background:linear-gradient(90deg, transparent, rgba(16,36,53,.12), transparent);
+      margin-bottom:26px;
     }
 
     .clientGrid{
       display:grid;
       grid-template-columns:.95fr 1.05fr;
-      gap:36px;
+      gap:34px;
       align-items:start;
     }
 
-    .steps{
+    .serviceList{
       display:grid;
-      gap:34px;
-      padding-top:10px;
+      gap:12px;
     }
 
-    .step{
+    .serviceItem{
       position:relative;
-      padding-left:38px;
     }
 
-    .step::before{
-      content:"";
+    .serviceItem input{
       position:absolute;
-      left:7px;
-      top:8px;
-      bottom:-34px;
-      width:1px;
-      background:linear-gradient(to bottom, rgba(47,128,237,.28), rgba(47,128,237,.04));
+      opacity:0;
+      pointer-events:none;
     }
 
-    .step:last-child::before{
-      display:none;
+    .serviceCard{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:16px 0;
+      border-bottom:1px solid rgba(16,36,53,.08);
+      cursor:pointer;
+      transition:.18s ease;
     }
 
-    .step::after{
-      content:"";
-      position:absolute;
-      left:0;
-      top:6px;
-      width:14px;
-      height:14px;
-      border-radius:999px;
-      background:linear-gradient(135deg,var(--accent),var(--accent2));
-      box-shadow:0 0 0 10px rgba(47,128,237,.07);
+    .serviceLeft{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      min-width:0;
     }
 
-    .step strong{
+    .serviceIcon{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg,rgba(47,128,237,.10),rgba(105,194,255,.18));
+      color:#2369bf;
+      flex:0 0 auto;
+    }
+
+    .serviceText strong{
       display:block;
-      font-size:28px;
+      color:var(--title);
+      font-size:18px;
+      font-weight:800;
+      letter-spacing:-.03em;
+    }
+
+    .serviceText span{
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:600;
+      margin-top:3px;
+    }
+
+    .serviceState{
+      color:#7b92a5;
+      font-size:12px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      white-space:nowrap;
+    }
+
+    .serviceItem input:checked + .serviceCard{
+      border-bottom-color:rgba(47,128,237,.22);
+    }
+
+    .serviceItem input:checked + .serviceCard .serviceState{
+      color:#2369bf;
+    }
+
+    .miniForm{
+      padding-top:2px;
+    }
+
+    .miniFormTop{
+      margin-bottom:14px;
+    }
+
+    .miniFormTop strong{
+      display:block;
+      font-size:22px;
       color:var(--title);
       letter-spacing:-.04em;
-      margin-bottom:10px;
+      margin-bottom:6px;
     }
 
-    .step p{
-      margin:0;
+    .miniFormTop span{
       color:var(--muted);
-      font-size:15px;
-      line-height:1.8;
+      font-size:14px;
+      line-height:1.65;
       font-weight:600;
-      max-width:40ch;
     }
 
-    .formArea{
-      position:relative;
-    }
-
-    .formSurface{
-      position:relative;
-      padding-top:8px;
-    }
-
-    .fieldGrid{
+    .miniGrid{
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:12px;
       margin-bottom:12px;
     }
 
-    .field{
-      position:relative;
-    }
-
-    .field label{
-      display:block;
-      margin-bottom:8px;
-      color:#56738a;
-      font-size:12px;
-      font-weight:900;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-    }
-
-    input,textarea,select{
-      width:100%;
-      border:none;
-      border-bottom:1px solid rgba(8,26,40,.14);
-      background:transparent;
-      padding:12px 0 14px;
-      color:var(--title);
-      font-size:16px;
-      font-weight:700;
-      outline:none;
-      transition:.18s ease;
-      border-radius:0;
-    }
-
-    input::placeholder,
-    textarea::placeholder{
-      color:#8aa0b0;
-      font-weight:600;
-    }
-
-    input:focus,
-    textarea:focus,
-    select:focus{
-      border-bottom-color:var(--accent);
-      box-shadow:0 10px 0 -9px rgba(47,128,237,.22);
-    }
-
-    select{
-      appearance:none;
-      -webkit-appearance:none;
-      -moz-appearance:none;
-      cursor:pointer;
-    }
-
-    textarea{
-      min-height:120px;
+    .miniField textarea{
+      min-height:92px;
       resize:vertical;
     }
 
     .consent{
       display:flex;
       align-items:flex-start;
-      gap:12px;
-      margin-top:16px;
-      color:#647d90;
+      gap:10px;
+      margin-top:10px;
+      color:#6b8396;
       font-size:12.5px;
-      line-height:1.6;
+      line-height:1.55;
       font-weight:600;
     }
 
     .consent input[type="checkbox"]{
-      width:18px;
-      height:18px;
-      min-width:18px;
+      width:17px;
+      height:17px;
+      min-width:17px;
       accent-color:var(--accent);
       margin-top:2px;
     }
 
-    .submitRow{
+    .miniSubmit{
+      margin-top:18px;
       display:flex;
       align-items:center;
-      justify-content:space-between;
-      gap:18px;
+      gap:14px;
       flex-wrap:wrap;
-      margin-top:26px;
-      padding-top:20px;
-      border-top:1px solid rgba(8,26,40,.08);
     }
 
     .submitBtn{
-      min-height:56px;
-      padding:0 22px;
+      min-height:52px;
+      padding:0 20px;
       border:none;
-      border-radius:18px;
-      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      border-radius:16px;
       color:#fff;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
       font-size:15px;
       font-weight:900;
       cursor:pointer;
-      box-shadow:0 18px 36px rgba(47,128,237,.18);
+      box-shadow:0 16px 34px rgba(47,128,237,.16);
       transition:.18s ease;
     }
 
     .submitBtn:hover{transform:translateY(-1px)}
 
-    .submitNote{
-      color:#698297;
+    .miniHint{
+      color:#70879a;
       font-size:13px;
       font-weight:700;
     }
 
     .partnerGrid{
       display:grid;
-      grid-template-columns:1.02fr .98fr;
-      gap:36px;
-      align-items:center;
+      grid-template-columns:1fr .92fr;
+      gap:34px;
+      align-items:start;
     }
 
-    .partnerText{
+    .partnerPoints{
       display:grid;
-      gap:28px;
+      gap:22px;
+      padding-top:4px;
     }
 
-    .lineItem{
+    .partnerPoint{
       position:relative;
-      padding-left:34px;
+      padding-left:28px;
     }
 
-    .lineItem::before{
+    .partnerPoint::before{
       content:"";
       position:absolute;
       left:0;
       top:11px;
-      width:18px;
+      width:16px;
       height:1px;
       background:linear-gradient(90deg,var(--accent),transparent);
     }
 
-    .lineItem strong{
+    .partnerPoint strong{
       display:block;
       color:var(--title);
-      font-size:28px;
+      font-size:24px;
+      font-weight:800;
       letter-spacing:-.04em;
-      margin-bottom:8px;
+      margin-bottom:7px;
     }
 
-    .lineItem p{
+    .partnerPoint p{
       margin:0;
       color:var(--muted);
       font-size:15px;
-      line-height:1.8;
+      line-height:1.75;
       font-weight:600;
-      max-width:42ch;
+      max-width:38ch;
     }
 
     .partnerActions{
       display:flex;
-      gap:14px;
+      gap:12px;
       flex-wrap:wrap;
+      margin-top:4px;
+    }
+
+    .leadMini{
+      max-width:390px;
+      margin-left:auto;
       padding-top:8px;
     }
 
-    .leadScene{
-      position:relative;
-      min-height:520px;
+    .leadMiniTop{
       display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .leadBackdrop{
-      position:absolute;
-      width:100%;
-      max-width:520px;
-      height:420px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(105,194,255,.18), transparent 68%);
-      filter:blur(12px);
-    }
-
-    .leadSheet{
-      position:relative;
-      width:min(100%, 470px);
-      padding:28px 0 0;
-      transform:rotate(-3deg);
-      animation:sheetFloat 7s ease-in-out infinite;
-    }
-
-    @keyframes sheetFloat{
-      0%,100%{transform:rotate(-3deg) translateY(0)}
-      50%{transform:rotate(-1.5deg) translateY(-8px)}
-    }
-
-    .leadTop{
-      display:flex;
-      align-items:end;
       justify-content:space-between;
+      align-items:end;
       gap:16px;
-      margin-bottom:20px;
+      margin-bottom:16px;
     }
 
-    .leadTop strong{
+    .leadMiniTop span{
+      display:block;
+      color:#6b8396;
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.09em;
+      text-transform:uppercase;
+      margin-bottom:6px;
+    }
+
+    .leadMiniTop strong{
       display:block;
       color:var(--title);
-      font-size:34px;
+      font-size:28px;
+      font-weight:800;
       letter-spacing:-.05em;
     }
 
-    .leadTop span{
-      display:block;
-      color:#58758b;
-      font-size:12px;
-      font-weight:900;
-      letter-spacing:.10em;
-      text-transform:uppercase;
-      margin-bottom:8px;
-    }
-
     .leadBadge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
       color:#167b58;
-      font-size:12px;
+      font-size:11px;
       font-weight:900;
       letter-spacing:.08em;
       text-transform:uppercase;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      white-space:nowrap;
     }
 
     .leadBadge i{
@@ -775,102 +641,74 @@
 
     .leadRows{
       display:grid;
-      gap:16px;
-      padding-top:20px;
-      border-top:1px solid rgba(8,26,40,.10);
-      border-bottom:1px solid rgba(8,26,40,.10);
-      padding-bottom:20px;
+      gap:13px;
+      padding-top:16px;
+      padding-bottom:16px;
+      border-top:1px solid rgba(16,36,53,.08);
+      border-bottom:1px solid rgba(16,36,53,.08);
     }
 
     .leadRow{
       display:grid;
-      grid-template-columns:92px 1fr;
-      gap:18px;
+      grid-template-columns:78px 1fr;
+      gap:14px;
       align-items:start;
-      color:#355268;
-      font-size:15px;
-      line-height:1.75;
+      color:#3f5d73;
+      font-size:14px;
+      line-height:1.65;
       font-weight:700;
     }
 
     .leadRow b{
-      color:#7b93a6;
+      color:#7b92a5;
+      font-size:11px;
       font-weight:900;
-      font-size:12px;
       letter-spacing:.08em;
       text-transform:uppercase;
       padding-top:3px;
     }
 
     .leadBottom{
+      padding-top:16px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:14px;
+      gap:12px;
       flex-wrap:wrap;
-      padding-top:20px;
     }
 
     .leadValue{
       color:#2369bf;
-      font-size:13px;
+      font-size:12px;
       font-weight:900;
       letter-spacing:.08em;
       text-transform:uppercase;
     }
 
-    .leadBtns{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .miniBtn,
-    .miniGhost{
-      min-height:46px;
-      padding:0 16px;
-      border-radius:14px;
-      border:none;
-      font-size:14px;
-      font-weight:900;
-      cursor:pointer;
-    }
-
-    .miniBtn{
-      color:#fff;
-      background:linear-gradient(135deg,var(--accent),var(--accent2));
-    }
-
-    .miniGhost{
-      color:var(--title);
-      background:rgba(255,255,255,.76);
-      border:1px solid rgba(8,26,40,.10);
-    }
-
     .footer{
-      padding:80px 0 44px;
+      padding:70px 0 34px;
     }
 
     .footerLine{
       height:1px;
-      background:linear-gradient(90deg, transparent, rgba(8,26,40,.12), transparent);
-      margin-bottom:24px;
+      background:linear-gradient(90deg, transparent, rgba(16,36,53,.12), transparent);
+      margin-bottom:20px;
     }
 
     .footerRow{
       display:flex;
-      align-items:center;
       justify-content:space-between;
-      gap:18px;
+      align-items:center;
+      gap:14px;
       flex-wrap:wrap;
-      color:#58758b;
+      color:#698195;
       font-size:13px;
       font-weight:700;
     }
 
     .footerLinks{
       display:flex;
-      gap:18px;
+      gap:16px;
       flex-wrap:wrap;
     }
 
@@ -878,108 +716,85 @@
       color:var(--title);
     }
 
-    @media (max-width: 1040px){
-      .heroGrid,
+    @media (max-width: 980px){
+      .searchBar,
       .sectionTop,
       .clientGrid,
       .partnerGrid{
         grid-template-columns:1fr;
       }
 
-      h1,
-      .sectionTop h2{
+      .leadMini{
+        margin-left:0;
         max-width:none;
-      }
-
-      .heroVisual{
-        min-height:420px;
       }
     }
 
     @media (max-width: 760px){
       .wrap{padding:0 18px}
-      .nav{display:none}
-      .headerInner{min-height:76px}
-      .hero{min-height:auto;padding:28px 0 10px}
-      h1{font-size:52px}
-      .heroText{font-size:17px}
-      .heroVisual{min-height:340px}
-      .ring.r1{width:360px;height:360px}
-      .ring.r2{width:280px;height:280px}
-      .ring.r3{width:200px;height:200px}
-      .centerMark{width:150px;height:150px;border-radius:30px}
-      .centerMark img{width:76px;height:76px}
-      .section{padding:60px 0 6px}
-      .fieldGrid{grid-template-columns:1fr}
-      .submitRow{align-items:flex-start}
-      .leadSheet{transform:none;animation:none}
-      .leadRow{grid-template-columns:1fr;gap:6px}
+      .topbarInner{min-height:68px;justify-content:center}
+      .hero{min-height:auto;padding:28px 0 34px}
+      .heroLogo{width:82px;height:82px}
+      .brand{font-size:38px}
+      .heroSub{font-size:16px}
+      .miniGrid{grid-template-columns:1fr}
+      .leadRow{grid-template-columns:1fr;gap:4px}
     }
   </style>
 </head>
 <body>
   <div class="bg" aria-hidden="true">
-    <div class="blur b1"></div>
-    <div class="blur b2"></div>
-    <div class="blur b3"></div>
+    <div class="orb a"></div>
+    <div class="orb b"></div>
+    <div class="orb c"></div>
   </div>
 
   <div class="site">
-    <header class="header">
+    <header class="topbar">
       <div class="wrap">
-        <div class="headerInner">
-          <a class="brand" href="#top" aria-label="Intermediaire.io">
-            <img src="media/logob.png" alt="Logo Intermediaire.io">
-            <div class="brandText">
-              <strong>Intermediaire.io</strong>
-              <span>Connexion locale simple</span>
-            </div>
-          </a>
-
-          <nav class="nav" aria-label="Navigation principale">
-            <a href="#client">Je cherche un service</a>
-            <a href="#entrepreneur">Je suis entrepreneur</a>
-          </nav>
+        <div class="topbarInner">
+          <a href="#client">Client</a>
+          <a href="#entrepreneur">Entrepreneur</a>
         </div>
       </div>
     </header>
 
     <main>
-      <section id="top" class="hero">
+      <section class="hero">
         <div class="wrap">
-          <div class="heroGrid">
-            <div>
-              <div class="eyebrow">
-                <i></i>
-                Plateforme locale
-              </div>
+          <div class="heroInner">
+            <img class="heroLogo" src="media/logob.png" alt="Intermediaire.io">
+            <h1 class="brand">Intermediaire.io</h1>
 
-              <h1>Le bon <span class="grad">contact</span> au bon moment.</h1>
+            <p class="heroSub">
+              <strong>Un moteur simple pour trouver le bon service local</strong> et connecter les demandes aux bons entrepreneurs.
+            </p>
 
-              <p class="heroText">
-                <strong>Intermediaire.io connecte les personnes qui cherchent un service avec des entrepreneurs locaux</strong>,
-                dans une expérience plus simple, plus claire et plus directe pour les deux côtés.
-              </p>
-
-              <div class="heroActions">
-                <a class="btnPrimary" href="#client">Je cherche un service</a>
-                <a class="btnSecondary" href="#entrepreneur">Je suis entrepreneur</a>
-              </div>
-
-              <div class="heroNotes">
-                <span>Une seule demande claire</span>
-                <span>Des leads plus lisibles</span>
-                <span>Connexion locale</span>
-              </div>
+            <div class="heroActions">
+              <a class="btnPrimary" href="#client">Je cherche un service</a>
+              <a class="btnSoft" href="#entrepreneur">Je suis entrepreneur</a>
             </div>
 
-            <div class="heroVisual" aria-hidden="true">
-              <div class="ring r1"><span class="orbitDot"></span></div>
-              <div class="ring r2"><span class="orbitDot"></span></div>
-              <div class="ring r3"><span class="orbitDot"></span></div>
+            <div class="searchShell">
+              <div class="searchLabel">Recherche rapide</div>
 
-              <div class="centerMark">
-                <img src="media/logob.png" alt="">
+              <div class="searchBar">
+                <div class="searchField">
+                  <label for="quickService">Service</label>
+                  <select id="quickService">
+                    <option value="toiture">Toiture</option>
+                    <option value="plomberie">Plomberie — à venir</option>
+                    <option value="electricite">Électricité — à venir</option>
+                    <option value="autre">Autres services — à venir</option>
+                  </select>
+                </div>
+
+                <div class="searchField">
+                  <label for="quickCity">Ville</label>
+                  <input id="quickCity" type="text" placeholder="Votre ville">
+                </div>
+
+                <button class="searchBtn" type="button" id="quickGo">Continuer</button>
               </div>
             </div>
           </div>
@@ -990,91 +805,146 @@
         <div class="wrap">
           <div class="sectionTop">
             <div>
-              <div class="sectionTag"><i></i>Pour les clients</div>
-              <h2>Trouvez un entrepreneur sans courir partout.</h2>
+              <div class="sectionTag"><i></i>Client</div>
+              <h2>Trouver un service</h2>
             </div>
 
             <p>
-              Une seule demande. Vous décrivez votre besoin, vous laissez vos coordonnées, et votre demande peut être dirigée vers un entrepreneur de votre région.
+              Choisissez le service voulu, puis laissez vos infos et votre besoin en quelques secondes.
             </p>
           </div>
 
-          <div class="divider"></div>
+          <div class="line"></div>
 
           <div class="clientGrid">
-            <div class="steps">
-              <div class="step">
-                <strong>Décrivez votre besoin</strong>
-                <p>Dites simplement ce que vous cherchez et dans quelle ville. Pas besoin de faire compliqué.</p>
-              </div>
+            <div class="serviceList">
+              <label class="serviceItem">
+                <input type="radio" name="serviceChoice" value="Toiture" checked>
+                <div class="serviceCard">
+                  <div class="serviceLeft">
+                    <div class="serviceIcon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M3 11.5L12 4l9 7.5" stroke="currentColor" stroke-width="2"/>
+                        <path d="M6 10.5V20h12v-9.5" stroke="currentColor" stroke-width="2"/>
+                      </svg>
+                    </div>
+                    <div class="serviceText">
+                      <strong>Toiture</strong>
+                      <span>Disponible maintenant</span>
+                    </div>
+                  </div>
+                  <div class="serviceState">Actif</div>
+                </div>
+              </label>
 
-              <div class="step">
-                <strong>Laissez l’essentiel</strong>
-                <p>Téléphone, courriel, type de service. Juste les infos utiles pour être recontacté.</p>
-              </div>
+              <label class="serviceItem">
+                <input type="radio" name="serviceChoice" value="Plomberie">
+                <div class="serviceCard">
+                  <div class="serviceLeft">
+                    <div class="serviceIcon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M7 4v6a5 5 0 0 0 10 0V4" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 15v5" stroke="currentColor" stroke-width="2"/>
+                      </svg>
+                    </div>
+                    <div class="serviceText">
+                      <strong>Plomberie</strong>
+                      <span>Bientôt disponible</span>
+                    </div>
+                  </div>
+                  <div class="serviceState">À venir</div>
+                </div>
+              </label>
 
-              <div class="step">
-                <strong>Mise en relation locale</strong>
-                <p>Votre demande peut ensuite être transmise à un entrepreneur qui correspond à votre besoin.</p>
-              </div>
+              <label class="serviceItem">
+                <input type="radio" name="serviceChoice" value="Électricité">
+                <div class="serviceCard">
+                  <div class="serviceLeft">
+                    <div class="serviceIcon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M13 2L6 13h5l-1 9 7-11h-5l1-9z" stroke="currentColor" stroke-width="2"/>
+                      </svg>
+                    </div>
+                    <div class="serviceText">
+                      <strong>Électricité</strong>
+                      <span>Bientôt disponible</span>
+                    </div>
+                  </div>
+                  <div class="serviceState">À venir</div>
+                </div>
+              </label>
+
+              <label class="serviceItem">
+                <input type="radio" name="serviceChoice" value="Autre">
+                <div class="serviceCard">
+                  <div class="serviceLeft">
+                    <div class="serviceIcon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 8v4" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="12" cy="16" r="1" fill="currentColor"/>
+                      </svg>
+                    </div>
+                    <div class="serviceText">
+                      <strong>Autres services</strong>
+                      <span>Bientôt disponible</span>
+                    </div>
+                  </div>
+                  <div class="serviceState">À venir</div>
+                </div>
+              </label>
             </div>
 
-            <div class="formArea">
-              <div class="formSurface">
-                <form action="https://hook.us2.make.com/to346qlepm88si74k1dngnwnawkd3b79" method="post">
-                  <div class="fieldGrid">
-                    <div class="field">
-                      <label for="prenom">Nom</label>
-                      <input id="prenom" type="text" name="prenom" placeholder="Prénom et nom" required>
-                    </div>
-
-                    <div class="field">
-                      <label for="ville">Ville</label>
-                      <input id="ville" type="text" name="ville" placeholder="Votre ville" required>
-                    </div>
-                  </div>
-
-                  <div class="fieldGrid">
-                    <div class="field">
-                      <label for="telephone">Téléphone</label>
-                      <input id="telephone" type="tel" name="telephone" placeholder="Votre numéro" required>
-                    </div>
-
-                    <div class="field">
-                      <label for="courriel">Courriel</label>
-                      <input id="courriel" type="email" name="courriel" placeholder="Votre courriel" required>
-                    </div>
-                  </div>
-
-                  <div class="field">
-                    <label for="service">Type de service</label>
-                    <select id="service" name="service" required>
-                      <option value="">Choisir un service</option>
-                      <option value="toiture">Toiture</option>
-                      <option value="plomberie">Plomberie</option>
-                      <option value="electricite">Électricité</option>
-                      <option value="autre">Autre</option>
-                    </select>
-                  </div>
-
-                  <div class="field">
-                    <label for="travaux">Votre besoin</label>
-                    <textarea id="travaux" name="travaux" placeholder="Décrivez votre besoin..." required></textarea>
-                  </div>
-
-                  <div class="consent">
-                    <input type="checkbox" id="confirmation" name="confirmation" value="oui" required>
-                    <label for="confirmation">
-                      Je confirme qu’il s’agit d’un vrai besoin et j’accepte que mes informations puissent être transmises à des entrepreneurs de ma région.
-                    </label>
-                  </div>
-
-                  <div class="submitRow">
-                    <button class="submitBtn" type="submit">Envoyer ma demande</button>
-                    <div class="submitNote">Une demande claire aide à créer une meilleure connexion.</div>
-                  </div>
-                </form>
+            <div class="miniForm">
+              <div class="miniFormTop">
+                <strong>Votre demande</strong>
+                <span>Simple, rapide, sans remplir une grosse page.</span>
               </div>
+
+              <form action="https://hook.us2.make.com/to346qlepm88si74k1dngnwnawkd3b79" method="post">
+                <input type="hidden" name="service_selectionne" id="hiddenService" value="Toiture">
+
+                <div class="miniGrid">
+                  <div class="miniField">
+                    <label for="nom">Nom</label>
+                    <input id="nom" type="text" name="prenom" placeholder="Prénom et nom" required>
+                  </div>
+
+                  <div class="miniField">
+                    <label for="ville">Ville</label>
+                    <input id="ville" type="text" name="ville" placeholder="Votre ville" required>
+                  </div>
+                </div>
+
+                <div class="miniGrid">
+                  <div class="miniField">
+                    <label for="tel">Téléphone</label>
+                    <input id="tel" type="tel" name="telephone" placeholder="Votre numéro" required>
+                  </div>
+
+                  <div class="miniField">
+                    <label for="courriel">Courriel</label>
+                    <input id="courriel" type="email" name="courriel" placeholder="Votre courriel" required>
+                  </div>
+                </div>
+
+                <div class="miniField">
+                  <label for="besoin">Besoin</label>
+                  <textarea id="besoin" name="travaux" placeholder="Décrivez brièvement votre besoin..." required></textarea>
+                </div>
+
+                <div class="consent">
+                  <input type="checkbox" id="confirmation" name="confirmation" value="oui" required>
+                  <label for="confirmation">
+                    J’accepte que ma demande puisse être transmise à un entrepreneur de ma région.
+                  </label>
+                </div>
+
+                <div class="miniSubmit">
+                  <button class="submitBtn" type="submit">Envoyer</button>
+                  <div class="miniHint">Service sélectionné : <span id="selectedServiceText">Toiture</span></div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -1084,86 +954,77 @@
         <div class="wrap">
           <div class="sectionTop">
             <div>
-              <div class="sectionTag"><i></i>Pour les entrepreneurs</div>
-              <h2>Recevez des leads plus clairs.</h2>
+              <div class="sectionTag"><i></i>Entrepreneur</div>
+              <h2>Recevoir des leads plus propres</h2>
             </div>
 
             <p>
-              Le but n’est pas juste d’envoyer plus de messages. Le but est de présenter des demandes plus lisibles, plus locales et plus faciles à juger rapidement.
+              Un aperçu simple de ce qu’un lead peut contenir, avec seulement l’essentiel.
             </p>
           </div>
 
-          <div class="divider"></div>
+          <div class="line"></div>
 
           <div class="partnerGrid">
-            <div class="partnerText">
-              <div class="lineItem">
-                <strong>Des infos déjà réunies</strong>
-                <p>Vous voyez le service, la ville, le besoin et les coordonnées dans un format plus simple à lire.</p>
+            <div class="partnerPoints">
+              <div class="partnerPoint">
+                <strong>Infos essentielles</strong>
+                <p>Le service, la ville, le besoin et les coordonnées dans un format plus lisible.</p>
               </div>
 
-              <div class="lineItem">
-                <strong>Plus rapide à évaluer</strong>
-                <p>En quelques secondes, vous pouvez voir si la demande correspond à votre zone et à votre service.</p>
+              <div class="partnerPoint">
+                <strong>Plus rapide à juger</strong>
+                <p>Vous voyez rapidement si la demande correspond à votre zone et à votre disponibilité.</p>
               </div>
 
-              <div class="lineItem">
-                <strong>Moins de flou</strong>
-                <p>Ce n’est pas juste un message vague. C’est une demande mieux présentée, donc plus utile pour vous.</p>
+              <div class="partnerPoint">
+                <strong>Plus clean</strong>
+                <p>Moins de flou, moins de temps perdu, plus de clarté.</p>
               </div>
 
               <div class="partnerActions">
-                <a class="btnPrimary" href="tel:+18733391815">Parler à quelqu’un</a>
-                <a class="btnSecondary" href="#top">Retour en haut</a>
+                <a class="btnPrimary" href="tel:+18733391815">Nous appeler</a>
+                <a class="btnSoft" href="#client">Voir côté client</a>
               </div>
             </div>
 
-            <div class="leadScene">
-              <div class="leadBackdrop"></div>
-
-              <div class="leadSheet">
-                <div class="leadTop">
-                  <div>
-                    <span>Aperçu lead</span>
-                    <strong id="leadService">Toiture</strong>
-                  </div>
-
-                  <div class="leadBadge">
-                    <i></i>
-                    Exemple
-                  </div>
+            <div class="leadMini">
+              <div class="leadMiniTop">
+                <div>
+                  <span>Exemple lead</span>
+                  <strong>Toiture</strong>
                 </div>
 
-                <div class="leadRows">
-                  <div class="leadRow">
-                    <b>Ville</b>
-                    <div id="leadVille">Sherbrooke</div>
-                  </div>
+                <div class="leadBadge">
+                  <i></i>
+                  Aperçu
+                </div>
+              </div>
 
-                  <div class="leadRow">
-                    <b>Client</b>
-                    <div id="leadClient">David M.</div>
-                  </div>
-
-                  <div class="leadRow">
-                    <b>Besoin</b>
-                    <div id="leadDesc">Infiltration d’eau près du toit. Souhaite une vérification rapide.</div>
-                  </div>
-
-                  <div class="leadRow">
-                    <b>Contact</b>
-                    <div id="leadContact">(819) 555-2147 · david@email.com</div>
-                  </div>
+              <div class="leadRows">
+                <div class="leadRow">
+                  <b>Ville</b>
+                  <div>Sherbrooke</div>
                 </div>
 
-                <div class="leadBottom">
-                  <div class="leadValue" id="leadValue">Lead présenté clairement</div>
-
-                  <div class="leadBtns">
-                    <button class="miniBtn" type="button" id="nextLeadBtn">Voir un autre lead</button>
-                    <a class="miniGhost" href="tel:+18733391815">Nous appeler</a>
-                  </div>
+                <div class="leadRow">
+                  <b>Client</b>
+                  <div>David M.</div>
                 </div>
+
+                <div class="leadRow">
+                  <b>Besoin</b>
+                  <div>Infiltration d’eau près du toit. Souhaite une vérification rapide.</div>
+                </div>
+
+                <div class="leadRow">
+                  <b>Contact</b>
+                  <div>(819) 555-2147 · david@email.com</div>
+                </div>
+              </div>
+
+              <div class="leadBottom">
+                <div class="leadValue">Lead présenté clairement</div>
               </div>
             </div>
           </div>
@@ -1177,8 +1038,8 @@
             <div>© <span id="y"></span> Intermediaire.io</div>
 
             <div class="footerLinks">
-              <a href="#client">Je cherche un service</a>
-              <a href="#entrepreneur">Je suis entrepreneur</a>
+              <a href="#client">Client</a>
+              <a href="#entrepreneur">Entrepreneur</a>
             </div>
           </div>
         </div>
@@ -1189,55 +1050,38 @@
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    (function(){
-      const leads = [
-        {
-          service:"Toiture",
-          ville:"Sherbrooke",
-          client:"David M.",
-          desc:"Infiltration d’eau près du toit. Souhaite une vérification rapide.",
-          contact:"(819) 555-2147 · david@email.com",
-          value:"Lead présenté clairement"
-        },
-        {
-          service:"Plomberie",
-          ville:"Magog",
-          client:"Marie L.",
-          desc:"Fuite sous l’évier de cuisine. Cherche quelqu’un disponible cette semaine.",
-          contact:"(873) 555-1082 · marie@email.com",
-          value:"Demande locale"
-        },
-        {
-          service:"Électricité",
-          ville:"Sherbrooke",
-          client:"Alex P.",
-          desc:"Certaines prises ne fonctionnent plus. Veut une visite et une estimation.",
-          contact:"(819) 555-6767 · alex@email.com",
-          value:"Lead lisible"
-        }
-      ];
+    const radios = document.querySelectorAll('input[name="serviceChoice"]');
+    const hiddenService = document.getElementById('hiddenService');
+    const selectedServiceText = document.getElementById('selectedServiceText');
+    const quickService = document.getElementById('quickService');
+    const quickGo = document.getElementById('quickGo');
 
-      let i = 0;
-
-      const service = document.getElementById("leadService");
-      const ville = document.getElementById("leadVille");
-      const client = document.getElementById("leadClient");
-      const desc = document.getElementById("leadDesc");
-      const contact = document.getElementById("leadContact");
-      const value = document.getElementById("leadValue");
-      const btn = document.getElementById("nextLeadBtn");
-
-      btn.addEventListener("click", () => {
-        i = (i + 1) % leads.length;
-        const lead = leads[i];
-        service.textContent = lead.service;
-        ville.textContent = lead.ville;
-        client.textContent = lead.client;
-        desc.textContent = lead.desc;
-        contact.textContent = lead.contact;
-        value.textContent = lead.value;
+    function updateSelectedService(value){
+      hiddenService.value = value;
+      selectedServiceText.textContent = value;
+      radios.forEach(radio => {
+        radio.checked = radio.value === value;
       });
-    })();
+    }
+
+    radios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        updateSelectedService(radio.value);
+      });
+    });
+
+    quickGo.addEventListener('click', () => {
+      const selected = quickService.value;
+      let finalValue = "Toiture";
+
+      if(selected === "toiture") finalValue = "Toiture";
+      if(selected === "plomberie") finalValue = "Plomberie";
+      if(selected === "electricite") finalValue = "Électricité";
+      if(selected === "autre") finalValue = "Autre";
+
+      updateSelectedService(finalValue);
+      document.getElementById('client').scrollIntoView({ behavior: 'smooth' });
+    });
   </script>
 </body>
 </html>
