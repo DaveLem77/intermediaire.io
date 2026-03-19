@@ -191,36 +191,92 @@
     .heroActions{
       display:flex;
       justify-content:center;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-top:24px;
+      align-items:center;
+      gap:0;
+      margin-top:28px;
+      flex-wrap:nowrap;
     }
 
-    .btnPrimary,
-    .btnSoft{
-      min-height:54px;
-      padding:0 20px;
-      border-radius:17px;
+    .splitCta{
+      position:relative;
+      min-height:68px;
+      padding:0 30px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
       font-size:15px;
       font-weight:900;
-      transition:.18s ease;
+      letter-spacing:-0.01em;
+      color:white;
+      overflow:hidden;
+      transition:transform .18s ease, filter .18s ease, box-shadow .18s ease;
+      box-shadow:0 18px 34px rgba(47,128,237,.16);
+      isolation:isolate;
     }
 
-    .btnPrimary{
-      color:#fff;
-      background:linear-gradient(135deg,var(--accent),var(--accent2));
-      box-shadow:0 16px 34px rgba(47,128,237,.18);
+    .splitCta span{
+      position:relative;
+      z-index:2;
+      white-space:nowrap;
     }
 
-    .btnPrimary:hover{transform:translateY(-1px)}
+    .splitLeft{
+      background:linear-gradient(135deg, #2f80ed, #5aa8ff);
+      border-radius:22px 0 0 22px;
+      clip-path:polygon(0 0, 100% 0, 92% 100%, 0 100%);
+      padding-right:44px;
+    }
 
-    .btnSoft{
-      color:var(--title);
-      background:rgba(255,255,255,.7);
-      border:1px solid rgba(16,36,53,.08);
+    .splitRight{
+      background:linear-gradient(135deg, #6ac9ff, #2f80ed);
+      border-radius:0 22px 22px 0;
+      clip-path:polygon(8% 0, 100% 0, 100% 100%, 0 100%);
+      padding-left:44px;
+      margin-left:-18px;
+    }
+
+    .splitCta::before{
+      content:"";
+      position:absolute;
+      inset:-30%;
+      background:
+        radial-gradient(circle at 25% 30%, rgba(255,255,255,.24), transparent 30%),
+        radial-gradient(circle at 75% 70%, rgba(255,255,255,.16), transparent 34%);
+      opacity:.9;
+      z-index:1;
+      animation:ctaGlow 4.8s ease-in-out infinite;
+      pointer-events:none;
+    }
+
+    .splitCta::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(120deg, transparent 20%, rgba(255,255,255,.16) 50%, transparent 80%);
+      transform:translateX(-120%);
+      z-index:1;
+      pointer-events:none;
+      animation:ctaShine 4.2s ease-in-out infinite;
+    }
+
+    .splitCta:hover{
+      transform:translateY(-2px) scale(1.01);
+      filter:brightness(1.03);
+      box-shadow:0 24px 42px rgba(47,128,237,.22);
+    }
+
+    .splitCta:active{
+      transform:translateY(0) scale(.995);
+    }
+
+    @keyframes ctaGlow{
+      0%,100%{transform:scale(1) translateX(0)}
+      50%{transform:scale(1.05) translateX(8px)}
+    }
+
+    @keyframes ctaShine{
+      0%,70%,100%{transform:translateX(-120%)}
+      85%{transform:translateX(120%)}
     }
 
     .searchShell{
@@ -586,6 +642,26 @@
       margin-top:4px;
     }
 
+    .btnSoft{
+      min-height:52px;
+      padding:0 18px;
+      border-radius:16px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-size:15px;
+      font-weight:900;
+      color:var(--title);
+      background:rgba(255,255,255,.7);
+      border:1px solid rgba(16,36,53,.08);
+      transition:.18s ease;
+    }
+
+    .btnSoft:hover{
+      transform:translateY(-1px);
+      background:rgba(255,255,255,.86);
+    }
+
     .leadMini{
       max-width:390px;
       margin-left:auto;
@@ -737,6 +813,19 @@
       .heroLogo{width:82px;height:82px}
       .brand{font-size:38px}
       .heroSub{font-size:16px}
+      .heroActions{
+        width:100%;
+        flex-direction:column;
+        gap:10px;
+      }
+      .splitCta{
+        width:100%;
+        min-height:62px;
+        clip-path:none;
+        border-radius:18px;
+        margin-left:0;
+        padding:0 20px;
+      }
       .miniGrid{grid-template-columns:1fr}
       .leadRow{grid-template-columns:1fr;gap:4px}
     }
@@ -771,8 +860,13 @@
             </p>
 
             <div class="heroActions">
-              <a class="btnPrimary" href="#client">Je cherche un service</a>
-              <a class="btnSoft" href="#entrepreneur">Je suis entrepreneur</a>
+              <a class="splitCta splitLeft" href="#client">
+                <span>Je cherche un service</span>
+              </a>
+
+              <a class="splitCta splitRight" href="#entrepreneur">
+                <span>Je suis entrepreneur</span>
+              </a>
             </div>
 
             <div class="searchShell">
@@ -983,7 +1077,7 @@
               </div>
 
               <div class="partnerActions">
-                <a class="btnPrimary" href="tel:+18733391815">Nous appeler</a>
+                <a class="submitBtn" href="tel:+18733391815" style="display:inline-flex;align-items:center;justify-content:center;">Nous appeler</a>
                 <a class="btnSoft" href="#client">Voir côté client</a>
               </div>
             </div>
