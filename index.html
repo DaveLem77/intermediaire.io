@@ -16,16 +16,15 @@
 
   <style>
     :root{
-      --bg:#f6fafd;
-      --bg2:#eef5fb;
-      --text:#102435;
-      --title:#0b1d2c;
-      --muted:#70879a;
-      --line:rgba(16,36,53,.08);
+      --bg:#fbfdff;
+      --bg-soft:#f2f7fc;
+      --text:#102334;
+      --title:#081a28;
+      --muted:#74889a;
+      --line:rgba(8,26,40,.10);
+      --line-soft:rgba(8,26,40,.06);
       --accent:#2f80ed;
-      --accent2:#69c2ff;
-      --shadow:0 18px 55px rgba(16,36,53,.07);
-      --shadow-soft:0 10px 30px rgba(16,36,53,.05);
+      --accent2:#6abfff;
       --max:1180px;
     }
 
@@ -36,156 +35,84 @@
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
       background:
-        radial-gradient(900px 520px at 0% 0%, rgba(105,194,255,.16), transparent 60%),
-        radial-gradient(700px 460px at 100% 0%, rgba(47,128,237,.08), transparent 58%),
-        linear-gradient(180deg,var(--bg2),var(--bg));
+        linear-gradient(180deg, #f6fbff 0%, #fbfdff 22%, #ffffff 100%);
     }
 
     a{text-decoration:none;color:inherit}
     img{display:block;max-width:100%}
     button,input,textarea,select{font:inherit}
 
-    .bg{
-      position:fixed;
-      inset:0;
-      z-index:0;
-      pointer-events:none;
-      overflow:hidden;
-    }
-
-    .orb{
-      position:absolute;
-      border-radius:999px;
-      filter:blur(75px);
-      opacity:.55;
-    }
-
-    .orb.a{
-      width:380px;height:380px;
-      left:-110px;top:-120px;
-      background:rgba(105,194,255,.18);
-      animation:floatA 14s ease-in-out infinite;
-    }
-
-    .orb.b{
-      width:280px;height:280px;
-      right:-80px;top:110px;
-      background:rgba(47,128,237,.12);
-      animation:floatB 17s ease-in-out infinite;
-    }
-
-    .orb.c{
-      width:320px;height:320px;
-      left:42%;bottom:-140px;
-      background:rgba(105,194,255,.12);
-      animation:floatC 20s ease-in-out infinite;
-    }
-
-    @keyframes floatA{
-      0%,100%{transform:translate3d(0,0,0)}
-      50%{transform:translate3d(22px,-18px,0)}
-    }
-    @keyframes floatB{
-      0%,100%{transform:translate3d(0,0,0)}
-      50%{transform:translate3d(-22px,22px,0)}
-    }
-    @keyframes floatC{
-      0%,100%{transform:translate3d(0,0,0)}
-      50%{transform:translate3d(16px,-18px,0)}
-    }
-
     .site{
       position:relative;
-      z-index:1;
+      min-height:100vh;
+    }
+
+    .topFade{
+      position:absolute;
+      inset:0 0 auto 0;
+      height:420px;
+      pointer-events:none;
+      background:
+        radial-gradient(700px 340px at 50% 0%, rgba(106,191,255,.14), transparent 70%),
+        radial-gradient(520px 280px at 20% 8%, rgba(47,128,237,.06), transparent 68%),
+        radial-gradient(520px 280px at 80% 8%, rgba(47,128,237,.05), transparent 68%);
+      z-index:0;
     }
 
     .wrap{
+      position:relative;
+      z-index:1;
       max-width:var(--max);
       margin:0 auto;
-      padding:0 24px;
+      padding:0 26px;
     }
 
     .hero{
       min-height:100vh;
       display:flex;
       align-items:center;
-      padding:34px 0 46px;
-      position:relative;
+      justify-content:center;
+      text-align:center;
+      padding:44px 0 54px;
     }
 
     .heroInner{
       width:100%;
-      text-align:center;
-      position:relative;
+      max-width:920px;
+      margin:0 auto;
     }
 
-    .heroMark{
-      width:126px;
-      height:126px;
-      margin:0 auto 20px;
-      border-radius:34px;
-      display:grid;
-      place-items:center;
-      background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.72));
-      border:1px solid rgba(255,255,255,.92);
-      box-shadow:
-        0 24px 60px rgba(47,128,237,.10),
-        inset 0 1px 0 rgba(255,255,255,.95);
-      backdrop-filter:blur(12px);
-      -webkit-backdrop-filter:blur(12px);
-    }
-
-    .heroMark img{
-      width:78px;
-      height:78px;
+    .logo{
+      width:96px;
+      height:96px;
       object-fit:contain;
-      filter:drop-shadow(0 16px 28px rgba(47,128,237,.14));
-      animation:logoFloat 6s ease-in-out infinite;
+      margin:0 auto 18px;
+      filter:drop-shadow(0 18px 30px rgba(47,128,237,.10));
+      animation:logoFloat 5.8s ease-in-out infinite;
     }
 
     @keyframes logoFloat{
       0%,100%{transform:translateY(0)}
-      50%{transform:translateY(-5px)}
-    }
-
-    .miniKicker{
-      display:inline-flex;
-      align-items:center;
-      gap:9px;
-      margin-bottom:16px;
-      color:#648094;
-      font-size:12px;
-      font-weight:900;
-      letter-spacing:.10em;
-      text-transform:uppercase;
-    }
-
-    .miniKicker i{
-      width:7px;
-      height:7px;
-      border-radius:999px;
-      background:linear-gradient(135deg,var(--accent),var(--accent2));
-      box-shadow:0 0 0 8px rgba(47,128,237,.08);
-      display:block;
+      50%{transform:translateY(-4px)}
     }
 
     .brand{
       margin:0;
       font-family:"Plus Jakarta Sans", Inter, sans-serif;
-      font-size:clamp(38px,5.4vw,66px);
+      font-size:clamp(40px,6vw,72px);
       font-weight:800;
-      letter-spacing:-.065em;
+      letter-spacing:-.07em;
+      line-height:.95;
       color:var(--title);
-      line-height:.98;
     }
 
     .heroSub{
-      margin:14px auto 0;
+      margin:16px auto 0;
       max-width:760px;
       font-size:18px;
       line-height:1.8;
-      color:#537086;
       font-weight:600;
+      color:#5a7387;
     }
 
     .heroSub strong{
@@ -198,9 +125,9 @@
       justify-content:center;
       align-items:center;
       gap:0;
-      margin-top:30px;
+      margin-top:34px;
       flex-wrap:nowrap;
-      filter:drop-shadow(0 22px 40px rgba(16,36,53,.12));
+      filter:drop-shadow(0 18px 36px rgba(16,36,53,.10));
     }
 
     .splitCta{
@@ -220,8 +147,6 @@
         filter .22s ease,
         background .22s ease;
       isolation:isolate;
-      backdrop-filter:blur(10px);
-      -webkit-backdrop-filter:blur(10px);
     }
 
     .splitCta span{
@@ -232,60 +157,31 @@
 
     .splitLeft{
       color:#fff;
-      background:
-        linear-gradient(135deg, #2f80ed 0%, #56a8ff 55%, #79c6ff 100%);
+      background:linear-gradient(135deg, #2f80ed 0%, #56a8ff 55%, #79c6ff 100%);
       border-radius:24px 0 0 24px;
       clip-path:polygon(0 0, 100% 0, 92% 100%, 0 100%);
       padding-right:48px;
       box-shadow:
         inset 0 1px 0 rgba(255,255,255,.22),
-        0 18px 34px rgba(47,128,237,.24);
+        0 18px 34px rgba(47,128,237,.22);
     }
 
     .splitRight{
       color:#0d2233;
-      background:
-        linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(252,254,255,.98) 55%, rgba(242,248,255,.96) 100%);
-      border:1px solid rgba(16,36,53,.12);
+      background:linear-gradient(135deg, #ffffff 0%, #ffffff 54%, #f4f9ff 100%);
+      border:1px solid rgba(8,26,40,.10);
       border-left:none;
       border-radius:0 24px 24px 0;
       clip-path:polygon(8% 0, 100% 0, 100% 100%, 0 100%);
       padding-left:48px;
       margin-left:-18px;
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.95),
-        inset 0 -1px 0 rgba(16,36,53,.04),
-        0 18px 34px rgba(16,36,53,.10);
-    }
-
-    .splitRight span{
-      text-shadow:0 1px 0 rgba(255,255,255,.9);
+        inset 0 1px 0 rgba(255,255,255,.98),
+        0 18px 34px rgba(16,36,53,.08);
     }
 
     .splitLeft::before,
     .splitRight::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      z-index:1;
-      pointer-events:none;
-      opacity:.9;
-    }
-
-    .splitLeft::before{
-      background:
-        radial-gradient(circle at 20% 30%, rgba(255,255,255,.22), transparent 28%),
-        radial-gradient(circle at 75% 70%, rgba(255,255,255,.10), transparent 34%);
-    }
-
-    .splitRight::before{
-      background:
-        radial-gradient(circle at 25% 30%, rgba(255,255,255,.92), transparent 26%),
-        radial-gradient(circle at 80% 75%, rgba(105,194,255,.14), transparent 32%);
-    }
-
-    .splitLeft::after,
-    .splitRight::after{
       content:"";
       position:absolute;
       top:0;
@@ -297,12 +193,12 @@
       animation:splitSweep 5.4s ease-in-out infinite;
     }
 
-    .splitLeft::after{
+    .splitLeft::before{
       background:linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
     }
 
-    .splitRight::after{
-      background:linear-gradient(90deg, transparent, rgba(255,255,255,.75), transparent);
+    .splitRight::before{
+      background:linear-gradient(90deg, transparent, rgba(255,255,255,.82), transparent);
       animation-delay:.35s;
     }
 
@@ -313,22 +209,12 @@
 
     .splitLeft:hover{
       filter:brightness(1.03);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.24),
-        0 24px 44px rgba(47,128,237,.30);
+      box-shadow:0 24px 42px rgba(47,128,237,.28);
     }
 
     .splitRight:hover{
-      background:
-        linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 50%, rgba(246,251,255,.98) 100%);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,1),
-        inset 0 -1px 0 rgba(16,36,53,.04),
-        0 24px 44px rgba(16,36,53,.14);
-    }
-
-    .splitCta:active{
-      transform:translateY(0) scale(.992);
+      box-shadow:0 24px 42px rgba(16,36,53,.12);
+      background:linear-gradient(135deg, #ffffff 0%, #ffffff 60%, #f7fbff 100%);
     }
 
     @keyframes splitSweep{
@@ -336,52 +222,42 @@
         transform:translateX(-140%) skewX(-22deg);
         opacity:0;
       }
-      12%{
-        opacity:1;
-      }
+      12%{opacity:1}
       34%{
         transform:translateX(300%) skewX(-22deg);
         opacity:.95;
       }
-      35%,100%{
-        opacity:0;
-      }
+      35%,100%{opacity:0}
     }
 
-    .searchShell{
-      margin:36px auto 0;
-      max-width:760px;
-      padding:18px;
-      border-radius:28px;
-      background:linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.72));
-      border:1px solid rgba(255,255,255,.92);
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(14px);
-      -webkit-backdrop-filter:blur(14px);
+    .quickSearch{
+      max-width:780px;
+      margin:40px auto 0;
+      padding-top:22px;
+      border-top:1px solid var(--line-soft);
     }
 
-    .searchLabel{
-      text-align:left;
-      margin-bottom:12px;
-      color:#637e92;
+    .quickLabel{
+      margin-bottom:14px;
+      color:#70879a;
       font-size:12px;
       font-weight:900;
-      letter-spacing:.09em;
+      letter-spacing:.10em;
       text-transform:uppercase;
     }
 
-    .searchBar{
+    .quickBar{
       display:grid;
-      grid-template-columns:1.25fr .9fr auto;
-      gap:10px;
+      grid-template-columns:1.15fr .9fr auto;
+      gap:14px;
       align-items:end;
     }
 
-    .searchField label,
+    .field label,
     .miniField label{
       display:block;
       margin-bottom:8px;
-      color:#6f8799;
+      color:#74889a;
       font-size:11px;
       font-weight:900;
       letter-spacing:.08em;
@@ -389,41 +265,41 @@
       text-align:left;
     }
 
-    .searchField select,
-    .searchField input,
+    .field select,
+    .field input,
     .miniField input,
     .miniField textarea{
       width:100%;
       border:none;
-      border-bottom:1px solid rgba(16,36,53,.12);
+      border-bottom:1px solid rgba(8,26,40,.14);
       background:transparent;
       padding:12px 0 13px;
+      color:var(--title);
       font-size:16px;
       font-weight:700;
-      color:var(--title);
       outline:none;
       transition:.18s ease;
       border-radius:0;
     }
 
-    .searchField select:focus,
-    .searchField input:focus,
+    .field select:focus,
+    .field input:focus,
     .miniField input:focus,
     .miniField textarea:focus{
       border-bottom-color:var(--accent);
       box-shadow:0 10px 0 -9px rgba(47,128,237,.22);
     }
 
-    .searchField select{
+    .field select{
       appearance:none;
       -webkit-appearance:none;
       -moz-appearance:none;
       cursor:pointer;
     }
 
-    .searchBtn{
-      min-width:148px;
-      min-height:54px;
+    .quickBtn{
+      min-height:56px;
+      padding:0 18px;
       border:none;
       border-radius:16px;
       color:#fff;
@@ -431,14 +307,14 @@
       font-size:15px;
       font-weight:900;
       cursor:pointer;
-      box-shadow:0 16px 34px rgba(47,128,237,.16);
+      box-shadow:0 14px 28px rgba(47,128,237,.16);
       transition:.18s ease;
     }
 
-    .searchBtn:hover{transform:translateY(-1px)}
+    .quickBtn:hover{transform:translateY(-1px)}
 
     .section{
-      padding:44px 0 20px;
+      padding:52px 0 24px;
     }
 
     .sectionTop{
@@ -454,22 +330,24 @@
       align-items:center;
       gap:9px;
       margin-bottom:12px;
-      color:#648094;
+      color:#6d8396;
       font-size:12px;
       font-weight:900;
-      letter-spacing:.09em;
+      letter-spacing:.10em;
       text-transform:uppercase;
     }
 
     .sectionTag i{
-      width:7px;height:7px;border-radius:999px;
+      width:7px;
+      height:7px;
+      border-radius:999px;
       background:linear-gradient(135deg,var(--accent),var(--accent2));
       display:block;
     }
 
     .sectionTop h2{
       margin:0;
-      font-size:clamp(30px,4vw,52px);
+      font-size:clamp(30px,4vw,54px);
       line-height:1;
       letter-spacing:-.06em;
       color:var(--title);
@@ -486,14 +364,14 @@
 
     .line{
       height:1px;
-      background:linear-gradient(90deg, transparent, rgba(16,36,53,.12), transparent);
+      background:linear-gradient(90deg, transparent, rgba(8,26,40,.12), transparent);
       margin-bottom:26px;
     }
 
     .clientGrid{
       display:grid;
       grid-template-columns:.95fr 1.05fr;
-      gap:34px;
+      gap:38px;
       align-items:start;
     }
 
@@ -518,7 +396,7 @@
       justify-content:space-between;
       gap:12px;
       padding:16px 0;
-      border-bottom:1px solid rgba(16,36,53,.08);
+      border-bottom:1px solid rgba(8,26,40,.08);
       cursor:pointer;
       transition:.18s ease;
     }
@@ -567,15 +445,11 @@
     }
 
     .serviceItem input:checked + .serviceCard{
-      border-bottom-color:rgba(47,128,237,.22);
+      border-bottom-color:rgba(47,128,237,.24);
     }
 
     .serviceItem input:checked + .serviceCard .serviceState{
       color:#2369bf;
-    }
-
-    .miniForm{
-      padding-top:2px;
     }
 
     .miniFormTop{
@@ -646,7 +520,7 @@
       font-size:15px;
       font-weight:900;
       cursor:pointer;
-      box-shadow:0 16px 34px rgba(47,128,237,.16);
+      box-shadow:0 14px 28px rgba(47,128,237,.16);
       transition:.18s ease;
     }
 
@@ -660,8 +534,8 @@
 
     .partnerGrid{
       display:grid;
-      grid-template-columns:1fr .92fr;
-      gap:34px;
+      grid-template-columns:1fr .9fr;
+      gap:38px;
       align-items:start;
     }
 
@@ -721,14 +595,15 @@
       font-size:15px;
       font-weight:900;
       color:var(--title);
-      background:rgba(255,255,255,.7);
-      border:1px solid rgba(16,36,53,.08);
+      background:#fff;
+      border:1px solid rgba(8,26,40,.08);
       transition:.18s ease;
     }
 
     .btnSoft:hover{
       transform:translateY(-1px);
-      background:rgba(255,255,255,.86);
+      background:#fff;
+      box-shadow:0 12px 26px rgba(16,36,53,.08);
     }
 
     .leadMini{
@@ -789,8 +664,8 @@
       gap:13px;
       padding-top:16px;
       padding-bottom:16px;
-      border-top:1px solid rgba(16,36,53,.08);
-      border-bottom:1px solid rgba(16,36,53,.08);
+      border-top:1px solid rgba(8,26,40,.08);
+      border-bottom:1px solid rgba(8,26,40,.08);
     }
 
     .leadRow{
@@ -836,7 +711,7 @@
 
     .footerLine{
       height:1px;
-      background:linear-gradient(90deg, transparent, rgba(16,36,53,.12), transparent);
+      background:linear-gradient(90deg, transparent, rgba(8,26,40,.12), transparent);
       margin-bottom:20px;
     }
 
@@ -862,7 +737,7 @@
     }
 
     @media (max-width: 980px){
-      .searchBar,
+      .quickBar,
       .sectionTop,
       .clientGrid,
       .partnerGrid{
@@ -877,16 +752,10 @@
 
     @media (max-width: 760px){
       .wrap{padding:0 18px}
-      .hero{min-height:auto;padding:28px 0 34px}
-      .heroMark{
-        width:104px;
-        height:104px;
-        border-radius:28px;
-        margin-bottom:18px;
-      }
-      .heroMark img{
-        width:64px;
-        height:64px;
+      .hero{min-height:auto;padding:30px 0 38px}
+      .logo{
+        width:84px;
+        height:84px;
       }
       .brand{font-size:42px}
       .heroSub{font-size:16px}
@@ -909,14 +778,12 @@
       .splitLeft{
         padding-right:28px;
         border-radius:19px 0 0 19px;
-        clip-path:polygon(0 0, 100% 0, 92% 100%, 0 100%);
       }
 
       .splitRight{
         padding-left:28px;
         margin-left:-14px;
         border-radius:0 19px 19px 0;
-        clip-path:polygon(8% 0, 100% 0, 100% 100%, 0 100%);
       }
 
       .miniGrid{grid-template-columns:1fr}
@@ -925,22 +792,14 @@
   </style>
 </head>
 <body>
-  <div class="bg" aria-hidden="true">
-    <div class="orb a"></div>
-    <div class="orb b"></div>
-    <div class="orb c"></div>
-  </div>
-
   <div class="site">
+    <div class="topFade" aria-hidden="true"></div>
+
     <main>
       <section class="hero">
         <div class="wrap">
           <div class="heroInner">
-            <div class="heroMark">
-              <img src="media/logob.png" alt="Intermediaire.io">
-            </div>
-
-            <div class="miniKicker"><i></i>Service local simplifié</div>
+            <img class="logo" src="media/logob.png" alt="Intermediaire.io">
 
             <h1 class="brand">Intermediaire.io</h1>
 
@@ -958,11 +817,11 @@
               </a>
             </div>
 
-            <div class="searchShell">
-              <div class="searchLabel">Recherche rapide</div>
+            <div class="quickSearch">
+              <div class="quickLabel">Recherche rapide</div>
 
-              <div class="searchBar">
-                <div class="searchField">
+              <div class="quickBar">
+                <div class="field">
                   <label for="quickService">Service</label>
                   <select id="quickService">
                     <option value="toiture">Toiture</option>
@@ -972,12 +831,12 @@
                   </select>
                 </div>
 
-                <div class="searchField">
+                <div class="field">
                   <label for="quickCity">Ville</label>
                   <input id="quickCity" type="text" placeholder="Votre ville">
                 </div>
 
-                <button class="searchBtn" type="button" id="quickGo">Continuer</button>
+                <button class="quickBtn" type="button" id="quickGo">Continuer</button>
               </div>
             </div>
           </div>
