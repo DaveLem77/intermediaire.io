@@ -16,19 +16,20 @@
 
   <style>
     :root{
-      --bg:#f7fbff;
+      --bg:#f6fbff;
       --bg2:#ffffff;
-      --text:#0f2232;
+      --text:#112738;
       --title:#081a28;
-      --soft:#6d8395;
-      --line:rgba(13,36,56,.08);
-      --line-strong:rgba(13,36,56,.12);
+      --soft:#6f8597;
+      --line:#dfe9f2;
+      --line-strong:#cfddea;
       --accent:#2f80ed;
       --accent2:#6abfff;
-      --accent3:#9dd9ff;
+      --shadow:0 18px 50px rgba(20,50,80,.08);
       --max:1180px;
-      --shadow:0 20px 60px rgba(25,62,94,.08);
-      --radius:28px;
+      --radius-xl:30px;
+      --radius-lg:22px;
+      --radius-md:16px;
     }
 
     *{box-sizing:border-box}
@@ -43,10 +44,8 @@
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
       background:
-        radial-gradient(900px 420px at 50% -6%, rgba(47,128,237,.14), transparent 62%),
-        radial-gradient(520px 220px at 12% 10%, rgba(106,191,255,.08), transparent 70%),
-        radial-gradient(520px 220px at 88% 12%, rgba(47,128,237,.07), transparent 70%),
-        linear-gradient(180deg,#f6fbff 0%,#fbfdff 28%,#ffffff 100%);
+        radial-gradient(900px 420px at 50% -4%, rgba(47,128,237,.12), transparent 62%),
+        linear-gradient(180deg,#f6fbff 0%,#fbfdff 24%,#ffffff 100%);
     }
 
     a{text-decoration:none;color:inherit}
@@ -56,156 +55,103 @@
     .site{
       position:relative;
       min-height:100vh;
-      isolation:isolate;
     }
 
-    .bgNoise,
-    .bgGlowA,
-    .bgGlowB{
-      position:fixed;
-      inset:0;
+    .topFade{
+      position:absolute;
+      inset:0 0 auto 0;
+      height:320px;
       pointer-events:none;
-      z-index:-2;
-    }
-
-    .bgGlowA{
       background:
-        radial-gradient(600px 280px at 18% 22%, rgba(47,128,237,.08), transparent 70%),
-        radial-gradient(700px 320px at 82% 16%, rgba(106,191,255,.08), transparent 70%);
-      filter:blur(10px);
-    }
-
-    .bgGlowB{
-      background:
-        radial-gradient(380px 180px at 50% 68%, rgba(47,128,237,.05), transparent 72%);
-      filter:blur(20px);
-    }
-
-    .bgNoise{
-      background-image:
-        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-      background-size:24px 24px;
-      opacity:.22;
-      mask-image:linear-gradient(180deg, rgba(0,0,0,.75), rgba(0,0,0,.35));
+        radial-gradient(900px 420px at 50% -2%, rgba(47,128,237,.14), transparent 62%),
+        radial-gradient(500px 220px at 16% 10%, rgba(106,191,255,.09), transparent 72%),
+        radial-gradient(500px 220px at 84% 10%, rgba(47,128,237,.07), transparent 72%);
+      z-index:0;
     }
 
     .wrap{
+      position:relative;
+      z-index:1;
       width:min(var(--max), calc(100% - 40px));
       margin:0 auto;
-      position:relative;
     }
 
+    /* HERO */
     .hero{
       min-height:100svh;
       display:flex;
       align-items:flex-start;
       justify-content:center;
       text-align:center;
-      position:relative;
-      overflow:hidden;
+      padding:0;
     }
 
     .heroInner{
       width:100%;
-      max-width:920px;
-      min-height:100svh;
+      max-width:860px;
+      margin:0 auto;
       display:flex;
       flex-direction:column;
       align-items:center;
       justify-content:flex-start;
-      padding-top:42px;
-      position:relative;
-    }
-
-    .orb{
-      position:absolute;
-      border-radius:999px;
-      filter:blur(14px);
-      opacity:.75;
-      pointer-events:none;
-      animation:floatOrb 10s ease-in-out infinite;
-    }
-
-    .orb.orb1{
-      width:160px;height:160px;
-      background:radial-gradient(circle, rgba(47,128,237,.18), rgba(47,128,237,0));
-      top:88px; left:120px;
-    }
-
-    .orb.orb2{
-      width:200px;height:200px;
-      background:radial-gradient(circle, rgba(106,191,255,.16), rgba(106,191,255,0));
-      top:140px; right:80px;
-      animation-delay:-3s;
-    }
-
-    @keyframes floatOrb{
-      0%,100%{transform:translateY(0) translateX(0)}
-      50%{transform:translateY(-16px) translateX(6px)}
+      min-height:100svh;
+      padding-top:40px;
     }
 
     .logo{
-      width:158px;
-      height:158px;
+      width:156px;
+      height:156px;
       object-fit:contain;
       margin:0 auto 14px;
-      filter:drop-shadow(0 18px 34px rgba(47,128,237,.14));
+      filter:drop-shadow(0 14px 30px rgba(47,128,237,.14));
       animation:logoFloat 6s ease-in-out infinite;
-      position:relative;
-      z-index:2;
     }
 
     @keyframes logoFloat{
       0%,100%{transform:translateY(0)}
-      50%{transform:translateY(-5px)}
+      50%{transform:translateY(-4px)}
     }
 
     .brand{
       margin:0;
       font-family:"Space Grotesk", Inter, sans-serif;
-      font-size:clamp(44px,6.2vw,84px);
+      font-size:clamp(44px,6.2vw,82px);
       font-weight:700;
       letter-spacing:-0.11em;
       line-height:.9;
       color:var(--title);
       text-rendering:geometricPrecision;
-      position:relative;
-      z-index:2;
     }
 
     .heroSub{
       margin:18px auto 0;
-      max-width:760px;
+      max-width:720px;
       font-size:clamp(18px,2.1vw,24px);
       line-height:1.35;
       font-weight:600;
-      color:var(--soft);
-      position:relative;
-      z-index:2;
+      color:#6c8396;
     }
 
     .heroMiniLine{
-      margin-top:16px;
-      color:#7f95a7;
+      margin-top:14px;
+      color:#7f94a5;
       font-size:12px;
-      font-weight:900;
+      font-weight:800;
       letter-spacing:.16em;
       text-transform:uppercase;
-      position:relative;
-      z-index:2;
     }
 
     .heroActions{
-      margin:30px auto 0;
+      margin:28px auto 0;
       display:flex;
       justify-content:center;
       align-items:center;
       gap:0;
+      flex-wrap:nowrap;
       width:auto;
-      filter:drop-shadow(0 18px 30px rgba(47,128,237,.12));
-      position:relative;
-      z-index:2;
+      max-width:none;
+      padding:0;
+      filter:drop-shadow(0 16px 28px rgba(47,128,237,.12));
     }
 
     .splitCta{
@@ -217,143 +163,117 @@
       align-items:center;
       justify-content:center;
       overflow:hidden;
-      transition:transform .18s ease, filter .18s ease;
+      transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
       white-space:normal;
       text-align:center;
-      backdrop-filter:blur(12px);
     }
 
     .splitCta span{
       display:block;
-      line-height:1.18;
+      line-height:1.2;
     }
 
-    .splitCta:hover{ transform:translateY(-2px) }
+    .splitCta:hover{
+      transform:translateY(-2px);
+    }
 
     .splitLeft{
       background:linear-gradient(135deg,#2f80ed 0%,#56a8ff 58%,#79c6ff 100%);
       color:#fff;
-      border-radius:22px 0 0 22px;
+      border-radius:20px 0 0 20px;
       clip-path:polygon(0 0, 100% 0, 84% 100%, 0 100%);
-      padding:0 54px 0 34px;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.22);
+      padding:0 52px 0 34px;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.22),
+        0 14px 26px rgba(47,128,237,.20);
     }
 
     .splitRight{
-      background:rgba(255,255,255,.8);
+      background:#fff;
       color:var(--title);
-      border:1px solid rgba(8,26,40,.08);
+      border:1px solid rgba(8,26,40,.10);
       border-left:none;
-      border-radius:0 22px 22px 0;
+      border-radius:0 20px 20px 0;
       clip-path:polygon(16% 0, 100% 0, 100% 100%, 0 100%);
-      padding:0 34px 0 54px;
+      padding:0 34px 0 52px;
       margin-left:-22px;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.92);
-    }
-
-    .heroStats{
-      margin-top:24px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:center;
-      position:relative;
-      z-index:2;
-    }
-
-    .heroStat{
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid rgba(13,36,56,.08);
-      background:rgba(255,255,255,.62);
-      color:#557084;
-      font-size:12px;
-      font-weight:800;
-      backdrop-filter:blur(10px);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.95),
+        0 14px 26px rgba(16,36,53,.08);
     }
 
     .heroScroll{
       margin-top:34px;
-      width:38px;
-      height:38px;
+      width:34px;
+      height:34px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
       animation:arrowBounce 1.5s ease-in-out infinite;
-      position:relative;
-      z-index:2;
     }
 
     .heroScroll span{
       width:12px;
       height:12px;
       display:block;
-      border-right:2px solid rgba(8,26,40,.5);
-      border-bottom:2px solid rgba(8,26,40,.5);
+      border-right:2px solid rgba(8,26,40,.45);
+      border-bottom:2px solid rgba(8,26,40,.45);
       transform:rotate(45deg);
     }
 
     @keyframes arrowBounce{
-      0%,100%{transform:translateY(0);opacity:.68}
+      0%,100%{transform:translateY(0);opacity:.7}
       50%{transform:translateY(7px);opacity:1}
     }
 
-    .section{
+    /* SECTIONS */
+    .clientSection,
+    .entrepreneurSection{
       position:relative;
-      z-index:2;
+      z-index:1;
+      padding:36px 0 90px;
     }
 
     .clientSection{
       margin-top:-150px;
-      padding:26px 0 90px;
     }
 
-    .entrepreneurSection{
-      padding:16px 0 90px;
+    .sectionShell{
+      max-width:940px;
+      margin:0 auto;
     }
 
     .sectionHead{
       text-align:center;
-      max-width:780px;
-      margin:0 auto 22px;
+      margin-bottom:28px;
     }
 
-    .kicker{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
+    .sectionKicker{
+      display:inline-block;
       margin-bottom:10px;
       padding:8px 12px;
-      border-radius:999px;
       border:1px solid rgba(47,128,237,.14);
-      background:rgba(255,255,255,.6);
-      color:#4f6d82;
+      border-radius:999px;
+      background:rgba(255,255,255,.72);
+      color:#4d6a80;
       font-size:12px;
-      font-weight:900;
+      font-weight:800;
       letter-spacing:.12em;
       text-transform:uppercase;
-      backdrop-filter:blur(10px);
-    }
-
-    .kickerDot{
-      width:7px;
-      height:7px;
-      border-radius:999px;
-      background:linear-gradient(135deg,#2f80ed,#6abfff);
-      box-shadow:0 0 0 6px rgba(47,128,237,.08);
+      box-shadow:0 6px 16px rgba(47,128,237,.05);
     }
 
     .sectionTitle{
       margin:0;
       color:var(--title);
-      font-size:clamp(30px,4vw,52px);
+      font-size:clamp(30px,4vw,48px);
       line-height:1.02;
-      letter-spacing:-.05em;
+      letter-spacing:-.04em;
       font-weight:900;
     }
 
     .sectionDesc{
-      max-width:700px;
+      max-width:690px;
       margin:12px auto 0;
       color:var(--soft);
       font-size:16px;
@@ -361,138 +281,103 @@
       font-weight:500;
     }
 
-    .chips{
+    .softRow{
       display:flex;
+      justify-content:center;
       gap:10px;
       flex-wrap:wrap;
-      justify-content:center;
       margin-top:16px;
     }
 
-    .chip{
+    .softPill{
       padding:10px 14px;
       border-radius:999px;
-      background:rgba(255,255,255,.55);
-      border:1px solid rgba(13,36,56,.08);
-      color:#5b7588;
+      background:rgba(255,255,255,.82);
+      border:1px solid var(--line);
+      color:#60798a;
       font-size:12px;
       font-weight:800;
-      backdrop-filter:blur(10px);
     }
 
-    .clientVisual,
-    .entrepreneurVisual{
-      position:relative;
-      max-width:950px;
-      margin:0 auto;
-    }
-
-    .flowLine{
-      position:absolute;
-      inset:8px 0 auto 0;
-      height:1px;
-      background:linear-gradient(90deg, transparent, rgba(47,128,237,.14), transparent);
-      pointer-events:none;
-    }
-
-    .formShell{
-      position:relative;
-      padding:24px 0 0;
-    }
-
-    .formTopMini{
+    /* CLIENT LAYOUT */
+    .clientLayout{
       display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:10px;
-      margin-bottom:14px;
+      grid-template-columns:1.08fr .92fr;
+      gap:28px;
+      align-items:start;
     }
 
-    .miniItem{
-      padding:12px 14px;
-      border-radius:18px;
-      background:rgba(255,255,255,.5);
-      border:1px solid rgba(13,36,56,.07);
-      color:#567286;
-      font-size:13px;
-      font-weight:800;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      backdrop-filter:blur(10px);
+    .formCard{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:var(--radius-xl);
+      padding:24px;
+      box-shadow:var(--shadow);
     }
 
-    .miniIcon{
-      width:28px;
-      height:28px;
-      border-radius:50%;
-      display:grid;
-      place-items:center;
-      background:linear-gradient(135deg, rgba(47,128,237,.16), rgba(106,191,255,.16));
-      color:#2f80ed;
-      font-size:13px;
+    .cardTop{
+      margin-bottom:18px;
+    }
+
+    .cardTitle{
+      margin:0;
+      color:var(--title);
+      font-size:24px;
       font-weight:900;
-      flex:0 0 28px;
+      letter-spacing:-.03em;
+    }
+
+    .cardDesc{
+      margin:8px 0 0;
+      color:var(--soft);
+      font-size:14px;
+      line-height:1.6;
+      font-weight:500;
     }
 
     .formGrid{
       display:grid;
-      grid-template-columns:repeat(2, minmax(0,1fr));
-      gap:12px;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
     }
 
     .field,
     .full{
-      position:relative;
       display:flex;
       flex-direction:column;
-      gap:6px;
+      gap:7px;
     }
 
-    .full{ grid-column:1 / -1 }
+    .full{
+      grid-column:1 / -1;
+    }
 
     .label{
-      color:#60798b;
-      font-size:11px;
-      font-weight:900;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-      padding-left:4px;
+      color:#5f788a;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.03em;
     }
 
-    .inputWrap{
-      position:relative;
-    }
-
-    .inputIcon{
-      position:absolute;
-      left:14px;
-      top:50%;
-      transform:translateY(-50%);
-      width:22px;
-      height:22px;
-      border-radius:50%;
-      background:linear-gradient(135deg, rgba(47,128,237,.14), rgba(106,191,255,.14));
-      color:#2f80ed;
-      display:grid;
-      place-items:center;
-      font-size:11px;
-      font-weight:900;
-      pointer-events:none;
-    }
-
-    .input,.select,.textarea{
+    .input,
+    .select,
+    .textarea{
       width:100%;
-      border:none;
-      border-bottom:1px solid rgba(13,36,56,.12);
-      background:rgba(255,255,255,.36);
+      border:1px solid var(--line-strong);
+      background:#fff;
       color:var(--title);
-      border-radius:18px;
-      padding:16px 16px 16px 48px;
+      border-radius:16px;
+      padding:15px 16px;
       outline:none;
       font-size:14px;
-      font-weight:600;
-      transition:background .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease;
-      backdrop-filter:blur(10px);
+      transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+    }
+
+    .input:focus,
+    .select:focus,
+    .textarea:focus{
+      border-color:rgba(47,128,237,.45);
+      box-shadow:0 0 0 4px rgba(47,128,237,.10);
     }
 
     .select{
@@ -510,36 +395,25 @@
     }
 
     .textarea{
-      min-height:108px;
+      min-height:124px;
       resize:vertical;
-      padding-top:16px;
-    }
-
-    .input::placeholder,.textarea::placeholder{ color:#8ca0af }
-
-    .input:focus,.select:focus,.textarea:focus{
-      background:rgba(255,255,255,.78);
-      border-bottom-color:rgba(47,128,237,.42);
-      box-shadow:0 10px 24px rgba(47,128,237,.08);
     }
 
     .checkWrap{
       grid-column:1 / -1;
       display:flex;
       align-items:flex-start;
-      gap:12px;
-      margin-top:4px;
-      padding:10px 2px 0;
+      gap:10px;
+      padding:4px 2px 0;
     }
 
     .checkWrap input{
       margin-top:3px;
       accent-color:#2f80ed;
-      transform:scale(1.05);
     }
 
     .checkText{
-      color:#718798;
+      color:#6d8395;
       font-size:12px;
       line-height:1.5;
       font-weight:600;
@@ -549,16 +423,15 @@
       grid-column:1 / -1;
       display:flex;
       align-items:center;
-      justify-content:space-between;
       gap:14px;
-      margin-top:8px;
       flex-wrap:wrap;
+      margin-top:4px;
     }
 
     .submitBtn{
       border:none;
       border-radius:18px;
-      padding:17px 26px;
+      padding:16px 26px;
       min-width:220px;
       font-size:15px;
       font-weight:900;
@@ -566,164 +439,148 @@
       cursor:pointer;
       background:linear-gradient(135deg,#2f80ed 0%,#56a8ff 55%,#79c6ff 100%);
       box-shadow:
-        0 16px 34px rgba(47,128,237,.22),
-        inset 0 1px 0 rgba(255,255,255,.22);
+        inset 0 1px 0 rgba(255,255,255,.22),
+        0 14px 26px rgba(47,128,237,.20);
       transition:transform .18s ease, box-shadow .18s ease;
     }
 
     .submitBtn:hover{
       transform:translateY(-2px);
-      box-shadow:
-        0 20px 42px rgba(47,128,237,.26),
-        inset 0 1px 0 rgba(255,255,255,.22);
     }
 
-    .submitHint{
-      color:#7d93a4;
+    .submitMini{
+      color:#7c93a4;
       font-size:12px;
       font-weight:700;
     }
 
-    .reviewsSection{
-      margin-top:34px;
+    .clientSide{
+      display:flex;
+      flex-direction:column;
+      gap:16px;
     }
 
-    .reviewsHead{
-      text-align:center;
-      margin-bottom:14px;
+    .stepsCard,
+    .reviewsCard{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:var(--radius-xl);
+      padding:22px;
+      box-shadow:var(--shadow);
     }
 
-    .reviewsTitle{
-      margin:0;
+    .stepsTitle,
+    .reviewsTitle,
+    .entBoxTitle{
+      margin:0 0 14px;
+      color:var(--title);
       font-size:20px;
       font-weight:900;
-      color:var(--title);
       letter-spacing:-.03em;
     }
 
-    .reviewsSub{
-      margin:8px 0 0;
-      font-size:14px;
-      color:var(--soft);
-      line-height:1.55;
-    }
-
-    .reviewsGrid{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:14px;
-    }
-
-    .reviewCard{
-      padding:18px 0 0;
-      position:relative;
-    }
-
-    .reviewGlow{
-      position:absolute;
-      inset:auto 0 -10px 0;
-      height:28px;
-      background:radial-gradient(circle, rgba(47,128,237,.12), transparent 72%);
-      filter:blur(12px);
-      opacity:.8;
-      pointer-events:none;
-    }
-
-    .reviewInner{
-      position:relative;
-      padding:18px 18px 16px;
-      border-radius:24px;
-      background:rgba(255,255,255,.56);
-      border:1px solid rgba(13,36,56,.08);
-      backdrop-filter:blur(12px);
-      min-height:100%;
-    }
-
-    .stars{
-      font-size:13px;
-      letter-spacing:.12em;
-      color:#2f80ed;
-      margin-bottom:10px;
-      font-weight:900;
-    }
-
-    .reviewText{
-      margin:0;
-      color:#355065;
-      font-size:14px;
-      line-height:1.65;
-      font-weight:500;
-    }
-
-    .reviewMeta{
-      margin-top:14px;
+    .stepItem{
       display:flex;
-      align-items:center;
-      gap:10px;
+      gap:14px;
+      align-items:flex-start;
+      padding:12px 0;
+      border-top:1px solid #eef4f8;
     }
 
-    .reviewAvatar{
-      width:38px;
-      height:38px;
+    .stepItem:first-child{
+      border-top:none;
+      padding-top:0;
+    }
+
+    .stepNum{
+      width:34px;
+      height:34px;
       border-radius:50%;
+      flex:0 0 34px;
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:13px;
-      font-weight:900;
-      color:#fff;
       background:linear-gradient(135deg,#2f80ed,#6abfff);
-      box-shadow:0 8px 18px rgba(47,128,237,.20);
-      flex:0 0 38px;
-    }
-
-    .reviewName{
-      color:var(--title);
+      color:#fff;
       font-size:13px;
       font-weight:900;
-      line-height:1.2;
+      box-shadow:0 10px 18px rgba(47,128,237,.16);
     }
 
-    .reviewCity{
-      color:#7a90a1;
+    .stepText strong{
+      display:block;
+      color:var(--title);
+      font-size:14px;
+      font-weight:900;
+      margin-bottom:4px;
+    }
+
+    .stepText{
+      color:var(--soft);
+      font-size:13px;
+      line-height:1.55;
+      font-weight:500;
+    }
+
+    .reviewMini{
+      padding:14px 0;
+      border-top:1px solid #eef4f8;
+    }
+
+    .reviewMini:first-of-type{
+      padding-top:0;
+      border-top:none;
+    }
+
+    .stars{
+      color:#2f80ed;
+      font-size:13px;
+      font-weight:900;
+      letter-spacing:.08em;
+      margin-bottom:8px;
+    }
+
+    .reviewMini p{
+      margin:0;
+      color:#355065;
+      font-size:14px;
+      line-height:1.6;
+      font-weight:500;
+    }
+
+    .reviewMiniName{
+      margin-top:8px;
+      color:#7b92a3;
       font-size:12px;
-      font-weight:700;
-      margin-top:2px;
+      font-weight:800;
     }
 
+    /* ENTREPRENEUR */
     .entrepreneurLayout{
       display:grid;
       grid-template-columns:1.02fr .98fr;
-      gap:16px;
+      gap:28px;
       align-items:start;
-      margin-top:22px;
     }
 
-    .smsDemo{
-      position:relative;
-      padding:4px 0 0;
-    }
-
-    .smsHalo{
-      position:absolute;
-      inset:18px 20px auto 20px;
-      height:120px;
-      background:radial-gradient(circle, rgba(47,128,237,.14), transparent 70%);
-      filter:blur(18px);
-      pointer-events:none;
+    .smsCard,
+    .entFormCard{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:var(--radius-xl);
+      padding:24px;
+      box-shadow:var(--shadow);
     }
 
     .phoneMock{
-      position:relative;
       width:100%;
       max-width:390px;
       margin:0 auto;
+      background:#f3f7fb;
+      border:1px solid #dfe9f2;
+      border-radius:32px;
       padding:12px;
-      border-radius:34px;
-      background:linear-gradient(180deg, rgba(255,255,255,.78), rgba(242,248,253,.72));
-      border:1px solid rgba(13,36,56,.08);
-      backdrop-filter:blur(16px);
-      box-shadow:var(--shadow);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
     }
 
     .phoneBar{
@@ -744,8 +601,8 @@
       display:flex;
       align-items:center;
       gap:10px;
-      padding:0 4px;
       margin-bottom:12px;
+      padding:0 4px;
     }
 
     .smsAvatar{
@@ -754,12 +611,13 @@
       border-radius:50%;
       background:linear-gradient(135deg,#2f80ed,#6abfff);
       color:#fff;
-      display:grid;
-      place-items:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       font-size:13px;
       font-weight:900;
       flex:0 0 36px;
-      box-shadow:0 10px 22px rgba(47,128,237,.18);
+      box-shadow:0 10px 18px rgba(47,128,237,.16);
     }
 
     .smsHeaderName{
@@ -777,18 +635,20 @@
     }
 
     .smsBubble{
-      background:linear-gradient(180deg,#ffffff,#fbfdff);
-      border:1px solid rgba(13,36,56,.08);
+      background:#ffffff;
+      border:1px solid #e1ebf3;
       color:#26435a;
       border-radius:22px 22px 22px 8px;
-      padding:16px 16px;
+      padding:16px;
       font-size:13px;
       line-height:1.58;
       font-weight:600;
-      box-shadow:0 10px 24px rgba(16,36,53,.05);
+      box-shadow:0 8px 18px rgba(16,36,53,.04);
     }
 
-    .smsBubble strong{ color:var(--title) }
+    .smsBubble strong{
+      color:var(--title);
+    }
 
     .smsTime{
       margin-top:8px;
@@ -798,105 +658,53 @@
       font-weight:800;
     }
 
-    .smsPills{
+    .smsLegend{
+      margin-top:16px;
       display:flex;
-      gap:8px;
+      gap:10px;
       flex-wrap:wrap;
-      margin-top:12px;
       justify-content:center;
     }
 
-    .smsPill{
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(47,128,237,.14);
-      background:rgba(255,255,255,.56);
-      color:#587487;
-      font-size:12px;
-      font-weight:800;
-      backdrop-filter:blur(10px);
-    }
-
-    .entrepreneurFormArea{
-      position:relative;
-      padding-top:6px;
-    }
-
-    .miniFormTitle{
-      margin:0 0 8px;
-      color:var(--title);
-      font-size:20px;
-      font-weight:900;
-      letter-spacing:-.03em;
-    }
-
-    .miniFormDesc{
-      margin:0 0 16px;
-      color:var(--soft);
-      font-size:14px;
-      line-height:1.55;
-      font-weight:500;
-    }
-
-    .miniHighlights{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-bottom:16px;
-    }
-
-    .miniHighlight{
+    .smsLegend span{
       padding:10px 12px;
       border-radius:999px;
-      background:rgba(255,255,255,.52);
-      border:1px solid rgba(13,36,56,.08);
-      color:#5b7487;
+      border:1px solid var(--line);
+      background:#f8fbfe;
+      color:#60798a;
       font-size:12px;
       font-weight:800;
-      backdrop-filter:blur(10px);
     }
 
-    .entrepreneurForm{
+    .entForm{
       display:grid;
       grid-template-columns:1fr;
-      gap:10px;
+      gap:14px;
     }
 
-    .entrepreneurSubmit{
-      margin-top:8px;
+    .entBottom{
       display:flex;
       align-items:center;
       gap:12px;
       flex-wrap:wrap;
+      margin-top:4px;
     }
 
-    .noteText{
-      color:#7a90a1;
+    .entSmall{
+      color:#7c93a4;
       font-size:12px;
       line-height:1.45;
-      font-weight:600;
+      font-weight:700;
     }
 
-    .dividerWave{
-      width:100%;
-      height:38px;
-      margin:8px 0 12px;
-      opacity:.7;
-      background:
-        radial-gradient(circle at 10px 19px, rgba(47,128,237,.16) 0 2px, transparent 3px),
-        linear-gradient(90deg, transparent, rgba(47,128,237,.12), transparent);
-      background-size:120px 38px, 100% 1px;
-      background-repeat:repeat-x, no-repeat;
-      background-position:center center, center 19px;
-    }
-
-    @media (max-width: 900px){
+    @media (max-width: 980px){
+      .clientLayout,
       .entrepreneurLayout{
         grid-template-columns:1fr;
       }
 
-      .phoneMock{
-        max-width:420px;
+      .clientSide{
+        order:2;
       }
     }
 
@@ -908,9 +716,6 @@
       .heroInner{
         padding-top:40px;
       }
-
-      .orb.orb1{ left:-10px; top:120px }
-      .orb.orb2{ right:-30px; top:180px }
 
       .logo{
         width:132px;
@@ -957,27 +762,21 @@
         clip-path:polygon(18% 0, 100% 0, 100% 100%, 0 100%);
       }
 
-      .heroStats{
-        gap:8px;
-        max-width:330px;
-      }
-
-      .heroStat{
-        font-size:11px;
-        padding:9px 12px;
-      }
-
       .heroScroll{
         margin-top:30px;
       }
 
       .clientSection{
-        margin-top:-145px;
+        margin-top:-138px;
         padding:18px 0 72px;
       }
 
       .entrepreneurSection{
-        padding:4px 0 72px;
+        padding:6px 0 72px;
+      }
+
+      .sectionTitle{
+        font-size:34px;
       }
 
       .sectionDesc{
@@ -985,47 +784,38 @@
         max-width:340px;
       }
 
-      .formTopMini{
-        grid-template-columns:1fr;
-        gap:8px;
+      .formCard,
+      .stepsCard,
+      .reviewsCard,
+      .smsCard,
+      .entFormCard{
+        padding:18px;
+        border-radius:22px;
       }
 
       .formGrid{
         grid-template-columns:1fr;
-        gap:10px;
-      }
-
-      .submitRow{
-        align-items:flex-start;
+        gap:12px;
       }
 
       .submitBtn{
         width:100%;
       }
 
-      .reviewsGrid{
-        grid-template-columns:1fr;
-        gap:10px;
-      }
-
-      .miniHighlights{
-        gap:8px;
+      .submitRow,
+      .entBottom{
+        align-items:flex-start;
       }
     }
   </style>
 </head>
 <body>
   <div class="site">
-    <div class="bgGlowA"></div>
-    <div class="bgGlowB"></div>
-    <div class="bgNoise"></div>
+    <div class="topFade"></div>
 
     <section class="hero">
       <div class="wrap">
         <div class="heroInner">
-          <div class="orb orb1"></div>
-          <div class="orb orb2"></div>
-
           <img class="logo" src="media/logob.png" alt="Intermediaire.io">
 
           <h1 class="brand">Intermediaire.io</h1>
@@ -1046,12 +836,6 @@
             </a>
           </div>
 
-          <div class="heroStats">
-            <div class="heroStat">1 demande</div>
-            <div class="heroStat">plusieurs pros locaux</div>
-            <div class="heroStat">réponse plus rapide</div>
-          </div>
-
           <a class="heroScroll" href="#client" aria-label="Descendre vers la section client">
             <span></span>
           </a>
@@ -1059,262 +843,217 @@
       </div>
     </section>
 
-    <section class="section clientSection" id="client">
+    <section class="clientSection" id="client">
       <div class="wrap">
-        <div class="sectionHead">
-          <div class="kicker"><span class="kickerDot"></span>Section client</div>
-          <h2 class="sectionTitle">Envoyez une seule demande</h2>
-          <p class="sectionDesc">
-            Décrivez vos travaux une seule fois. Votre demande est ensuite envoyée aux contracteurs de votre région afin de trouver le meilleur disponible pour votre besoin.
-          </p>
-          <div class="chips">
-            <div class="chip">rapide</div>
-            <div class="chip">local</div>
-            <div class="chip">simple à comparer</div>
-          </div>
-        </div>
-
-        <div class="clientVisual">
-          <div class="flowLine"></div>
-
-          <div class="formShell">
-            <div class="formTopMini">
-              <div class="miniItem"><span class="miniIcon">1</span>Une seule demande</div>
-              <div class="miniItem"><span class="miniIcon">2</span>Envoyée à votre région</div>
-              <div class="miniItem"><span class="miniIcon">3</span>Meilleur disponible</div>
+        <div class="sectionShell">
+          <div class="sectionHead">
+            <div class="sectionKicker">Section client</div>
+            <h2 class="sectionTitle">Envoyez une seule demande</h2>
+            <p class="sectionDesc">
+              Décrivez vos travaux une seule fois. Votre demande est ensuite envoyée aux contracteurs de votre région afin de trouver le meilleur disponible pour votre besoin.
+            </p>
+            <div class="softRow">
+              <div class="softPill">une seule demande</div>
+              <div class="softPill">plusieurs pros locaux</div>
+              <div class="softPill">réponse plus rapide</div>
             </div>
+          </div>
 
-            <form class="formGrid">
-              <div class="full">
-                <label class="label" for="service">Service recherché</label>
-                <div class="inputWrap">
-                  <span class="inputIcon">S</span>
+          <div class="clientLayout">
+            <div class="formCard">
+              <div class="cardTop">
+                <h3 class="cardTitle">Faire une demande</h3>
+                <p class="cardDesc">Formulaire court, clair, et rapide à remplir.</p>
+              </div>
+
+              <form class="formGrid">
+                <div class="full">
+                  <label class="label" for="service">Service recherché</label>
                   <select class="select" id="service" name="service">
                     <option>Travaux de toiture</option>
                   </select>
                 </div>
-              </div>
 
-              <div class="field">
-                <label class="label" for="nom">Nom et prénom</label>
-                <div class="inputWrap">
-                  <span class="inputIcon">N</span>
+                <div class="field">
+                  <label class="label" for="nom">Nom et prénom</label>
                   <input class="input" id="nom" name="nom" type="text" placeholder="Votre nom complet">
                 </div>
-              </div>
 
-              <div class="field">
-                <label class="label" for="tel">Numéro de téléphone</label>
-                <div class="inputWrap">
-                  <span class="inputIcon">T</span>
+                <div class="field">
+                  <label class="label" for="tel">Numéro de téléphone</label>
                   <input class="input" id="tel" name="tel" type="tel" placeholder="(___) ___-____">
                 </div>
-              </div>
 
-              <div class="field">
-                <label class="label" for="courriel">Courriel</label>
-                <div class="inputWrap">
-                  <span class="inputIcon">@</span>
+                <div class="field">
+                  <label class="label" for="courriel">Courriel</label>
                   <input class="input" id="courriel" name="courriel" type="email" placeholder="vous@email.com">
                 </div>
-              </div>
 
-              <div class="field">
-                <label class="label" for="ville">Ville</label>
-                <div class="inputWrap">
-                  <span class="inputIcon">V</span>
+                <div class="field">
+                  <label class="label" for="ville">Ville</label>
                   <input class="input" id="ville" name="ville" type="text" placeholder="Votre ville">
                 </div>
-              </div>
 
-              <div class="full">
-                <label class="label" for="details">Description des travaux</label>
-                <div class="inputWrap">
-                  <span class="inputIcon">D</span>
+                <div class="full">
+                  <label class="label" for="details">Description des travaux</label>
                   <textarea class="textarea" id="details" name="details" placeholder="Décrivez brièvement les travaux à faire..."></textarea>
                 </div>
-              </div>
 
-              <label class="checkWrap">
-                <input type="checkbox" name="confirmation">
-                <div class="checkText">
-                  Je confirme que les renseignements envoyés sont véridiques et représentent une vraie demande de travaux.
-                </div>
-              </label>
-
-              <div class="submitRow">
-                <button class="submitBtn" type="submit">Envoyer ma demande</button>
-                <div class="submitHint">Simple. Rapide. Sans perte de temps.</div>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <div class="reviewsSection">
-          <div class="reviewsHead">
-            <h3 class="reviewsTitle">Avis clients</h3>
-            <p class="reviewsSub">Des demandes simples, des réponses rapides, et des clients satisfaits.</p>
-          </div>
-
-          <div class="reviewsGrid">
-            <div class="reviewCard">
-              <div class="reviewGlow"></div>
-              <div class="reviewInner">
-                <div class="stars">★★★★★</div>
-                <p class="reviewText">
-                  J’ai envoyé ma demande en quelques minutes et j’ai reçu des retours très rapidement. Le processus est simple et ça m’a évité de chercher partout moi-même.
-                </p>
-                <div class="reviewMeta">
-                  <div class="reviewAvatar">ML</div>
-                  <div>
-                    <div class="reviewName">Marie L.</div>
-                    <div class="reviewCity">Sherbrooke</div>
+                <label class="checkWrap">
+                  <input type="checkbox" name="confirmation">
+                  <div class="checkText">
+                    Je confirme que les renseignements envoyés sont véridiques et représentent une vraie demande de travaux.
                   </div>
+                </label>
+
+                <div class="submitRow">
+                  <button class="submitBtn" type="submit">Envoyer ma demande</button>
+                  <div class="submitMini">Simple. Rapide. Sans perte de temps.</div>
                 </div>
-              </div>
+              </form>
             </div>
 
-            <div class="reviewCard">
-              <div class="reviewGlow"></div>
-              <div class="reviewInner">
-                <div class="stars">★★★★★</div>
-                <p class="reviewText">
-                  Très propre comme service. J’ai pu comparer mes options sans perdre mon temps. Franchement pratique quand on veut trouver quelqu’un de disponible rapidement.
-                </p>
-                <div class="reviewMeta">
-                  <div class="reviewAvatar">JP</div>
-                  <div>
-                    <div class="reviewName">Jean-Philippe R.</div>
-                    <div class="reviewCity">Magog</div>
+            <div class="clientSide">
+              <div class="stepsCard">
+                <h3 class="stepsTitle">Comment ça fonctionne</h3>
+
+                <div class="stepItem">
+                  <div class="stepNum">1</div>
+                  <div class="stepText">
+                    <strong>Vous remplissez une seule demande</strong>
+                    Décrivez votre besoin rapidement, sans chercher plusieurs entreprises vous-même.
+                  </div>
+                </div>
+
+                <div class="stepItem">
+                  <div class="stepNum">2</div>
+                  <div class="stepText">
+                    <strong>On l’envoie à votre région</strong>
+                    Votre demande part vers les contracteurs concernés autour de vous.
+                  </div>
+                </div>
+
+                <div class="stepItem">
+                  <div class="stepNum">3</div>
+                  <div class="stepText">
+                    <strong>Vous gagnez du temps</strong>
+                    Vous trouvez plus vite quelqu’un de disponible pour vos travaux.
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="reviewCard">
-              <div class="reviewGlow"></div>
-              <div class="reviewInner">
-                <div class="stars">★★★★★</div>
-                <p class="reviewText">
-                  Le formulaire est rapide à remplir et j’ai aimé le fait qu’une seule demande puisse être envoyée à plusieurs entrepreneurs de la région. Très efficace.
-                </p>
-                <div class="reviewMeta">
-                  <div class="reviewAvatar">SC</div>
-                  <div>
-                    <div class="reviewName">Sophie C.</div>
-                    <div class="reviewCity">Drummondville</div>
-                  </div>
+              <div class="reviewsCard">
+                <h3 class="reviewsTitle">Avis clients</h3>
+
+                <div class="reviewMini">
+                  <div class="stars">★★★★★</div>
+                  <p>J’ai reçu des retours rapidement et j’ai évité de chercher partout moi-même.</p>
+                  <div class="reviewMiniName">— Marie L., Sherbrooke</div>
+                </div>
+
+                <div class="reviewMini">
+                  <div class="stars">★★★★★</div>
+                  <p>Très simple à utiliser. J’ai pu comparer mes options sans perdre mon temps.</p>
+                  <div class="reviewMiniName">— Jean-Philippe R., Magog</div>
+                </div>
+
+                <div class="reviewMini">
+                  <div class="stars">★★★★★</div>
+                  <p>Une seule demande envoyée à plusieurs entrepreneurs, c’est vraiment efficace.</p>
+                  <div class="reviewMiniName">— Sophie C., Drummondville</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </section>
 
-    <div class="dividerWave"></div>
-
-    <section class="section entrepreneurSection" id="entrepreneur">
+    <section class="entrepreneurSection" id="entrepreneur">
       <div class="wrap">
-        <div class="sectionHead">
-          <div class="kicker"><span class="kickerDot"></span>Section entrepreneur</div>
-          <h2 class="sectionTitle">Recevez des leads par SMS</h2>
-          <p class="sectionDesc">
-            Recevez des demandes réelles dans votre région par SMS. Vous voyez le résumé du lead, puis vous décidez si vous voulez le débloquer.
-          </p>
-          <div class="chips">
-            <div class="chip">aucun frais d’inscription</div>
-            <div class="chip">réception par SMS</div>
-            <div class="chip">vous choisissez vos leads</div>
-          </div>
-        </div>
-
-        <div class="entrepreneurLayout">
-          <div class="smsDemo">
-            <div class="smsHalo"></div>
-
-            <div class="phoneMock">
-              <div class="phoneBar"><span></span></div>
-
-              <div class="smsHeader">
-                <div class="smsAvatar">IO</div>
-                <div>
-                  <div class="smsHeaderName">Intermediaire.io</div>
-                  <div class="smsHeaderSub">Exemple de SMS</div>
-                </div>
-              </div>
-
-              <div class="smsBubble">
-                <strong>Nouveau lead — Toiture</strong><br><br>
-                Ville : Sherbrooke<br>
-                Besoin : infiltration d’eau au toit<br>
-                Urgence : rapide<br>
-                Demande réelle confirmée<br><br>
-                <strong>Lead : 50$</strong><br>
-                Payez sur ce lien pour débloquer les infos de contact du client.<br><br>
-                <em>Ceci est un exemple de message.</em>
-              </div>
-
-              <div class="smsTime">Aujourd’hui • 14:28</div>
-            </div>
-
-            <div class="smsPills">
-              <div class="smsPill">clair</div>
-              <div class="smsPill">rapide à lire</div>
-              <div class="smsPill">infos essentielles</div>
-            </div>
-          </div>
-
-          <div class="entrepreneurFormArea">
-            <h3 class="miniFormTitle">Inscription gratuite</h3>
-            <p class="miniFormDesc">
-              Inscrivez votre entreprise pour recevoir nos leads SMS.
+        <div class="sectionShell">
+          <div class="sectionHead">
+            <div class="sectionKicker">Section entrepreneur</div>
+            <h2 class="sectionTitle">Recevez des leads par SMS</h2>
+            <p class="sectionDesc">
+              Recevez des demandes réelles dans votre région par SMS. Vous voyez le résumé du lead, puis vous décidez si vous voulez le débloquer.
             </p>
+            <div class="softRow">
+              <div class="softPill">inscription gratuite</div>
+              <div class="softPill">réception par SMS</div>
+              <div class="softPill">vous choisissez</div>
+            </div>
+          </div>
 
-            <div class="miniHighlights">
-              <div class="miniHighlight">aucun engagement</div>
-              <div class="miniHighlight">réception locale</div>
-              <div class="miniHighlight">activation simple</div>
+          <div class="entrepreneurLayout">
+            <div class="smsCard">
+              <h3 class="entBoxTitle">Exemple de SMS</h3>
+
+              <div class="phoneMock">
+                <div class="phoneBar"><span></span></div>
+
+                <div class="smsHeader">
+                  <div class="smsAvatar">IO</div>
+                  <div>
+                    <div class="smsHeaderName">Intermediaire.io</div>
+                    <div class="smsHeaderSub">Exemple de message</div>
+                  </div>
+                </div>
+
+                <div class="smsBubble">
+                  <strong>Nouveau lead — Toiture</strong><br><br>
+                  Ville : Sherbrooke<br>
+                  Besoin : infiltration d’eau au toit<br>
+                  Urgence : rapide<br>
+                  Demande réelle confirmée<br><br>
+                  <strong>Lead : 50$</strong><br>
+                  Payez sur ce lien pour débloquer les infos de contact du client.<br><br>
+                  <em>Ceci est un exemple de SMS.</em>
+                </div>
+
+                <div class="smsTime">Aujourd’hui • 14:28</div>
+              </div>
+
+              <div class="softRow" style="margin-top:16px; justify-content:flex-start;">
+                <div class="softPill">infos essentielles</div>
+                <div class="softPill">lecture rapide</div>
+                <div class="softPill">client masqué avant paiement</div>
+              </div>
             </div>
 
-            <form class="entrepreneurForm">
-              <div class="field">
-                <label class="label" for="ent-name">Nom de l’entreprise</label>
-                <div class="inputWrap">
-                  <span class="inputIcon">E</span>
+            <div class="entFormCard">
+              <div class="cardTop">
+                <h3 class="cardTitle">Inscription gratuite</h3>
+                <p class="cardDesc">Ajoutez votre entreprise à notre liste d’envoi de leads SMS.</p>
+              </div>
+
+              <form class="entForm">
+                <div class="field">
+                  <label class="label" for="ent-name">Nom de l’entreprise</label>
                   <input class="input" id="ent-name" name="ent-name" type="text" placeholder="Ex. Toitures ABC">
                 </div>
-              </div>
 
-              <div class="field">
-                <label class="label" for="ent-phone">Numéro de téléphone</label>
-                <div class="inputWrap">
-                  <span class="inputIcon">S</span>
+                <div class="field">
+                  <label class="label" for="ent-phone">Numéro de téléphone</label>
                   <input class="input" id="ent-phone" name="ent-phone" type="tel" placeholder="(___) ___-____">
                 </div>
-              </div>
 
-              <div class="field">
-                <label class="label" for="ent-city">Ville / région</label>
-                <div class="inputWrap">
-                  <span class="inputIcon">R</span>
+                <div class="field">
+                  <label class="label" for="ent-city">Ville / région</label>
                   <input class="input" id="ent-city" name="ent-city" type="text" placeholder="Ex. Sherbrooke">
                 </div>
-              </div>
 
-              <div class="entrepreneurSubmit">
-                <button class="submitBtn" type="submit">M’inscrire gratuitement</button>
-                <div class="noteText">
-                  Inscription gratuite. Vous choisissez ensuite les leads que vous voulez débloquer.
+                <div class="entBottom">
+                  <button class="submitBtn" type="submit">M’inscrire gratuitement</button>
+                  <div class="entSmall">Aucun frais pour s’inscrire. Vous choisissez ensuite les leads que vous voulez débloquer.</div>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
-
       </div>
     </section>
+
   </div>
 </body>
 </html>
