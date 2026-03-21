@@ -16,22 +16,37 @@
 
   <style>
     :root{
-      --text:#102334;
+      --bg:#f7fbff;
+      --bg2:#ffffff;
+      --text:#0f2232;
       --title:#081a28;
+      --soft:#6d8395;
+      --line:rgba(13,36,56,.08);
+      --line-strong:rgba(13,36,56,.12);
       --accent:#2f80ed;
       --accent2:#6abfff;
+      --accent3:#9dd9ff;
       --max:1180px;
-      --line:#e4edf5;
-      --soft:#6c8396;
-      --white:#ffffff;
+      --shadow:0 20px 60px rgba(25,62,94,.08);
+      --radius:28px;
     }
 
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;overflow-x:hidden;scroll-behavior:smooth}
+    html,body{
+      margin:0;
+      padding:0;
+      scroll-behavior:smooth;
+      overflow-x:hidden;
+    }
+
     body{
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
-      background:linear-gradient(180deg,#f6fbff 0%,#fbfdff 22%,#ffffff 100%);
+      background:
+        radial-gradient(900px 420px at 50% -6%, rgba(47,128,237,.14), transparent 62%),
+        radial-gradient(520px 220px at 12% 10%, rgba(106,191,255,.08), transparent 70%),
+        radial-gradient(520px 220px at 88% 12%, rgba(47,128,237,.07), transparent 70%),
+        linear-gradient(180deg,#f6fbff 0%,#fbfdff 28%,#ffffff 100%);
     }
 
     a{text-decoration:none;color:inherit}
@@ -41,26 +56,44 @@
     .site{
       position:relative;
       min-height:100vh;
+      isolation:isolate;
     }
 
-    .topFade{
-      position:absolute;
-      inset:0 0 auto 0;
-      height:300px;
+    .bgNoise,
+    .bgGlowA,
+    .bgGlowB{
+      position:fixed;
+      inset:0;
       pointer-events:none;
+      z-index:-2;
+    }
+
+    .bgGlowA{
       background:
-        radial-gradient(900px 420px at 50% -2%, rgba(47,128,237,.14), transparent 62%),
-        radial-gradient(500px 220px at 18% 10%, rgba(106,191,255,.10), transparent 72%),
-        radial-gradient(500px 220px at 82% 10%, rgba(47,128,237,.07), transparent 72%);
-      z-index:0;
+        radial-gradient(600px 280px at 18% 22%, rgba(47,128,237,.08), transparent 70%),
+        radial-gradient(700px 320px at 82% 16%, rgba(106,191,255,.08), transparent 70%);
+      filter:blur(10px);
+    }
+
+    .bgGlowB{
+      background:
+        radial-gradient(380px 180px at 50% 68%, rgba(47,128,237,.05), transparent 72%);
+      filter:blur(20px);
+    }
+
+    .bgNoise{
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size:24px 24px;
+      opacity:.22;
+      mask-image:linear-gradient(180deg, rgba(0,0,0,.75), rgba(0,0,0,.35));
     }
 
     .wrap{
-      position:relative;
-      z-index:1;
-      max-width:var(--max);
+      width:min(var(--max), calc(100% - 40px));
       margin:0 auto;
-      padding:0 26px;
+      position:relative;
     }
 
     .hero{
@@ -69,75 +102,110 @@
       align-items:flex-start;
       justify-content:center;
       text-align:center;
-      padding:0;
+      position:relative;
+      overflow:hidden;
     }
 
     .heroInner{
       width:100%;
-      max-width:860px;
-      margin:0 auto;
+      max-width:920px;
+      min-height:100svh;
       display:flex;
       flex-direction:column;
       align-items:center;
       justify-content:flex-start;
-      min-height:100svh;
-      padding-top:40px;
+      padding-top:42px;
+      position:relative;
+    }
+
+    .orb{
+      position:absolute;
+      border-radius:999px;
+      filter:blur(14px);
+      opacity:.75;
+      pointer-events:none;
+      animation:floatOrb 10s ease-in-out infinite;
+    }
+
+    .orb.orb1{
+      width:160px;height:160px;
+      background:radial-gradient(circle, rgba(47,128,237,.18), rgba(47,128,237,0));
+      top:88px; left:120px;
+    }
+
+    .orb.orb2{
+      width:200px;height:200px;
+      background:radial-gradient(circle, rgba(106,191,255,.16), rgba(106,191,255,0));
+      top:140px; right:80px;
+      animation-delay:-3s;
+    }
+
+    @keyframes floatOrb{
+      0%,100%{transform:translateY(0) translateX(0)}
+      50%{transform:translateY(-16px) translateX(6px)}
     }
 
     .logo{
-      width:156px;
-      height:156px;
+      width:158px;
+      height:158px;
       object-fit:contain;
       margin:0 auto 14px;
-      filter:drop-shadow(0 14px 30px rgba(47,128,237,.14));
+      filter:drop-shadow(0 18px 34px rgba(47,128,237,.14));
       animation:logoFloat 6s ease-in-out infinite;
+      position:relative;
+      z-index:2;
     }
 
     @keyframes logoFloat{
       0%,100%{transform:translateY(0)}
-      50%{transform:translateY(-4px)}
+      50%{transform:translateY(-5px)}
     }
 
     .brand{
       margin:0;
       font-family:"Space Grotesk", Inter, sans-serif;
-      font-size:clamp(44px,6.2vw,82px);
+      font-size:clamp(44px,6.2vw,84px);
       font-weight:700;
       letter-spacing:-0.11em;
       line-height:.9;
       color:var(--title);
       text-rendering:geometricPrecision;
+      position:relative;
+      z-index:2;
     }
 
     .heroSub{
       margin:18px auto 0;
-      max-width:720px;
+      max-width:760px;
       font-size:clamp(18px,2.1vw,24px);
       line-height:1.35;
       font-weight:600;
-      color:#6c8396;
+      color:var(--soft);
+      position:relative;
+      z-index:2;
     }
 
     .heroMiniLine{
-      margin-top:14px;
-      color:#7f94a5;
+      margin-top:16px;
+      color:#7f95a7;
       font-size:12px;
-      font-weight:800;
+      font-weight:900;
       letter-spacing:.16em;
       text-transform:uppercase;
+      position:relative;
+      z-index:2;
     }
 
     .heroActions{
-      margin:28px auto 0;
+      margin:30px auto 0;
       display:flex;
       justify-content:center;
       align-items:center;
       gap:0;
-      flex-wrap:nowrap;
       width:auto;
-      max-width:none;
-      padding:0;
-      filter:drop-shadow(0 16px 28px rgba(47,128,237,.12));
+      filter:drop-shadow(0 18px 30px rgba(47,128,237,.12));
+      position:relative;
+      z-index:2;
     }
 
     .splitCta{
@@ -149,210 +217,282 @@
       align-items:center;
       justify-content:center;
       overflow:hidden;
-      transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
+      transition:transform .18s ease, filter .18s ease;
       white-space:normal;
       text-align:center;
+      backdrop-filter:blur(12px);
     }
 
     .splitCta span{
       display:block;
-      line-height:1.2;
+      line-height:1.18;
     }
 
-    .splitCta:hover{
-      transform:translateY(-2px);
-    }
+    .splitCta:hover{ transform:translateY(-2px) }
 
     .splitLeft{
       background:linear-gradient(135deg,#2f80ed 0%,#56a8ff 58%,#79c6ff 100%);
       color:#fff;
-      border-radius:20px 0 0 20px;
+      border-radius:22px 0 0 22px;
       clip-path:polygon(0 0, 100% 0, 84% 100%, 0 100%);
-      padding:0 52px 0 34px;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.22),
-        0 14px 26px rgba(47,128,237,.20);
+      padding:0 54px 0 34px;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.22);
     }
 
     .splitRight{
-      background:#fff;
+      background:rgba(255,255,255,.8);
       color:var(--title);
-      border:1px solid rgba(8,26,40,.10);
+      border:1px solid rgba(8,26,40,.08);
       border-left:none;
-      border-radius:0 20px 20px 0;
+      border-radius:0 22px 22px 0;
       clip-path:polygon(16% 0, 100% 0, 100% 100%, 0 100%);
-      padding:0 34px 0 52px;
+      padding:0 34px 0 54px;
       margin-left:-22px;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.95),
-        0 14px 26px rgba(16,36,53,.08);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.92);
+    }
+
+    .heroStats{
+      margin-top:24px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+      position:relative;
+      z-index:2;
+    }
+
+    .heroStat{
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(13,36,56,.08);
+      background:rgba(255,255,255,.62);
+      color:#557084;
+      font-size:12px;
+      font-weight:800;
+      backdrop-filter:blur(10px);
     }
 
     .heroScroll{
       margin-top:34px;
-      width:34px;
-      height:34px;
+      width:38px;
+      height:38px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
       animation:arrowBounce 1.5s ease-in-out infinite;
+      position:relative;
+      z-index:2;
     }
 
     .heroScroll span{
       width:12px;
       height:12px;
       display:block;
-      border-right:2px solid rgba(8,26,40,.45);
-      border-bottom:2px solid rgba(8,26,40,.45);
+      border-right:2px solid rgba(8,26,40,.5);
+      border-bottom:2px solid rgba(8,26,40,.5);
       transform:rotate(45deg);
     }
 
     @keyframes arrowBounce{
-      0%,100%{transform:translateY(0);opacity:.7}
+      0%,100%{transform:translateY(0);opacity:.68}
       50%{transform:translateY(7px);opacity:1}
     }
 
-    .clientSection,
-    .entrepreneurSection{
+    .section{
       position:relative;
-      z-index:1;
-      padding:24px 0 90px;
+      z-index:2;
     }
 
     .clientSection{
-      margin-top:-180px;
+      margin-top:-150px;
+      padding:26px 0 90px;
     }
 
     .entrepreneurSection{
-      padding-top:18px;
+      padding:16px 0 90px;
     }
 
-    .clientShell,
-    .entrepreneurShell{
-      max-width:760px;
-      margin:0 auto;
-      position:relative;
-    }
-
-    .clientShell::before,
-    .entrepreneurShell::before{
-      content:"";
-      position:absolute;
-      top:-30px;
-      left:50%;
-      transform:translateX(-50%);
-      width:340px;
-      height:120px;
-      background:radial-gradient(circle, rgba(47,128,237,.10) 0%, rgba(106,191,255,.05) 45%, transparent 75%);
-      pointer-events:none;
-      z-index:0;
-      filter:blur(8px);
-    }
-
-    .clientHead,
-    .entrepreneurHead{
-      position:relative;
-      z-index:1;
+    .sectionHead{
       text-align:center;
-      margin-bottom:18px;
+      max-width:780px;
+      margin:0 auto 22px;
     }
 
-    .clientKicker,
-    .entrepreneurKicker{
-      display:inline-block;
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
       margin-bottom:10px;
       padding:8px 12px;
-      border:1px solid rgba(47,128,237,.14);
       border-radius:999px;
-      background:rgba(255,255,255,.72);
-      color:#4d6a80;
+      border:1px solid rgba(47,128,237,.14);
+      background:rgba(255,255,255,.6);
+      color:#4f6d82;
       font-size:12px;
-      font-weight:800;
+      font-weight:900;
       letter-spacing:.12em;
       text-transform:uppercase;
-      box-shadow:0 6px 16px rgba(47,128,237,.06);
+      backdrop-filter:blur(10px);
     }
 
-    .clientTitle,
-    .entrepreneurTitle{
+    .kickerDot{
+      width:7px;
+      height:7px;
+      border-radius:999px;
+      background:linear-gradient(135deg,#2f80ed,#6abfff);
+      box-shadow:0 0 0 6px rgba(47,128,237,.08);
+    }
+
+    .sectionTitle{
       margin:0;
       color:var(--title);
-      font-size:clamp(28px,4vw,44px);
-      line-height:1.05;
-      letter-spacing:-.04em;
+      font-size:clamp(30px,4vw,52px);
+      line-height:1.02;
+      letter-spacing:-.05em;
       font-weight:900;
     }
 
-    .clientDesc,
-    .entrepreneurDesc{
-      max-width:660px;
+    .sectionDesc{
+      max-width:700px;
       margin:12px auto 0;
       color:var(--soft);
       font-size:16px;
-      line-height:1.6;
+      line-height:1.65;
       font-weight:500;
     }
 
-    .clientCard,
-    .entrepreneurCard{
-      position:relative;
-      z-index:1;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.90)),
-        linear-gradient(135deg, rgba(47,128,237,.03), rgba(106,191,255,.02));
-      border:1px solid rgba(16,36,53,.08);
-      border-radius:28px;
-      padding:20px;
-      box-shadow:
-        0 18px 50px rgba(24,54,83,.08),
-        inset 0 1px 0 rgba(255,255,255,.95);
+    .chips{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin-top:16px;
+    }
+
+    .chip{
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.55);
+      border:1px solid rgba(13,36,56,.08);
+      color:#5b7588;
+      font-size:12px;
+      font-weight:800;
       backdrop-filter:blur(10px);
+    }
+
+    .clientVisual,
+    .entrepreneurVisual{
+      position:relative;
+      max-width:950px;
+      margin:0 auto;
+    }
+
+    .flowLine{
+      position:absolute;
+      inset:8px 0 auto 0;
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(47,128,237,.14), transparent);
+      pointer-events:none;
+    }
+
+    .formShell{
+      position:relative;
+      padding:24px 0 0;
+    }
+
+    .formTopMini{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-bottom:14px;
+    }
+
+    .miniItem{
+      padding:12px 14px;
+      border-radius:18px;
+      background:rgba(255,255,255,.5);
+      border:1px solid rgba(13,36,56,.07);
+      color:#567286;
+      font-size:13px;
+      font-weight:800;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      backdrop-filter:blur(10px);
+    }
+
+    .miniIcon{
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg, rgba(47,128,237,.16), rgba(106,191,255,.16));
+      color:#2f80ed;
+      font-size:13px;
+      font-weight:900;
+      flex:0 0 28px;
     }
 
     .formGrid{
       display:grid;
-      grid-template-columns:1fr 1fr;
+      grid-template-columns:repeat(2, minmax(0,1fr));
       gap:12px;
     }
 
     .field,
     .full{
+      position:relative;
       display:flex;
       flex-direction:column;
       gap:6px;
     }
 
-    .full{
-      grid-column:1 / -1;
-    }
+    .full{ grid-column:1 / -1 }
 
     .label{
-      color:#5b7386;
-      font-size:12px;
-      font-weight:800;
-      letter-spacing:.02em;
+      color:#60798b;
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      padding-left:4px;
     }
 
-    .input,
-    .select,
-    .textarea{
+    .inputWrap{
+      position:relative;
+    }
+
+    .inputIcon{
+      position:absolute;
+      left:14px;
+      top:50%;
+      transform:translateY(-50%);
+      width:22px;
+      height:22px;
+      border-radius:50%;
+      background:linear-gradient(135deg, rgba(47,128,237,.14), rgba(106,191,255,.14));
+      color:#2f80ed;
+      display:grid;
+      place-items:center;
+      font-size:11px;
+      font-weight:900;
+      pointer-events:none;
+    }
+
+    .input,.select,.textarea{
       width:100%;
-      border:1px solid var(--line);
-      background:#fff;
+      border:none;
+      border-bottom:1px solid rgba(13,36,56,.12);
+      background:rgba(255,255,255,.36);
       color:var(--title);
-      border-radius:14px;
-      padding:14px 14px;
+      border-radius:18px;
+      padding:16px 16px 16px 48px;
       outline:none;
-      transition:border-color .18s ease, box-shadow .18s ease;
-      box-shadow:0 4px 14px rgba(16,36,53,.03);
       font-size:14px;
-    }
-
-    .input:focus,
-    .select:focus,
-    .textarea:focus{
-      border-color:rgba(47,128,237,.45);
-      box-shadow:0 0 0 4px rgba(47,128,237,.10);
+      font-weight:600;
+      transition:background .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+      backdrop-filter:blur(10px);
     }
 
     .select{
@@ -370,45 +510,55 @@
     }
 
     .textarea{
-      min-height:110px;
+      min-height:108px;
       resize:vertical;
+      padding-top:16px;
+    }
+
+    .input::placeholder,.textarea::placeholder{ color:#8ca0af }
+
+    .input:focus,.select:focus,.textarea:focus{
+      background:rgba(255,255,255,.78);
+      border-bottom-color:rgba(47,128,237,.42);
+      box-shadow:0 10px 24px rgba(47,128,237,.08);
     }
 
     .checkWrap{
       grid-column:1 / -1;
-      margin-top:2px;
       display:flex;
       align-items:flex-start;
-      gap:10px;
-      padding:12px 12px;
-      border:1px solid rgba(16,36,53,.07);
-      background:linear-gradient(180deg,#fbfdff,#f8fbff);
-      border-radius:14px;
+      gap:12px;
+      margin-top:4px;
+      padding:10px 2px 0;
     }
 
     .checkWrap input{
-      margin-top:2px;
-      transform:scale(1.02);
+      margin-top:3px;
+      accent-color:#2f80ed;
+      transform:scale(1.05);
     }
 
     .checkText{
-      color:#6a8194;
+      color:#718798;
       font-size:12px;
-      line-height:1.45;
+      line-height:1.5;
       font-weight:600;
     }
 
     .submitRow{
       grid-column:1 / -1;
       display:flex;
-      justify-content:center;
-      margin-top:4px;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin-top:8px;
+      flex-wrap:wrap;
     }
 
     .submitBtn{
       border:none;
-      border-radius:16px;
-      padding:16px 26px;
+      border-radius:18px;
+      padding:17px 26px;
       min-width:220px;
       font-size:15px;
       font-weight:900;
@@ -416,19 +566,26 @@
       cursor:pointer;
       background:linear-gradient(135deg,#2f80ed 0%,#56a8ff 55%,#79c6ff 100%);
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.22),
-        0 14px 26px rgba(47,128,237,.20);
+        0 16px 34px rgba(47,128,237,.22),
+        inset 0 1px 0 rgba(255,255,255,.22);
       transition:transform .18s ease, box-shadow .18s ease;
     }
 
     .submitBtn:hover{
       transform:translateY(-2px);
+      box-shadow:
+        0 20px 42px rgba(47,128,237,.26),
+        inset 0 1px 0 rgba(255,255,255,.22);
+    }
+
+    .submitHint{
+      color:#7d93a4;
+      font-size:12px;
+      font-weight:700;
     }
 
     .reviewsSection{
-      margin-top:22px;
-      position:relative;
-      z-index:1;
+      margin-top:34px;
     }
 
     .reviewsHead{
@@ -453,38 +610,41 @@
 
     .reviewsGrid{
       display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:12px;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
     }
 
     .reviewCard{
+      padding:18px 0 0;
       position:relative;
-      overflow:hidden;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.98), rgba(248,251,255,.96));
-      border:1px solid rgba(16,36,53,.08);
-      border-radius:22px;
-      padding:18px;
-      box-shadow:
-        0 14px 35px rgba(24,54,83,.06),
-        inset 0 1px 0 rgba(255,255,255,.95);
     }
 
-    .reviewCard::before{
-      content:"";
+    .reviewGlow{
       position:absolute;
-      inset:0 0 auto 0;
-      height:3px;
-      background:linear-gradient(90deg,#2f80ed,#6abfff);
-      opacity:.9;
+      inset:auto 0 -10px 0;
+      height:28px;
+      background:radial-gradient(circle, rgba(47,128,237,.12), transparent 72%);
+      filter:blur(12px);
+      opacity:.8;
+      pointer-events:none;
+    }
+
+    .reviewInner{
+      position:relative;
+      padding:18px 18px 16px;
+      border-radius:24px;
+      background:rgba(255,255,255,.56);
+      border:1px solid rgba(13,36,56,.08);
+      backdrop-filter:blur(12px);
+      min-height:100%;
     }
 
     .stars{
-      font-size:14px;
-      letter-spacing:.08em;
+      font-size:13px;
+      letter-spacing:.12em;
       color:#2f80ed;
       margin-bottom:10px;
-      font-weight:800;
+      font-weight:900;
     }
 
     .reviewText{
@@ -533,70 +693,37 @@
 
     .entrepreneurLayout{
       display:grid;
-      grid-template-columns:1.05fr .95fr;
-      gap:14px;
+      grid-template-columns:1.02fr .98fr;
+      gap:16px;
       align-items:start;
-      position:relative;
-      z-index:1;
+      margin-top:22px;
     }
 
     .smsDemo{
       position:relative;
-      z-index:1;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.96), rgba(250,252,255,.94));
-      border:1px solid rgba(16,36,53,.08);
-      border-radius:28px;
-      padding:16px;
-      box-shadow:
-        0 18px 50px rgba(24,54,83,.08),
-        inset 0 1px 0 rgba(255,255,255,.95);
-      overflow:hidden;
+      padding:4px 0 0;
     }
 
-    .smsDemo::before{
-      content:"";
+    .smsHalo{
       position:absolute;
-      inset:0 0 auto 0;
-      height:3px;
-      background:linear-gradient(90deg,#2f80ed,#6abfff);
-      opacity:.95;
-    }
-
-    .smsTop{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:14px;
-    }
-
-    .smsPill{
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(47,128,237,.14);
-      background:rgba(47,128,237,.06);
-      color:#2b73da;
-      font-size:12px;
-      font-weight:900;
-      letter-spacing:.03em;
-    }
-
-    .smsNote{
-      font-size:12px;
-      font-weight:800;
-      color:#7b91a2;
+      inset:18px 20px auto 20px;
+      height:120px;
+      background:radial-gradient(circle, rgba(47,128,237,.14), transparent 70%);
+      filter:blur(18px);
+      pointer-events:none;
     }
 
     .phoneMock{
+      position:relative;
       width:100%;
-      max-width:380px;
+      max-width:390px;
       margin:0 auto;
-      background:#f3f7fb;
-      border:1px solid rgba(16,36,53,.08);
-      border-radius:28px;
       padding:12px;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
+      border-radius:34px;
+      background:linear-gradient(180deg, rgba(255,255,255,.78), rgba(242,248,253,.72));
+      border:1px solid rgba(13,36,56,.08);
+      backdrop-filter:blur(16px);
+      box-shadow:var(--shadow);
     }
 
     .phoneBar{
@@ -606,7 +733,7 @@
     }
 
     .phoneBar span{
-      width:72px;
+      width:78px;
       height:6px;
       border-radius:999px;
       background:#d6e2ec;
@@ -617,22 +744,22 @@
       display:flex;
       align-items:center;
       gap:10px;
-      margin-bottom:12px;
       padding:0 4px;
+      margin-bottom:12px;
     }
 
     .smsAvatar{
-      width:34px;
-      height:34px;
+      width:36px;
+      height:36px;
       border-radius:50%;
       background:linear-gradient(135deg,#2f80ed,#6abfff);
       color:#fff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      display:grid;
+      place-items:center;
       font-size:13px;
       font-weight:900;
-      flex:0 0 34px;
+      flex:0 0 36px;
+      box-shadow:0 10px 22px rgba(47,128,237,.18);
     }
 
     .smsHeaderName{
@@ -650,48 +777,83 @@
     }
 
     .smsBubble{
-      background:#ffffff;
-      border:1px solid rgba(16,36,53,.07);
-      color:#234056;
-      border-radius:20px 20px 20px 8px;
-      padding:14px 14px;
+      background:linear-gradient(180deg,#ffffff,#fbfdff);
+      border:1px solid rgba(13,36,56,.08);
+      color:#26435a;
+      border-radius:22px 22px 22px 8px;
+      padding:16px 16px;
       font-size:13px;
-      line-height:1.55;
+      line-height:1.58;
       font-weight:600;
-      box-shadow:0 8px 18px rgba(16,36,53,.04);
+      box-shadow:0 10px 24px rgba(16,36,53,.05);
     }
 
-    .smsBubble strong{
-      color:var(--title);
-    }
+    .smsBubble strong{ color:var(--title) }
 
     .smsTime{
       margin-top:8px;
-      text-align:left;
+      padding-left:6px;
       color:#8aa0b0;
       font-size:11px;
       font-weight:800;
-      padding-left:6px;
     }
 
-    .entrepreneurCard{
-      padding:18px;
+    .smsPills{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:12px;
+      justify-content:center;
+    }
+
+    .smsPill{
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(47,128,237,.14);
+      background:rgba(255,255,255,.56);
+      color:#587487;
+      font-size:12px;
+      font-weight:800;
+      backdrop-filter:blur(10px);
+    }
+
+    .entrepreneurFormArea{
+      position:relative;
+      padding-top:6px;
     }
 
     .miniFormTitle{
       margin:0 0 8px;
       color:var(--title);
-      font-size:18px;
+      font-size:20px;
       font-weight:900;
       letter-spacing:-.03em;
     }
 
     .miniFormDesc{
-      margin:0 0 14px;
+      margin:0 0 16px;
       color:var(--soft);
       font-size:14px;
       line-height:1.55;
       font-weight:500;
+    }
+
+    .miniHighlights{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:16px;
+    }
+
+    .miniHighlight{
+      padding:10px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.52);
+      border:1px solid rgba(13,36,56,.08);
+      color:#5b7487;
+      font-size:12px;
+      font-weight:800;
+      backdrop-filter:blur(10px);
     }
 
     .entrepreneurForm{
@@ -700,23 +862,55 @@
       gap:10px;
     }
 
+    .entrepreneurSubmit{
+      margin-top:8px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
     .noteText{
-      margin-top:10px;
       color:#7a90a1;
       font-size:12px;
       line-height:1.45;
-      text-align:center;
       font-weight:600;
+    }
+
+    .dividerWave{
+      width:100%;
+      height:38px;
+      margin:8px 0 12px;
+      opacity:.7;
+      background:
+        radial-gradient(circle at 10px 19px, rgba(47,128,237,.16) 0 2px, transparent 3px),
+        linear-gradient(90deg, transparent, rgba(47,128,237,.12), transparent);
+      background-size:120px 38px, 100% 1px;
+      background-repeat:repeat-x, no-repeat;
+      background-position:center center, center 19px;
+    }
+
+    @media (max-width: 900px){
+      .entrepreneurLayout{
+        grid-template-columns:1fr;
+      }
+
+      .phoneMock{
+        max-width:420px;
+      }
     }
 
     @media (max-width: 760px){
       .wrap{
-        padding:0 18px;
+        width:min(var(--max), calc(100% - 28px));
       }
 
       .heroInner{
         padding-top:40px;
       }
+
+      .orb.orb1{ left:-10px; top:120px }
+      .orb.orb2{ right:-30px; top:180px }
 
       .logo{
         width:132px;
@@ -741,15 +935,12 @@
 
       .heroActions{
         margin:24px auto 0;
-        width:auto;
-        max-width:none;
-        padding:0;
-        transform:scale(.9);
+        transform:scale(.92);
         transform-origin:center;
       }
 
       .splitCta{
-        min-height:88px;
+        min-height:84px;
         font-size:14px;
       }
 
@@ -766,24 +957,37 @@
         clip-path:polygon(18% 0, 100% 0, 100% 100%, 0 100%);
       }
 
+      .heroStats{
+        gap:8px;
+        max-width:330px;
+      }
+
+      .heroStat{
+        font-size:11px;
+        padding:9px 12px;
+      }
+
       .heroScroll{
-        margin-top:34px;
+        margin-top:30px;
       }
 
       .clientSection{
-        padding:20px 0 72px;
-        margin-top:-150px;
+        margin-top:-145px;
+        padding:18px 0 72px;
       }
 
       .entrepreneurSection{
         padding:4px 0 72px;
       }
 
-      .clientCard,
-      .entrepreneurCard,
-      .smsDemo{
-        padding:16px;
-        border-radius:22px;
+      .sectionDesc{
+        font-size:15px;
+        max-width:340px;
+      }
+
+      .formTopMini{
+        grid-template-columns:1fr;
+        gap:8px;
       }
 
       .formGrid{
@@ -791,22 +995,12 @@
         gap:10px;
       }
 
-      .clientDesc,
-      .entrepreneurDesc{
-        font-size:15px;
-        max-width:340px;
-      }
-
-      .textarea{
-        min-height:96px;
+      .submitRow{
+        align-items:flex-start;
       }
 
       .submitBtn{
         width:100%;
-      }
-
-      .reviewsSection{
-        margin-top:18px;
       }
 
       .reviewsGrid{
@@ -814,20 +1008,24 @@
         gap:10px;
       }
 
-      .entrepreneurLayout{
-        grid-template-columns:1fr;
-        gap:12px;
+      .miniHighlights{
+        gap:8px;
       }
     }
   </style>
 </head>
 <body>
   <div class="site">
-    <div class="topFade"></div>
+    <div class="bgGlowA"></div>
+    <div class="bgGlowB"></div>
+    <div class="bgNoise"></div>
 
     <section class="hero">
       <div class="wrap">
         <div class="heroInner">
+          <div class="orb orb1"></div>
+          <div class="orb orb2"></div>
+
           <img class="logo" src="media/logob.png" alt="Intermediaire.io">
 
           <h1 class="brand">Intermediaire.io</h1>
@@ -848,6 +1046,12 @@
             </a>
           </div>
 
+          <div class="heroStats">
+            <div class="heroStat">1 demande</div>
+            <div class="heroStat">plusieurs pros locaux</div>
+            <div class="heroStat">réponse plus rapide</div>
+          </div>
+
           <a class="heroScroll" href="#client" aria-label="Descendre vers la section client">
             <span></span>
           </a>
@@ -855,49 +1059,80 @@
       </div>
     </section>
 
-    <section class="clientSection" id="client">
+    <section class="section clientSection" id="client">
       <div class="wrap">
-        <div class="clientShell">
-          <div class="clientHead">
-            <div class="clientKicker">Section client</div>
-            <h2 class="clientTitle">Envoyez une seule demande</h2>
-            <p class="clientDesc">
-              Décrivez vos travaux une seule fois. Votre demande est ensuite envoyée aux contracteurs de votre région afin de trouver le meilleur disponible pour votre besoin.
-            </p>
+        <div class="sectionHead">
+          <div class="kicker"><span class="kickerDot"></span>Section client</div>
+          <h2 class="sectionTitle">Envoyez une seule demande</h2>
+          <p class="sectionDesc">
+            Décrivez vos travaux une seule fois. Votre demande est ensuite envoyée aux contracteurs de votre région afin de trouver le meilleur disponible pour votre besoin.
+          </p>
+          <div class="chips">
+            <div class="chip">rapide</div>
+            <div class="chip">local</div>
+            <div class="chip">simple à comparer</div>
           </div>
+        </div>
 
-          <div class="clientCard">
+        <div class="clientVisual">
+          <div class="flowLine"></div>
+
+          <div class="formShell">
+            <div class="formTopMini">
+              <div class="miniItem"><span class="miniIcon">1</span>Une seule demande</div>
+              <div class="miniItem"><span class="miniIcon">2</span>Envoyée à votre région</div>
+              <div class="miniItem"><span class="miniIcon">3</span>Meilleur disponible</div>
+            </div>
+
             <form class="formGrid">
               <div class="full">
                 <label class="label" for="service">Service recherché</label>
-                <select class="select" id="service" name="service">
-                  <option>Travaux de toiture</option>
-                </select>
+                <div class="inputWrap">
+                  <span class="inputIcon">S</span>
+                  <select class="select" id="service" name="service">
+                    <option>Travaux de toiture</option>
+                  </select>
+                </div>
               </div>
 
               <div class="field">
                 <label class="label" for="nom">Nom et prénom</label>
-                <input class="input" id="nom" name="nom" type="text" placeholder="Votre nom complet">
+                <div class="inputWrap">
+                  <span class="inputIcon">N</span>
+                  <input class="input" id="nom" name="nom" type="text" placeholder="Votre nom complet">
+                </div>
               </div>
 
               <div class="field">
                 <label class="label" for="tel">Numéro de téléphone</label>
-                <input class="input" id="tel" name="tel" type="tel" placeholder="(___) ___-____">
+                <div class="inputWrap">
+                  <span class="inputIcon">T</span>
+                  <input class="input" id="tel" name="tel" type="tel" placeholder="(___) ___-____">
+                </div>
               </div>
 
               <div class="field">
                 <label class="label" for="courriel">Courriel</label>
-                <input class="input" id="courriel" name="courriel" type="email" placeholder="vous@email.com">
+                <div class="inputWrap">
+                  <span class="inputIcon">@</span>
+                  <input class="input" id="courriel" name="courriel" type="email" placeholder="vous@email.com">
+                </div>
               </div>
 
               <div class="field">
                 <label class="label" for="ville">Ville</label>
-                <input class="input" id="ville" name="ville" type="text" placeholder="Votre ville">
+                <div class="inputWrap">
+                  <span class="inputIcon">V</span>
+                  <input class="input" id="ville" name="ville" type="text" placeholder="Votre ville">
+                </div>
               </div>
 
               <div class="full">
                 <label class="label" for="details">Description des travaux</label>
-                <textarea class="textarea" id="details" name="details" placeholder="Décrivez brièvement les travaux à faire..."></textarea>
+                <div class="inputWrap">
+                  <span class="inputIcon">D</span>
+                  <textarea class="textarea" id="details" name="details" placeholder="Décrivez brièvement les travaux à faire..."></textarea>
+                </div>
               </div>
 
               <label class="checkWrap">
@@ -909,18 +1144,22 @@
 
               <div class="submitRow">
                 <button class="submitBtn" type="submit">Envoyer ma demande</button>
+                <div class="submitHint">Simple. Rapide. Sans perte de temps.</div>
               </div>
             </form>
           </div>
+        </div>
 
-          <div class="reviewsSection">
-            <div class="reviewsHead">
-              <h3 class="reviewsTitle">Avis clients</h3>
-              <p class="reviewsSub">Des demandes simples, des réponses rapides, et des clients satisfaits.</p>
-            </div>
+        <div class="reviewsSection">
+          <div class="reviewsHead">
+            <h3 class="reviewsTitle">Avis clients</h3>
+            <p class="reviewsSub">Des demandes simples, des réponses rapides, et des clients satisfaits.</p>
+          </div>
 
-            <div class="reviewsGrid">
-              <div class="reviewCard">
+          <div class="reviewsGrid">
+            <div class="reviewCard">
+              <div class="reviewGlow"></div>
+              <div class="reviewInner">
                 <div class="stars">★★★★★</div>
                 <p class="reviewText">
                   J’ai envoyé ma demande en quelques minutes et j’ai reçu des retours très rapidement. Le processus est simple et ça m’a évité de chercher partout moi-même.
@@ -933,8 +1172,11 @@
                   </div>
                 </div>
               </div>
+            </div>
 
-              <div class="reviewCard">
+            <div class="reviewCard">
+              <div class="reviewGlow"></div>
+              <div class="reviewInner">
                 <div class="stars">★★★★★</div>
                 <p class="reviewText">
                   Très propre comme service. J’ai pu comparer mes options sans perdre mon temps. Franchement pratique quand on veut trouver quelqu’un de disponible rapidement.
@@ -947,8 +1189,11 @@
                   </div>
                 </div>
               </div>
+            </div>
 
-              <div class="reviewCard">
+            <div class="reviewCard">
+              <div class="reviewGlow"></div>
+              <div class="reviewInner">
                 <div class="stars">★★★★★</div>
                 <p class="reviewText">
                   Le formulaire est rapide à remplir et j’ai aimé le fait qu’une seule demande puisse être envoyée à plusieurs entrepreneurs de la région. Très efficace.
@@ -963,92 +1208,113 @@
               </div>
             </div>
           </div>
-
         </div>
+
       </div>
     </section>
 
-    <section class="entrepreneurSection" id="entrepreneur">
+    <div class="dividerWave"></div>
+
+    <section class="section entrepreneurSection" id="entrepreneur">
       <div class="wrap">
-        <div class="entrepreneurShell">
-          <div class="entrepreneurHead">
-            <div class="entrepreneurKicker">Section entrepreneur</div>
-            <h2 class="entrepreneurTitle">Recevez des leads par SMS</h2>
-            <p class="entrepreneurDesc">
-              Recevez des demandes réelles dans votre région par SMS. Vous voyez le résumé du lead, puis vous décidez si vous voulez le débloquer.
-            </p>
+        <div class="sectionHead">
+          <div class="kicker"><span class="kickerDot"></span>Section entrepreneur</div>
+          <h2 class="sectionTitle">Recevez des leads par SMS</h2>
+          <p class="sectionDesc">
+            Recevez des demandes réelles dans votre région par SMS. Vous voyez le résumé du lead, puis vous décidez si vous voulez le débloquer.
+          </p>
+          <div class="chips">
+            <div class="chip">aucun frais d’inscription</div>
+            <div class="chip">réception par SMS</div>
+            <div class="chip">vous choisissez vos leads</div>
           </div>
+        </div>
 
-          <div class="entrepreneurLayout">
-            <div class="smsDemo">
-              <div class="smsTop">
-                <div class="smsPill">Exemple de SMS</div>
-                <div class="smsNote">Aperçu seulement</div>
+        <div class="entrepreneurLayout">
+          <div class="smsDemo">
+            <div class="smsHalo"></div>
+
+            <div class="phoneMock">
+              <div class="phoneBar"><span></span></div>
+
+              <div class="smsHeader">
+                <div class="smsAvatar">IO</div>
+                <div>
+                  <div class="smsHeaderName">Intermediaire.io</div>
+                  <div class="smsHeaderSub">Exemple de SMS</div>
+                </div>
               </div>
 
-              <div class="phoneMock">
-                <div class="phoneBar"><span></span></div>
-
-                <div class="smsHeader">
-                  <div class="smsAvatar">IO</div>
-                  <div>
-                    <div class="smsHeaderName">Intermediaire.io</div>
-                    <div class="smsHeaderSub">Message texte</div>
-                  </div>
-                </div>
-
-                <div class="smsBubble">
-                  <strong>Nouveau lead — Toiture</strong><br><br>
-                  Ville : Sherbrooke<br>
-                  Besoin : infiltration d’eau au toit<br>
-                  Urgence : rapide<br>
-                  Demande réelle confirmée<br><br>
-                  <strong>Lead : 75$</strong><br>
-                  Payez sur ce lien pour débloquer les infos de contact du client.<br><br>
-                  <em>Ceci est un exemple de message.</em>
-                </div>
-
-                <div class="smsTime">Aujourd’hui • 14:28</div>
+              <div class="smsBubble">
+                <strong>Nouveau lead — Toiture</strong><br><br>
+                Ville : Sherbrooke<br>
+                Besoin : infiltration d’eau au toit<br>
+                Urgence : rapide<br>
+                Demande réelle confirmée<br><br>
+                <strong>Lead : 50$</strong><br>
+                Payez sur ce lien pour débloquer les infos de contact du client.<br><br>
+                <em>Ceci est un exemple de message.</em>
               </div>
+
+              <div class="smsTime">Aujourd’hui • 14:28</div>
             </div>
 
-            <div class="entrepreneurCard">
-              <h3 class="miniFormTitle">Inscription gratuite</h3>
-              <p class="miniFormDesc">
-                Inscrivez votre entreprise pour recevoir nos leads SMS.
-              </p>
+            <div class="smsPills">
+              <div class="smsPill">clair</div>
+              <div class="smsPill">rapide à lire</div>
+              <div class="smsPill">infos essentielles</div>
+            </div>
+          </div>
 
-              <form class="entrepreneurForm">
-                <div class="field">
-                  <label class="label" for="ent-name">Nom de l’entreprise</label>
+          <div class="entrepreneurFormArea">
+            <h3 class="miniFormTitle">Inscription gratuite</h3>
+            <p class="miniFormDesc">
+              Inscrivez votre entreprise pour recevoir nos leads SMS.
+            </p>
+
+            <div class="miniHighlights">
+              <div class="miniHighlight">aucun engagement</div>
+              <div class="miniHighlight">réception locale</div>
+              <div class="miniHighlight">activation simple</div>
+            </div>
+
+            <form class="entrepreneurForm">
+              <div class="field">
+                <label class="label" for="ent-name">Nom de l’entreprise</label>
+                <div class="inputWrap">
+                  <span class="inputIcon">E</span>
                   <input class="input" id="ent-name" name="ent-name" type="text" placeholder="Ex. Toitures ABC">
                 </div>
+              </div>
 
-                <div class="field">
-                  <label class="label" for="ent-phone">Numéro de téléphone</label>
+              <div class="field">
+                <label class="label" for="ent-phone">Numéro de téléphone</label>
+                <div class="inputWrap">
+                  <span class="inputIcon">S</span>
                   <input class="input" id="ent-phone" name="ent-phone" type="tel" placeholder="(___) ___-____">
                 </div>
+              </div>
 
-                <div class="field">
-                  <label class="label" for="ent-city">Ville / région</label>
+              <div class="field">
+                <label class="label" for="ent-city">Ville / région</label>
+                <div class="inputWrap">
+                  <span class="inputIcon">R</span>
                   <input class="input" id="ent-city" name="ent-city" type="text" placeholder="Ex. Sherbrooke">
                 </div>
-
-                <div class="submitRow">
-                  <button class="submitBtn" type="submit">M’inscrire gratuitement</button>
-                </div>
-              </form>
-
-              <div class="noteText">
-                Inscription gratuite. Vous choisissez ensuite les leads que vous voulez débloquer.
               </div>
-            </div>
-          </div>
 
+              <div class="entrepreneurSubmit">
+                <button class="submitBtn" type="submit">M’inscrire gratuitement</button>
+                <div class="noteText">
+                  Inscription gratuite. Vous choisissez ensuite les leads que vous voulez débloquer.
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
+
       </div>
     </section>
-
   </div>
 </body>
 </html>
