@@ -294,8 +294,7 @@
     }
 
     .clientCard,
-    .entrepreneurCard,
-    .leadExample{
+    .entrepreneurCard{
       position:relative;
       z-index:1;
       background:
@@ -310,8 +309,7 @@
       backdrop-filter:blur(10px);
     }
 
-    .formGrid,
-    .entrepreneurForm{
+    .formGrid{
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:12px;
@@ -345,7 +343,7 @@
       border-radius:14px;
       padding:14px 14px;
       outline:none;
-      transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+      transition:border-color .18s ease, box-shadow .18s ease;
       box-shadow:0 4px 14px rgba(16,36,53,.03);
       font-size:14px;
     }
@@ -535,18 +533,37 @@
 
     .entrepreneurLayout{
       display:grid;
-      grid-template-columns:1.15fr .85fr;
+      grid-template-columns:1.05fr .95fr;
       gap:14px;
       align-items:start;
       position:relative;
       z-index:1;
     }
 
-    .leadExample{
+    .smsDemo{
+      position:relative;
+      z-index:1;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(250,252,255,.94));
+      border:1px solid rgba(16,36,53,.08);
+      border-radius:28px;
+      padding:16px;
+      box-shadow:
+        0 18px 50px rgba(24,54,83,.08),
+        inset 0 1px 0 rgba(255,255,255,.95);
       overflow:hidden;
     }
 
-    .leadTop{
+    .smsDemo::before{
+      content:"";
+      position:absolute;
+      inset:0 0 auto 0;
+      height:3px;
+      background:linear-gradient(90deg,#2f80ed,#6abfff);
+      opacity:.95;
+    }
+
+    .smsTop{
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -554,111 +571,107 @@
       margin-bottom:14px;
     }
 
-    .leadBadge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
+    .smsPill{
       padding:8px 12px;
       border-radius:999px;
-      background:linear-gradient(135deg, rgba(47,128,237,.12), rgba(106,191,255,.12));
       border:1px solid rgba(47,128,237,.14);
-      color:#276ecf;
+      background:rgba(47,128,237,.06);
+      color:#2b73da;
       font-size:12px;
       font-weight:900;
       letter-spacing:.03em;
     }
 
-    .leadPrice{
-      color:var(--title);
-      font-size:13px;
-      font-weight:900;
-      padding:8px 12px;
-      border-radius:999px;
-      background:#f7fbff;
-      border:1px solid rgba(16,36,53,.06);
+    .smsNote{
+      font-size:12px;
+      font-weight:800;
+      color:#7b91a2;
     }
 
-    .leadTitle{
-      margin:0 0 8px;
-      font-size:20px;
-      line-height:1.15;
-      color:var(--title);
-      font-weight:900;
-      letter-spacing:-.03em;
-    }
-
-    .leadDesc{
-      margin:0 0 14px;
-      color:#5f788b;
-      font-size:14px;
-      line-height:1.6;
-      font-weight:500;
-    }
-
-    .leadInfo{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-bottom:14px;
-    }
-
-    .leadInfoCard{
-      border:1px solid rgba(16,36,53,.07);
-      border-radius:16px;
+    .phoneMock{
+      width:100%;
+      max-width:380px;
+      margin:0 auto;
+      background:#f3f7fb;
+      border:1px solid rgba(16,36,53,.08);
+      border-radius:28px;
       padding:12px;
-      background:linear-gradient(180deg,#ffffff,#fbfdff);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
     }
 
-    .leadInfoLabel{
-      font-size:11px;
-      color:#7d94a4;
-      font-weight:800;
-      letter-spacing:.05em;
-      text-transform:uppercase;
-      margin-bottom:4px;
-    }
-
-    .leadInfoValue{
-      color:var(--title);
-      font-size:14px;
-      font-weight:800;
-      line-height:1.35;
-    }
-
-    .leadUnlock{
-      margin-top:6px;
-      border:1px solid rgba(47,128,237,.12);
-      background:linear-gradient(180deg,#fafdff,#f5faff);
-      border-radius:18px;
-      padding:14px;
-    }
-
-    .leadUnlockTitle{
-      color:var(--title);
-      font-size:13px;
-      font-weight:900;
-      margin-bottom:6px;
-    }
-
-    .leadUnlockText{
-      color:#648093;
-      font-size:13px;
-      line-height:1.55;
+    .phoneBar{
+      display:flex;
+      justify-content:center;
       margin-bottom:10px;
-      font-weight:600;
     }
 
-    .leadPayLink{
-      display:inline-flex;
+    .phoneBar span{
+      width:72px;
+      height:6px;
+      border-radius:999px;
+      background:#d6e2ec;
+      display:block;
+    }
+
+    .smsHeader{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:12px;
+      padding:0 4px;
+    }
+
+    .smsAvatar{
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      background:linear-gradient(135deg,#2f80ed,#6abfff);
+      color:#fff;
+      display:flex;
       align-items:center;
       justify-content:center;
-      padding:12px 16px;
-      border-radius:14px;
-      background:linear-gradient(135deg,#2f80ed 0%,#56a8ff 55%,#79c6ff 100%);
-      color:#fff;
       font-size:13px;
       font-weight:900;
-      box-shadow:0 12px 24px rgba(47,128,237,.18);
+      flex:0 0 34px;
+    }
+
+    .smsHeaderName{
+      color:var(--title);
+      font-size:14px;
+      font-weight:900;
+      line-height:1.2;
+    }
+
+    .smsHeaderSub{
+      color:#7c92a3;
+      font-size:12px;
+      font-weight:700;
+      margin-top:2px;
+    }
+
+    .smsBubble{
+      background:#ffffff;
+      border:1px solid rgba(16,36,53,.07);
+      color:#234056;
+      border-radius:20px 20px 20px 8px;
+      padding:14px 14px;
+      font-size:13px;
+      line-height:1.55;
+      font-weight:600;
+      box-shadow:0 8px 18px rgba(16,36,53,.04);
+    }
+
+    .smsBubble strong{
+      color:var(--title);
+    }
+
+    .smsTime{
+      margin-top:8px;
+      text-align:left;
+      color:#8aa0b0;
+      font-size:11px;
+      font-weight:800;
+      padding-left:6px;
     }
 
     .entrepreneurCard{
@@ -682,6 +695,7 @@
     }
 
     .entrepreneurForm{
+      display:grid;
       grid-template-columns:1fr;
       gap:10px;
     }
@@ -767,7 +781,7 @@
 
       .clientCard,
       .entrepreneurCard,
-      .leadExample{
+      .smsDemo{
         padding:16px;
         border-radius:22px;
       }
@@ -803,10 +817,6 @@
       .entrepreneurLayout{
         grid-template-columns:1fr;
         gap:12px;
-      }
-
-      .leadInfo{
-        grid-template-columns:1fr;
       }
     }
   </style>
@@ -965,54 +975,47 @@
             <div class="entrepreneurKicker">Section entrepreneur</div>
             <h2 class="entrepreneurTitle">Recevez des leads par SMS</h2>
             <p class="entrepreneurDesc">
-              Recevez des demandes réelles dans votre région, voyez le résumé du lead, puis payez seulement si vous voulez débloquer les informations de contact.
+              Recevez des demandes réelles dans votre région par SMS. Vous voyez le résumé du lead, puis vous décidez si vous voulez le débloquer.
             </p>
           </div>
 
           <div class="entrepreneurLayout">
-            <div class="leadExample">
-              <div class="leadTop">
-                <div class="leadBadge">Exemple de lead SMS</div>
-                <div class="leadPrice">Lead : 50$</div>
+            <div class="smsDemo">
+              <div class="smsTop">
+                <div class="smsPill">Exemple de SMS</div>
+                <div class="smsNote">Aperçu seulement</div>
               </div>
 
-              <h3 class="leadTitle">Nouvelle demande client — Travaux de toiture</h3>
-              <p class="leadDesc">
-                Client situé à Sherbrooke. Problème d’infiltration d’eau près du grenier. Intervention souhaitée rapidement. Demande sérieuse confirmée.
-              </p>
+              <div class="phoneMock">
+                <div class="phoneBar"><span></span></div>
 
-              <div class="leadInfo">
-                <div class="leadInfoCard">
-                  <div class="leadInfoLabel">Ville</div>
-                  <div class="leadInfoValue">Sherbrooke</div>
+                <div class="smsHeader">
+                  <div class="smsAvatar">IO</div>
+                  <div>
+                    <div class="smsHeaderName">Intermediaire.io</div>
+                    <div class="smsHeaderSub">Message texte</div>
+                  </div>
                 </div>
-                <div class="leadInfoCard">
-                  <div class="leadInfoLabel">Type</div>
-                  <div class="leadInfoValue">Réparation toiture</div>
-                </div>
-                <div class="leadInfoCard">
-                  <div class="leadInfoLabel">Urgence</div>
-                  <div class="leadInfoValue">Rapide</div>
-                </div>
-                <div class="leadInfoCard">
-                  <div class="leadInfoLabel">Contact</div>
-                  <div class="leadInfoValue">Masqué jusqu’au paiement</div>
-                </div>
-              </div>
 
-              <div class="leadUnlock">
-                <div class="leadUnlockTitle">Débloquer les coordonnées</div>
-                <div class="leadUnlockText">
-                  Payez sur ce lien pour débloquer les infos de contact du client immédiatement.
+                <div class="smsBubble">
+                  <strong>Nouveau lead — Toiture</strong><br><br>
+                  Ville : Sherbrooke<br>
+                  Besoin : infiltration d’eau au toit<br>
+                  Urgence : rapide<br>
+                  Demande réelle confirmée<br><br>
+                  <strong>Lead : 50$</strong><br>
+                  Payez sur ce lien pour débloquer les infos de contact du client.<br><br>
+                  <em>Ceci est un exemple de message.</em>
                 </div>
-                <div class="leadPayLink">Payer sur ce lien</div>
+
+                <div class="smsTime">Aujourd’hui • 14:28</div>
               </div>
             </div>
 
             <div class="entrepreneurCard">
               <h3 class="miniFormTitle">Inscription gratuite</h3>
               <p class="miniFormDesc">
-                Ajoutez-vous à notre liste d’envoi de leads SMS.
+                Inscrivez votre entreprise pour recevoir nos leads SMS.
               </p>
 
               <form class="entrepreneurForm">
@@ -1022,7 +1025,7 @@
                 </div>
 
                 <div class="field">
-                  <label class="label" for="ent-phone">Numéro pour recevoir les SMS</label>
+                  <label class="label" for="ent-phone">Numéro de téléphone</label>
                   <input class="input" id="ent-phone" name="ent-phone" type="tel" placeholder="(___) ___-____">
                 </div>
 
@@ -1037,7 +1040,7 @@
               </form>
 
               <div class="noteText">
-                Aucun frais pour s’inscrire. Vous payez seulement les leads que vous voulez débloquer.
+                Inscription gratuite. Vous choisissez ensuite les leads que vous voulez débloquer.
               </div>
             </div>
           </div>
