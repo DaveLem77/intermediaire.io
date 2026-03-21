@@ -21,6 +21,9 @@
       --accent:#2f80ed;
       --accent2:#6abfff;
       --max:1180px;
+      --line:#e4edf5;
+      --soft:#6c8396;
+      --white:#ffffff;
     }
 
     *{box-sizing:border-box}
@@ -33,6 +36,7 @@
 
     a{text-decoration:none;color:inherit}
     img{display:block;max-width:100%}
+    button,input,select,textarea{font:inherit}
 
     .site{
       position:relative;
@@ -138,7 +142,7 @@
 
     .splitCta{
       position:relative;
-      min-height:88px; /* ajusté */
+      min-height:88px;
       font-size:16px;
       font-weight:900;
       display:inline-flex;
@@ -185,7 +189,7 @@
     }
 
     .heroScroll{
-      margin-top:20px;
+      margin-top:34px;
       width:34px;
       height:34px;
       display:inline-flex;
@@ -207,6 +211,264 @@
       0%,100%{transform:translateY(0);opacity:.7}
       50%{transform:translateY(7px);opacity:1}
     }
+
+    .clientSection{
+      position:relative;
+      z-index:1;
+      padding:24px 0 90px;
+    }
+
+    .clientShell{
+      max-width:760px;
+      margin:0 auto;
+    }
+
+    .clientHead{
+      text-align:center;
+      margin-bottom:26px;
+    }
+
+    .clientKicker{
+      display:inline-block;
+      margin-bottom:10px;
+      padding:8px 12px;
+      border:1px solid rgba(47,128,237,.12);
+      border-radius:999px;
+      background:rgba(255,255,255,.72);
+      color:#4d6a80;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .clientTitle{
+      margin:0;
+      color:var(--title);
+      font-size:clamp(28px,4vw,44px);
+      line-height:1.05;
+      letter-spacing:-.04em;
+      font-weight:900;
+    }
+
+    .clientDesc{
+      max-width:700px;
+      margin:14px auto 0;
+      color:var(--soft);
+      font-size:17px;
+      line-height:1.65;
+      font-weight:500;
+    }
+
+    .clientCard{
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(16,36,53,.08);
+      border-radius:28px;
+      padding:24px;
+      box-shadow:
+        0 18px 50px rgba(24,54,83,.08),
+        inset 0 1px 0 rgba(255,255,255,.95);
+      backdrop-filter:blur(10px);
+    }
+
+    .formGrid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .field,
+    .full{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .full{
+      grid-column:1 / -1;
+    }
+
+    .label{
+      color:#5b7386;
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:.02em;
+    }
+
+    .input,
+    .select,
+    .textarea{
+      width:100%;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--title);
+      border-radius:16px;
+      padding:16px 16px;
+      outline:none;
+      transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+      box-shadow:0 4px 14px rgba(16,36,53,.03);
+    }
+
+    .input:focus,
+    .select:focus,
+    .textarea:focus{
+      border-color:rgba(47,128,237,.45);
+      box-shadow:0 0 0 4px rgba(47,128,237,.10);
+    }
+
+    .select{
+      appearance:none;
+      -webkit-appearance:none;
+      background-image:
+        linear-gradient(45deg, transparent 50%, #6b8396 50%),
+        linear-gradient(135deg, #6b8396 50%, transparent 50%);
+      background-position:
+        calc(100% - 20px) calc(50% - 3px),
+        calc(100% - 14px) calc(50% - 3px);
+      background-size:6px 6px, 6px 6px;
+      background-repeat:no-repeat;
+      padding-right:42px;
+    }
+
+    .textarea{
+      min-height:140px;
+      resize:vertical;
+    }
+
+    .checkWrap{
+      grid-column:1 / -1;
+      margin-top:4px;
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      padding:14px 14px;
+      border:1px solid rgba(16,36,53,.07);
+      background:#fbfdff;
+      border-radius:16px;
+    }
+
+    .checkWrap input{
+      margin-top:3px;
+      transform:scale(1.05);
+    }
+
+    .checkText{
+      color:#6a8194;
+      font-size:13px;
+      line-height:1.5;
+      font-weight:600;
+    }
+
+    .submitRow{
+      grid-column:1 / -1;
+      display:flex;
+      justify-content:center;
+      margin-top:6px;
+    }
+
+    .submitBtn{
+      border:none;
+      border-radius:18px;
+      padding:18px 28px;
+      min-width:240px;
+      font-size:16px;
+      font-weight:900;
+      color:#fff;
+      cursor:pointer;
+      background:linear-gradient(135deg,#2f80ed 0%,#56a8ff 55%,#79c6ff 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.22),
+        0 14px 26px rgba(47,128,237,.20);
+      transition:transform .18s ease, box-shadow .18s ease;
+    }
+
+    .submitBtn:hover{
+      transform:translateY(-2px);
+    }
+
+    @media (max-width: 760px){
+      .wrap{
+        padding:0 18px;
+      }
+
+      .heroInner{
+        padding-top:40px;
+      }
+
+      .logo{
+        width:132px;
+        height:132px;
+        margin-bottom:12px;
+      }
+
+      .brand{
+        font-size:48px;
+        letter-spacing:-0.10em;
+      }
+
+      .heroSub{
+        font-size:18px;
+        max-width:340px;
+      }
+
+      .heroMiniLine{
+        font-size:11px;
+        letter-spacing:.14em;
+      }
+
+      .heroActions{
+        margin:24px auto 0;
+        width:auto;
+        max-width:none;
+        padding:0;
+        transform:scale(.9);
+        transform-origin:center;
+      }
+
+      .splitCta{
+        min-height:88px;
+        font-size:14px;
+      }
+
+      .splitLeft{
+        padding:0 36px 0 22px;
+        border-radius:18px 0 0 18px;
+        clip-path:polygon(0 0, 100% 0, 82% 100%, 0 100%);
+      }
+
+      .splitRight{
+        padding:0 22px 0 36px;
+        margin-left:-18px;
+        border-radius:0 18px 18px 0;
+        clip-path:polygon(18% 0, 100% 0, 100% 100%, 0 100%);
+      }
+
+      .heroScroll{
+        margin-top:42px;
+      }
+
+      .clientSection{
+        padding:12px 0 72px;
+      }
+
+      .clientCard{
+        padding:18px;
+        border-radius:22px;
+      }
+
+      .formGrid{
+        grid-template-columns:1fr;
+      }
+
+      .clientDesc{
+        font-size:16px;
+        max-width:340px;
+      }
+
+      .submitBtn{
+        width:100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -216,7 +478,7 @@
     <section class="hero">
       <div class="wrap">
         <div class="heroInner">
-          <img class="logo" src="media/logob.png">
+          <img class="logo" src="media/logob.png" alt="Intermediaire.io">
 
           <h1 class="brand">Intermediaire.io</h1>
 
@@ -227,21 +489,83 @@
           <div class="heroMiniLine">Simple • rapide • local</div>
 
           <div class="heroActions">
-            <a class="splitCta splitLeft" href="#">
+            <a class="splitCta splitLeft" href="#client">
               <span>Je cherche un service</span>
             </a>
 
-            <a class="splitCta splitRight" href="#">
+            <a class="splitCta splitRight" href="#entrepreneur">
               <span>Je suis entrepreneur</span>
             </a>
           </div>
 
-          <div class="heroScroll">
+          <a class="heroScroll" href="#client" aria-label="Descendre vers la section client">
             <span></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="clientSection" id="client">
+      <div class="wrap">
+        <div class="clientShell">
+          <div class="clientHead">
+            <div class="clientKicker">Section client</div>
+            <h2 class="clientTitle">Envoyez une seule demande</h2>
+            <p class="clientDesc">
+              Décrivez vos travaux une seule fois. Votre demande est ensuite envoyée aux contracteurs de votre région afin de trouver le meilleur disponible pour votre besoin.
+            </p>
+          </div>
+
+          <div class="clientCard">
+            <form class="formGrid">
+              <div class="full">
+                <label class="label" for="service">Service recherché</label>
+                <select class="select" id="service" name="service">
+                  <option>Travaux de toiture</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label class="label" for="nom">Nom et prénom</label>
+                <input class="input" id="nom" name="nom" type="text" placeholder="Votre nom complet">
+              </div>
+
+              <div class="field">
+                <label class="label" for="tel">Numéro de téléphone</label>
+                <input class="input" id="tel" name="tel" type="tel" placeholder="(___) ___-____">
+              </div>
+
+              <div class="field">
+                <label class="label" for="courriel">Courriel</label>
+                <input class="input" id="courriel" name="courriel" type="email" placeholder="vous@email.com">
+              </div>
+
+              <div class="field">
+                <label class="label" for="ville">Ville</label>
+                <input class="input" id="ville" name="ville" type="text" placeholder="Votre ville">
+              </div>
+
+              <div class="full">
+                <label class="label" for="details">Description des travaux</label>
+                <textarea class="textarea" id="details" name="details" placeholder="Décrivez brièvement les travaux à faire..."></textarea>
+              </div>
+
+              <label class="checkWrap">
+                <input type="checkbox" name="confirmation">
+                <div class="checkText">
+                  Je confirme que les renseignements envoyés sont véridiques et représentent une vraie demande de travaux.
+                </div>
+              </label>
+
+              <div class="submitRow">
+                <button class="submitBtn" type="submit">Envoyer ma demande</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </section>
+
   </div>
 </body>
 </html>
