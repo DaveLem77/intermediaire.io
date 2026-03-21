@@ -122,12 +122,6 @@
       color:#6c8396;
     }
 
-    .heroSub strong{
-      font-weight:800;
-      letter-spacing:-.03em;
-      color:var(--title);
-    }
-
     .heroMiniLine{
       margin-top:14px;
       color:#7f94a5;
@@ -139,13 +133,14 @@
 
     .heroActions{
       width:100%;
-      margin-top:28px;
+      max-width:720px;
+      margin:28px auto 0;
       display:flex;
       justify-content:center;
       align-items:center;
       gap:0;
       flex-wrap:nowrap;
-      padding:0 34px;
+      padding:0 24px;
       filter:drop-shadow(0 16px 28px rgba(47,128,237,.12));
     }
 
@@ -191,6 +186,31 @@
       box-shadow:
         inset 0 1px 0 rgba(255,255,255,.95),
         0 14px 26px rgba(16,36,53,.08);
+    }
+
+    .heroScroll{
+      margin-top:22px;
+      width:34px;
+      height:34px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
+      animation:arrowBounce 1.5s ease-in-out infinite;
+    }
+
+    .heroScroll span{
+      width:12px;
+      height:12px;
+      display:block;
+      border-right:2px solid rgba(8,26,40,.45);
+      border-bottom:2px solid rgba(8,26,40,.45);
+      transform:rotate(45deg);
+    }
+
+    @keyframes arrowBounce{
+      0%,100%{transform:translateY(0);opacity:.7}
+      50%{transform:translateY(7px);opacity:1}
     }
 
     .section{
@@ -666,8 +686,9 @@
 
       .heroActions{
         width:100%;
-        margin-top:24px;
-        padding:0 28px;
+        max-width:520px;
+        margin:24px auto 0;
+        padding:0 30px;
       }
 
       .splitCta{
@@ -689,6 +710,10 @@
         clip-path:polygon(18% 0, 100% 0, 100% 100%, 0 100%);
       }
 
+      .heroScroll{
+        margin-top:20px;
+      }
+
       .miniGrid{grid-template-columns:1fr}
       .leadRow{grid-template-columns:1fr;gap:4px}
     }
@@ -707,7 +732,7 @@
             <h1 class="brand">Intermediaire.io</h1>
 
             <p class="heroSub">
-              <strong>Une seule demande, envoyée aux bons professionnels de votre région.</strong>
+              Une seule demande, envoyée aux bons professionnels de votre région.
             </p>
 
             <div class="heroMiniLine">Simple • rapide • local</div>
@@ -721,6 +746,10 @@
                 <span>Je suis entrepreneur</span>
               </a>
             </div>
+
+            <a class="heroScroll" href="#client" aria-label="Descendre">
+              <span></span>
+            </a>
           </div>
         </div>
       </section>
