@@ -410,6 +410,112 @@
       transform:translateY(-2px);
     }
 
+    .reviewsSection{
+      margin-top:22px;
+      position:relative;
+      z-index:1;
+    }
+
+    .reviewsHead{
+      text-align:center;
+      margin-bottom:14px;
+    }
+
+    .reviewsTitle{
+      margin:0;
+      font-size:20px;
+      font-weight:900;
+      color:var(--title);
+      letter-spacing:-.03em;
+    }
+
+    .reviewsSub{
+      margin:8px 0 0;
+      font-size:14px;
+      color:var(--soft);
+      line-height:1.55;
+    }
+
+    .reviewsGrid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+    }
+
+    .reviewCard{
+      position:relative;
+      overflow:hidden;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.98), rgba(248,251,255,.96));
+      border:1px solid rgba(16,36,53,.08);
+      border-radius:22px;
+      padding:18px;
+      box-shadow:
+        0 14px 35px rgba(24,54,83,.06),
+        inset 0 1px 0 rgba(255,255,255,.95);
+    }
+
+    .reviewCard::before{
+      content:"";
+      position:absolute;
+      inset:0 0 auto 0;
+      height:3px;
+      background:linear-gradient(90deg,#2f80ed,#6abfff);
+      opacity:.9;
+    }
+
+    .stars{
+      font-size:14px;
+      letter-spacing:.08em;
+      color:#2f80ed;
+      margin-bottom:10px;
+      font-weight:800;
+    }
+
+    .reviewText{
+      margin:0;
+      color:#355065;
+      font-size:14px;
+      line-height:1.65;
+      font-weight:500;
+    }
+
+    .reviewMeta{
+      margin-top:14px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .reviewAvatar{
+      width:38px;
+      height:38px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:13px;
+      font-weight:900;
+      color:#fff;
+      background:linear-gradient(135deg,#2f80ed,#6abfff);
+      box-shadow:0 8px 18px rgba(47,128,237,.20);
+      flex:0 0 38px;
+    }
+
+    .reviewName{
+      color:var(--title);
+      font-size:13px;
+      font-weight:900;
+      line-height:1.2;
+    }
+
+    .reviewCity{
+      color:#7a90a1;
+      font-size:12px;
+      font-weight:700;
+      margin-top:2px;
+    }
+
     @media (max-width: 760px){
       .wrap{
         padding:0 18px;
@@ -497,6 +603,15 @@
 
       .submitBtn{
         width:100%;
+      }
+
+      .reviewsSection{
+        margin-top:18px;
+      }
+
+      .reviewsGrid{
+        grid-template-columns:1fr;
+        gap:10px;
       }
     }
   </style>
@@ -592,6 +707,58 @@
               </div>
             </form>
           </div>
+
+          <div class="reviewsSection">
+            <div class="reviewsHead">
+              <h3 class="reviewsTitle">Avis clients</h3>
+              <p class="reviewsSub">Des demandes simples, des réponses rapides, et des clients satisfaits.</p>
+            </div>
+
+            <div class="reviewsGrid">
+              <div class="reviewCard">
+                <div class="stars">★★★★★</div>
+                <p class="reviewText">
+                  J’ai envoyé ma demande en quelques minutes et j’ai reçu des retours très rapidement. Le processus est simple et ça m’a évité de chercher partout moi-même.
+                </p>
+                <div class="reviewMeta">
+                  <div class="reviewAvatar">ML</div>
+                  <div>
+                    <div class="reviewName">Marie L.</div>
+                    <div class="reviewCity">Sherbrooke</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="reviewCard">
+                <div class="stars">★★★★★</div>
+                <p class="reviewText">
+                  Très propre comme service. J’ai pu comparer mes options sans perdre mon temps. Franchement pratique quand on veut trouver quelqu’un de disponible rapidement.
+                </p>
+                <div class="reviewMeta">
+                  <div class="reviewAvatar">JP</div>
+                  <div>
+                    <div class="reviewName">Jean-Philippe R.</div>
+                    <div class="reviewCity">Magog</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="reviewCard">
+                <div class="stars">★★★★★</div>
+                <p class="reviewText">
+                  Le formulaire est rapide à remplir et j’ai aimé le fait qu’une seule demande puisse être envoyée à plusieurs entrepreneurs de la région. Très efficace.
+                </p>
+                <div class="reviewMeta">
+                  <div class="reviewAvatar">SC</div>
+                  <div>
+                    <div class="reviewName">Sophie C.</div>
+                    <div class="reviewCity">Drummondville</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
