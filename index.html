@@ -1,176 +1,180 @@
 <!doctype html>
 <html lang="fr">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>Intermediaire.io</title>
+  <title>Intermediaire.io</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="media/logob.png">
 
-<style>
-:root{
-  --accent:#2f80ed;
-  --accent2:#6abfff;
-  --text:#081a28;
-  --muted:#6b8598;
-}
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
-*{box-sizing:border-box;margin:0;padding:0}
+  <style>
+    :root{
+      --bg:#fbfdff;
+      --text:#102334;
+      --title:#081a28;
+      --muted:#74889a;
+      --accent:#2f80ed;
+      --accent2:#6abfff;
+      --max:1180px;
+    }
 
-body{
-  font-family:Inter, sans-serif;
-  background:#fff;
-  color:var(--text);
-}
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter, sans-serif;
+      color:var(--text);
+      background:linear-gradient(180deg,#f6fbff 0%,#ffffff 100%);
+    }
 
-/* LAYOUT */
-.wrap{
-  max-width:1100px;
-  margin:auto;
-  padding:0 20px;
-}
+    .wrap{
+      max-width:var(--max);
+      margin:auto;
+      padding:0 20px;
+    }
 
-/* HERO MODERNE */
-.hero{
-  position:relative;
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  overflow:hidden;
-}
+    /* HEADER FIX */
+    .topFade{
+      position:absolute;
+      inset:0 0 auto 0;
+      height:420px;
+      pointer-events:none;
+      background:
+        radial-gradient(900px 420px at 50% -2%, rgba(47,128,237,.14), transparent 62%),
+        radial-gradient(500px 220px at 18% 10%, rgba(106,191,255,.10), transparent 72%),
+        radial-gradient(500px 220px at 82% 10%, rgba(47,128,237,.07), transparent 72%);
+      z-index:0;
+    }
 
-.hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(600px 300px at 50% 10%, rgba(47,128,237,0.18), transparent 70%),
-    radial-gradient(400px 200px at 20% 20%, rgba(106,191,255,0.12), transparent 70%),
-    radial-gradient(400px 200px at 80% 20%, rgba(47,128,237,0.10), transparent 70%);
-  z-index:0;
-}
+    .hero{
+      position:relative;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+    }
 
-.heroInner{
-  position:relative;
-  z-index:2;
-  max-width:820px;
-}
+    .heroInner{
+      position:relative;
+      z-index:2;
+      max-width:860px;
+      margin:auto;
+    }
 
-/* LOGO */
-.logo{
-  width:100px;
-  margin:0 auto 20px;
-  animation:float 6s ease-in-out infinite;
-}
+    .logo{
+      width:100px;
+      margin:0 auto 20px;
+      animation:float 6s ease-in-out infinite;
+      filter:drop-shadow(0 14px 30px rgba(47,128,237,.14));
+    }
 
-@keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-6px)}
-}
+    @keyframes float{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-6px)}
+    }
 
-/* TITLE */
-.brand{
-  font-family:"Space Grotesk";
-  font-size:clamp(42px,6vw,80px);
-  letter-spacing:-0.08em;
-}
+    .brand{
+      font-family:"Space Grotesk";
+      font-size:clamp(44px,6vw,82px);
+      letter-spacing:-0.11em;
+      margin:0;
+      color:var(--title);
+    }
 
-/* TEXTE */
-.heroSub{
-  margin-top:20px;
-  font-size:20px;
-  color:var(--muted);
-}
+    .heroSub{
+      margin-top:18px;
+      font-size:22px;
+      font-weight:600;
+      color:#6c8396;
+      line-height:1.4;
+    }
 
-.heroSub span{
-  display:block;
-  margin-top:6px;
-  font-weight:800;
-  font-size:22px;
-  background:linear-gradient(90deg,#2f80ed,#6abfff);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
+    .heroSub strong{
+      font-weight:800;
+      color:var(--title);
+    }
 
-/* CTA */
-.heroActions{
-  margin-top:35px;
-  display:flex;
-  gap:14px;
-  justify-content:center;
-}
+    .heroMiniLine{
+      margin-top:14px;
+      color:#7f94a5;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
 
-.cta{
-  min-height:58px;
-  padding:0 26px;
-  border-radius:14px;
-  font-weight:800;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:.2s;
-}
+    .heroActions{
+      margin-top:30px;
+      display:flex;
+      justify-content:center;
+      gap:0;
+    }
 
-.ctaPrimary{
-  background:linear-gradient(135deg,#2f80ed,#6abfff);
-  color:#fff;
-}
+    .splitCta{
+      padding:16px 28px;
+      font-weight:800;
+      text-decoration:none;
+    }
 
-.ctaGhost{
-  border:1px solid rgba(0,0,0,.08);
-}
+    .splitLeft{
+      background:linear-gradient(135deg,#2f80ed,#6abfff);
+      color:#fff;
+      border-radius:20px 0 0 20px;
+    }
 
-/* SECTION */
-.section{
-  padding:60px 0;
-}
+    .splitRight{
+      background:#fff;
+      border:1px solid #ddd;
+      border-left:none;
+      border-radius:0 20px 20px 0;
+    }
 
-h2{
-  font-size:30px;
-  margin-bottom:10px;
-}
+    /* FORM (inchangé) */
+    .section{padding:60px 0}
 
-.clientForm{
-  max-width:520px;
-  margin-top:20px;
-}
+    .clientGrid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:40px;
+    }
 
-/* INPUT */
-input,textarea{
-  width:100%;
-  padding:14px;
-  margin-bottom:12px;
-  border:none;
-  border-bottom:1px solid #ddd;
-}
+    input,textarea{
+      width:100%;
+      padding:12px;
+      margin-bottom:10px;
+      border:none;
+      border-bottom:1px solid #ccc;
+    }
 
-/* BUTTON */
-button{
-  padding:14px;
-  border:none;
-  background:linear-gradient(135deg,#2f80ed,#6abfff);
-  color:#fff;
-  border-radius:10px;
-  font-weight:700;
-  cursor:pointer;
-}
+    button{
+      padding:14px;
+      border:none;
+      background:linear-gradient(135deg,#2f80ed,#6abfff);
+      color:#fff;
+      border-radius:10px;
+      font-weight:700;
+      cursor:pointer;
+    }
 
-/* FOOTER */
-footer{
-  padding:40px;
-  text-align:center;
-  color:#7a90a3;
-}
+    footer{
+      padding:40px;
+      text-align:center;
+      color:#7a90a3;
+    }
 
-</style>
+    @media(max-width:800px){
+      .clientGrid{grid-template-columns:1fr}
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- HERO -->
+<div class="topFade"></div>
+
 <section class="hero">
   <div class="wrap">
     <div class="heroInner">
@@ -180,25 +184,27 @@ footer{
       <h1 class="brand">Intermediaire.io</h1>
 
       <p class="heroSub">
-        Une seule demande.<br>
-        <span>Les bons professionnels, instantanément.</span>
+        <strong>Une seule demande, envoyée aux bons professionnels de votre région.</strong>
       </p>
 
+      <div class="heroMiniLine">
+        SIMPLE • RAPIDE • LOCAL
+      </div>
+
       <div class="heroActions">
-        <a class="cta ctaPrimary" href="#client">Trouver un service</a>
-        <a class="cta ctaGhost" href="#entrepreneur">Je suis entrepreneur</a>
+        <a class="splitCta splitLeft" href="#client">Je cherche un service</a>
+        <a class="splitCta splitRight" href="#entrepreneur">Je suis entrepreneur</a>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- CLIENT -->
 <section id="client" class="section">
   <div class="wrap">
     <h2>Faire une demande</h2>
 
-    <div class="clientForm">
+    <div class="clientGrid">
       <form action="https://hook.us2.make.com/to346qlepm88si74k1dngnwnawkd3b79" method="post">
 
         <input type="text" name="nom" placeholder="Nom complet" required>
@@ -206,7 +212,7 @@ footer{
         <input type="tel" name="telephone" placeholder="Téléphone" required>
         <input type="email" name="courriel" placeholder="Courriel" required>
 
-        <textarea name="besoin" placeholder="Décrivez votre besoin..." required></textarea>
+        <textarea name="besoin" placeholder="Votre besoin..." required></textarea>
 
         <button type="submit">Envoyer</button>
       </form>
