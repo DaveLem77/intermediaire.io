@@ -4,55 +4,82 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Intermediaire.io | Trouver un service local</title>
+  <meta name="description" content="Intermediaire.io aide à trouver le bon service local simplement." />
+  <meta name="robots" content="index,follow" />
 
-  <link rel="icon" href="media/logob.png">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="media/logob.png" />
+  <link rel="apple-touch-icon" href="media/logob.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
+      --bg:#fbfdff;
+      --bg-soft:#f2f7fc;
       --text:#102334;
       --title:#081a28;
       --muted:#74889a;
+      --line:rgba(8,26,40,.10);
+      --line-soft:rgba(8,26,40,.06);
       --accent:#2f80ed;
       --accent2:#6abfff;
+      --max:1180px;
     }
 
-    *{box-sizing:border-box;margin:0;padding:0}
-
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    html,body{margin:0;padding:0;overflow-x:hidden}
     body{
-      font-family:Inter, sans-serif;
-      background:linear-gradient(180deg,#f6fbff,#ffffff);
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
+      background:
+        linear-gradient(180deg, #f6fbff 0%, #fbfdff 22%, #ffffff 100%);
     }
 
-    .wrap{
-      max-width:1100px;
-      margin:auto;
-      padding:0 20px;
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+    button,input,textarea,select{font:inherit}
+
+    .site{
+      position:relative;
+      min-height:100vh;
     }
 
     .topFade{
       position:absolute;
       inset:0 0 auto 0;
       height:420px;
+      pointer-events:none;
       background:
-        radial-gradient(900px 420px at 50% -2%, rgba(47,128,237,.14), transparent 62%);
+        radial-gradient(900px 420px at 50% -2%, rgba(47,128,237,.14), transparent 62%),
+        radial-gradient(500px 220px at 18% 10%, rgba(106,191,255,.10), transparent 72%),
+        radial-gradient(500px 220px at 82% 10%, rgba(47,128,237,.07), transparent 72%);
+      z-index:0;
     }
 
-    /* HERO */
-    .hero{
+    .wrap{
       position:relative;
+      z-index:1;
+      max-width:var(--max);
+      margin:0 auto;
+      padding:0 26px;
+    }
+
+    .hero{
       min-height:100svh;
       display:flex;
       align-items:center;
       justify-content:center;
       text-align:center;
+      padding:20px 0 26px;
     }
 
     .heroInner{
       width:100%;
       max-width:860px;
-      margin:auto;
+      margin:0 auto;
       display:flex;
       flex-direction:column;
       align-items:center;
@@ -60,103 +87,675 @@
     }
 
     .logo{
-      width:100px;
-      margin-bottom:20px;
-      animation:float 6s infinite;
+      width:98px;
+      height:98px;
+      object-fit:contain;
+      margin:0 auto 20px;
+      filter:drop-shadow(0 14px 30px rgba(47,128,237,.14));
+      animation:logoFloat 6s ease-in-out infinite;
     }
 
-    @keyframes float{
+    @keyframes logoFloat{
       0%,100%{transform:translateY(0)}
-      50%{transform:translateY(-6px)}
+      50%{transform:translateY(-4px)}
     }
 
     .brand{
-      font-family:"Space Grotesk";
-      font-size:clamp(44px,6vw,80px);
+      margin:0;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-size:clamp(44px,6.2vw,82px);
+      font-weight:700;
       letter-spacing:-0.11em;
+      line-height:.9;
+      color:var(--title);
+      text-rendering:geometricPrecision;
     }
 
     .heroSub{
-      margin-top:18px;
-      font-size:22px;
+      margin:18px auto 0;
+      max-width:720px;
+      font-size:clamp(18px,2.1vw,24px);
+      line-height:1.35;
+      font-weight:600;
       color:#6c8396;
+    }
+
+    .heroSub strong{
+      font-weight:800;
+      letter-spacing:-.03em;
+      color:var(--title);
     }
 
     .heroMiniLine{
       margin-top:14px;
-      font-size:12px;
-      letter-spacing:.16em;
       color:#7f94a5;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.16em;
+      text-transform:uppercase;
     }
 
-    /* BUTTONS */
     .heroActions{
       margin-top:30px;
       display:flex;
       justify-content:center;
+      align-items:center;
       gap:0;
+      flex-wrap:nowrap;
+      filter:drop-shadow(0 16px 28px rgba(47,128,237,.12));
     }
 
     .splitCta{
-      min-height:60px;
+      position:relative;
+      min-height:62px;
       padding:0 28px;
+      font-size:15px;
       font-weight:800;
-      display:flex;
+      text-decoration:none;
+      display:inline-flex;
       align-items:center;
       justify-content:center;
+      overflow:hidden;
+      transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
+      white-space:nowrap;
+    }
+
+    .splitCta:hover{
+      transform:translateY(-2px);
     }
 
     .splitLeft{
-      background:linear-gradient(135deg,#2f80ed,#6abfff);
+      background:linear-gradient(135deg,#2f80ed 0%,#56a8ff 58%,#79c6ff 100%);
       color:#fff;
       border-radius:20px 0 0 20px;
-      clip-path:polygon(0 0,100% 0,85% 100%,0 100%);
+      clip-path:polygon(0 0, 100% 0, 84% 100%, 0 100%);
+      padding-right:46px;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.22),
+        0 14px 26px rgba(47,128,237,.20);
     }
 
     .splitRight{
       background:#fff;
-      border:1px solid #ddd;
+      color:var(--title);
+      border:1px solid rgba(8,26,40,.10);
       border-left:none;
       border-radius:0 20px 20px 0;
-      clip-path:polygon(15% 0,100% 0,100% 100%,0 100%);
-      margin-left:-20px;
+      clip-path:polygon(16% 0, 100% 0, 100% 100%, 0 100%);
+      padding-left:46px;
+      margin-left:-22px;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.95),
+        0 14px 26px rgba(16,36,53,.08);
     }
 
-    /* ARROW */
     .heroScroll{
-      margin-top:25px;
-      animation:bounce 1.4s infinite;
+      margin-top:28px;
+      width:34px;
+      height:34px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
+      animation:arrowBounce 1.5s ease-in-out infinite;
     }
 
     .heroScroll span{
-      display:block;
       width:12px;
       height:12px;
-      border-right:2px solid #666;
-      border-bottom:2px solid #666;
+      display:block;
+      border-right:2px solid rgba(8,26,40,.45);
+      border-bottom:2px solid rgba(8,26,40,.45);
       transform:rotate(45deg);
     }
 
-    @keyframes bounce{
-      0%,100%{transform:translateY(0)}
-      50%{transform:translateY(8px)}
+    @keyframes arrowBounce{
+      0%,100%{transform:translateY(0);opacity:.7}
+      50%{transform:translateY(7px);opacity:1}
     }
 
-    /* MOBILE FIX */
-    @media(max-width:760px){
+    .quickSearch{
+      max-width:780px;
+      margin:40px auto 0;
+      padding-top:22px;
+      border-top:1px solid var(--line-soft);
+    }
+
+    .quickLabel{
+      margin-bottom:14px;
+      color:#70879a;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+    }
+
+    .quickBar{
+      display:grid;
+      grid-template-columns:1.15fr .9fr auto;
+      gap:14px;
+      align-items:end;
+    }
+
+    .field label,
+    .miniField label{
+      display:block;
+      margin-bottom:8px;
+      color:#74889a;
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      text-align:left;
+    }
+
+    .field select,
+    .field input,
+    .miniField input,
+    .miniField textarea{
+      width:100%;
+      border:none;
+      border-bottom:1px solid rgba(8,26,40,.14);
+      background:transparent;
+      padding:12px 0 13px;
+      color:var(--title);
+      font-size:16px;
+      font-weight:700;
+      outline:none;
+      transition:.18s ease;
+      border-radius:0;
+    }
+
+    .field select:focus,
+    .field input:focus,
+    .miniField input:focus,
+    .miniField textarea:focus{
+      border-bottom-color:var(--accent);
+      box-shadow:0 10px 0 -9px rgba(47,128,237,.22);
+    }
+
+    .field select{
+      appearance:none;
+      -webkit-appearance:none;
+      -moz-appearance:none;
+      cursor:pointer;
+    }
+
+    .quickBtn{
+      min-height:56px;
+      padding:0 18px;
+      border:none;
+      border-radius:16px;
+      color:#fff;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      font-size:15px;
+      font-weight:900;
+      cursor:pointer;
+      box-shadow:0 14px 28px rgba(47,128,237,.16);
+      transition:.18s ease;
+    }
+
+    .quickBtn:hover{transform:translateY(-1px)}
+
+    .section{
+      padding:52px 0 24px;
+    }
+
+    .sectionTop{
+      display:grid;
+      grid-template-columns:1fr .95fr;
+      gap:28px;
+      align-items:end;
+      margin-bottom:24px;
+    }
+
+    .sectionTag{
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      margin-bottom:12px;
+      color:#6d8396;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+    }
+
+    .sectionTag i{
+      width:7px;
+      height:7px;
+      border-radius:999px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      display:block;
+    }
+
+    .sectionTop h2{
+      margin:0;
+      font-size:clamp(30px,4vw,54px);
+      line-height:1;
+      letter-spacing:-.06em;
+      color:var(--title);
+    }
+
+    .sectionTop p{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.8;
+      font-weight:600;
+      max-width:54ch;
+    }
+
+    .line{
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(8,26,40,.12), transparent);
+      margin-bottom:26px;
+    }
+
+    .clientGrid{
+      display:grid;
+      grid-template-columns:.95fr 1.05fr;
+      gap:38px;
+      align-items:start;
+    }
+
+    .serviceList{
+      display:grid;
+      gap:12px;
+    }
+
+    .serviceItem{
+      position:relative;
+    }
+
+    .serviceItem input{
+      position:absolute;
+      opacity:0;
+      pointer-events:none;
+    }
+
+    .serviceCard{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:16px 0;
+      border-bottom:1px solid rgba(8,26,40,.08);
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .serviceLeft{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      min-width:0;
+    }
+
+    .serviceIcon{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg,rgba(47,128,237,.10),rgba(105,194,255,.18));
+      color:#2369bf;
+      flex:0 0 auto;
+    }
+
+    .serviceText strong{
+      display:block;
+      color:var(--title);
+      font-size:18px;
+      font-weight:800;
+      letter-spacing:-.03em;
+    }
+
+    .serviceText span{
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:600;
+      margin-top:3px;
+    }
+
+    .serviceState{
+      color:#7b92a5;
+      font-size:12px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      white-space:nowrap;
+    }
+
+    .serviceItem input:checked + .serviceCard{
+      border-bottom-color:rgba(47,128,237,.24);
+    }
+
+    .serviceItem input:checked + .serviceCard .serviceState{
+      color:#2369bf;
+    }
+
+    .miniFormTop{
+      margin-bottom:14px;
+    }
+
+    .miniFormTop strong{
+      display:block;
+      font-size:22px;
+      color:var(--title);
+      letter-spacing:-.04em;
+      margin-bottom:6px;
+    }
+
+    .miniFormTop span{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.65;
+      font-weight:600;
+    }
+
+    .miniGrid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-bottom:12px;
+    }
+
+    .miniField textarea{
+      min-height:92px;
+      resize:vertical;
+    }
+
+    .consent{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      margin-top:10px;
+      color:#6b8396;
+      font-size:12.5px;
+      line-height:1.55;
+      font-weight:600;
+    }
+
+    .consent input[type="checkbox"]{
+      width:17px;
+      height:17px;
+      min-width:17px;
+      accent-color:var(--accent);
+      margin-top:2px;
+    }
+
+    .miniSubmit{
+      margin-top:18px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .submitBtn{
+      min-height:52px;
+      padding:0 20px;
+      border:none;
+      border-radius:16px;
+      color:#fff;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      font-size:15px;
+      font-weight:900;
+      cursor:pointer;
+      box-shadow:0 14px 28px rgba(47,128,237,.16);
+      transition:.18s ease;
+    }
+
+    .submitBtn:hover{transform:translateY(-1px)}
+
+    .miniHint{
+      color:#70879a;
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .partnerGrid{
+      display:grid;
+      grid-template-columns:1fr .9fr;
+      gap:38px;
+      align-items:start;
+    }
+
+    .partnerPoints{
+      display:grid;
+      gap:22px;
+      padding-top:4px;
+    }
+
+    .partnerPoint{
+      position:relative;
+      padding-left:28px;
+    }
+
+    .partnerPoint::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:11px;
+      width:16px;
+      height:1px;
+      background:linear-gradient(90deg,var(--accent),transparent);
+    }
+
+    .partnerPoint strong{
+      display:block;
+      color:var(--title);
+      font-size:24px;
+      font-weight:800;
+      letter-spacing:-.04em;
+      margin-bottom:7px;
+    }
+
+    .partnerPoint p{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.75;
+      font-weight:600;
+      max-width:38ch;
+    }
+
+    .partnerActions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:4px;
+    }
+
+    .btnSoft{
+      min-height:52px;
+      padding:0 18px;
+      border-radius:16px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-size:15px;
+      font-weight:900;
+      color:var(--title);
+      background:#fff;
+      border:1px solid rgba(8,26,40,.08);
+      transition:.18s ease;
+    }
+
+    .btnSoft:hover{
+      transform:translateY(-1px);
+      background:#fff;
+      box-shadow:0 12px 26px rgba(16,36,53,.08);
+    }
+
+    .leadMini{
+      max-width:390px;
+      margin-left:auto;
+      padding-top:8px;
+    }
+
+    .leadMiniTop{
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:16px;
+      margin-bottom:16px;
+    }
+
+    .leadMiniTop span{
+      display:block;
+      color:#6b8396;
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.09em;
+      text-transform:uppercase;
+      margin-bottom:6px;
+    }
+
+    .leadMiniTop strong{
+      display:block;
+      color:var(--title);
+      font-size:28px;
+      font-weight:800;
+      letter-spacing:-.05em;
+    }
+
+    .leadBadge{
+      color:#167b58;
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      white-space:nowrap;
+    }
+
+    .leadBadge i{
+      width:7px;
+      height:7px;
+      border-radius:999px;
+      background:#10a36c;
+      box-shadow:0 0 0 8px rgba(16,163,108,.10);
+      display:block;
+    }
+
+    .leadRows{
+      display:grid;
+      gap:13px;
+      padding-top:16px;
+      padding-bottom:16px;
+      border-top:1px solid rgba(8,26,40,.08);
+      border-bottom:1px solid rgba(8,26,40,.08);
+    }
+
+    .leadRow{
+      display:grid;
+      grid-template-columns:78px 1fr;
+      gap:14px;
+      align-items:start;
+      color:#3f5d73;
+      font-size:14px;
+      line-height:1.65;
+      font-weight:700;
+    }
+
+    .leadRow b{
+      color:#7b92a5;
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      padding-top:3px;
+    }
+
+    .leadBottom{
+      padding-top:16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .leadValue{
+      color:#2369bf;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .footer{
+      padding:70px 0 34px;
+    }
+
+    .footerLine{
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(8,26,40,.12), transparent);
+      margin-bottom:20px;
+    }
+
+    .footerRow{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+      color:#698195;
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .footerLinks{
+      display:flex;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    .footerLinks a:hover{
+      color:var(--title);
+    }
+
+    @media (max-width: 980px){
+      .quickBar,
+      .sectionTop,
+      .clientGrid,
+      .partnerGrid{
+        grid-template-columns:1fr;
+      }
+
+      .leadMini{
+        margin-left:0;
+        max-width:none;
+      }
+    }
+
+    @media (max-width: 760px){
+      .wrap{padding:0 18px}
+
+      .hero{
+        min-height:100svh;
+        padding:18px 0 20px;
+      }
 
       .heroInner{
-        min-height:100svh;
+        min-height:calc(100svh - 36px);
         justify-content:center;
-        transform:translateY(-30px);
       }
 
       .logo{
-        width:120px;
+        width:88px;
+        height:88px;
+        margin-bottom:18px;
       }
 
       .brand{
-        font-size:56px;
+        font-size:48px;
+        letter-spacing:-0.10em;
       }
 
       .heroSub{
@@ -164,52 +763,389 @@
         max-width:340px;
       }
 
+      .heroMiniLine{
+        font-size:11px;
+        letter-spacing:.14em;
+      }
+
+      .heroActions{
+        width:100%;
+        margin-top:28px;
+      }
+
       .splitCta{
-        min-height:72px;
-        font-size:14px;
+        min-height:60px;
+        font-size:13px;
+        padding:0 18px;
       }
 
       .splitLeft{
-        padding-right:36px;
+        padding-right:32px;
+        border-radius:18px 0 0 18px;
+        clip-path:polygon(0 0, 100% 0, 82% 100%, 0 100%);
       }
 
       .splitRight{
-        padding-left:36px;
+        padding-left:32px;
+        margin-left:-18px;
+        border-radius:0 18px 18px 0;
+        clip-path:polygon(18% 0, 100% 0, 100% 100%, 0 100%);
       }
+
+      .heroScroll{
+        margin-top:24px;
+      }
+
+      .quickSearch{
+        display:none;
+      }
+
+      .miniGrid{grid-template-columns:1fr}
+      .leadRow{grid-template-columns:1fr;gap:4px}
     }
   </style>
 </head>
-
 <body>
+  <div class="site">
+    <div class="topFade" aria-hidden="true"></div>
 
-<div class="topFade"></div>
+    <main>
+      <section class="hero">
+        <div class="wrap">
+          <div class="heroInner">
+            <img class="logo" src="media/logob.png" alt="Intermediaire.io">
 
-<section class="hero">
-  <div class="wrap">
-    <div class="heroInner">
+            <h1 class="brand">Intermediaire.io</h1>
 
-      <img class="logo" src="media/logob.png">
+            <p class="heroSub">
+              <strong>Une seule demande, envoyée aux bons professionnels de votre région.</strong>
+            </p>
 
-      <h1 class="brand">Intermediaire.io</h1>
+            <div class="heroMiniLine">Simple • rapide • local</div>
 
-      <p class="heroSub">
-        Une seule demande, envoyée aux bons professionnels de votre région.
-      </p>
+            <div class="heroActions">
+              <a class="splitCta splitLeft" href="#client">
+                <span>Je cherche un service</span>
+              </a>
 
-      <div class="heroMiniLine">SIMPLE • RAPIDE • LOCAL</div>
+              <a class="splitCta splitRight" href="#entrepreneur">
+                <span>Je suis entrepreneur</span>
+              </a>
+            </div>
 
-      <div class="heroActions">
-        <a class="splitCta splitLeft" href="#client">Je cherche un service</a>
-        <a class="splitCta splitRight" href="#entrepreneur">Je suis entrepreneur</a>
-      </div>
+            <a class="heroScroll" href="#client" aria-label="Descendre">
+              <span></span>
+            </a>
 
-      <a class="heroScroll" href="#client">
-        <span></span>
-      </a>
+            <div class="quickSearch">
+              <div class="quickLabel">Recherche rapide</div>
 
-    </div>
+              <div class="quickBar">
+                <div class="field">
+                  <label for="quickService">Service</label>
+                  <select id="quickService">
+                    <option value="toiture">Toiture</option>
+                    <option value="plomberie">Plomberie — à venir</option>
+                    <option value="electricite">Électricité — à venir</option>
+                    <option value="autre">Autres services — à venir</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="quickCity">Ville</label>
+                  <input id="quickCity" type="text" placeholder="Votre ville">
+                </div>
+
+                <button class="quickBtn" type="button" id="quickGo">Continuer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="client" class="section">
+        <div class="wrap">
+          <div class="sectionTop">
+            <div>
+              <div class="sectionTag"><i></i>Client</div>
+              <h2>Trouver un service</h2>
+            </div>
+
+            <p>
+              Choisissez le service voulu, puis laissez vos infos et votre besoin en quelques secondes.
+            </p>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="clientGrid">
+            <div class="serviceList">
+              <label class="serviceItem">
+                <input type="radio" name="serviceChoice" value="Toiture" checked>
+                <div class="serviceCard">
+                  <div class="serviceLeft">
+                    <div class="serviceIcon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M3 11.5L12 4l9 7.5" stroke="currentColor" stroke-width="2"/>
+                        <path d="M6 10.5V20h12v-9.5" stroke="currentColor" stroke-width="2"/>
+                      </svg>
+                    </div>
+                    <div class="serviceText">
+                      <strong>Toiture</strong>
+                      <span>Disponible maintenant</span>
+                    </div>
+                  </div>
+                  <div class="serviceState">Actif</div>
+                </div>
+              </label>
+
+              <label class="serviceItem">
+                <input type="radio" name="serviceChoice" value="Plomberie">
+                <div class="serviceCard">
+                  <div class="serviceLeft">
+                    <div class="serviceIcon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M7 4v6a5 5 0 0 0 10 0V4" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 15v5" stroke="currentColor" stroke-width="2"/>
+                      </svg>
+                    </div>
+                    <div class="serviceText">
+                      <strong>Plomberie</strong>
+                      <span>Bientôt disponible</span>
+                    </div>
+                  </div>
+                  <div class="serviceState">À venir</div>
+                </div>
+              </label>
+
+              <label class="serviceItem">
+                <input type="radio" name="serviceChoice" value="Électricité">
+                <div class="serviceCard">
+                  <div class="serviceLeft">
+                    <div class="serviceIcon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M13 2L6 13h5l-1 9 7-11h-5l1-9z" stroke="currentColor" stroke-width="2"/>
+                      </svg>
+                    </div>
+                    <div class="serviceText">
+                      <strong>Électricité</strong>
+                      <span>Bientôt disponible</span>
+                    </div>
+                  </div>
+                  <div class="serviceState">À venir</div>
+                </div>
+              </label>
+
+              <label class="serviceItem">
+                <input type="radio" name="serviceChoice" value="Autre">
+                <div class="serviceCard">
+                  <div class="serviceLeft">
+                    <div class="serviceIcon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 8v4" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="12" cy="16" r="1" fill="currentColor"/>
+                      </svg>
+                    </div>
+                    <div class="serviceText">
+                      <strong>Autres services</strong>
+                      <span>Bientôt disponible</span>
+                    </div>
+                  </div>
+                  <div class="serviceState">À venir</div>
+                </div>
+              </label>
+            </div>
+
+            <div class="miniForm">
+              <div class="miniFormTop">
+                <strong>Votre demande</strong>
+                <span>Simple, rapide, sans remplir une grosse page.</span>
+              </div>
+
+              <form action="https://hook.us2.make.com/to346qlepm88si74k1dngnwnawkd3b79" method="post">
+                <input type="hidden" name="service_selectionne" id="hiddenService" value="Toiture">
+
+                <div class="miniGrid">
+                  <div class="miniField">
+                    <label for="nom">Nom</label>
+                    <input id="nom" type="text" name="prenom" placeholder="Prénom et nom" required>
+                  </div>
+
+                  <div class="miniField">
+                    <label for="ville">Ville</label>
+                    <input id="ville" type="text" name="ville" placeholder="Votre ville" required>
+                  </div>
+                </div>
+
+                <div class="miniGrid">
+                  <div class="miniField">
+                    <label for="tel">Téléphone</label>
+                    <input id="tel" type="tel" name="telephone" placeholder="Votre numéro" required>
+                  </div>
+
+                  <div class="miniField">
+                    <label for="courriel">Courriel</label>
+                    <input id="courriel" type="email" name="courriel" placeholder="Votre courriel" required>
+                  </div>
+                </div>
+
+                <div class="miniField">
+                  <label for="besoin">Besoin</label>
+                  <textarea id="besoin" name="travaux" placeholder="Décrivez brièvement votre besoin..." required></textarea>
+                </div>
+
+                <div class="consent">
+                  <input type="checkbox" id="confirmation" name="confirmation" value="oui" required>
+                  <label for="confirmation">
+                    J’accepte que ma demande puisse être transmise à un entrepreneur de ma région.
+                  </label>
+                </div>
+
+                <div class="miniSubmit">
+                  <button class="submitBtn" type="submit">Envoyer</button>
+                  <div class="miniHint">Service sélectionné : <span id="selectedServiceText">Toiture</span></div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="entrepreneur" class="section">
+        <div class="wrap">
+          <div class="sectionTop">
+            <div>
+              <div class="sectionTag"><i></i>Entrepreneur</div>
+              <h2>Recevoir des leads plus propres</h2>
+            </div>
+
+            <p>
+              Un aperçu simple de ce qu’un lead peut contenir, avec seulement l’essentiel.
+            </p>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="partnerGrid">
+            <div class="partnerPoints">
+              <div class="partnerPoint">
+                <strong>Infos essentielles</strong>
+                <p>Le service, la ville, le besoin et les coordonnées dans un format plus lisible.</p>
+              </div>
+
+              <div class="partnerPoint">
+                <strong>Plus rapide à juger</strong>
+                <p>Vous voyez rapidement si la demande correspond à votre zone et à votre disponibilité.</p>
+              </div>
+
+              <div class="partnerPoint">
+                <strong>Plus clean</strong>
+                <p>Moins de flou, moins de temps perdu, plus de clarté.</p>
+              </div>
+
+              <div class="partnerActions">
+                <a class="submitBtn" href="tel:+18733391815" style="display:inline-flex;align-items:center;justify-content:center;">Nous appeler</a>
+                <a class="btnSoft" href="#client">Voir côté client</a>
+              </div>
+            </div>
+
+            <div class="leadMini">
+              <div class="leadMiniTop">
+                <div>
+                  <span>Exemple lead</span>
+                  <strong>Toiture</strong>
+                </div>
+
+                <div class="leadBadge">
+                  <i></i>
+                  Aperçu
+                </div>
+              </div>
+
+              <div class="leadRows">
+                <div class="leadRow">
+                  <b>Ville</b>
+                  <div>Sherbrooke</div>
+                </div>
+
+                <div class="leadRow">
+                  <b>Client</b>
+                  <div>David M.</div>
+                </div>
+
+                <div class="leadRow">
+                  <b>Besoin</b>
+                  <div>Infiltration d’eau près du toit. Souhaite une vérification rapide.</div>
+                </div>
+
+                <div class="leadRow">
+                  <b>Contact</b>
+                  <div>(819) 555-2147 · david@email.com</div>
+                </div>
+              </div>
+
+              <div class="leadBottom">
+                <div class="leadValue">Lead présenté clairement</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="wrap">
+          <div class="footerLine"></div>
+          <div class="footerRow">
+            <div>© <span id="y"></span> Intermediaire.io</div>
+
+            <div class="footerLinks">
+              <a href="#client">Client</a>
+              <a href="#entrepreneur">Entrepreneur</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
   </div>
-</section>
 
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    const radios = document.querySelectorAll('input[name="serviceChoice"]');
+    const hiddenService = document.getElementById('hiddenService');
+    const selectedServiceText = document.getElementById('selectedServiceText');
+    const quickService = document.getElementById('quickService');
+    const quickGo = document.getElementById('quickGo');
+
+    function updateSelectedService(value){
+      hiddenService.value = value;
+      selectedServiceText.textContent = value;
+      radios.forEach(radio => {
+        radio.checked = radio.value === value;
+      });
+    }
+
+    radios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        updateSelectedService(radio.value);
+      });
+    });
+
+    if (quickGo) {
+      quickGo.addEventListener('click', () => {
+        const selected = quickService.value;
+        let finalValue = "Toiture";
+
+        if(selected === "toiture") finalValue = "Toiture";
+        if(selected === "plomberie") finalValue = "Plomberie";
+        if(selected === "electricite") finalValue = "Électricité";
+        if(selected === "autre") finalValue = "Autre";
+
+        updateSelectedService(finalValue);
+        document.getElementById('client').scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+  </script>
 </body>
 </html>
