@@ -85,13 +85,14 @@
       align-items:center;
       justify-content:center;
       min-height:100svh;
+      padding-top:20px;
     }
 
     .logo{
-      width:98px;
-      height:98px;
+      width:130px;
+      height:130px;
       object-fit:contain;
-      margin:0 auto 20px;
+      margin:0 auto 16px;
       filter:drop-shadow(0 14px 30px rgba(47,128,237,.14));
       animation:logoFloat 6s ease-in-out infinite;
     }
@@ -137,12 +138,13 @@
     }
 
     .heroActions{
-      margin-top:32px;
+      margin-top:28px;
       display:flex;
       justify-content:center;
       align-items:center;
       gap:0;
       flex-wrap:nowrap;
+      padding:0 20px;
       filter:drop-shadow(0 16px 28px rgba(47,128,237,.12));
     }
 
@@ -189,114 +191,6 @@
         inset 0 1px 0 rgba(255,255,255,.95),
         0 14px 26px rgba(16,36,53,.08);
     }
-
-    .heroScroll{
-      margin-top:26px;
-      width:34px;
-      height:34px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      text-decoration:none;
-      animation:arrowBounce 1.5s ease-in-out infinite;
-    }
-
-    .heroScroll span{
-      width:12px;
-      height:12px;
-      display:block;
-      border-right:2px solid rgba(8,26,40,.45);
-      border-bottom:2px solid rgba(8,26,40,.45);
-      transform:rotate(45deg);
-    }
-
-    @keyframes arrowBounce{
-      0%,100%{transform:translateY(0);opacity:.7}
-      50%{transform:translateY(7px);opacity:1}
-    }
-
-    .quickSearch{
-      max-width:780px;
-      margin:40px auto 0;
-      padding-top:22px;
-      border-top:1px solid var(--line-soft);
-    }
-
-    .quickLabel{
-      margin-bottom:14px;
-      color:#70879a;
-      font-size:12px;
-      font-weight:900;
-      letter-spacing:.10em;
-      text-transform:uppercase;
-    }
-
-    .quickBar{
-      display:grid;
-      grid-template-columns:1.15fr .9fr auto;
-      gap:14px;
-      align-items:end;
-    }
-
-    .field label,
-    .miniField label{
-      display:block;
-      margin-bottom:8px;
-      color:#74889a;
-      font-size:11px;
-      font-weight:900;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      text-align:left;
-    }
-
-    .field select,
-    .field input,
-    .miniField input,
-    .miniField textarea{
-      width:100%;
-      border:none;
-      border-bottom:1px solid rgba(8,26,40,.14);
-      background:transparent;
-      padding:12px 0 13px;
-      color:var(--title);
-      font-size:16px;
-      font-weight:700;
-      outline:none;
-      transition:.18s ease;
-      border-radius:0;
-    }
-
-    .field select:focus,
-    .field input:focus,
-    .miniField input:focus,
-    .miniField textarea:focus{
-      border-bottom-color:var(--accent);
-      box-shadow:0 10px 0 -9px rgba(47,128,237,.22);
-    }
-
-    .field select{
-      appearance:none;
-      -webkit-appearance:none;
-      -moz-appearance:none;
-      cursor:pointer;
-    }
-
-    .quickBtn{
-      min-height:56px;
-      padding:0 18px;
-      border:none;
-      border-radius:16px;
-      color:#fff;
-      background:linear-gradient(135deg,var(--accent),var(--accent2));
-      font-size:15px;
-      font-weight:900;
-      cursor:pointer;
-      box-shadow:0 14px 28px rgba(47,128,237,.16);
-      transition:.18s ease;
-    }
-
-    .quickBtn:hover{transform:translateY(-1px)}
 
     .section{
       padding:52px 0 24px;
@@ -722,7 +616,6 @@
     }
 
     @media (max-width: 980px){
-      .quickBar,
       .sectionTop,
       .clientGrid,
       .partnerGrid{
@@ -746,12 +639,13 @@
       .heroInner{
         min-height:100svh;
         justify-content:center;
+        padding-top:12px;
       }
 
       .logo{
-        width:88px;
-        height:88px;
-        margin-bottom:18px;
+        width:110px;
+        height:110px;
+        margin-bottom:14px;
       }
 
       .brand{
@@ -771,7 +665,8 @@
 
       .heroActions{
         width:100%;
-        margin-top:28px;
+        margin-top:24px;
+        padding:0 16px;
       }
 
       .splitCta{
@@ -791,14 +686,6 @@
         margin-left:-18px;
         border-radius:0 18px 18px 0;
         clip-path:polygon(18% 0, 100% 0, 100% 100%, 0 100%);
-      }
-
-      .heroScroll{
-        margin-top:24px;
-      }
-
-      .quickSearch{
-        display:none;
       }
 
       .miniGrid{grid-template-columns:1fr}
@@ -832,33 +719,6 @@
               <a class="splitCta splitRight" href="#entrepreneur">
                 <span>Je suis entrepreneur</span>
               </a>
-            </div>
-
-            <a class="heroScroll" href="#client" aria-label="Descendre">
-              <span></span>
-            </a>
-
-            <div class="quickSearch">
-              <div class="quickLabel">Recherche rapide</div>
-
-              <div class="quickBar">
-                <div class="field">
-                  <label for="quickService">Service</label>
-                  <select id="quickService">
-                    <option value="toiture">Toiture</option>
-                    <option value="plomberie">Plomberie — à venir</option>
-                    <option value="electricite">Électricité — à venir</option>
-                    <option value="autre">Autres services — à venir</option>
-                  </select>
-                </div>
-
-                <div class="field">
-                  <label for="quickCity">Ville</label>
-                  <input id="quickCity" type="text" placeholder="Votre ville">
-                </div>
-
-                <button class="quickBtn" type="button" id="quickGo">Continuer</button>
-              </div>
             </div>
           </div>
         </div>
@@ -1116,8 +976,6 @@
     const radios = document.querySelectorAll('input[name="serviceChoice"]');
     const hiddenService = document.getElementById('hiddenService');
     const selectedServiceText = document.getElementById('selectedServiceText');
-    const quickService = document.getElementById('quickService');
-    const quickGo = document.getElementById('quickGo');
 
     function updateSelectedService(value){
       hiddenService.value = value;
@@ -1132,21 +990,6 @@
         updateSelectedService(radio.value);
       });
     });
-
-    if (quickGo) {
-      quickGo.addEventListener('click', () => {
-        const selected = quickService.value;
-        let finalValue = "Toiture";
-
-        if(selected === "toiture") finalValue = "Toiture";
-        if(selected === "plomberie") finalValue = "Plomberie";
-        if(selected === "electricite") finalValue = "Électricité";
-        if(selected === "autre") finalValue = "Autre";
-
-        updateSelectedService(finalValue);
-        document.getElementById('client').scrollIntoView({ behavior: 'smooth' });
-      });
-    }
   </script>
 </body>
 </html>
