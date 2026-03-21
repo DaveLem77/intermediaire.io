@@ -4,765 +4,234 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Intermediaire.io</title>
-  <meta name="description" content="Intermediaire.io aide à trouver le bon service local simplement." />
-  <meta name="robots" content="index,follow" />
 
   <link rel="icon" type="image/png" href="media/logob.png" />
-  <link rel="apple-touch-icon" href="media/logob.png" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
 
   <style>
     :root{
       --text:#102334;
       --title:#081a28;
       --accent:#2f80ed;
-      --accent2:#6abfff;
-      --max:1180px;
-      --line:#e4edf5;
-      --soft:#6c8396;
-      --white:#ffffff;
     }
 
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;overflow-x:hidden;scroll-behavior:smooth}
     body{
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      color:var(--text);
-      background:linear-gradient(180deg,#f6fbff 0%,#fbfdff 22%,#ffffff 100%);
-    }
-
-    a{text-decoration:none;color:inherit}
-    img{display:block;max-width:100%}
-    button,input,select,textarea{font:inherit}
-
-    .site{
-      position:relative;
-      min-height:100vh;
-    }
-
-    .topFade{
-      position:absolute;
-      inset:0 0 auto 0;
-      height:300px;
-      pointer-events:none;
-      background:
-        radial-gradient(900px 420px at 50% -2%, rgba(47,128,237,.14), transparent 62%),
-        radial-gradient(500px 220px at 18% 10%, rgba(106,191,255,.10), transparent 72%),
-        radial-gradient(500px 220px at 82% 10%, rgba(47,128,237,.07), transparent 72%);
-      z-index:0;
+      margin:0;
+      font-family:Inter,sans-serif;
+      background:linear-gradient(180deg,#f6fbff,#ffffff);
     }
 
     .wrap{
-      position:relative;
-      z-index:1;
-      max-width:var(--max);
+      max-width:900px;
       margin:0 auto;
-      padding:0 26px;
+      padding:0 20px;
+      text-align:center;
     }
 
+    /* HERO */
     .hero{
-      min-height:100svh;
+      min-height:100vh;
       display:flex;
-      align-items:flex-start;
       justify-content:center;
-      text-align:center;
-      padding:0;
     }
 
     .heroInner{
-      width:100%;
-      max-width:860px;
-      margin:0 auto;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:flex-start;
-      min-height:100svh;
       padding-top:40px;
     }
 
     .logo{
-      width:156px;
-      height:156px;
-      object-fit:contain;
-      margin:0 auto 14px;
-      filter:drop-shadow(0 14px 30px rgba(47,128,237,.14));
-      animation:logoFloat 6s ease-in-out infinite;
-    }
-
-    @keyframes logoFloat{
-      0%,100%{transform:translateY(0)}
-      50%{transform:translateY(-4px)}
+      width:140px;
     }
 
     .brand{
-      margin:0;
-      font-family:"Space Grotesk", Inter, sans-serif;
-      font-size:clamp(44px,6.2vw,82px);
-      font-weight:700;
-      letter-spacing:-0.11em;
-      line-height:.9;
-      color:var(--title);
-      text-rendering:geometricPrecision;
+      font-family:"Space Grotesk";
+      font-size:50px;
+      margin:10px 0;
     }
 
     .heroSub{
-      margin:18px auto 0;
-      max-width:720px;
-      font-size:clamp(18px,2.1vw,24px);
-      line-height:1.35;
-      font-weight:600;
       color:#6c8396;
-    }
-
-    .heroMiniLine{
-      margin-top:14px;
-      color:#7f94a5;
-      font-size:12px;
-      font-weight:800;
-      letter-spacing:.16em;
-      text-transform:uppercase;
+      font-weight:600;
     }
 
     .heroActions{
-      margin:28px auto 0;
+      margin-top:20px;
       display:flex;
       justify-content:center;
-      align-items:center;
-      gap:0;
-      flex-wrap:nowrap;
-      width:auto;
-      max-width:none;
-      padding:0;
-      filter:drop-shadow(0 16px 28px rgba(47,128,237,.12));
     }
 
     .splitCta{
-      position:relative;
       min-height:88px;
-      font-size:16px;
-      font-weight:900;
-      display:inline-flex;
+      padding:0 40px;
+      display:flex;
       align-items:center;
       justify-content:center;
-      overflow:hidden;
-      transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
-      white-space:normal;
-      text-align:center;
-    }
-
-    .splitCta span{
-      display:block;
-      line-height:1.2;
-    }
-
-    .splitCta:hover{
-      transform:translateY(-2px);
+      font-weight:800;
     }
 
     .splitLeft{
-      background:linear-gradient(135deg,#2f80ed 0%,#56a8ff 58%,#79c6ff 100%);
-      color:#fff;
+      background:#2f80ed;
+      color:white;
       border-radius:20px 0 0 20px;
-      clip-path:polygon(0 0, 100% 0, 84% 100%, 0 100%);
-      padding:0 52px 0 34px;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.22),
-        0 14px 26px rgba(47,128,237,.20);
     }
 
     .splitRight{
-      background:#fff;
-      color:var(--title);
-      border:1px solid rgba(8,26,40,.10);
-      border-left:none;
+      background:white;
+      border:1px solid #ddd;
       border-radius:0 20px 20px 0;
-      clip-path:polygon(16% 0, 100% 0, 100% 100%, 0 100%);
-      padding:0 34px 0 52px;
-      margin-left:-22px;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.95),
-        0 14px 26px rgba(16,36,53,.08);
     }
 
     .heroScroll{
-      margin-top:34px;
-      width:34px;
-      height:34px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      animation:arrowBounce 1.5s ease-in-out infinite;
+      margin-top:30px;
+      animation:bounce 1.5s infinite;
     }
 
-    .heroScroll span{
-      width:12px;
-      height:12px;
-      display:block;
-      border-right:2px solid rgba(8,26,40,.45);
-      border-bottom:2px solid rgba(8,26,40,.45);
-      transform:rotate(45deg);
+    @keyframes bounce{
+      50%{transform:translateY(8px);}
     }
 
-    @keyframes arrowBounce{
-      0%,100%{transform:translateY(0);opacity:.7}
-      50%{transform:translateY(7px);opacity:1}
-    }
-
+    /* CLIENT SECTION FIX */
     .clientSection{
-      position:relative;
-      z-index:1;
-      padding:0 0 90px;
-      margin-top:-320px;
+      margin-top:-160px; /* rapproché mais pas superposé */
+      padding:40px 20px 80px;
     }
 
-    .clientShell{
-      max-width:760px;
-      margin:0 auto;
-      position:relative;
-    }
-
-    .clientShell::before{
-      content:"";
-      position:absolute;
-      top:-30px;
-      left:50%;
-      transform:translateX(-50%);
-      width:340px;
-      height:120px;
-      background:radial-gradient(circle, rgba(47,128,237,.10) 0%, rgba(106,191,255,.05) 45%, transparent 75%);
-      pointer-events:none;
-      z-index:0;
-      filter:blur(8px);
-    }
-
-    .clientHead{
-      position:relative;
-      z-index:1;
-      text-align:center;
-      margin-bottom:18px;
-    }
-
-    .clientKicker{
-      display:inline-block;
-      margin-bottom:10px;
-      padding:8px 12px;
-      border:1px solid rgba(47,128,237,.14);
-      border-radius:999px;
-      background:rgba(255,255,255,.72);
-      color:#4d6a80;
-      font-size:12px;
-      font-weight:800;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      box-shadow:0 6px 16px rgba(47,128,237,.06);
-    }
-
-    .clientTitle{
-      margin:0;
-      color:var(--title);
-      font-size:clamp(28px,4vw,44px);
-      line-height:1.05;
-      letter-spacing:-.04em;
-      font-weight:900;
-    }
-
-    .clientDesc{
-      max-width:660px;
-      margin:12px auto 0;
-      color:var(--soft);
-      font-size:16px;
-      line-height:1.6;
-      font-weight:500;
-    }
-
-    .clientCard{
-      position:relative;
-      z-index:1;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.90)),
-        linear-gradient(135deg, rgba(47,128,237,.03), rgba(106,191,255,.02));
-      border:1px solid rgba(16,36,53,.08);
-      border-radius:28px;
-      padding:20px;
-      box-shadow:
-        0 18px 50px rgba(24,54,83,.08),
-        inset 0 1px 0 rgba(255,255,255,.95);
-      backdrop-filter:blur(10px);
-    }
-
-    .formGrid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-    }
-
-    .field,
-    .full{
+    /* FORM */
+    .form{
       display:flex;
       flex-direction:column;
-      gap:6px;
-    }
-
-    .full{
-      grid-column:1 / -1;
-    }
-
-    .label{
-      color:#5b7386;
-      font-size:12px;
-      font-weight:800;
-      letter-spacing:.02em;
-    }
-
-    .input,
-    .select,
-    .textarea{
-      width:100%;
-      border:1px solid var(--line);
-      background:#fff;
-      color:var(--title);
-      border-radius:14px;
-      padding:14px 14px;
-      outline:none;
-      transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease;
-      box-shadow:0 4px 14px rgba(16,36,53,.03);
-      font-size:14px;
-    }
-
-    .input:focus,
-    .select:focus,
-    .textarea:focus{
-      border-color:rgba(47,128,237,.45);
-      box-shadow:0 0 0 4px rgba(47,128,237,.10);
-    }
-
-    .select{
-      appearance:none;
-      -webkit-appearance:none;
-      background-image:
-        linear-gradient(45deg, transparent 50%, #6b8396 50%),
-        linear-gradient(135deg, #6b8396 50%, transparent 50%);
-      background-position:
-        calc(100% - 20px) calc(50% - 3px),
-        calc(100% - 14px) calc(50% - 3px);
-      background-size:6px 6px, 6px 6px;
-      background-repeat:no-repeat;
-      padding-right:42px;
-    }
-
-    .textarea{
-      min-height:110px;
-      resize:vertical;
-    }
-
-    .checkWrap{
-      grid-column:1 / -1;
-      margin-top:2px;
-      display:flex;
-      align-items:flex-start;
       gap:10px;
-      padding:12px 12px;
-      border:1px solid rgba(16,36,53,.07);
-      background:linear-gradient(180deg,#fbfdff,#f8fbff);
-      border-radius:14px;
+      max-width:600px;
+      margin:20px auto;
     }
 
-    .checkWrap input{
-      margin-top:2px;
-      transform:scale(1.02);
+    input,select,textarea{
+      padding:12px;
+      border-radius:12px;
+      border:1px solid #e5eef6;
     }
 
-    .checkText{
-      color:#6a8194;
-      font-size:12px;
-      line-height:1.45;
-      font-weight:600;
-    }
-
-    .submitRow{
-      grid-column:1 / -1;
-      display:flex;
-      justify-content:center;
-      margin-top:4px;
+    textarea{
+      min-height:90px;
     }
 
     .submitBtn{
+      padding:14px;
+      border-radius:14px;
       border:none;
-      border-radius:16px;
-      padding:16px 26px;
-      min-width:220px;
-      font-size:15px;
-      font-weight:900;
-      color:#fff;
-      cursor:pointer;
-      background:linear-gradient(135deg,#2f80ed 0%,#56a8ff 55%,#79c6ff 100%);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.22),
-        0 14px 26px rgba(47,128,237,.20);
-      transition:transform .18s ease, box-shadow .18s ease;
+      background:linear-gradient(135deg,#2f80ed,#6abfff);
+      color:white;
+      font-weight:700;
     }
 
-    .submitBtn:hover{
-      transform:translateY(-2px);
-    }
-
-    .reviewsSection{
-      margin-top:22px;
-      position:relative;
-      z-index:1;
-    }
-
-    .reviewsHead{
-      text-align:center;
-      margin-bottom:14px;
-    }
-
-    .reviewsTitle{
-      margin:0;
-      font-size:20px;
-      font-weight:900;
-      color:var(--title);
-      letter-spacing:-.03em;
-    }
-
-    .reviewsSub{
-      margin:8px 0 0;
-      font-size:14px;
-      color:var(--soft);
-      line-height:1.55;
-    }
-
-    .reviewsGrid{
+    /* REVIEWS */
+    .reviews{
+      margin-top:30px;
       display:grid;
-      grid-template-columns:repeat(3,1fr);
       gap:12px;
     }
 
-    .reviewCard{
-      position:relative;
-      overflow:hidden;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.98), rgba(248,251,255,.96));
-      border:1px solid rgba(16,36,53,.08);
-      border-radius:22px;
-      padding:18px;
-      box-shadow:
-        0 14px 35px rgba(24,54,83,.06),
-        inset 0 1px 0 rgba(255,255,255,.95);
-    }
-
-    .reviewCard::before{
-      content:"";
-      position:absolute;
-      inset:0 0 auto 0;
-      height:3px;
-      background:linear-gradient(90deg,#2f80ed,#6abfff);
-      opacity:.9;
+    .review{
+      background:white;
+      padding:16px;
+      border-radius:16px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.05);
+      text-align:left;
     }
 
     .stars{
-      font-size:14px;
-      letter-spacing:.08em;
       color:#2f80ed;
-      margin-bottom:10px;
       font-weight:800;
+      margin-bottom:8px;
     }
 
-    .reviewText{
-      margin:0;
-      color:#355065;
-      font-size:14px;
-      line-height:1.65;
-      font-weight:500;
-    }
-
-    .reviewMeta{
-      margin-top:14px;
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
-
-    .reviewAvatar{
-      width:38px;
-      height:38px;
-      border-radius:50%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+    .name{
+      margin-top:10px;
+      font-weight:800;
       font-size:13px;
-      font-weight:900;
-      color:#fff;
-      background:linear-gradient(135deg,#2f80ed,#6abfff);
-      box-shadow:0 8px 18px rgba(47,128,237,.20);
-      flex:0 0 38px;
     }
 
-    .reviewName{
-      color:var(--title);
-      font-size:13px;
-      font-weight:900;
-      line-height:1.2;
-    }
-
-    .reviewCity{
-      color:#7a90a1;
-      font-size:12px;
-      font-weight:700;
-      margin-top:2px;
-    }
-
-    @media (max-width: 760px){
-      .wrap{
-        padding:0 18px;
-      }
-
-      .heroInner{
-        padding-top:40px;
-      }
-
-      .logo{
-        width:132px;
-        height:132px;
-        margin-bottom:12px;
-      }
-
-      .brand{
-        font-size:48px;
-        letter-spacing:-0.10em;
-      }
-
-      .heroSub{
-        font-size:18px;
-        max-width:340px;
-      }
-
-      .heroMiniLine{
-        font-size:11px;
-        letter-spacing:.14em;
-      }
-
-      .heroActions{
-        margin:24px auto 0;
-        width:auto;
-        max-width:none;
-        padding:0;
-        transform:scale(.9);
-        transform-origin:center;
-      }
-
-      .splitCta{
-        min-height:88px;
-        font-size:14px;
-      }
-
-      .splitLeft{
-        padding:0 36px 0 22px;
-        border-radius:18px 0 0 18px;
-        clip-path:polygon(0 0, 100% 0, 82% 100%, 0 100%);
-      }
-
-      .splitRight{
-        padding:0 22px 0 36px;
-        margin-left:-18px;
-        border-radius:0 18px 18px 0;
-        clip-path:polygon(18% 0, 100% 0, 100% 100%, 0 100%);
-      }
-
-      .heroScroll{
-        margin-top:34px;
-      }
-
-      .clientSection{
-        padding:0 0 72px;
-        margin-top:-300px;
-      }
-
-      .clientCard{
-        padding:16px;
-        border-radius:22px;
-      }
-
-      .formGrid{
-        grid-template-columns:1fr;
-        gap:10px;
-      }
-
-      .clientDesc{
-        font-size:15px;
-        max-width:340px;
-      }
-
-      .textarea{
-        min-height:96px;
-      }
-
-      .submitBtn{
-        width:100%;
-      }
-
-      .reviewsSection{
-        margin-top:18px;
-      }
-
-      .reviewsGrid{
-        grid-template-columns:1fr;
-        gap:10px;
-      }
-    }
   </style>
 </head>
+
 <body>
-  <div class="site">
-    <div class="topFade"></div>
 
-    <section class="hero">
-      <div class="wrap">
-        <div class="heroInner">
-          <img class="logo" src="media/logob.png" alt="Intermediaire.io">
+<section class="hero">
+  <div class="wrap heroInner">
 
-          <h1 class="brand">Intermediaire.io</h1>
+    <img class="logo" src="media/logob.png">
 
-          <p class="heroSub">
-            Ta <strong>demande</strong> est envoyée directement à tous les professionnels de ta région.
-          </p>
+    <h1 class="brand">Intermediaire.io</h1>
 
-          <div class="heroMiniLine">Simple • rapide • local</div>
+    <p class="heroSub">
+      Ta <strong>demande</strong> est envoyée directement à tous les professionnels de ta région.
+    </p>
 
-          <div class="heroActions">
-            <a class="splitCta splitLeft" href="#client">
-              <span>Je cherche un service</span>
-            </a>
+    <div class="heroActions">
+      <div class="splitCta splitLeft">Je cherche un service</div>
+      <div class="splitCta splitRight">Je suis entrepreneur</div>
+    </div>
 
-            <a class="splitCta splitRight" href="#entrepreneur">
-              <span>Je suis entrepreneur</span>
-            </a>
-          </div>
-
-          <a class="heroScroll" href="#client" aria-label="Descendre vers la section client">
-            <span></span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="clientSection" id="client">
-      <div class="wrap">
-        <div class="clientShell">
-          <div class="clientHead">
-            <div class="clientKicker">Section client</div>
-            <h2 class="clientTitle">Envoyez une seule demande</h2>
-            <p class="clientDesc">
-              Décrivez vos travaux une seule fois. Votre demande est ensuite envoyée aux contracteurs de votre région afin de trouver le meilleur disponible pour votre besoin.
-            </p>
-          </div>
-
-          <div class="clientCard">
-            <form class="formGrid">
-              <div class="full">
-                <label class="label" for="service">Service recherché</label>
-                <select class="select" id="service" name="service">
-                  <option>Travaux de toiture</option>
-                </select>
-              </div>
-
-              <div class="field">
-                <label class="label" for="nom">Nom et prénom</label>
-                <input class="input" id="nom" name="nom" type="text" placeholder="Votre nom complet">
-              </div>
-
-              <div class="field">
-                <label class="label" for="tel">Numéro de téléphone</label>
-                <input class="input" id="tel" name="tel" type="tel" placeholder="(___) ___-____">
-              </div>
-
-              <div class="field">
-                <label class="label" for="courriel">Courriel</label>
-                <input class="input" id="courriel" name="courriel" type="email" placeholder="vous@email.com">
-              </div>
-
-              <div class="field">
-                <label class="label" for="ville">Ville</label>
-                <input class="input" id="ville" name="ville" type="text" placeholder="Votre ville">
-              </div>
-
-              <div class="full">
-                <label class="label" for="details">Description des travaux</label>
-                <textarea class="textarea" id="details" name="details" placeholder="Décrivez brièvement les travaux à faire..."></textarea>
-              </div>
-
-              <label class="checkWrap">
-                <input type="checkbox" name="confirmation">
-                <div class="checkText">
-                  Je confirme que les renseignements envoyés sont véridiques et représentent une vraie demande de travaux.
-                </div>
-              </label>
-
-              <div class="submitRow">
-                <button class="submitBtn" type="submit">Envoyer ma demande</button>
-              </div>
-            </form>
-          </div>
-
-          <div class="reviewsSection">
-            <div class="reviewsHead">
-              <h3 class="reviewsTitle">Avis clients</h3>
-              <p class="reviewsSub">Des demandes simples, des réponses rapides, et des clients satisfaits.</p>
-            </div>
-
-            <div class="reviewsGrid">
-              <div class="reviewCard">
-                <div class="stars">★★★★★</div>
-                <p class="reviewText">
-                  J’ai envoyé ma demande en quelques minutes et j’ai reçu des retours très rapidement. Le processus est simple et ça m’a évité de chercher partout moi-même.
-                </p>
-                <div class="reviewMeta">
-                  <div class="reviewAvatar">ML</div>
-                  <div>
-                    <div class="reviewName">Marie L.</div>
-                    <div class="reviewCity">Sherbrooke</div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="reviewCard">
-                <div class="stars">★★★★★</div>
-                <p class="reviewText">
-                  Très propre comme service. J’ai pu comparer mes options sans perdre mon temps. Franchement pratique quand on veut trouver quelqu’un de disponible rapidement.
-                </p>
-                <div class="reviewMeta">
-                  <div class="reviewAvatar">JP</div>
-                  <div>
-                    <div class="reviewName">Jean-Philippe R.</div>
-                    <div class="reviewCity">Magog</div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="reviewCard">
-                <div class="stars">★★★★★</div>
-                <p class="reviewText">
-                  Le formulaire est rapide à remplir et j’ai aimé le fait qu’une seule demande puisse être envoyée à plusieurs entrepreneurs de la région. Très efficace.
-                </p>
-                <div class="reviewMeta">
-                  <div class="reviewAvatar">SC</div>
-                  <div>
-                    <div class="reviewName">Sophie C.</div>
-                    <div class="reviewCity">Drummondville</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
+    <div class="heroScroll">↓</div>
 
   </div>
+</section>
+
+<!-- CLIENT -->
+<section class="clientSection">
+
+  <div class="wrap">
+
+    <h2>Trouve rapidement un entrepreneur</h2>
+    <p>Une seule demande envoyée aux contracteurs de ta région.</p>
+
+    <form class="form">
+
+      <select>
+        <option>Travaux de toiture</option>
+      </select>
+
+      <input placeholder="Nom et prénom">
+      <input placeholder="Téléphone">
+      <input placeholder="Courriel">
+      <input placeholder="Ville">
+
+      <textarea placeholder="Description..."></textarea>
+
+      <button class="submitBtn">
+        Envoyer ma demande
+      </button>
+
+    </form>
+
+    <!-- AVIS -->
+    <div class="reviews">
+
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        Super rapide, j’ai reçu 3 réponses la même journée.
+        <div class="name">— Marie L.</div>
+      </div>
+
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        Vraiment simple à utiliser, ça m’a sauvé du temps.
+        <div class="name">— Jean P.</div>
+      </div>
+
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        Très efficace pour trouver quelqu’un rapidement.
+        <div class="name">— Sophie C.</div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
 </body>
 </html>
