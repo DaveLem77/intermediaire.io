@@ -16,15 +16,21 @@
 
   <style>
     :root{
-      --bg:#f6fbff;
+      --bg:#f8fbff;
       --bg2:#ffffff;
+      --bg3:#f5f3ff;
       --text:#112738;
       --title:#081a28;
       --soft:#6f8597;
-      --line:#dfe9f2;
-      --line-strong:#cfddea;
-      --accent:#2f80ed;
-      --accent2:#6abfff;
+      --line:#dfe7f0;
+      --line-strong:#cfd9e5;
+
+      --blue:#2f80ed;
+      --blue-soft:#6abfff;
+      --ice:#dff4ff;
+      --lav:#ece8ff;
+      --pearl:#fffdf8;
+
       --shadow:0 18px 50px rgba(20,50,80,.08);
       --max:1180px;
       --radius-xl:30px;
@@ -44,8 +50,10 @@
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
       background:
-        radial-gradient(900px 420px at 50% -4%, rgba(47,128,237,.12), transparent 62%),
-        linear-gradient(180deg,#f6fbff 0%,#fbfdff 24%,#ffffff 100%);
+        radial-gradient(900px 420px at 50% -4%, rgba(47,128,237,.10), transparent 62%),
+        radial-gradient(360px 180px at 12% 24%, rgba(236,232,255,.55), transparent 75%),
+        radial-gradient(340px 180px at 88% 16%, rgba(223,244,255,.75), transparent 75%),
+        linear-gradient(180deg,#f7fbff 0%, #fbfdff 24%, #ffffff 100%);
     }
 
     a{text-decoration:none;color:inherit}
@@ -60,12 +68,12 @@
     .topFade{
       position:absolute;
       inset:0 0 auto 0;
-      height:320px;
+      height:360px;
       pointer-events:none;
       background:
-        radial-gradient(900px 420px at 50% -2%, rgba(47,128,237,.14), transparent 62%),
-        radial-gradient(500px 220px at 16% 10%, rgba(106,191,255,.09), transparent 72%),
-        radial-gradient(500px 220px at 84% 10%, rgba(47,128,237,.07), transparent 72%);
+        radial-gradient(900px 420px at 50% -2%, rgba(47,128,237,.10), transparent 62%),
+        radial-gradient(520px 240px at 16% 10%, rgba(236,232,255,.55), transparent 72%),
+        radial-gradient(520px 240px at 84% 10%, rgba(223,244,255,.8), transparent 72%);
       z-index:0;
     }
 
@@ -76,7 +84,6 @@
       margin:0 auto;
     }
 
-    /* HERO */
     .hero{
       min-height:100svh;
       display:flex;
@@ -96,6 +103,32 @@
       justify-content:flex-start;
       min-height:100svh;
       padding-top:40px;
+      position:relative;
+    }
+
+    .heroGlowA,
+    .heroGlowB{
+      position:absolute;
+      border-radius:999px;
+      filter:blur(16px);
+      pointer-events:none;
+      z-index:0;
+    }
+
+    .heroGlowA{
+      width:190px;
+      height:190px;
+      top:110px;
+      left:80px;
+      background:radial-gradient(circle, rgba(236,232,255,.9), transparent 70%);
+    }
+
+    .heroGlowB{
+      width:220px;
+      height:220px;
+      top:150px;
+      right:70px;
+      background:radial-gradient(circle, rgba(223,244,255,.95), transparent 70%);
     }
 
     .logo{
@@ -103,8 +136,10 @@
       height:156px;
       object-fit:contain;
       margin:0 auto 14px;
-      filter:drop-shadow(0 14px 30px rgba(47,128,237,.14));
+      filter:drop-shadow(0 14px 30px rgba(47,128,237,.12));
       animation:logoFloat 6s ease-in-out infinite;
+      position:relative;
+      z-index:2;
     }
 
     @keyframes logoFloat{
@@ -121,6 +156,8 @@
       line-height:.9;
       color:var(--title);
       text-rendering:geometricPrecision;
+      position:relative;
+      z-index:2;
     }
 
     .heroSub{
@@ -130,6 +167,8 @@
       line-height:1.35;
       font-weight:600;
       color:#6c8396;
+      position:relative;
+      z-index:2;
     }
 
     .heroMiniLine{
@@ -139,6 +178,8 @@
       font-weight:800;
       letter-spacing:.16em;
       text-transform:uppercase;
+      position:relative;
+      z-index:2;
     }
 
     .heroActions{
@@ -151,7 +192,9 @@
       width:auto;
       max-width:none;
       padding:0;
-      filter:drop-shadow(0 16px 28px rgba(47,128,237,.12));
+      filter:drop-shadow(0 16px 28px rgba(47,128,237,.10));
+      position:relative;
+      z-index:2;
     }
 
     .splitCta{
@@ -178,18 +221,18 @@
     }
 
     .splitLeft{
-      background:linear-gradient(135deg,#2f80ed 0%,#56a8ff 58%,#79c6ff 100%);
+      background:linear-gradient(135deg,#2f80ed 0%, #56a8ff 52%, #8dc9ff 100%);
       color:#fff;
       border-radius:20px 0 0 20px;
       clip-path:polygon(0 0, 100% 0, 84% 100%, 0 100%);
       padding:0 52px 0 34px;
       box-shadow:
         inset 0 1px 0 rgba(255,255,255,.22),
-        0 14px 26px rgba(47,128,237,.20);
+        0 14px 26px rgba(47,128,237,.16);
     }
 
     .splitRight{
-      background:#fff;
+      background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,250,244,.95));
       color:var(--title);
       border:1px solid rgba(8,26,40,.10);
       border-left:none;
@@ -199,7 +242,7 @@
       margin-left:-22px;
       box-shadow:
         inset 0 1px 0 rgba(255,255,255,.95),
-        0 14px 26px rgba(16,36,53,.08);
+        0 14px 26px rgba(16,36,53,.06);
     }
 
     .heroScroll{
@@ -210,6 +253,8 @@
       align-items:center;
       justify-content:center;
       animation:arrowBounce 1.5s ease-in-out infinite;
+      position:relative;
+      z-index:2;
     }
 
     .heroScroll span{
@@ -226,41 +271,40 @@
       50%{transform:translateY(7px);opacity:1}
     }
 
-    /* SECTIONS */
     .clientSection,
     .entrepreneurSection{
       position:relative;
       z-index:1;
-      padding:36px 0 90px;
+      padding:40px 0 96px;
     }
 
     .clientSection{
-      margin-top:-150px;
+      margin-top:-138px;
     }
 
     .sectionShell{
-      max-width:940px;
+      max-width:980px;
       margin:0 auto;
     }
 
     .sectionHead{
       text-align:center;
-      margin-bottom:28px;
+      margin-bottom:30px;
     }
 
     .sectionKicker{
       display:inline-block;
-      margin-bottom:10px;
+      margin-bottom:12px;
       padding:8px 12px;
-      border:1px solid rgba(47,128,237,.14);
+      border:1px solid rgba(47,128,237,.12);
       border-radius:999px;
-      background:rgba(255,255,255,.72);
+      background:linear-gradient(180deg, rgba(255,255,255,.86), rgba(248,252,255,.82));
       color:#4d6a80;
       font-size:12px;
       font-weight:800;
       letter-spacing:.12em;
       text-transform:uppercase;
-      box-shadow:0 6px 16px rgba(47,128,237,.05);
+      box-shadow:0 6px 16px rgba(47,128,237,.04);
     }
 
     .sectionTitle{
@@ -273,7 +317,7 @@
     }
 
     .sectionDesc{
-      max-width:690px;
+      max-width:700px;
       margin:12px auto 0;
       color:var(--soft);
       font-size:16px;
@@ -286,37 +330,36 @@
       justify-content:center;
       gap:10px;
       flex-wrap:wrap;
-      margin-top:16px;
+      margin-top:18px;
     }
 
     .softPill{
       padding:10px 14px;
       border-radius:999px;
-      background:rgba(255,255,255,.82);
+      background:linear-gradient(180deg, rgba(255,255,255,.94), rgba(249,251,255,.92));
       border:1px solid var(--line);
       color:#60798a;
       font-size:12px;
       font-weight:800;
     }
 
-    /* CLIENT LAYOUT */
     .clientLayout{
       display:grid;
       grid-template-columns:1.08fr .92fr;
-      gap:28px;
+      gap:30px;
       align-items:start;
     }
 
     .formCard{
-      background:#fff;
+      background:linear-gradient(180deg, #ffffff, #fbfdff);
       border:1px solid var(--line);
       border-radius:var(--radius-xl);
-      padding:24px;
+      padding:26px;
       box-shadow:var(--shadow);
     }
 
     .cardTop{
-      margin-bottom:18px;
+      margin-bottom:20px;
     }
 
     .cardTitle{
@@ -364,20 +407,21 @@
     .textarea{
       width:100%;
       border:1px solid var(--line-strong);
-      background:#fff;
+      background:linear-gradient(180deg,#ffffff,#fcfdff);
       color:var(--title);
       border-radius:16px;
       padding:15px 16px;
       outline:none;
       font-size:14px;
-      transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+      transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease, background .18s ease;
     }
 
     .input:focus,
     .select:focus,
     .textarea:focus{
       border-color:rgba(47,128,237,.45);
-      box-shadow:0 0 0 4px rgba(47,128,237,.10);
+      box-shadow:0 0 0 4px rgba(47,128,237,.08);
+      background:#fff;
     }
 
     .select{
@@ -437,10 +481,10 @@
       font-weight:900;
       color:#fff;
       cursor:pointer;
-      background:linear-gradient(135deg,#2f80ed 0%,#56a8ff 55%,#79c6ff 100%);
+      background:linear-gradient(135deg,#2f80ed 0%, #57a9ff 56%, #88cdff 100%);
       box-shadow:
         inset 0 1px 0 rgba(255,255,255,.22),
-        0 14px 26px rgba(47,128,237,.20);
+        0 14px 26px rgba(47,128,237,.16);
       transition:transform .18s ease, box-shadow .18s ease;
     }
 
@@ -457,12 +501,12 @@
     .clientSide{
       display:flex;
       flex-direction:column;
-      gap:16px;
+      gap:18px;
     }
 
     .stepsCard,
     .reviewsCard{
-      background:#fff;
+      background:linear-gradient(180deg, #ffffff, #fcfefe);
       border:1px solid var(--line);
       border-radius:var(--radius-xl);
       padding:22px;
@@ -483,7 +527,7 @@
       display:flex;
       gap:14px;
       align-items:flex-start;
-      padding:12px 0;
+      padding:13px 0;
       border-top:1px solid #eef4f8;
     }
 
@@ -500,11 +544,11 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      background:linear-gradient(135deg,#2f80ed,#6abfff);
+      background:linear-gradient(135deg,#2f80ed,#8acfff);
       color:#fff;
       font-size:13px;
       font-weight:900;
-      box-shadow:0 10px 18px rgba(47,128,237,.16);
+      box-shadow:0 10px 18px rgba(47,128,237,.12);
     }
 
     .stepText strong{
@@ -555,17 +599,16 @@
       font-weight:800;
     }
 
-    /* ENTREPRENEUR */
     .entrepreneurLayout{
       display:grid;
       grid-template-columns:1.02fr .98fr;
-      gap:28px;
+      gap:30px;
       align-items:start;
     }
 
     .smsCard,
     .entFormCard{
-      background:#fff;
+      background:linear-gradient(180deg, #ffffff, #fbfdff);
       border:1px solid var(--line);
       border-radius:var(--radius-xl);
       padding:24px;
@@ -576,7 +619,7 @@
       width:100%;
       max-width:390px;
       margin:0 auto;
-      background:#f3f7fb;
+      background:linear-gradient(180deg,#f5f8fc,#eef4f8);
       border:1px solid #dfe9f2;
       border-radius:32px;
       padding:12px;
@@ -609,7 +652,7 @@
       width:36px;
       height:36px;
       border-radius:50%;
-      background:linear-gradient(135deg,#2f80ed,#6abfff);
+      background:linear-gradient(135deg,#2f80ed,#8dcdff);
       color:#fff;
       display:flex;
       align-items:center;
@@ -617,7 +660,7 @@
       font-size:13px;
       font-weight:900;
       flex:0 0 36px;
-      box-shadow:0 10px 18px rgba(47,128,237,.16);
+      box-shadow:0 10px 18px rgba(47,128,237,.12);
     }
 
     .smsHeaderName{
@@ -635,7 +678,7 @@
     }
 
     .smsBubble{
-      background:#ffffff;
+      background:linear-gradient(180deg,#ffffff,#fcfdff);
       border:1px solid #e1ebf3;
       color:#26435a;
       border-radius:22px 22px 22px 8px;
@@ -670,7 +713,7 @@
       padding:10px 12px;
       border-radius:999px;
       border:1px solid var(--line);
-      background:#f8fbfe;
+      background:linear-gradient(180deg,#ffffff,#fafcff);
       color:#60798a;
       font-size:12px;
       font-weight:800;
@@ -702,10 +745,6 @@
       .entrepreneurLayout{
         grid-template-columns:1fr;
       }
-
-      .clientSide{
-        order:2;
-      }
     }
 
     @media (max-width: 760px){
@@ -715,6 +754,11 @@
 
       .heroInner{
         padding-top:40px;
+      }
+
+      .heroGlowA,
+      .heroGlowB{
+        display:none;
       }
 
       .logo{
@@ -816,6 +860,9 @@
     <section class="hero">
       <div class="wrap">
         <div class="heroInner">
+          <div class="heroGlowA"></div>
+          <div class="heroGlowB"></div>
+
           <img class="logo" src="media/logob.png" alt="Intermediaire.io">
 
           <h1 class="brand">Intermediaire.io</h1>
@@ -1014,10 +1061,10 @@
                 <div class="smsTime">Aujourd’hui • 14:28</div>
               </div>
 
-              <div class="softRow" style="margin-top:16px; justify-content:flex-start;">
-                <div class="softPill">infos essentielles</div>
-                <div class="softPill">lecture rapide</div>
-                <div class="softPill">client masqué avant paiement</div>
+              <div class="smsLegend">
+                <span>infos essentielles</span>
+                <span>lecture rapide</span>
+                <span>client masqué avant paiement</span>
               </div>
             </div>
 
