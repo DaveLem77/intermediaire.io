@@ -175,14 +175,18 @@
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
       font-family: 'Outfit', sans-serif;
-      font-size: clamp(14px,2vw,16px);
+      font-size: 15px;
       font-weight: 700;
+      line-height: 1;
       border-radius: 14px;
-      padding: 15px 26px;
+      padding: 14px 26px;
+      min-height: unset;
+      height: auto;
       transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
       letter-spacing: -.01em;
       flex: 1 1 180px;
       max-width: 260px;
+      box-sizing: border-box;
     }
 
     .btn-solid {
@@ -463,80 +467,118 @@
     }
 
     .card-head {
-      padding: clamp(18px,3vw,26px) clamp(20px,3vw,30px) clamp(16px,2.5vw,22px);
-      background: linear-gradient(135deg, var(--az-tint), var(--white));
-      border-bottom: 1px solid var(--line);
+      padding: clamp(22px,3vw,32px) clamp(22px,3vw,32px) clamp(20px,2.5vw,28px);
+      background: linear-gradient(135deg, #e8f6fd 0%, #f0f9fe 40%, var(--white) 100%);
+      border-bottom: 1px solid var(--az-pale);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* decorative circle behind header */
+    .card-head::after {
+      content: '';
+      position: absolute;
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(85,173,217,.13) 0%, transparent 70%);
+      top: -60px; right: -40px;
+      pointer-events: none;
+    }
+
+    .card-head-top {
       display: flex; align-items: center; gap: 14px;
+      position: relative; z-index: 1;
+      margin-bottom: 10px;
     }
 
     .card-icon {
-      width: 40px; height: 40px; border-radius: 11px;
-      background: var(--az);
+      width: 44px; height: 44px; border-radius: 13px;
+      background: linear-gradient(135deg, var(--az) 0%, var(--az-lt) 100%);
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
-      box-shadow: 0 4px 14px rgba(85,173,217,.35);
+      box-shadow: 0 6px 18px rgba(85,173,217,.38);
     }
 
     .card-icon svg {
-      width: 18px; height: 18px; stroke: #fff; fill: none;
+      width: 20px; height: 20px; stroke: #fff; fill: none;
       stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
     }
 
-    .card-title { font-size: clamp(16px,2.5vw,20px); font-weight: 800; color: var(--ink); letter-spacing: -.025em; margin-bottom: 2px; }
-    .card-sub { font-size: 13px; color: var(--muted); font-weight: 400; }
+    .card-title { font-size: clamp(17px,2.5vw,22px); font-weight: 900; color: var(--ink); letter-spacing: -.03em; }
+    .card-sub {
+      font-size: 14px; color: var(--body); font-weight: 400;
+      position: relative; z-index: 1;
+      line-height: 1.5;
+    }
 
     .card-body {
-      padding: clamp(20px,3vw,28px) clamp(20px,3vw,30px) clamp(24px,3.5vw,32px);
+      padding: clamp(22px,3vw,30px) clamp(22px,3vw,32px) clamp(26px,3.5vw,34px);
     }
 
     /* form */
-    .fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .field { display: flex; flex-direction: column; gap: 5px; }
+    .fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
     .field.full { grid-column: 1/-1; }
 
-    .lbl { font-size: 12px; font-weight: 700; color: var(--ink); }
+    .lbl {
+      font-size: 13px; font-weight: 600; color: var(--body);
+      display: flex; align-items: center; gap: 5px;
+    }
 
     .inp, .sel, .txta {
-      width: 100%; border: 1.5px solid var(--line);
-      background: var(--off); color: var(--ink);
-      border-radius: 11px; padding: 12px 14px;
+      width: 100%;
+      border: 2px solid var(--line);
+      background: var(--white);
+      color: var(--ink);
+      border-radius: 12px;
+      padding: 13px 16px;
       font-family: 'Outfit', sans-serif;
-      font-size: clamp(13px, 2vw, 15px); font-weight: 400;
+      font-size: 15px; font-weight: 400;
       outline: none;
-      transition: border-color .14s, box-shadow .14s, background .14s;
+      transition: border-color .16s, box-shadow .16s, background .16s, transform .12s;
       -webkit-appearance: none;
     }
 
-    .inp::placeholder, .txta::placeholder { color: var(--muted); }
+    .inp::placeholder, .txta::placeholder { color: #b0c4d0; }
+
+    .inp:hover, .sel:hover, .txta:hover {
+      border-color: var(--az-pale);
+    }
 
     .inp:focus, .sel:focus, .txta:focus {
       border-color: var(--az);
-      box-shadow: 0 0 0 3px rgba(85,173,217,.14);
+      box-shadow: 0 0 0 4px rgba(85,173,217,.12);
       background: var(--white);
+      transform: translateY(-1px);
     }
 
     .sel {
       appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237290a3' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 12px center;
-      background-color: var(--off); padding-right: 36px; cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2355add9' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center;
+      background-color: var(--white); padding-right: 40px; cursor: pointer;
     }
 
     .sel:focus { background-color: var(--white); }
-    .txta { min-height: 108px; resize: vertical; line-height: 1.6; }
+    .txta { min-height: 110px; resize: vertical; line-height: 1.65; }
 
     .check-row {
       grid-column: 1/-1;
-      display: flex; gap: 10px; align-items: flex-start;
-      padding: 13px 14px;
-      background: var(--az-tint); border: 1.5px solid var(--az-pale);
-      border-radius: 11px;
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 14px 16px;
+      background: linear-gradient(135deg, var(--az-tint), rgba(255,255,255,.6));
+      border: 2px solid var(--az-pale);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
     }
 
-    .check-row input { accent-color: var(--az); width: 15px; height: 15px; flex-shrink: 0; margin-top: 1px; }
-    .check-row span { font-size: 12px; color: var(--body); line-height: 1.5; }
+    .check-row:hover { border-color: var(--az-lt); }
 
-    .form-foot { grid-column: 1/-1; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .check-row input { accent-color: var(--az); width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; cursor: pointer; }
+    .check-row span { font-size: 13px; color: var(--body); line-height: 1.5; }
+
+    .form-foot { grid-column: 1/-1; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 4px; }
     .form-note { font-size: 12px; color: var(--muted); }
 
     /* side */
@@ -587,57 +629,208 @@
       gap: 28px; align-items: start;
     }
 
-    /* phone */
+    /* ── Realistic phone ── */
     .phone-lbl { font-size: clamp(15px,2vw,17px); font-weight: 800; color: var(--ink); letter-spacing: -.025em; margin-bottom: 22px; }
 
-    .phone-shell {
-      background: #18181b;
-      border-radius: 44px;
-      padding: 15px;
-      max-width: 290px;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.07), 0 32px 72px rgba(0,0,0,.32), 0 0 0 1px #0f0f10;
+    .phone-device {
+      position: relative;
+      width: 100%;
+      max-width: 310px;
+      background: #1a1a1c;
+      border-radius: 48px;
+      padding: 14px;
+      box-shadow:
+        0 0 0 1px #333,
+        0 0 0 2px #111,
+        0 40px 80px rgba(0,0,0,.45),
+        inset 0 1px 0 rgba(255,255,255,.08);
     }
 
-    .phone-notch { display: flex; justify-content: center; margin-bottom: 11px; }
-    .phone-notch span { display: block; width: 74px; height: 5px; border-radius: 99px; background: #2a2a2e; }
-
-    .phone-scr { background: #f2f2f7; border-radius: 30px; padding: 18px; }
-
-    .p-head { display: flex; align-items: center; gap: 9px; margin-bottom: 14px; }
-
-    .p-av {
-      width: 34px; height: 34px; border-radius: 50%;
-      background: #fff; border: 1px solid rgba(0,0,0,.07);
-      overflow: hidden; flex-shrink: 0;
+    /* side buttons */
+    .ph-btn-vol-up, .ph-btn-vol-dn, .ph-btn-power {
+      position: absolute;
+      background: #2a2a2c;
+      border-radius: 2px;
+    }
+    .ph-btn-vol-up {
+      width: 3px; height: 32px;
+      left: -3px; top: 88px;
+      box-shadow: -1px 0 0 #111;
+    }
+    .ph-btn-vol-dn {
+      width: 3px; height: 32px;
+      left: -3px; top: 128px;
+      box-shadow: -1px 0 0 #111;
+    }
+    .ph-btn-power {
+      width: 3px; height: 54px;
+      right: -3px; top: 108px;
+      box-shadow: 1px 0 0 #111;
     }
 
-    .p-av img { width: 100%; height: 100%; object-fit: contain; }
-    .p-name { font-size: 12px; font-weight: 800; color: #1c1c1e; }
-    .p-sub { font-size: 10px; color: #8e8e93; font-weight: 500; }
-
-    .p-bubble {
-      background: #fff;
-      border-radius: 14px 14px 14px 4px;
-      padding: 13px 15px;
-      font-size: 12.5px; line-height: 1.65; color: #2c2c2e;
-      box-shadow: 0 3px 10px rgba(0,0,0,.07);
+    .ph-screen {
+      background: #000;
+      border-radius: 36px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
 
-    .p-bubble strong { font-weight: 700; color: #1c1c1e; display: block; margin-bottom: 5px; font-size: 13px; }
-
-    .p-chip {
-      display: inline-flex; align-items: center;
-      margin-top: 11px; padding: 6px 13px;
-      background: var(--az); color: #fff;
-      border-radius: 999px;
-      font-size: 11px; font-weight: 700;
-      box-shadow: 0 3px 10px rgba(85,173,217,.38);
+    /* status bar */
+    .ph-statusbar {
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px 6px;
     }
 
-    .p-time { margin-top: 8px; font-size: 10px; color: #8e8e93; text-align: right; }
+    .ph-time {
+      font-size: 15px; font-weight: 700;
+      color: #fff; letter-spacing: -.02em;
+    }
+
+    .ph-status-icons {
+      display: flex; align-items: center; gap: 5px;
+    }
+
+    /* messages header */
+    .ph-msgbar {
+      background: rgba(28,28,30,.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      padding: 8px 14px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ph-back {
+      display: flex; align-items: center; gap: 3px;
+      flex-shrink: 0;
+    }
+
+    .ph-back-txt {
+      font-size: 16px; color: #007AFF; font-weight: 500;
+    }
+
+    .ph-contact-wrap {
+      flex: 1;
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+    }
+
+    .ph-contact-av {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--white); overflow: hidden;
+      border: 1.5px solid rgba(255,255,255,.12);
+    }
+
+    .ph-contact-av img { width: 100%; height: 100%; object-fit: contain; }
+
+    .ph-contact-name {
+      font-size: 11px; font-weight: 600; color: rgba(255,255,255,.7);
+      letter-spacing: -.01em;
+    }
+
+    /* chat area */
+    .ph-chat {
+      background: #000;
+      flex: 1;
+      padding: 14px 12px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-height: 320px;
+      text-align: left;
+    }
+
+    .ph-date-sep {
+      text-align: center;
+      font-size: 11px; color: rgba(255,255,255,.35);
+      font-weight: 500; margin-bottom: 4px;
+    }
+
+    .ph-bubble-row {
+      display: flex;
+    }
+
+    .ph-bubble-row--out {
+      justify-content: flex-end;
+      margin-top: 4px;
+    }
+
+    .ph-bubble-in {
+      max-width: 84%;
+    }
+
+    .ph-bubble-sender {
+      font-size: 11px; color: rgba(255,255,255,.4);
+      font-weight: 600; margin-bottom: 4px; padding-left: 4px;
+    }
+
+    .ph-bubble-txt {
+      background: #1c1c1e;
+      border-radius: 18px 18px 18px 4px;
+      padding: 11px 14px;
+      font-size: 12.5px; line-height: 1.65;
+      color: rgba(255,255,255,.88);
+      font-weight: 400;
+      text-align: left;
+    }
+
+    .ph-bubble-txt b { color: #fff; font-weight: 700; }
+
+    .ph-price-line {
+      display: inline-block;
+      background: var(--az);
+      color: #fff;
+      border-radius: 8px;
+      padding: 2px 8px;
+      font-size: 11.5px; font-weight: 700;
+    }
+
+    .ph-link {
+      color: #4aa3e8;
+      font-weight: 600;
+      font-size: 12px;
+      text-decoration: underline;
+      word-break: break-all;
+    }
+
+    .ph-delivered {
+      text-align: right;
+      font-size: 10px; color: rgba(255,255,255,.3);
+      font-weight: 500; padding-right: 4px;
+    }
+
+    /* input bar */
+    .ph-inputbar {
+      background: rgba(28,28,30,.95);
+      border-top: 1px solid rgba(255,255,255,.07);
+      padding: 10px 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .ph-input-fake {
+      flex: 1;
+      background: rgba(255,255,255,.08);
+      border-radius: 20px;
+      padding: 8px 14px;
+      font-size: 13px; color: rgba(255,255,255,.25);
+      border: 1px solid rgba(255,255,255,.07);
+    }
+
+    .ph-send-btn {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: #007AFF;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
 
     .leg-pills { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 18px; }
     .leg-pill { padding: 7px 13px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--white); font-size: 11px; font-weight: 600; color: var(--body); }
+
+    .btn-full { width: 100%; justify-content: center; flex: none; max-width: none; }
 
     .ent-form { display: flex; flex-direction: column; gap: 13px; }
     .ent-note { font-size: 12px; color: var(--muted); line-height: 1.55; }
@@ -712,7 +905,7 @@
       </h1>
 
       <p class="hero-sub">
-        Décrivez votre besoin une seule fois — on l'envoie directement aux entrepreneurs de votre région. Rapide, sans tracas.
+        Votre demande envoyée à tous les professionnels de votre région.
       </p>
 
       <div class="hero-ctas">
@@ -733,8 +926,8 @@
 
       <!-- Tab switcher -->
       <div class="adv-tabs" role="tablist">
-        <button class="adv-tab active" role="tab" onclick="switchTab('client', this)">👷 Je cherche un service</button>
-        <button class="adv-tab" role="tab" onclick="switchTab('ent', this)">🔧 Je suis entrepreneur</button>
+        <button class="adv-tab active" role="tab" onclick="switchTab('client', this)">Je cherche un service</button>
+        <button class="adv-tab" role="tab" onclick="switchTab('ent', this)">Je suis entrepreneur</button>
       </div>
 
       <div class="adv-panels">
@@ -860,19 +1053,19 @@
 
         <div class="card rev">
           <div class="card-head">
-            <div class="card-icon">
-              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            </div>
-            <div>
+            <div class="card-head-top">
+              <div class="card-icon">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
               <div class="card-title">Faire une demande</div>
-              <div class="card-sub">Court, clair, rapide.</div>
             </div>
+            <div class="card-sub">Remplissez le formulaire — on s'occupe du reste. C'est gratuit et ça prend 2 minutes.</div>
           </div>
           <div class="card-body">
             <form class="fgrid">
               <div class="field full">
-                <label class="lbl" for="service">Service recherché</label>
-                <select class="sel" id="service">
+                <select class="sel" id="service" aria-label="Service recherché">
+                  <option value="" disabled selected>Quel service vous faut-il ?</option>
                   <option>Travaux de toiture</option>
                   <option>Plomberie</option>
                   <option>Électricité</option>
@@ -882,23 +1075,18 @@
                 </select>
               </div>
               <div class="field">
-                <label class="lbl" for="nom">Nom et prénom</label>
-                <input class="inp" id="nom" type="text" placeholder="Votre nom">
+                <input class="inp" id="nom" type="text" placeholder="Nom et prénom">
               </div>
               <div class="field">
-                <label class="lbl" for="tel">Téléphone</label>
-                <input class="inp" id="tel" type="tel" placeholder="(___) ___-____">
+                <input class="inp" id="tel" type="tel" placeholder="Téléphone">
               </div>
               <div class="field">
-                <label class="lbl" for="courriel">Courriel</label>
-                <input class="inp" id="courriel" type="email" placeholder="vous@email.com">
+                <input class="inp" id="courriel" type="email" placeholder="Courriel">
               </div>
               <div class="field">
-                <label class="lbl" for="ville">Ville</label>
-                <input class="inp" id="ville" type="text" placeholder="Votre ville">
+                <input class="inp" id="ville" type="text" placeholder="Ville">
               </div>
               <div class="field full">
-                <label class="lbl" for="details">Description des travaux</label>
                 <textarea class="txta" id="details" placeholder="Décrivez brièvement les travaux…"></textarea>
               </div>
               <label class="check-row">
@@ -965,29 +1153,80 @@
 
       <div class="ent-grid">
 
-        <div class="rev">
-          <div class="phone-lbl">Exemple de message reçu</div>
-          <div class="phone-shell">
-            <div class="phone-notch"><span></span></div>
-            <div class="phone-scr">
-              <div class="p-head">
-                <div class="p-av"><img src="media/logob.png" alt=""></div>
-                <div>
-                  <div class="p-name">Intermediaire.io</div>
-                  <div class="p-sub">Nouveau lead disponible</div>
+        <div class="rev" style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+          <div class="phone-lbl">Exemple de lead reçu par SMS</div>
+
+          <!-- Realistic phone -->
+          <div class="phone-device">
+            <!-- Side buttons -->
+            <div class="ph-btn-vol-up"></div>
+            <div class="ph-btn-vol-dn"></div>
+            <div class="ph-btn-power"></div>
+
+            <div class="ph-screen">
+              <!-- Status bar -->
+              <div class="ph-statusbar">
+                <span class="ph-time">9:41</span>
+                <div class="ph-status-icons">
+                  <!-- signal bars -->
+                  <svg width="17" height="12" viewBox="0 0 17 12" fill="white"><rect x="0" y="8" width="3" height="4" rx=".5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx=".5"/><rect x="9" y="3" width="3" height="9" rx=".5"/><rect x="13.5" y="0" width="3" height="12" rx=".5"/></svg>
+                  <!-- wifi -->
+                  <svg width="16" height="12" viewBox="0 0 16 12" fill="white"><path d="M8 9.5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5zm0-3.5a5.5 5.5 0 014.24 2l-1.5 1.5A3.5 3.5 0 008 8a3.5 3.5 0 00-2.74 1.3L3.76 7.8A5.5 5.5 0 018 6zm0-3.5a9 9 0 016.93 3.26L13.4 7.26A7 7 0 008 5a7 7 0 00-5.4 2.56L1.07 5.76A9 9 0 018 2.5z" opacity=".85"/></svg>
+                  <!-- battery -->
+                  <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity=".35"/><rect x="1.5" y="1.5" width="17" height="9" rx="2.5" fill="white"/><path d="M23 4v4a2 2 0 000-4z" fill="white" opacity=".4"/></svg>
                 </div>
               </div>
-              <div class="p-bubble">
-                <strong>🏠 Toiture — Sherbrooke</strong>
-                Besoin : infiltration d'eau au toit<br>
-                Urgence : rapide<br>
-                Demande réelle confirmée ✓
-                <div class="p-chip">Débloquer — 50 $</div>
+
+              <!-- Messages header -->
+              <div class="ph-msgbar">
+                <div class="ph-back">
+                  <svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M9 1L1.5 8.5 9 16" stroke="#007AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span class="ph-back-txt">Messages</span>
+                </div>
+                <div class="ph-contact-wrap">
+                  <div class="ph-contact-av">
+                    <img src="media/logob.png" alt="">
+                  </div>
+                  <div class="ph-contact-name">Intermediaire.io</div>
+                </div>
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" fill="#007AFF" opacity=".1"/><path d="M9 14h10M14 9l5 5-5 5" stroke="#007AFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </div>
-              <div class="p-time">Aujourd'hui 14:28</div>
+
+              <!-- Chat area -->
+              <div class="ph-chat">
+                <div class="ph-date-sep">Aujourd'hui 14:28</div>
+
+                <!-- Incoming bubble -->
+                <div class="ph-bubble-row">
+                  <div class="ph-bubble-in">
+                    <div class="ph-bubble-sender">Intermediaire.io</div>
+                    <div class="ph-bubble-txt">
+                      <b>Nouveau lead — Toiture</b><br><br>
+                      📍 Ville : <b>Sherbrooke</b><br>
+                      🔨 Besoin : infiltration d'eau au toit<br>
+                      ⚡ Urgence : rapide<br>
+                      ✅ Demande réelle confirmée<br><br>
+                      <span class="ph-price-line">Lead : 50 $</span><br><br>
+                      Payez via le lien ci-dessous pour débloquer les coordonnées du client :<br><br>
+                      <span class="ph-link">www.paiement.intermediaire.io</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ph-delivered">Livré</div>
+              </div>
+
+              <!-- Input bar -->
+              <div class="ph-inputbar">
+                <div class="ph-input-fake">Message</div>
+                <div class="ph-send-btn">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="leg-pills">
+          </div><!-- /phone-device -->
+
+          <div class="leg-pills" style="justify-content:center;">
             <span class="leg-pill">Infos clés visibles</span>
             <span class="leg-pill">Client masqué avant paiement</span>
             <span class="leg-pill">Vous choisissez</span>
@@ -996,40 +1235,29 @@
 
         <div class="card rev">
           <div class="card-head">
-            <div class="card-icon">
-              <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            </div>
-            <div>
+            <div class="card-head-top">
+              <div class="card-icon">
+                <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
               <div class="card-title">Inscription gratuite</div>
-              <div class="card-sub">Leads SMS dans votre région.</div>
             </div>
+            <div class="card-sub">Ajoutez votre entreprise et commencez à recevoir des leads dans votre région dès aujourd'hui.</div>
           </div>
           <div class="card-body">
             <form class="ent-form">
-              <div class="field">
-                <label class="lbl" for="e-name">Nom de l'entreprise</label>
-                <input class="inp" id="e-name" type="text" placeholder="Ex. Toitures Tremblay">
-              </div>
-              <div class="field">
-                <label class="lbl" for="e-phone">Numéro de téléphone</label>
-                <input class="inp" id="e-phone" type="tel" placeholder="(___) ___-____">
-              </div>
-              <div class="field">
-                <label class="lbl" for="e-service">Type de travaux</label>
-                <select class="sel" id="e-service">
-                  <option>Toiture</option>
-                  <option>Plomberie</option>
-                  <option>Électricité</option>
-                  <option>Paysagement</option>
-                  <option>Rénovation</option>
-                  <option>Autre</option>
-                </select>
-              </div>
-              <div class="field">
-                <label class="lbl" for="e-city">Ville / région couverte</label>
-                <input class="inp" id="e-city" type="text" placeholder="Ex. Sherbrooke">
-              </div>
-              <button class="btn btn-solid" type="submit" style="width:100%;justify-content:center">
+              <input class="inp" id="e-name" type="text" placeholder="Nom de l'entreprise" aria-label="Nom de l'entreprise">
+              <input class="inp" id="e-phone" type="tel" placeholder="Numéro de téléphone" aria-label="Numéro de téléphone">
+              <select class="sel" id="e-service" aria-label="Type de travaux">
+                <option value="" disabled selected>Type de travaux</option>
+                <option>Toiture</option>
+                <option>Plomberie</option>
+                <option>Électricité</option>
+                <option>Paysagement</option>
+                <option>Rénovation</option>
+                <option>Autre</option>
+              </select>
+              <input class="inp" id="e-city" type="text" placeholder="Ville / région couverte" aria-label="Ville ou région">
+              <button class="btn btn-solid btn-full" type="submit">
                 M'inscrire gratuitement
               </button>
               <div class="ent-note">Aucun frais d'inscription. Vous payez uniquement les leads qui vous intéressent. Pas d'abonnement.</div>
