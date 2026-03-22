@@ -4,35 +4,35 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Intermediaire.io</title>
+  <link rel="icon" href="media/logob.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Clash Display: moderne, costaud, caractère. Plus Outfit pour le corps. -->
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
   <style>
+    /* ═══════════════════════════════════════════
+       TOKENS
+    ═══════════════════════════════════════════ */
     :root {
-      --az:        #55add9;
-      --az-deep:   #2e8fbf;
-      --az-dark:   #1a6a99;
-      --az-light:  #85caeb;
-      --az-pale:   #d4edf7;
-      --az-tint:   #eef7fc;
-      --az-glow:   rgba(85,173,217,.22);
+      --az:       #55add9;
+      --az-deep:  #2e8fbf;
+      --az-dark:  #1a6499;
+      --az-lt:    #85caeb;
+      --az-pale:  #cce8f5;
+      --az-tint:  #edf6fb;
 
-      --white:     #ffffff;
-      --off:       #f7fafc;
-      --ink:       #0d1f2d;
-      --body:      #3a5568;
-      --muted:     #7a96a8;
-      --line:      #d8e8f0;
+      --white:    #ffffff;
+      --off:      #f5f9fb;
+      --ink:      #0c1c2b;
+      --body:     #385168;
+      --muted:    #7290a3;
+      --line:     #d3e6f0;
 
-      --r:         16px;
-      --r-lg:      24px;
-      --r-xl:      32px;
+      --shadow:   0 4px 0 var(--az-pale), 0 16px 48px rgba(12,28,43,.07);
+      --shadow-sm:0 2px 0 var(--az-pale), 0 8px 24px rgba(12,28,43,.05);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
     body {
       font-family: 'Outfit', system-ui, sans-serif;
@@ -43,702 +43,836 @@
 
     a { text-decoration: none; color: inherit; }
     img { display: block; max-width: 100%; }
+    button { font: inherit; cursor: pointer; border: none; }
 
-    /* ══════════════════════════
-       HERO — fond blanc, azur en force
-    ══════════════════════════ */
+    /* ═══════════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════════ */
     .hero {
       min-height: 100svh;
-      background: var(--white);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 64px 24px 80px;
+      padding: 56px 20px 72px;
       position: relative;
       overflow: hidden;
+      background: var(--white);
     }
 
-    /* Blob mesh background — vivant, pas flat */
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    .hero-blob {
+    /* animated blobs */
+    .blob {
       position: absolute;
       border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.55;
+      filter: blur(72px);
+      pointer-events: none;
     }
 
-    .blob-a {
-      width: 700px; height: 700px;
-      background: radial-gradient(circle, #55add9 0%, #85caeb 40%, transparent 70%);
-      top: -280px; left: 50%;
-      transform: translateX(-50%);
-      animation: blobDrift 10s ease-in-out infinite alternate;
+    .blob-1 {
+      width: min(680px, 120vw); height: min(680px, 120vw);
+      background: radial-gradient(circle, rgba(85,173,217,.52) 0%, rgba(133,202,235,.2) 55%, transparent 75%);
+      top: -34%; left: 50%; transform: translateX(-50%);
+      animation: drift1 11s ease-in-out infinite alternate;
     }
 
-    .blob-b {
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, #2e8fbf 0%, transparent 70%);
-      bottom: -120px; right: -80px;
-      animation: blobDrift2 13s ease-in-out infinite alternate;
-      opacity: 0.3;
+    .blob-2 {
+      width: min(360px, 80vw); height: min(360px, 80vw);
+      background: radial-gradient(circle, rgba(46,143,191,.32) 0%, transparent 70%);
+      bottom: -10%; right: -8%;
+      animation: drift2 14s ease-in-out infinite alternate;
     }
 
-    .blob-c {
-      width: 300px; height: 300px;
-      background: radial-gradient(circle, #85caeb 0%, transparent 70%);
-      bottom: 40px; left: -60px;
-      animation: blobDrift 11s ease-in-out infinite alternate-reverse;
-      opacity: 0.25;
+    .blob-3 {
+      width: min(260px, 60vw); height: min(260px, 60vw);
+      background: radial-gradient(circle, rgba(85,173,217,.2) 0%, transparent 70%);
+      bottom: 5%; left: -6%;
+      animation: drift1 9s ease-in-out infinite alternate-reverse;
     }
 
-    @keyframes blobDrift {
+    @keyframes drift1 {
       from { transform: translateX(-50%) translateY(0) scale(1); }
-      to   { transform: translateX(-50%) translateY(-30px) scale(1.06); }
+      to   { transform: translateX(-50%) translateY(-28px) scale(1.05); }
+    }
+    @keyframes drift2 {
+      from { transform: translate(0,0); }
+      to   { transform: translate(-16px,-22px); }
     }
 
-    @keyframes blobDrift2 {
-      from { transform: translate(0,0) scale(1); }
-      to   { transform: translate(-20px, -20px) scale(1.08); }
-    }
-
-    /* Subtle dot grid */
-    .hero-bg::after {
+    /* dot grid */
+    .hero::before {
       content: '';
-      position: absolute; inset: 0;
-      background-image: radial-gradient(circle, rgba(85,173,217,.18) 1.5px, transparent 1.5px);
-      background-size: 32px 32px;
-      mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
-      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
+      position: absolute; inset: 0; z-index: 0;
+      background-image: radial-gradient(rgba(85,173,217,.22) 1.5px, transparent 1.5px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(ellipse 75% 65% at 50% 45%, black 20%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 45%, black 20%, transparent 100%);
+      pointer-events: none;
     }
 
     .hero-inner {
       position: relative; z-index: 1;
-      display: flex; flex-direction: column; align-items: center;
-      max-width: 760px;
+      display: flex; flex-direction: column;
+      align-items: center;
+      max-width: 680px;
+      width: 100%;
     }
 
-    /* Logo */
     .hero-logo {
-      width: 110px; height: 110px;
+      width: clamp(80px, 20vw, 116px);
+      height: clamp(80px, 20vw, 116px);
       object-fit: contain;
-      margin-bottom: 28px;
-      filter: drop-shadow(0 8px 32px rgba(85,173,217,.35));
-      animation: logoFloat 7s ease-in-out infinite;
+      margin-bottom: 24px;
+      filter: drop-shadow(0 10px 36px rgba(85,173,217,.40));
+      animation: float 7s ease-in-out infinite;
     }
 
-    @keyframes logoFloat {
+    @keyframes float {
       0%,100% { transform: translateY(0); }
-      50%      { transform: translateY(-8px); }
+      50%      { transform: translateY(-9px); }
     }
 
-    /* Site name */
-    .hero-sitename {
-      font-size: 15px;
+    .hero-name {
+      font-size: clamp(12px, 3vw, 14px);
       font-weight: 700;
-      letter-spacing: 0.18em;
+      letter-spacing: .18em;
       text-transform: uppercase;
       color: var(--az-dark);
-      margin-bottom: 22px;
-      opacity: 0.8;
+      margin-bottom: 18px;
+      opacity: .75;
     }
 
-    .hero-title {
-      font-size: clamp(42px, 7vw, 88px);
+    .hero-h {
+      font-size: clamp(34px, 8.5vw, 78px);
       font-weight: 900;
-      line-height: 1.0;
       letter-spacing: -0.04em;
+      line-height: 1.0;
       color: var(--ink);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
-    .hero-title .line2 {
-      color: var(--az);
-      display: block;
-    }
+    .hero-h .az { color: var(--az); display: block; }
 
     .hero-sub {
-      margin-top: 20px;
-      font-size: clamp(16px, 2vw, 20px);
+      margin-top: 18px;
+      font-size: clamp(15px, 2.2vw, 18px);
       font-weight: 400;
-      line-height: 1.6;
+      line-height: 1.65;
       color: var(--body);
-      max-width: 560px;
+      max-width: 500px;
     }
 
-    /* CTA pair */
+    /* CTA pills */
     .hero-ctas {
-      margin-top: 40px;
+      margin-top: 36px;
       display: flex;
-      gap: 14px;
+      gap: 12px;
       flex-wrap: wrap;
       justify-content: center;
+      width: 100%;
     }
 
     .btn {
-      display: inline-flex; align-items: center; gap: 9px;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
       font-family: 'Outfit', sans-serif;
-      font-size: 16px; font-weight: 700;
-      border-radius: var(--r);
-      padding: 16px 30px;
-      border: none; cursor: pointer;
+      font-size: clamp(14px,2vw,16px);
+      font-weight: 700;
+      border-radius: 14px;
+      padding: 15px 26px;
       transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
-      letter-spacing: -0.01em;
+      letter-spacing: -.01em;
+      flex: 1 1 180px;
+      max-width: 260px;
     }
 
     .btn-solid {
       background: var(--az);
       color: #fff;
-      box-shadow: 0 6px 28px rgba(85,173,217,.45), 0 2px 0 var(--az-deep) inset;
+      box-shadow: 0 6px 28px rgba(85,173,217,.42), inset 0 1px 0 rgba(255,255,255,.18);
     }
 
     .btn-solid:hover {
       background: var(--az-deep);
       transform: translateY(-3px);
-      box-shadow: 0 14px 40px rgba(85,173,217,.5);
+      box-shadow: 0 14px 36px rgba(85,173,217,.48);
     }
 
-    .btn-outline {
-      background: rgba(255,255,255,0.7);
-      color: var(--ink);
+    .btn-ghost {
+      background: rgba(255,255,255,.72);
       border: 2px solid var(--line);
+      color: var(--ink);
       backdrop-filter: blur(8px);
     }
 
-    .btn-outline:hover {
+    .btn-ghost:hover {
       border-color: var(--az-pale);
       background: var(--az-tint);
       color: var(--az-dark);
       transform: translateY(-2px);
     }
 
-    /* Scroll hint */
+    /* scroll indicator */
     .scroll-hint {
-      margin-top: 52px;
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
-      color: var(--muted); font-size: 11px; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      animation: fadeIn 1s ease 0.8s both;
+      margin-top: 48px;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: var(--muted); font-size: 10px; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      animation: fadein .8s ease .5s both;
     }
 
-    @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadein { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
 
-    .scroll-bar {
-      width: 2px; height: 44px; border-radius: 2px;
+    .scroll-line {
+      width: 2px; height: 42px; border-radius: 2px;
       background: linear-gradient(180deg, var(--az) 0%, transparent 100%);
-      animation: scrollPulse 1.8s ease-in-out infinite;
+      animation: pulse 1.9s ease-in-out infinite;
     }
 
-    @keyframes scrollPulse {
-      0%,100% { opacity:.4; transform:scaleY(1); }
-      50%      { opacity:1; transform:scaleY(0.6); }
+    @keyframes pulse {
+      0%,100% { opacity:.35; transform:scaleY(1); }
+      50%      { opacity:1; transform:scaleY(.55); }
     }
 
-    /* ══════════════════════════
-       STRIP — 3 features
-    ══════════════════════════ */
-    .strip {
-      background: var(--az);
-      background: linear-gradient(135deg, var(--az-deep) 0%, var(--az) 50%, var(--az-light) 100%);
-      padding: 0;
-    }
+    /* ═══════════════════════════════════════════
+       SECTION WRAPPER
+    ═══════════════════════════════════════════ */
+    .section { padding: clamp(56px, 10vw, 108px) 0; }
+    .section--off { background: var(--off); }
+    .section--dark { background: var(--ink); }
+    .section--az { background: var(--az); }
 
-    .strip-grid {
-      width: min(1160px, 100%);
+    .wrap {
+      width: min(1120px, calc(100% - clamp(32px,5vw,80px)));
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
     }
 
-    .strip-item {
-      padding: 44px 40px;
-      border-right: 1px solid rgba(255,255,255,.15);
+    /* ═══════════════════════════════════════════
+       SECTION HEADER
+    ═══════════════════════════════════════════ */
+    .sec-tag {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--az); margin-bottom: 12px;
+    }
+
+    .sec-tag::before {
+      content:''; display:block;
+      width: 22px; height: 3px;
+      background: var(--az); border-radius: 3px;
+    }
+
+    .sec-tag--white { color: rgba(255,255,255,.8); }
+    .sec-tag--white::before { background: rgba(255,255,255,.6); }
+
+    .sec-h {
+      font-size: clamp(26px, 4.5vw, 48px);
+      font-weight: 900; letter-spacing: -.04em;
+      line-height: 1.04; color: var(--ink); margin-bottom: 12px;
+    }
+
+    .sec-h--white { color: #fff; }
+
+    .sec-p {
+      font-size: clamp(14px, 2vw, 17px);
+      color: var(--body); line-height: 1.7;
+      max-width: 540px; font-weight: 400;
+    }
+
+    .sec-p--white { color: rgba(255,255,255,.65); }
+
+    .sec-head { margin-bottom: clamp(36px, 6vw, 60px); }
+
+    /* ═══════════════════════════════════════════
+       CLIENT ADVANTAGES — AZUR STRIP (2 columns)
+    ═══════════════════════════════════════════ */
+    .adv-section {
+      background: linear-gradient(145deg, var(--az-dark) 0%, var(--az) 45%, var(--az-lt) 100%);
+      padding: clamp(56px, 10vw, 100px) 0;
       position: relative;
+      overflow: hidden;
     }
 
-    .strip-item:last-child { border-right: none; }
+    /* decorative rings */
+    .adv-section::before {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.08);
+      top: -260px; right: -200px;
+      pointer-events: none;
+    }
 
-    .strip-icon {
-      width: 48px; height: 48px;
+    .adv-section::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.06);
+      bottom: -200px; left: -100px;
+      pointer-events: none;
+    }
+
+    .adv-inner { position: relative; z-index: 1; }
+
+    /* Tab switcher */
+    .adv-tabs {
+      display: inline-flex;
+      background: rgba(0,0,0,.18);
       border-radius: 14px;
+      padding: 5px;
+      margin-bottom: 48px;
+      backdrop-filter: blur(10px);
+      gap: 4px;
+    }
+
+    .adv-tab {
+      padding: 11px 24px;
+      border-radius: 10px;
+      font-size: 14px; font-weight: 700;
+      color: rgba(255,255,255,.6);
+      background: transparent;
+      border: none; cursor: pointer;
+      transition: background .2s, color .2s;
+      letter-spacing: -.01em;
+      white-space: nowrap;
+    }
+
+    .adv-tab.active {
+      background: rgba(255,255,255,.18);
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(0,0,0,.12);
+    }
+
+    /* panels */
+    .adv-panels { position: relative; }
+    .adv-panel { display: none; }
+    .adv-panel.active { display: block; }
+
+    /* 2-col cards grid */
+    .adv-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .adv-card {
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 20px;
+      padding: clamp(20px, 3vw, 28px);
+      backdrop-filter: blur(12px);
+      transition: background .2s, transform .2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .adv-card::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto 0; height: 2px;
+      background: linear-gradient(90deg, rgba(255,255,255,.4), rgba(255,255,255,.08));
+      border-radius: 20px 20px 0 0;
+    }
+
+    .adv-card:hover {
+      background: rgba(255,255,255,.16);
+      transform: translateY(-3px);
+    }
+
+    /* card with number — spans full width on last odd */
+    .adv-card--wide { grid-column: 1 / -1; }
+
+    .adv-num {
+      font-size: 11px; font-weight: 800;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: rgba(255,255,255,.45);
+      margin-bottom: 14px;
+    }
+
+    .adv-icon {
+      width: 44px; height: 44px; border-radius: 12px;
       background: rgba(255,255,255,.15);
       display: flex; align-items: center; justify-content: center;
-      margin-bottom: 18px;
-      backdrop-filter: blur(6px);
+      margin-bottom: 14px;
     }
 
-    .strip-icon svg {
-      width: 24px; height: 24px;
+    .adv-icon svg {
+      width: 22px; height: 22px;
       stroke: #fff; fill: none;
       stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
     }
 
-    .strip-title {
-      font-size: 18px; font-weight: 800;
-      color: #fff; margin-bottom: 8px; letter-spacing: -0.025em;
+    .adv-title {
+      font-size: clamp(15px, 2vw, 18px);
+      font-weight: 800; color: #fff;
+      letter-spacing: -.025em; margin-bottom: 8px;
+      line-height: 1.2;
     }
 
-    .strip-desc { font-size: 14px; color: rgba(255,255,255,.7); line-height: 1.65; font-weight: 400; }
-
-    /* ══════════════════════════
-       SECTION
-    ══════════════════════════ */
-    .section { padding: 100px 0; }
-    .section--off { background: var(--off); }
-
-    .wrap { width: min(1160px, calc(100% - 48px)); margin: 0 auto; }
-
-    .sec-eyebrow {
-      display: inline-flex; align-items: center; gap: 9px;
-      font-size: 12px; font-weight: 700;
-      letter-spacing: .12em; text-transform: uppercase;
-      color: var(--az);
-      margin-bottom: 14px;
+    .adv-desc {
+      font-size: clamp(13px, 1.5vw, 14px);
+      color: rgba(255,255,255,.65);
+      line-height: 1.65; font-weight: 400;
     }
 
-    .sec-eyebrow::before {
-      content: ''; display: block;
-      width: 28px; height: 3px;
-      background: var(--az); border-radius: 3px;
+    /* bottom stat row */
+    .adv-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 32px;
+      background: rgba(255,255,255,.1);
+      border-radius: 18px;
+      overflow: hidden;
     }
 
-    .sec-h {
-      font-size: clamp(32px, 4vw, 52px);
-      font-weight: 900; letter-spacing: -0.04em;
-      line-height: 1.04; color: var(--ink); margin-bottom: 14px;
+    .adv-stat {
+      padding: 22px 24px;
+      background: rgba(0,0,0,.12);
+      text-align: center;
     }
 
-    .sec-p {
-      font-size: 17px; color: var(--body);
-      line-height: 1.7; max-width: 520px; font-weight: 400;
+    .adv-stat-val {
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 900; color: #fff;
+      letter-spacing: -.04em; line-height: 1;
+      margin-bottom: 5px;
     }
 
-    .sec-head { margin-bottom: 60px; }
+    .adv-stat-lbl {
+      font-size: 12px; color: rgba(255,255,255,.55);
+      font-weight: 500; line-height: 1.4;
+    }
 
-    /* ══════════════════════════
-       CLIENT LAYOUT
-    ══════════════════════════ */
+    /* ═══════════════════════════════════════════
+       CLIENT FORM SECTION
+    ═══════════════════════════════════════════ */
     .client-grid {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 32px; align-items: start;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 28px; align-items: start;
     }
 
-    /* Form card */
+    /* card */
     .card {
       background: var(--white);
       border: 1px solid var(--line);
-      border-radius: var(--r-xl);
-      box-shadow: 0 4px 0 var(--az-pale), 0 20px 50px rgba(13,31,45,.07);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
       overflow: hidden;
     }
 
     .card-head {
-      padding: 26px 32px 22px;
+      padding: clamp(18px,3vw,26px) clamp(20px,3vw,30px) clamp(16px,2.5vw,22px);
       background: linear-gradient(135deg, var(--az-tint), var(--white));
       border-bottom: 1px solid var(--line);
-      display: flex; align-items: center; gap: 16px;
+      display: flex; align-items: center; gap: 14px;
     }
 
-    .card-head-icon {
-      width: 42px; height: 42px; border-radius: 12px;
+    .card-icon {
+      width: 40px; height: 40px; border-radius: 11px;
       background: var(--az);
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
       box-shadow: 0 4px 14px rgba(85,173,217,.35);
     }
 
-    .card-head-icon svg {
-      width: 20px; height: 20px; stroke: #fff; fill: none;
+    .card-icon svg {
+      width: 18px; height: 18px; stroke: #fff; fill: none;
       stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
     }
 
-    .card-head-title {
-      font-size: 20px; font-weight: 800;
-      color: var(--ink); letter-spacing: -0.025em; margin-bottom: 2px;
+    .card-title { font-size: clamp(16px,2.5vw,20px); font-weight: 800; color: var(--ink); letter-spacing: -.025em; margin-bottom: 2px; }
+    .card-sub { font-size: 13px; color: var(--muted); font-weight: 400; }
+
+    .card-body {
+      padding: clamp(20px,3vw,28px) clamp(20px,3vw,30px) clamp(24px,3.5vw,32px);
     }
 
-    .card-head-sub { font-size: 13px; color: var(--muted); font-weight: 400; }
+    /* form */
+    .fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .field { display: flex; flex-direction: column; gap: 5px; }
+    .field.full { grid-column: 1/-1; }
 
-    .card-body { padding: 28px 32px 32px; }
+    .lbl { font-size: 12px; font-weight: 700; color: var(--ink); }
 
-    /* Form fields */
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .field { display: flex; flex-direction: column; gap: 6px; }
-    .field.full { grid-column: 1 / -1; }
-
-    .label {
-      font-size: 12px; font-weight: 700;
-      color: var(--ink); letter-spacing: 0.01em;
-    }
-
-    .input, .select, .textarea {
-      width: 100%;
-      border: 1.5px solid var(--line);
-      background: var(--off);
-      color: var(--ink);
-      border-radius: 12px;
-      padding: 13px 15px;
+    .inp, .sel, .txta {
+      width: 100%; border: 1.5px solid var(--line);
+      background: var(--off); color: var(--ink);
+      border-radius: 11px; padding: 12px 14px;
       font-family: 'Outfit', sans-serif;
-      font-size: 15px; font-weight: 400;
+      font-size: clamp(13px, 2vw, 15px); font-weight: 400;
       outline: none;
-      transition: border-color .15s, box-shadow .15s, background .15s;
+      transition: border-color .14s, box-shadow .14s, background .14s;
+      -webkit-appearance: none;
     }
 
-    .input::placeholder, .textarea::placeholder { color: var(--muted); }
+    .inp::placeholder, .txta::placeholder { color: var(--muted); }
 
-    .input:focus, .select:focus, .textarea:focus {
+    .inp:focus, .sel:focus, .txta:focus {
       border-color: var(--az);
-      box-shadow: 0 0 0 3px rgba(85,173,217,.15);
+      box-shadow: 0 0 0 3px rgba(85,173,217,.14);
       background: var(--white);
     }
 
-    .select {
+    .sel {
       appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237a96a8' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      background-color: var(--off);
-      padding-right: 40px;
-      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237290a3' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center;
+      background-color: var(--off); padding-right: 36px; cursor: pointer;
     }
 
-    .select:focus { background-color: var(--white); }
+    .sel:focus { background-color: var(--white); }
+    .txta { min-height: 108px; resize: vertical; line-height: 1.6; }
 
-    .textarea { min-height: 114px; resize: vertical; line-height: 1.6; }
-
-    .check-block {
+    .check-row {
       grid-column: 1/-1;
-      display: flex; gap: 11px; align-items: flex-start;
-      padding: 14px 16px;
-      border: 1.5px solid var(--az-pale);
-      background: var(--az-tint);
-      border-radius: 12px;
+      display: flex; gap: 10px; align-items: flex-start;
+      padding: 13px 14px;
+      background: var(--az-tint); border: 1.5px solid var(--az-pale);
+      border-radius: 11px;
     }
 
-    .check-block input { accent-color: var(--az); width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; }
-    .check-block span { font-size: 13px; color: var(--body); line-height: 1.5; font-weight: 400; }
+    .check-row input { accent-color: var(--az); width: 15px; height: 15px; flex-shrink: 0; margin-top: 1px; }
+    .check-row span { font-size: 12px; color: var(--body); line-height: 1.5; }
 
-    .form-foot {
-      grid-column: 1/-1;
-      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-    }
+    .form-foot { grid-column: 1/-1; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .form-note { font-size: 12px; color: var(--muted); }
 
-    .form-note { font-size: 13px; color: var(--muted); font-weight: 500; }
+    /* side */
+    .side { display: flex; flex-direction: column; gap: 18px; }
 
-    /* Side column */
-    .side { display: flex; flex-direction: column; gap: 20px; }
-
-    .side-card {
+    .sc {
       background: var(--white);
       border: 1px solid var(--line);
-      border-radius: var(--r-lg);
-      padding: 26px;
-      box-shadow: 0 2px 0 var(--az-pale), 0 14px 36px rgba(13,31,45,.05);
+      border-radius: 20px;
+      padding: clamp(18px,3vw,24px);
+      box-shadow: var(--shadow-sm);
     }
 
-    .side-card--dark {
-      background: var(--ink);
-      border-color: var(--ink);
-    }
+    .sc--dark { background: var(--ink); border-color: var(--ink); }
 
-    .side-title {
-      font-size: 17px; font-weight: 800;
-      color: var(--ink); letter-spacing: -0.025em; margin-bottom: 20px;
-    }
+    .sc-title { font-size: clamp(15px,2vw,17px); font-weight: 800; color: var(--ink); letter-spacing: -.025em; margin-bottom: 18px; }
+    .sc--dark .sc-title { color: #fff; }
 
-    .side-card--dark .side-title { color: #fff; }
-
-    /* Steps */
-    .step { display: flex; gap: 14px; padding: 14px 0; border-top: 1px solid var(--line); }
+    .step { display: flex; gap: 13px; padding: 13px 0; border-top: 1px solid var(--line); }
     .step:first-of-type { border-top: none; padding-top: 0; }
-    .side-card--dark .step { border-color: rgba(255,255,255,.08); }
+    .sc--dark .step { border-color: rgba(255,255,255,.07); }
 
     .step-n {
-      width: 32px; height: 32px; border-radius: 9px; flex-shrink: 0;
+      width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0;
       background: var(--az);
       display: flex; align-items: center; justify-content: center;
       font-size: 13px; font-weight: 800; color: #fff;
-      box-shadow: 0 4px 12px rgba(85,173,217,.35);
+      box-shadow: 0 4px 12px rgba(85,173,217,.32);
     }
 
-    .step-body strong {
-      display: block; font-size: 14px; font-weight: 700;
-      color: var(--ink); margin-bottom: 2px;
-    }
+    .step-b strong { display: block; font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+    .sc--dark .step-b strong { color: #fff; }
+    .step-b { font-size: 12px; color: var(--muted); line-height: 1.55; }
+    .sc--dark .step-b { color: rgba(255,255,255,.42); }
 
-    .side-card--dark .step-body strong { color: #fff; }
-
-    .step-body {
-      font-size: 13px; color: var(--muted); line-height: 1.55; font-weight: 400;
-    }
-
-    .side-card--dark .step-body { color: rgba(255,255,255,.45); }
-
-    /* Reviews */
-    .review { padding: 14px 0; border-top: 1px solid var(--line); }
+    .review { padding: 13px 0; border-top: 1px solid var(--line); }
     .review:first-of-type { border-top: none; padding-top: 0; }
+    .stars { font-size: 13px; color: #f5a623; margin-bottom: 6px; letter-spacing: 1px; }
+    .review-q { font-size: 13px; color: var(--body); line-height: 1.6; font-style: italic; margin-bottom: 6px; }
+    .review-by { font-size: 11px; font-weight: 700; color: var(--muted); }
 
-    .stars { font-size: 14px; color: #f5a623; margin-bottom: 7px; }
-
-    .review-q {
-      font-size: 14px; color: var(--body); line-height: 1.6;
-      font-style: italic; margin-bottom: 7px; font-weight: 400;
-    }
-
-    .review-by { font-size: 12px; font-weight: 700; color: var(--muted); }
-
-    /* ══════════════════════════
-       ENT SECTION
-    ══════════════════════════ */
+    /* ═══════════════════════════════════════════
+       ENTREPRENEUR FORM SECTION
+    ═══════════════════════════════════════════ */
     .ent-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 32px; align-items: start;
+      gap: 28px; align-items: start;
     }
 
-    /* Phone */
-    .phone-label {
-      font-size: 17px; font-weight: 800;
-      color: var(--ink); letter-spacing: -0.025em; margin-bottom: 24px;
-    }
-
-    .phone-wrap {
-      max-width: 300px;
-    }
+    /* phone */
+    .phone-lbl { font-size: clamp(15px,2vw,17px); font-weight: 800; color: var(--ink); letter-spacing: -.025em; margin-bottom: 22px; }
 
     .phone-shell {
       background: #18181b;
       border-radius: 44px;
-      padding: 16px;
-      box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,0.07),
-        0 40px 80px rgba(0,0,0,.35),
-        0 0 0 1px #111;
+      padding: 15px;
+      max-width: 290px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.07), 0 32px 72px rgba(0,0,0,.32), 0 0 0 1px #0f0f10;
     }
 
-    .phone-notch { display: flex; justify-content: center; margin-bottom: 12px; }
-    .phone-notch span { display: block; width: 80px; height: 6px; border-radius: 99px; background: #2a2a2e; }
+    .phone-notch { display: flex; justify-content: center; margin-bottom: 11px; }
+    .phone-notch span { display: block; width: 74px; height: 5px; border-radius: 99px; background: #2a2a2e; }
 
-    .phone-scr {
-      background: #f2f2f7;
-      border-radius: 30px;
-      padding: 20px;
-    }
+    .phone-scr { background: #f2f2f7; border-radius: 30px; padding: 18px; }
 
-    .phead {
-      display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
-    }
+    .p-head { display: flex; align-items: center; gap: 9px; margin-bottom: 14px; }
 
-    .pav {
-      width: 36px; height: 36px; border-radius: 50%;
-      background: var(--white); border: 1px solid rgba(0,0,0,.07);
+    .p-av {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: #fff; border: 1px solid rgba(0,0,0,.07);
       overflow: hidden; flex-shrink: 0;
     }
 
-    .pav img { width: 100%; height: 100%; object-fit: contain; }
-    .pname { font-size: 13px; font-weight: 800; color: #1c1c1e; }
-    .psub { font-size: 11px; color: #8e8e93; font-weight: 500; }
+    .p-av img { width: 100%; height: 100%; object-fit: contain; }
+    .p-name { font-size: 12px; font-weight: 800; color: #1c1c1e; }
+    .p-sub { font-size: 10px; color: #8e8e93; font-weight: 500; }
 
-    .pbubble {
+    .p-bubble {
       background: #fff;
-      border-radius: 16px 16px 16px 4px;
-      padding: 15px 17px;
-      font-size: 13px; line-height: 1.65; color: #2c2c2e;
+      border-radius: 14px 14px 14px 4px;
+      padding: 13px 15px;
+      font-size: 12.5px; line-height: 1.65; color: #2c2c2e;
       box-shadow: 0 3px 10px rgba(0,0,0,.07);
     }
 
-    .pbubble strong {
-      font-weight: 700; color: #1c1c1e;
-      display: block; margin-bottom: 6px; font-size: 13.5px;
+    .p-bubble strong { font-weight: 700; color: #1c1c1e; display: block; margin-bottom: 5px; font-size: 13px; }
+
+    .p-chip {
+      display: inline-flex; align-items: center;
+      margin-top: 11px; padding: 6px 13px;
+      background: var(--az); color: #fff;
+      border-radius: 999px;
+      font-size: 11px; font-weight: 700;
+      box-shadow: 0 3px 10px rgba(85,173,217,.38);
     }
 
-    .pchip {
-      display: inline-flex; align-items: center; gap: 5px;
-      margin-top: 12px; padding: 7px 14px;
-      background: var(--az);
-      color: #fff; border-radius: 999px;
-      font-size: 12px; font-weight: 700;
-      box-shadow: 0 4px 12px rgba(85,173,217,.4);
-    }
+    .p-time { margin-top: 8px; font-size: 10px; color: #8e8e93; text-align: right; }
 
-    .ptime { margin-top: 9px; font-size: 11px; color: #8e8e93; text-align: right; }
+    .leg-pills { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 18px; }
+    .leg-pill { padding: 7px 13px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--white); font-size: 11px; font-weight: 600; color: var(--body); }
 
-    .pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+    .ent-form { display: flex; flex-direction: column; gap: 13px; }
+    .ent-note { font-size: 12px; color: var(--muted); line-height: 1.55; }
 
-    .pill {
-      padding: 7px 14px; border-radius: 999px;
-      border: 1.5px solid var(--line);
-      background: var(--white);
-      font-size: 12px; font-weight: 600; color: var(--body);
-    }
-
-    /* Ent form */
-    .ent-form { display: flex; flex-direction: column; gap: 14px; }
-    .ent-note { font-size: 13px; color: var(--muted); line-height: 1.55; margin-top: 2px; }
-
-    /* ══════════════════════════
+    /* ═══════════════════════════════════════════
        FOOTER
-    ══════════════════════════ */
-    .footer {
-      background: var(--ink);
-      padding: 40px 0;
-    }
+    ═══════════════════════════════════════════ */
+    .footer { background: var(--ink); padding: clamp(28px,5vw,44px) 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+    .footer-brand { display: flex; align-items: center; gap: 10px; }
+    .footer-brand img { width: 30px; height: 30px; object-fit: contain; opacity: .8; }
+    .footer-brand-name { font-size: 15px; font-weight: 800; color: rgba(255,255,255,.65); letter-spacing: -.02em; }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,.28); }
 
-    .footer-inner {
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 16px;
-    }
-
-    .footer-brand {
-      display: flex; align-items: center; gap: 12px;
-    }
-
-    .footer-brand img { width: 32px; height: 32px; object-fit: contain; opacity: .85; }
-
-    .footer-brand-name {
-      font-size: 16px; font-weight: 800;
-      color: rgba(255,255,255,.7); letter-spacing: -0.02em;
-    }
-
-    .footer-copy { font-size: 13px; color: rgba(255,255,255,.28); }
-
-    /* ══════════════════════════
-       REVEAL ANIMATION
-    ══════════════════════════ */
-    .rev {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1);
-    }
-
+    /* ═══════════════════════════════════════════
+       REVEAL
+    ═══════════════════════════════════════════ */
+    .rev { opacity: 0; transform: translateY(22px); transition: opacity .62s cubic-bezier(.22,1,.36,1), transform .62s cubic-bezier(.22,1,.36,1); }
     .rev.on { opacity: 1; transform: none; }
 
-    /* ══════════════════════════
-       RESPONSIVE
-    ══════════════════════════ */
-    @media (max-width: 960px) {
-      .client-grid, .ent-grid { grid-template-columns: 1fr; gap: 28px; }
-      .strip-grid { grid-template-columns: 1fr; }
-      .strip-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,.15); padding: 32px 28px; }
-      .strip-item:last-child { border-bottom: none; }
+    .rev-d1 { transition-delay: .08s; }
+    .rev-d2 { transition-delay: .16s; }
+    .rev-d3 { transition-delay: .24s; }
+    .rev-d4 { transition-delay: .32s; }
+
+    /* ═══════════════════════════════════════════
+       MOBILE — emphasis
+    ═══════════════════════════════════════════ */
+    @media (max-width: 860px) {
+      .client-grid, .ent-grid { grid-template-columns: 1fr; }
+
+      /* swap order: form first on mobile */
+      .client-side { order: -1; display: none; } /* hide side cards on mobile — clean */
+      .ent-phone-col { order: 2; } /* phone after form on mobile */
+
+      .adv-grid { grid-template-columns: 1fr; }
+      .adv-card--wide { grid-column: 1; }
+      .adv-stats { grid-template-columns: 1fr; gap: 1px; }
     }
 
-    @media (max-width: 600px) {
-      .hero { padding: 48px 20px 60px; }
-      .hero-logo { width: 88px; height: 88px; }
-      .section { padding: 64px 0; }
-      .form-grid { grid-template-columns: 1fr; }
-      .card-body { padding: 22px 22px 26px; }
-      .card-head { padding: 20px 22px 18px; }
-      .side-card { padding: 20px; }
-      .btn { padding: 14px 22px; font-size: 15px; }
+    @media (max-width: 640px) {
+      .hero { padding: 48px 18px 60px; }
+      .hero-ctas .btn { max-width: none; }
+      .fgrid { grid-template-columns: 1fr; }
+      .adv-tabs { width: 100%; }
+      .adv-tab { flex: 1; text-align: center; font-size: 13px; padding: 11px 14px; }
+      .adv-section { padding: 52px 0; }
+      .section { padding: 52px 0; }
+    }
+
+    /* ensure side column shows on desktop */
+    @media (min-width: 861px) {
+      .client-side { display: flex; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ══ HERO ══ -->
-  <section class="hero">
-    <div class="hero-bg">
-      <div class="hero-blob blob-a"></div>
-      <div class="hero-blob blob-b"></div>
-      <div class="hero-blob blob-c"></div>
-    </div>
+  <!-- ═══════════ HERO ═══════════ -->
+  <section class="hero" id="top">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
 
     <div class="hero-inner">
       <img class="hero-logo" src="media/logob.png" alt="Intermediaire.io">
+      <div class="hero-name">Intermediaire.io</div>
 
-      <div class="hero-sitename">Intermediaire.io</div>
-
-      <h1 class="hero-title">
+      <h1 class="hero-h">
         Le bon entrepreneur,
-        <span class="line2">trouvé en minutes.</span>
+        <span class="az">trouvé en minutes.</span>
       </h1>
 
       <p class="hero-sub">
-        Décrivez votre besoin une seule fois — on l'envoie directement aux entrepreneurs de votre région. Pas besoin de chercher partout.
+        Décrivez votre besoin une seule fois — on l'envoie directement aux entrepreneurs de votre région. Rapide, sans tracas.
       </p>
 
       <div class="hero-ctas">
-        <a class="btn btn-solid" href="#client">
-          Je cherche un service
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-        </a>
-        <a class="btn btn-outline" href="#entrepreneur">
-          Je suis entrepreneur
-        </a>
+        <a class="btn btn-solid" href="#client">Je cherche un service →</a>
+        <a class="btn btn-ghost" href="#entrepreneur">Je suis entrepreneur</a>
       </div>
 
       <div class="scroll-hint">
-        <div class="scroll-bar"></div>
+        <div class="scroll-line"></div>
         Défiler
       </div>
     </div>
   </section>
 
-  <!-- ══ FEATURES STRIP ══ -->
-  <div class="strip">
-    <div class="strip-grid">
-      <div class="strip-item">
-        <div class="strip-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4z"/></svg>
-        </div>
-        <div class="strip-title">Une demande, plusieurs pros</div>
-        <div class="strip-desc">Remplissez un seul formulaire. Votre besoin est diffusé à tous les entrepreneurs disponibles dans votre secteur.</div>
-      </div>
-      <div class="strip-item">
-        <div class="strip-icon">
-          <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
-        </div>
-        <div class="strip-title">Leads reçus par SMS</div>
-        <div class="strip-desc">Résumé direct par texto. Rapide à lire depuis le chantier, facile à gérer sans compte ou application.</div>
-      </div>
-      <div class="strip-item">
-        <div class="strip-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <div class="strip-title">Vous choisissez vos leads</div>
-        <div class="strip-desc">Aucun abonnement. Vous payez uniquement les leads que vous voulez. Inscription gratuite.</div>
-      </div>
-    </div>
-  </div>
+  <!-- ═══════════ AVANTAGES — AZUR (tab: client / entrepreneur) ═══════════ -->
+  <section class="adv-section">
+    <div class="wrap adv-inner">
 
-  <!-- ══ CLIENT SECTION ══ -->
+      <!-- Tab switcher -->
+      <div class="adv-tabs" role="tablist">
+        <button class="adv-tab active" role="tab" onclick="switchTab('client', this)">👷 Je cherche un service</button>
+        <button class="adv-tab" role="tab" onclick="switchTab('ent', this)">🔧 Je suis entrepreneur</button>
+      </div>
+
+      <div class="adv-panels">
+
+        <!-- ── PANEL CLIENT ── -->
+        <div class="adv-panel active" id="panel-client">
+          <div class="adv-grid rev">
+            <div class="adv-card rev-d1">
+              <div class="adv-icon">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              </div>
+              <div class="adv-title">Une seule demande</div>
+              <div class="adv-desc">Remplissez un formulaire court une seule fois. Pas besoin de chercher et d'appeler plusieurs entreprises vous-même.</div>
+            </div>
+
+            <div class="adv-card rev-d2">
+              <div class="adv-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="adv-title">Réponse rapide</div>
+              <div class="adv-desc">Votre demande est envoyée instantanément aux entrepreneurs disponibles dans votre secteur.</div>
+            </div>
+
+            <div class="adv-card rev-d3">
+              <div class="adv-icon">
+                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+              </div>
+              <div class="adv-title">Plusieurs pros comparés</div>
+              <div class="adv-desc">Recevez des contacts d'entrepreneurs locaux et choisissez celui qui vous convient le mieux.</div>
+            </div>
+
+            <div class="adv-card rev-d4">
+              <div class="adv-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div class="adv-title">100 % gratuit pour vous</div>
+              <div class="adv-desc">Aucun frais, aucun abonnement. Le service est entièrement gratuit pour les clients.</div>
+            </div>
+          </div>
+
+          <div class="adv-stats rev" style="margin-top:28px">
+            <div class="adv-stat">
+              <div class="adv-stat-val">1×</div>
+              <div class="adv-stat-lbl">Formulaire à remplir</div>
+            </div>
+            <div class="adv-stat">
+              <div class="adv-stat-val">0 $</div>
+              <div class="adv-stat-lbl">Gratuit pour le client</div>
+            </div>
+            <div class="adv-stat">
+              <div class="adv-stat-val">+vite</div>
+              <div class="adv-stat-lbl">Trouver un entrepreneur</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── PANEL ENTREPRENEUR ── -->
+        <div class="adv-panel" id="panel-ent">
+          <div class="adv-grid rev">
+            <div class="adv-card rev-d1">
+              <div class="adv-icon">
+                <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+              </div>
+              <div class="adv-title">Leads reçus par SMS</div>
+              <div class="adv-desc">Résumé direct par texto — lisible depuis le chantier en quelques secondes. Pas d'application nécessaire.</div>
+            </div>
+
+            <div class="adv-card rev-d2">
+              <div class="adv-icon">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+              </div>
+              <div class="adv-title">Vous payez à la carte</div>
+              <div class="adv-desc">Chaque lead se paie individuellement. Aucun abonnement mensuel, aucune obligation. Vous contrôlez votre budget.</div>
+            </div>
+
+            <div class="adv-card rev-d3">
+              <div class="adv-icon">
+                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </div>
+              <div class="adv-title">Vous choisissez vos leads</div>
+              <div class="adv-desc">Le résumé du lead est visible avant d'acheter. Vous ne payez que si la demande vous intéresse vraiment.</div>
+            </div>
+
+            <div class="adv-card rev-d4">
+              <div class="adv-icon">
+                <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+              <div class="adv-title">Inscription gratuite</div>
+              <div class="adv-desc">Aucun frais pour s'inscrire. Commencez à recevoir des leads dans votre région dès aujourd'hui.</div>
+            </div>
+          </div>
+
+          <div class="adv-stats rev" style="margin-top:28px">
+            <div class="adv-stat">
+              <div class="adv-stat-val">0 $</div>
+              <div class="adv-stat-lbl">Pour s'inscrire</div>
+            </div>
+            <div class="adv-stat">
+              <div class="adv-stat-val">SMS</div>
+              <div class="adv-stat-lbl">Leads directs par texto</div>
+            </div>
+            <div class="adv-stat">
+              <div class="adv-stat-val">50 $</div>
+              <div class="adv-stat-lbl">Par lead débloqué</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /adv-panels -->
+    </div>
+  </section>
+
+  <!-- ═══════════ CLIENT FORM ═══════════ -->
   <section class="section" id="client">
     <div class="wrap">
       <div class="sec-head rev">
-        <div class="sec-eyebrow">Pour les clients</div>
+        <div class="sec-tag">Pour les clients</div>
         <h2 class="sec-h">Envoyez une seule demande</h2>
-        <p class="sec-p">Décrivez vos travaux une fois. Votre demande est transmise aux bons entrepreneurs autour de vous.</p>
+        <p class="sec-p">Décrivez vos travaux une fois. On s'occupe de trouver les bons entrepreneurs autour de vous.</p>
       </div>
 
       <div class="client-grid">
 
-        <!-- Form -->
         <div class="card rev">
           <div class="card-head">
-            <div class="card-head-icon">
-              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
             </div>
             <div>
-              <div class="card-head-title">Faire une demande</div>
-              <div class="card-head-sub">Court, clair, rapide à remplir.</div>
+              <div class="card-title">Faire une demande</div>
+              <div class="card-sub">Court, clair, rapide.</div>
             </div>
           </div>
           <div class="card-body">
-            <form class="form-grid">
+            <form class="fgrid">
               <div class="field full">
-                <label class="label" for="service">Service recherché</label>
-                <select class="select" id="service">
+                <label class="lbl" for="service">Service recherché</label>
+                <select class="sel" id="service">
                   <option>Travaux de toiture</option>
                   <option>Plomberie</option>
                   <option>Électricité</option>
@@ -748,70 +882,69 @@
                 </select>
               </div>
               <div class="field">
-                <label class="label" for="nom">Nom et prénom</label>
-                <input class="input" id="nom" type="text" placeholder="Votre nom">
+                <label class="lbl" for="nom">Nom et prénom</label>
+                <input class="inp" id="nom" type="text" placeholder="Votre nom">
               </div>
               <div class="field">
-                <label class="label" for="tel">Téléphone</label>
-                <input class="input" id="tel" type="tel" placeholder="(___) ___-____">
+                <label class="lbl" for="tel">Téléphone</label>
+                <input class="inp" id="tel" type="tel" placeholder="(___) ___-____">
               </div>
               <div class="field">
-                <label class="label" for="courriel">Courriel</label>
-                <input class="input" id="courriel" type="email" placeholder="vous@email.com">
+                <label class="lbl" for="courriel">Courriel</label>
+                <input class="inp" id="courriel" type="email" placeholder="vous@email.com">
               </div>
               <div class="field">
-                <label class="label" for="ville">Ville</label>
-                <input class="input" id="ville" type="text" placeholder="Votre ville">
+                <label class="lbl" for="ville">Ville</label>
+                <input class="inp" id="ville" type="text" placeholder="Votre ville">
               </div>
               <div class="field full">
-                <label class="label" for="details">Description des travaux</label>
-                <textarea class="textarea" id="details" placeholder="Décrivez brièvement les travaux…"></textarea>
+                <label class="lbl" for="details">Description des travaux</label>
+                <textarea class="txta" id="details" placeholder="Décrivez brièvement les travaux…"></textarea>
               </div>
-              <label class="check-block">
+              <label class="check-row">
                 <input type="checkbox">
-                <span>Je confirme que ma demande est réelle et que mes informations sont exactes.</span>
+                <span>Je confirme que ma demande est réelle et mes informations exactes.</span>
               </label>
               <div class="form-foot">
                 <button class="btn btn-solid" type="submit">Envoyer ma demande</button>
-                <span class="form-note">Sans frais. Sans engagement.</span>
+                <span class="form-note">Gratuit · Sans engagement</span>
               </div>
             </form>
           </div>
         </div>
 
-        <!-- Side -->
         <div class="side">
-          <div class="side-card side-card--dark rev">
-            <div class="side-title">Comment ça marche</div>
+          <div class="sc sc--dark rev">
+            <div class="sc-title">Comment ça marche</div>
             <div class="step">
               <div class="step-n">1</div>
-              <div class="step-body"><strong>Vous remplissez une seule demande</strong>Décrivez votre besoin en quelques lignes, sans chercher vous-même.</div>
+              <div class="step-b"><strong>Remplissez une seule demande</strong>Décrivez votre besoin en quelques lignes.</div>
             </div>
             <div class="step">
               <div class="step-n">2</div>
-              <div class="step-body"><strong>On l'envoie aux pros de votre région</strong>Votre demande part vers les entrepreneurs disponibles autour de vous.</div>
+              <div class="step-b"><strong>On l'envoie aux pros de votre région</strong>Les entrepreneurs disponibles autour de vous sont contactés.</div>
             </div>
             <div class="step">
               <div class="step-n">3</div>
-              <div class="step-body"><strong>Vous êtes contacté directement</strong>Les entrepreneurs intéressés vous appellent ou vous écrivent.</div>
+              <div class="step-b"><strong>Vous êtes contacté directement</strong>Les intéressés vous appellent ou vous écrivent.</div>
             </div>
           </div>
 
-          <div class="side-card rev">
-            <div class="side-title">Ce que disent nos clients</div>
+          <div class="sc rev">
+            <div class="sc-title">Ce que disent nos clients</div>
             <div class="review">
               <div class="stars">★★★★★</div>
-              <div class="review-q">« J'ai reçu des retours rapidement et j'ai évité de chercher partout. »</div>
+              <div class="review-q">« Retours rapides, j'ai évité de chercher partout. »</div>
               <div class="review-by">Marie L. — Sherbrooke</div>
             </div>
             <div class="review">
               <div class="stars">★★★★★</div>
-              <div class="review-q">« Très simple à utiliser. J'ai comparé mes options sans perdre mon temps. »</div>
+              <div class="review-q">« Très simple. J'ai comparé sans perdre mon temps. »</div>
               <div class="review-by">Jean-Philippe R. — Magog</div>
             </div>
             <div class="review">
               <div class="stars">★★★★★</div>
-              <div class="review-q">« Une seule demande, plusieurs entrepreneurs — vraiment efficace. »</div>
+              <div class="review-q">« Une seule demande, plusieurs entrepreneurs — parfait. »</div>
               <div class="review-by">Sophie C. — Drummondville</div>
             </div>
           </div>
@@ -821,75 +954,69 @@
     </div>
   </section>
 
-  <!-- ══ ENTREPRENEUR SECTION ══ -->
+  <!-- ═══════════ ENTREPRENEUR FORM ═══════════ -->
   <section class="section section--off" id="entrepreneur">
     <div class="wrap">
       <div class="sec-head rev">
-        <div class="sec-eyebrow">Pour les entrepreneurs</div>
+        <div class="sec-tag">Pour les entrepreneurs</div>
         <h2 class="sec-h">Recevez des leads par SMS</h2>
-        <p class="sec-p">Inscrivez-vous gratuitement. Recevez un résumé des nouvelles demandes dans votre région et choisissez ceux qui vous intéressent.</p>
+        <p class="sec-p">Inscrivez-vous gratuitement. Recevez un résumé des nouvelles demandes dans votre secteur et choisissez ceux qui vous intéressent.</p>
       </div>
 
       <div class="ent-grid">
 
-        <!-- Phone -->
         <div class="rev">
-          <div class="phone-label">Exemple de message reçu</div>
-
-          <div class="phone-wrap">
-            <div class="phone-shell">
-              <div class="phone-notch"><span></span></div>
-              <div class="phone-scr">
-                <div class="phead">
-                  <div class="pav"><img src="media/logob.png" alt=""></div>
-                  <div>
-                    <div class="pname">Intermediaire.io</div>
-                    <div class="psub">Nouveau lead disponible</div>
-                  </div>
+          <div class="phone-lbl">Exemple de message reçu</div>
+          <div class="phone-shell">
+            <div class="phone-notch"><span></span></div>
+            <div class="phone-scr">
+              <div class="p-head">
+                <div class="p-av"><img src="media/logob.png" alt=""></div>
+                <div>
+                  <div class="p-name">Intermediaire.io</div>
+                  <div class="p-sub">Nouveau lead disponible</div>
                 </div>
-                <div class="pbubble">
-                  <strong>🏠 Toiture — Sherbrooke</strong>
-                  Besoin : infiltration d'eau au toit<br>
-                  Urgence : rapide<br>
-                  Demande réelle confirmée ✓
-                  <div class="pchip">Débloquer — 50 $</div>
-                </div>
-                <div class="ptime">Aujourd'hui 14:28</div>
               </div>
+              <div class="p-bubble">
+                <strong>🏠 Toiture — Sherbrooke</strong>
+                Besoin : infiltration d'eau au toit<br>
+                Urgence : rapide<br>
+                Demande réelle confirmée ✓
+                <div class="p-chip">Débloquer — 50 $</div>
+              </div>
+              <div class="p-time">Aujourd'hui 14:28</div>
             </div>
           </div>
-
-          <div class="pills">
-            <span class="pill">Infos clés visibles</span>
-            <span class="pill">Client masqué avant paiement</span>
-            <span class="pill">Vous choisissez</span>
+          <div class="leg-pills">
+            <span class="leg-pill">Infos clés visibles</span>
+            <span class="leg-pill">Client masqué avant paiement</span>
+            <span class="leg-pill">Vous choisissez</span>
           </div>
         </div>
 
-        <!-- Form -->
         <div class="card rev">
           <div class="card-head">
-            <div class="card-head-icon">
+            <div class="card-icon">
               <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             </div>
             <div>
-              <div class="card-head-title">Inscription gratuite</div>
-              <div class="card-head-sub">Recevez des leads SMS dans votre région.</div>
+              <div class="card-title">Inscription gratuite</div>
+              <div class="card-sub">Leads SMS dans votre région.</div>
             </div>
           </div>
           <div class="card-body">
             <form class="ent-form">
               <div class="field">
-                <label class="label" for="ent-name">Nom de l'entreprise</label>
-                <input class="input" id="ent-name" type="text" placeholder="Ex. Toitures Tremblay">
+                <label class="lbl" for="e-name">Nom de l'entreprise</label>
+                <input class="inp" id="e-name" type="text" placeholder="Ex. Toitures Tremblay">
               </div>
               <div class="field">
-                <label class="label" for="ent-phone">Numéro de téléphone</label>
-                <input class="input" id="ent-phone" type="tel" placeholder="(___) ___-____">
+                <label class="lbl" for="e-phone">Numéro de téléphone</label>
+                <input class="inp" id="e-phone" type="tel" placeholder="(___) ___-____">
               </div>
               <div class="field">
-                <label class="label" for="ent-service">Type de travaux</label>
-                <select class="select" id="ent-service">
+                <label class="lbl" for="e-service">Type de travaux</label>
+                <select class="sel" id="e-service">
                   <option>Toiture</option>
                   <option>Plomberie</option>
                   <option>Électricité</option>
@@ -899,13 +1026,13 @@
                 </select>
               </div>
               <div class="field">
-                <label class="label" for="ent-city">Ville / région couverte</label>
-                <input class="input" id="ent-city" type="text" placeholder="Ex. Sherbrooke">
+                <label class="lbl" for="e-city">Ville / région couverte</label>
+                <input class="inp" id="e-city" type="text" placeholder="Ex. Sherbrooke">
               </div>
-              <button class="btn btn-solid" type="submit" style="width:100%; justify-content:center">
+              <button class="btn btn-solid" type="submit" style="width:100%;justify-content:center">
                 M'inscrire gratuitement
               </button>
-              <div class="ent-note">Aucun frais d'inscription. Vous choisissez les leads qui vous intéressent et les payez individuellement. Pas d'abonnement.</div>
+              <div class="ent-note">Aucun frais d'inscription. Vous payez uniquement les leads qui vous intéressent. Pas d'abonnement.</div>
             </form>
           </div>
         </div>
@@ -914,7 +1041,7 @@
     </div>
   </section>
 
-  <!-- ══ FOOTER ══ -->
+  <!-- ═══════════ FOOTER ═══════════ -->
   <footer class="footer">
     <div class="wrap">
       <div class="footer-inner">
@@ -928,12 +1055,26 @@
   </footer>
 
   <script>
+    // Tab switcher
+    function switchTab(id, btn) {
+      document.querySelectorAll('.adv-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.adv-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      const panel = document.getElementById('panel-' + id);
+      panel.classList.add('active');
+      // re-trigger reveal for newly visible cards
+      panel.querySelectorAll('.rev').forEach(el => {
+        el.classList.remove('on');
+        requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('on')));
+      });
+    }
+
     // Scroll reveal
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); }
       });
-    }, { threshold: 0.07 });
+    }, { threshold: 0.06 });
     document.querySelectorAll('.rev').forEach(el => obs.observe(el));
   </script>
 
