@@ -4,34 +4,38 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Intermediaire.io</title>
-  <meta name="description" content="Intermediaire.io aide à trouver le bon service local simplement." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@500;700;800;900&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Clash Display: moderne, costaud, caractère. Plus Outfit pour le corps. -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --white:    #FFFFFF;
-      --bg:       #F3F7FB;
-      --blue:     #2163C8;
-      --blue-mid: #3A7EE0;
-      --blue-pale:#DDE9F8;
-      --blue-tint:#F0F5FC;
-      --ink:      #13243A;
-      --body:     #3C5268;
-      --soft:     #7A90A4;
-      --line:     #D6E2EF;
-      --shadow-card: 0 2px 0 #D0DCEA, 0 12px 36px rgba(19,36,58,.07);
-      --shadow-btn:  0 4px 16px rgba(33,99,200,.22);
-      --r-card: 18px;
-      --r-btn: 11px;
+      --az:        #55add9;
+      --az-deep:   #2e8fbf;
+      --az-dark:   #1a6a99;
+      --az-light:  #85caeb;
+      --az-pale:   #d4edf7;
+      --az-tint:   #eef7fc;
+      --az-glow:   rgba(85,173,217,.22);
+
+      --white:     #ffffff;
+      --off:       #f7fafc;
+      --ink:       #0d1f2d;
+      --body:      #3a5568;
+      --muted:     #7a96a8;
+      --line:      #d8e8f0;
+
+      --r:         16px;
+      --r-lg:      24px;
+      --r-xl:      32px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Figtree', system-ui, sans-serif;
+      font-family: 'Outfit', system-ui, sans-serif;
       color: var(--ink);
       background: var(--white);
       overflow-x: hidden;
@@ -40,709 +44,697 @@
     a { text-decoration: none; color: inherit; }
     img { display: block; max-width: 100%; }
 
-    /* ── NAV ── */
-    .nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .nav-inner {
-      width: min(1140px, calc(100% - 40px));
-      margin: 0 auto;
-      height: 62px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .nav-logo {
-      display: flex; align-items: center; gap: 10px;
-    }
-
-    .nav-logo img { width: 34px; height: 34px; object-fit: contain; }
-
-    .nav-logo-name {
-      font-family: 'Epilogue', sans-serif;
-      font-weight: 800; font-size: 17px;
-      color: var(--ink); letter-spacing: -0.025em;
-    }
-
-    .nav-links { display: flex; align-items: center; gap: 4px; }
-
-    .nav-link {
-      padding: 8px 14px; font-size: 14px; font-weight: 600;
-      color: var(--body); border-radius: 8px;
-      transition: background .14s, color .14s;
-    }
-
-    .nav-link:hover { background: var(--blue-tint); color: var(--blue); }
-
-    .nav-btn {
-      padding: 9px 18px;
-      background: var(--blue); color: #fff;
-      font-family: 'Epilogue', sans-serif;
-      font-weight: 700; font-size: 14px;
-      border-radius: var(--r-btn);
-      box-shadow: var(--shadow-btn);
-      transition: background .14s, transform .14s;
-    }
-
-    .nav-btn:hover { background: var(--blue-mid); transform: translateY(-1px); }
-
-    /* ── HERO ── */
+    /* ══════════════════════════
+       HERO — fond blanc, azur en force
+    ══════════════════════════ */
     .hero {
+      min-height: 100svh;
       background: var(--white);
-      padding: 80px 0 76px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 64px 24px 80px;
       position: relative;
       overflow: hidden;
     }
 
-    /* Subtle diagonal lines — like graph paper, grounded */
-    .hero::before {
+    /* Blob mesh background — vivant, pas flat */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .hero-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.55;
+    }
+
+    .blob-a {
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, #55add9 0%, #85caeb 40%, transparent 70%);
+      top: -280px; left: 50%;
+      transform: translateX(-50%);
+      animation: blobDrift 10s ease-in-out infinite alternate;
+    }
+
+    .blob-b {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, #2e8fbf 0%, transparent 70%);
+      bottom: -120px; right: -80px;
+      animation: blobDrift2 13s ease-in-out infinite alternate;
+      opacity: 0.3;
+    }
+
+    .blob-c {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, #85caeb 0%, transparent 70%);
+      bottom: 40px; left: -60px;
+      animation: blobDrift 11s ease-in-out infinite alternate-reverse;
+      opacity: 0.25;
+    }
+
+    @keyframes blobDrift {
+      from { transform: translateX(-50%) translateY(0) scale(1); }
+      to   { transform: translateX(-50%) translateY(-30px) scale(1.06); }
+    }
+
+    @keyframes blobDrift2 {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(-20px, -20px) scale(1.08); }
+    }
+
+    /* Subtle dot grid */
+    .hero-bg::after {
       content: '';
       position: absolute; inset: 0;
-      background-image: repeating-linear-gradient(
-        -52deg,
-        transparent, transparent 32px,
-        rgba(33,99,200,0.028) 32px,
-        rgba(33,99,200,0.028) 33px
-      );
-      pointer-events: none;
+      background-image: radial-gradient(circle, rgba(85,173,217,.18) 1.5px, transparent 1.5px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
     }
 
-    .hero::after {
-      content: '';
-      position: absolute;
-      width: 640px; height: 640px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(33,99,200,0.06) 0%, transparent 65%);
-      top: -220px; right: -200px;
-      pointer-events: none;
-    }
-
-    .hero-wrap {
-      width: min(1140px, calc(100% - 40px));
-      margin: 0 auto;
+    .hero-inner {
       position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center;
+      max-width: 760px;
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: center;
+    /* Logo */
+    .hero-logo {
+      width: 110px; height: 110px;
+      object-fit: contain;
+      margin-bottom: 28px;
+      filter: drop-shadow(0 8px 32px rgba(85,173,217,.35));
+      animation: logoFloat 7s ease-in-out infinite;
     }
 
-    /* Badge */
-    .badge {
-      display: inline-flex; align-items: center; gap: 7px;
-      padding: 6px 13px 6px 8px;
-      background: var(--blue-tint);
-      border: 1px solid var(--blue-pale);
-      border-radius: 999px;
-      font-size: 12px; font-weight: 600; color: var(--blue);
+    @keyframes logoFloat {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-8px); }
+    }
+
+    /* Site name */
+    .hero-sitename {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--az-dark);
       margin-bottom: 22px;
-    }
-
-    .badge-dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: var(--blue);
-      animation: blink 2.2s ease-in-out infinite;
-    }
-
-    @keyframes blink {
-      0%,100% { opacity:1; } 50% { opacity:.35; }
+      opacity: 0.8;
     }
 
     .hero-title {
-      font-family: 'Epilogue', sans-serif;
-      font-size: clamp(36px, 4.6vw, 58px);
+      font-size: clamp(42px, 7vw, 88px);
       font-weight: 900;
-      line-height: 1.06;
-      letter-spacing: -0.038em;
+      line-height: 1.0;
+      letter-spacing: -0.04em;
       color: var(--ink);
-      margin-bottom: 18px;
+      margin-bottom: 6px;
     }
 
-    .hero-title .accent { color: var(--blue); }
+    .hero-title .line2 {
+      color: var(--az);
+      display: block;
+    }
 
     .hero-sub {
-      font-size: 17px; font-weight: 400;
-      line-height: 1.68; color: var(--body);
-      margin-bottom: 34px; max-width: 430px;
+      margin-top: 20px;
+      font-size: clamp(16px, 2vw, 20px);
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--body);
+      max-width: 560px;
     }
 
-    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 13px 22px;
-      background: var(--blue); color: #fff;
-      font-family: 'Epilogue', sans-serif;
-      font-weight: 700; font-size: 15px;
-      border-radius: var(--r-btn);
-      box-shadow: var(--shadow-btn);
-      transition: background .16s, transform .16s, box-shadow .16s;
-      border: none; cursor: pointer; letter-spacing: -0.01em;
+    /* CTA pair */
+    .hero-ctas {
+      margin-top: 40px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
-    .btn-primary:hover {
-      background: var(--blue-mid);
+    .btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px; font-weight: 700;
+      border-radius: var(--r);
+      padding: 16px 30px;
+      border: none; cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      letter-spacing: -0.01em;
+    }
+
+    .btn-solid {
+      background: var(--az);
+      color: #fff;
+      box-shadow: 0 6px 28px rgba(85,173,217,.45), 0 2px 0 var(--az-deep) inset;
+    }
+
+    .btn-solid:hover {
+      background: var(--az-deep);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(85,173,217,.5);
+    }
+
+    .btn-outline {
+      background: rgba(255,255,255,0.7);
+      color: var(--ink);
+      border: 2px solid var(--line);
+      backdrop-filter: blur(8px);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--az-pale);
+      background: var(--az-tint);
+      color: var(--az-dark);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(33,99,200,.28);
     }
 
-    .btn-ghost {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 13px 22px;
-      background: transparent; color: var(--body);
-      font-family: 'Epilogue', sans-serif;
-      font-weight: 700; font-size: 15px;
-      border-radius: var(--r-btn);
-      border: 1.5px solid var(--line);
-      transition: border-color .16s, color .16s, background .16s;
-      cursor: pointer; letter-spacing: -0.01em;
+    /* Scroll hint */
+    .scroll-hint {
+      margin-top: 52px;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      color: var(--muted); font-size: 11px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      animation: fadeIn 1s ease 0.8s both;
     }
 
-    .btn-ghost:hover {
-      border-color: var(--blue-pale);
-      background: var(--blue-tint);
-      color: var(--blue);
+    @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+    .scroll-bar {
+      width: 2px; height: 44px; border-radius: 2px;
+      background: linear-gradient(180deg, var(--az) 0%, transparent 100%);
+      animation: scrollPulse 1.8s ease-in-out infinite;
     }
 
-    .hero-trust {
-      margin-top: 26px;
-      display: flex; align-items: center; gap: 10px;
-      font-size: 13px; color: var(--soft); font-weight: 500;
+    @keyframes scrollPulse {
+      0%,100% { opacity:.4; transform:scaleY(1); }
+      50%      { opacity:1; transform:scaleY(0.6); }
     }
 
-    .trust-faces { display: flex; }
-
-    .trust-face {
-      width: 28px; height: 28px; border-radius: 50%;
-      border: 2px solid #fff;
-      background: var(--blue-pale);
-      margin-left: -8px;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Epilogue', sans-serif;
-      font-weight: 800; font-size: 10px; color: var(--blue);
-    }
-
-    .trust-face:first-child { margin-left: 0; }
-
-    /* Hero right — cards */
-    .hero-right { display: flex; flex-direction: column; gap: 14px; }
-
-    .h-cards-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-
-    .h-card {
-      background: var(--white);
-      border: 1px solid var(--line);
-      border-radius: var(--r-card);
-      padding: 20px 22px;
-      box-shadow: var(--shadow-card);
-      transition: transform .2s;
-    }
-
-    .h-card:hover { transform: translateY(-3px); }
-
-    .h-card--blue { background: var(--blue); border-color: var(--blue); }
-
-    .h-card-lbl {
-      font-size: 11px; font-weight: 600;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--soft); margin-bottom: 5px;
-    }
-
-    .h-card--blue .h-card-lbl { color: rgba(255,255,255,.55); }
-
-    .h-card-val {
-      font-family: 'Epilogue', sans-serif;
-      font-size: 30px; font-weight: 900;
-      color: var(--ink); letter-spacing: -0.04em; line-height: 1;
-      margin-bottom: 4px;
-    }
-
-    .h-card--blue .h-card-val { color: #fff; }
-    .h-card-val .unit { font-size: 16px; color: var(--blue); font-weight: 700; }
-    .h-card--blue .h-card-val .unit { color: rgba(255,255,255,.6); }
-
-    .h-card-sub { font-size: 12px; color: var(--soft); }
-    .h-card--blue .h-card-sub { color: rgba(255,255,255,.5); }
-
-    /* SMS preview */
-    .sms-prev {
-      background: var(--white);
-      border: 1px solid var(--line);
-      border-radius: var(--r-card);
-      padding: 18px 20px;
-      box-shadow: var(--shadow-card);
-    }
-
-    .sms-prev-top {
-      display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
-    }
-
-    .sms-logo-wrap {
-      width: 32px; height: 32px; border-radius: 9px;
-      overflow: hidden; flex-shrink: 0;
-      border: 1px solid var(--line);
-    }
-
-    .sms-logo-wrap img { width: 100%; height: 100%; object-fit: contain; }
-    .sms-from { font-family: 'Epilogue',sans-serif; font-size: 13px; font-weight: 800; color: var(--ink); }
-    .sms-ts { font-size: 12px; color: var(--soft); margin-left: auto; }
-
-    .sms-msg {
-      background: var(--bg);
-      border-radius: 12px 12px 12px 4px;
-      padding: 13px 15px;
-      font-size: 13px; line-height: 1.62; color: var(--body);
-    }
-
-    .sms-msg strong { color: var(--ink); font-weight: 600; display: block; margin-bottom: 5px; }
-
-    .sms-chip {
-      display: inline-block; margin-top: 10px;
-      padding: 5px 13px;
-      background: var(--blue); color: #fff;
-      border-radius: 999px;
-      font-family: 'Epilogue',sans-serif; font-size: 12px; font-weight: 700;
-    }
-
-    .h-card-body { font-size: 14px; color: var(--body); line-height: 1.6; }
-
-    /* ── FEATURES BAND ── */
-    .band {
-      background: var(--blue);
+    /* ══════════════════════════
+       STRIP — 3 features
+    ══════════════════════════ */
+    .strip {
+      background: var(--az);
+      background: linear-gradient(135deg, var(--az-deep) 0%, var(--az) 50%, var(--az-light) 100%);
       padding: 0;
     }
 
-    .band-grid {
-      width: min(1140px, calc(100% - 40px));
+    .strip-grid {
+      width: min(1160px, 100%);
       margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
     }
 
-    .band-item {
-      padding: 48px 40px;
-      border-right: 1px solid rgba(255,255,255,.12);
+    .strip-item {
+      padding: 44px 40px;
+      border-right: 1px solid rgba(255,255,255,.15);
+      position: relative;
     }
 
-    .band-item:last-child { border-right: none; }
+    .strip-item:last-child { border-right: none; }
 
-    .band-icon {
-      width: 44px; height: 44px; border-radius: 12px;
-      background: rgba(255,255,255,.12);
+    .strip-icon {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.15);
       display: flex; align-items: center; justify-content: center;
       margin-bottom: 18px;
+      backdrop-filter: blur(6px);
     }
 
-    .band-icon svg { width: 22px; height: 22px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-
-    .band-title {
-      font-family: 'Epilogue', sans-serif;
-      font-size: 17px; font-weight: 800;
-      color: #fff; letter-spacing: -0.025em; margin-bottom: 8px;
+    .strip-icon svg {
+      width: 24px; height: 24px;
+      stroke: #fff; fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
     }
 
-    .band-desc { font-size: 14px; color: rgba(255,255,255,.6); line-height: 1.65; }
+    .strip-title {
+      font-size: 18px; font-weight: 800;
+      color: #fff; margin-bottom: 8px; letter-spacing: -0.025em;
+    }
 
-    /* ── SECTION ── */
-    .section { padding: 96px 0; }
-    .section--grey { background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .strip-desc { font-size: 14px; color: rgba(255,255,255,.7); line-height: 1.65; font-weight: 400; }
 
-    .wrap { width: min(1140px, calc(100% - 40px)); margin: 0 auto; }
+    /* ══════════════════════════
+       SECTION
+    ══════════════════════════ */
+    .section { padding: 100px 0; }
+    .section--off { background: var(--off); }
 
-    .sec-tag {
-      display: inline-flex; align-items: center; gap: 8px;
+    .wrap { width: min(1160px, calc(100% - 48px)); margin: 0 auto; }
+
+    .sec-eyebrow {
+      display: inline-flex; align-items: center; gap: 9px;
       font-size: 12px; font-weight: 700;
-      letter-spacing: .1em; text-transform: uppercase;
-      color: var(--blue); margin-bottom: 12px;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--az);
+      margin-bottom: 14px;
     }
 
-    .sec-tag::before { content: ''; width: 22px; height: 2px; background: var(--blue); border-radius: 2px; }
-
-    .sec-title {
-      font-family: 'Epilogue', sans-serif;
-      font-size: clamp(28px, 3.4vw, 44px);
-      font-weight: 900; letter-spacing: -0.038em;
-      line-height: 1.06; color: var(--ink); margin-bottom: 12px;
+    .sec-eyebrow::before {
+      content: ''; display: block;
+      width: 28px; height: 3px;
+      background: var(--az); border-radius: 3px;
     }
 
-    .sec-desc { font-size: 16px; color: var(--body); line-height: 1.7; max-width: 520px; }
-    .sec-head { margin-bottom: 52px; }
+    .sec-h {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 900; letter-spacing: -0.04em;
+      line-height: 1.04; color: var(--ink); margin-bottom: 14px;
+    }
 
-    /* Client layout */
-    .client-layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 28px; align-items: start; }
+    .sec-p {
+      font-size: 17px; color: var(--body);
+      line-height: 1.7; max-width: 520px; font-weight: 400;
+    }
 
-    .form-card {
+    .sec-head { margin-bottom: 60px; }
+
+    /* ══════════════════════════
+       CLIENT LAYOUT
+    ══════════════════════════ */
+    .client-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 32px; align-items: start;
+    }
+
+    /* Form card */
+    .card {
       background: var(--white);
       border: 1px solid var(--line);
-      border-radius: var(--r-card);
-      box-shadow: var(--shadow-card);
+      border-radius: var(--r-xl);
+      box-shadow: 0 4px 0 var(--az-pale), 0 20px 50px rgba(13,31,45,.07);
       overflow: hidden;
     }
 
-    .form-card-top {
-      padding: 22px 26px 18px;
+    .card-head {
+      padding: 26px 32px 22px;
+      background: linear-gradient(135deg, var(--az-tint), var(--white));
       border-bottom: 1px solid var(--line);
-      background: var(--bg);
+      display: flex; align-items: center; gap: 16px;
     }
 
-    .form-card-title { font-family: 'Epilogue',sans-serif; font-size: 19px; font-weight: 800; color: var(--ink); letter-spacing: -0.025em; margin-bottom: 2px; }
-    .form-card-desc { font-size: 13px; color: var(--soft); }
+    .card-head-icon {
+      width: 42px; height: 42px; border-radius: 12px;
+      background: var(--az);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(85,173,217,.35);
+    }
 
-    .form-bd { padding: 22px 26px 26px; }
+    .card-head-icon svg {
+      width: 20px; height: 20px; stroke: #fff; fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
 
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
-    .field { display: flex; flex-direction: column; gap: 5px; }
+    .card-head-title {
+      font-size: 20px; font-weight: 800;
+      color: var(--ink); letter-spacing: -0.025em; margin-bottom: 2px;
+    }
+
+    .card-head-sub { font-size: 13px; color: var(--muted); font-weight: 400; }
+
+    .card-body { padding: 28px 32px 32px; }
+
+    /* Form fields */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
     .field.full { grid-column: 1 / -1; }
 
-    .label { font-size: 12px; font-weight: 700; color: var(--ink); }
+    .label {
+      font-size: 12px; font-weight: 700;
+      color: var(--ink); letter-spacing: 0.01em;
+    }
 
     .input, .select, .textarea {
       width: 100%;
       border: 1.5px solid var(--line);
-      background: var(--white); color: var(--ink);
-      border-radius: 10px; padding: 11px 13px;
-      font-family: 'Figtree', sans-serif; font-size: 14px;
+      background: var(--off);
+      color: var(--ink);
+      border-radius: 12px;
+      padding: 13px 15px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px; font-weight: 400;
       outline: none;
-      transition: border-color .14s, box-shadow .14s;
-      -webkit-appearance: none;
+      transition: border-color .15s, box-shadow .15s, background .15s;
     }
 
-    .input::placeholder, .textarea::placeholder { color: var(--soft); }
+    .input::placeholder, .textarea::placeholder { color: var(--muted); }
 
     .input:focus, .select:focus, .textarea:focus {
-      border-color: var(--blue-mid);
-      box-shadow: 0 0 0 3px rgba(33,99,200,.1);
+      border-color: var(--az);
+      box-shadow: 0 0 0 3px rgba(85,173,217,.15);
+      background: var(--white);
     }
 
     .select {
       appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237A90A4' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 12px center;
-      padding-right: 36px; cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237a96a8' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-color: var(--off);
+      padding-right: 40px;
+      cursor: pointer;
     }
 
-    .textarea { min-height: 108px; resize: vertical; line-height: 1.6; }
+    .select:focus { background-color: var(--white); }
 
-    .check-row {
+    .textarea { min-height: 114px; resize: vertical; line-height: 1.6; }
+
+    .check-block {
       grid-column: 1/-1;
-      display: flex; gap: 10px; align-items: flex-start;
-      padding: 12px 13px;
-      background: var(--blue-tint);
-      border: 1px solid var(--blue-pale); border-radius: 10px;
+      display: flex; gap: 11px; align-items: flex-start;
+      padding: 14px 16px;
+      border: 1.5px solid var(--az-pale);
+      background: var(--az-tint);
+      border-radius: 12px;
     }
 
-    .check-row input { accent-color: var(--blue); width: 15px; height: 15px; flex-shrink: 0; margin-top: 1px; }
-    .check-row span { font-size: 13px; color: var(--body); line-height: 1.5; }
+    .check-block input { accent-color: var(--az); width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; }
+    .check-block span { font-size: 13px; color: var(--body); line-height: 1.5; font-weight: 400; }
 
-    .submit-row { grid-column: 1/-1; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-    .submit-note { font-size: 12px; color: var(--soft); }
+    .form-foot {
+      grid-column: 1/-1;
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    }
 
-    /* Side */
-    .client-side { display: flex; flex-direction: column; gap: 18px; }
+    .form-note { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+    /* Side column */
+    .side { display: flex; flex-direction: column; gap: 20px; }
 
     .side-card {
       background: var(--white);
       border: 1px solid var(--line);
-      border-radius: var(--r-card);
-      padding: 22px 24px;
-      box-shadow: var(--shadow-card);
+      border-radius: var(--r-lg);
+      padding: 26px;
+      box-shadow: 0 2px 0 var(--az-pale), 0 14px 36px rgba(13,31,45,.05);
     }
 
-    .side-title { font-family: 'Epilogue',sans-serif; font-size: 17px; font-weight: 800; color: var(--ink); letter-spacing: -0.025em; margin-bottom: 16px; }
+    .side-card--dark {
+      background: var(--ink);
+      border-color: var(--ink);
+    }
 
-    .step { display: flex; gap: 13px; padding: 13px 0; border-top: 1px solid var(--line); }
+    .side-title {
+      font-size: 17px; font-weight: 800;
+      color: var(--ink); letter-spacing: -0.025em; margin-bottom: 20px;
+    }
+
+    .side-card--dark .side-title { color: #fff; }
+
+    /* Steps */
+    .step { display: flex; gap: 14px; padding: 14px 0; border-top: 1px solid var(--line); }
     .step:first-of-type { border-top: none; padding-top: 0; }
+    .side-card--dark .step { border-color: rgba(255,255,255,.08); }
 
-    .step-num {
-      width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0;
-      background: var(--blue-tint); border: 1px solid var(--blue-pale);
+    .step-n {
+      width: 32px; height: 32px; border-radius: 9px; flex-shrink: 0;
+      background: var(--az);
       display: flex; align-items: center; justify-content: center;
-      font-family: 'Epilogue',sans-serif; font-size: 13px; font-weight: 900; color: var(--blue);
+      font-size: 13px; font-weight: 800; color: #fff;
+      box-shadow: 0 4px 12px rgba(85,173,217,.35);
     }
 
-    .step-body strong { display: block; font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
-    .step-body { font-size: 13px; color: var(--soft); line-height: 1.55; }
+    .step-body strong {
+      display: block; font-size: 14px; font-weight: 700;
+      color: var(--ink); margin-bottom: 2px;
+    }
 
-    .review { padding: 13px 0; border-top: 1px solid var(--line); }
+    .side-card--dark .step-body strong { color: #fff; }
+
+    .step-body {
+      font-size: 13px; color: var(--muted); line-height: 1.55; font-weight: 400;
+    }
+
+    .side-card--dark .step-body { color: rgba(255,255,255,.45); }
+
+    /* Reviews */
+    .review { padding: 14px 0; border-top: 1px solid var(--line); }
     .review:first-of-type { border-top: none; padding-top: 0; }
 
-    .stars { display: flex; gap: 2px; margin-bottom: 7px; }
-    .star { font-size: 13px; color: #F5A623; }
+    .stars { font-size: 14px; color: #f5a623; margin-bottom: 7px; }
 
-    .review-txt { font-size: 14px; color: var(--body); line-height: 1.6; font-style: italic; margin-bottom: 6px; }
-    .review-by { font-size: 12px; font-weight: 700; color: var(--soft); }
+    .review-q {
+      font-size: 14px; color: var(--body); line-height: 1.6;
+      font-style: italic; margin-bottom: 7px; font-weight: 400;
+    }
 
-    /* ── ENT SECTION ── */
-    .ent-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+    .review-by { font-size: 12px; font-weight: 700; color: var(--muted); }
 
-    .phone-col {}
-    .phone-label-txt { font-family: 'Epilogue',sans-serif; font-size: 17px; font-weight: 800; color: var(--ink); letter-spacing: -0.025em; margin-bottom: 20px; }
+    /* ══════════════════════════
+       ENT SECTION
+    ══════════════════════════ */
+    .ent-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px; align-items: start;
+    }
+
+    /* Phone */
+    .phone-label {
+      font-size: 17px; font-weight: 800;
+      color: var(--ink); letter-spacing: -0.025em; margin-bottom: 24px;
+    }
+
+    .phone-wrap {
+      max-width: 300px;
+    }
 
     .phone-shell {
-      background: #1B1B1D;
-      border-radius: 42px;
-      padding: 14px;
-      max-width: 300px;
-      margin: 0 auto;
-      box-shadow: 0 2px 0 rgba(255,255,255,0.05) inset, 0 28px 56px rgba(0,0,0,.32);
-      border: 1px solid rgba(255,255,255,0.07);
+      background: #18181b;
+      border-radius: 44px;
+      padding: 16px;
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.07),
+        0 40px 80px rgba(0,0,0,.35),
+        0 0 0 1px #111;
     }
 
-    .phone-pill { display: flex; justify-content: center; margin-bottom: 12px; }
-    .phone-pill span { display: block; width: 80px; height: 6px; background: #2a2a2c; border-radius: 99px; }
+    .phone-notch { display: flex; justify-content: center; margin-bottom: 12px; }
+    .phone-notch span { display: block; width: 80px; height: 6px; border-radius: 99px; background: #2a2a2e; }
 
     .phone-scr {
-      background: #F2F2F7;
+      background: #f2f2f7;
       border-radius: 30px;
-      padding: 18px;
+      padding: 20px;
     }
 
-    .pscr-head { display: flex; align-items: center; gap: 9px; margin-bottom: 14px; }
+    .phead {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+    }
 
-    .pscr-av {
-      width: 34px; height: 34px; border-radius: 50%;
-      background: #fff; border: 1px solid rgba(0,0,0,.07);
+    .pav {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--white); border: 1px solid rgba(0,0,0,.07);
       overflow: hidden; flex-shrink: 0;
     }
 
-    .pscr-av img { width: 100%; height: 100%; object-fit: contain; }
-    .pscr-name { font-family: 'Epilogue',sans-serif; font-size: 13px; font-weight: 800; color: #1C1C1E; }
-    .pscr-sub { font-size: 11px; color: #8E8E93; }
+    .pav img { width: 100%; height: 100%; object-fit: contain; }
+    .pname { font-size: 13px; font-weight: 800; color: #1c1c1e; }
+    .psub { font-size: 11px; color: #8e8e93; font-weight: 500; }
 
-    .pscr-bubble {
+    .pbubble {
       background: #fff;
-      border-radius: 14px 14px 14px 4px;
-      padding: 13px 15px;
-      font-size: 13px; line-height: 1.62; color: #2C2C2E;
-      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+      border-radius: 16px 16px 16px 4px;
+      padding: 15px 17px;
+      font-size: 13px; line-height: 1.65; color: #2c2c2e;
+      box-shadow: 0 3px 10px rgba(0,0,0,.07);
     }
 
-    .pscr-bubble strong { font-weight: 700; color: #1C1C1E; display: block; margin-bottom: 5px; font-size: 13.5px; }
-
-    .pscr-chip {
-      display: inline-flex; align-items: center;
-      margin-top: 11px; padding: 6px 13px;
-      background: var(--blue); color: #fff;
-      border-radius: 999px;
-      font-family: 'Epilogue',sans-serif; font-size: 12px; font-weight: 700;
+    .pbubble strong {
+      font-weight: 700; color: #1c1c1e;
+      display: block; margin-bottom: 6px; font-size: 13.5px;
     }
 
-    .pscr-time { margin-top: 8px; font-size: 11px; color: #8E8E93; text-align: right; }
+    .pchip {
+      display: inline-flex; align-items: center; gap: 5px;
+      margin-top: 12px; padding: 7px 14px;
+      background: var(--az);
+      color: #fff; border-radius: 999px;
+      font-size: 12px; font-weight: 700;
+      box-shadow: 0 4px 12px rgba(85,173,217,.4);
+    }
 
-    .legend-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+    .ptime { margin-top: 9px; font-size: 11px; color: #8e8e93; text-align: right; }
 
-    .leg-pill {
-      padding: 7px 13px; border-radius: 999px;
-      background: var(--white); border: 1px solid var(--line);
+    .pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+
+    .pill {
+      padding: 7px 14px; border-radius: 999px;
+      border: 1.5px solid var(--line);
+      background: var(--white);
       font-size: 12px; font-weight: 600; color: var(--body);
     }
 
     /* Ent form */
-    .ent-card {
-      background: var(--white);
-      border: 1px solid var(--line);
-      border-radius: var(--r-card);
-      box-shadow: var(--shadow-card);
-      overflow: hidden;
+    .ent-form { display: flex; flex-direction: column; gap: 14px; }
+    .ent-note { font-size: 13px; color: var(--muted); line-height: 1.55; margin-top: 2px; }
+
+    /* ══════════════════════════
+       FOOTER
+    ══════════════════════════ */
+    .footer {
+      background: var(--ink);
+      padding: 40px 0;
     }
-
-    .ent-card-top {
-      padding: 22px 26px 18px;
-      border-bottom: 1px solid var(--line);
-      background: var(--bg);
-    }
-
-    .ent-card-body { padding: 22px 26px 26px; }
-
-    .ent-form { display: flex; flex-direction: column; gap: 13px; }
-    .ent-note { font-size: 12px; color: var(--soft); line-height: 1.55; margin-top: 4px; }
-
-    /* ── FOOTER ── */
-    .footer { background: var(--ink); padding: 34px 0; }
 
     .footer-inner {
       display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 14px;
+      flex-wrap: wrap; gap: 16px;
     }
 
-    .footer-logo {
-      display: flex; align-items: center; gap: 10px;
-      font-family: 'Epilogue',sans-serif; font-weight: 800; font-size: 16px;
-      color: rgba(255,255,255,.65); letter-spacing: -0.02em;
+    .footer-brand {
+      display: flex; align-items: center; gap: 12px;
     }
 
-    .footer-logo img { width: 28px; height: 28px; object-fit: contain; opacity: .8; }
+    .footer-brand img { width: 32px; height: 32px; object-fit: contain; opacity: .85; }
+
+    .footer-brand-name {
+      font-size: 16px; font-weight: 800;
+      color: rgba(255,255,255,.7); letter-spacing: -0.02em;
+    }
+
     .footer-copy { font-size: 13px; color: rgba(255,255,255,.28); }
 
-    /* ── SCROLL REVEAL ── */
-    .reveal {
-      opacity: 0; transform: translateY(20px);
-      transition: opacity .58s ease, transform .58s ease;
+    /* ══════════════════════════
+       REVEAL ANIMATION
+    ══════════════════════════ */
+    .rev {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1);
     }
 
-    .reveal.on { opacity: 1; transform: translateY(0); }
+    .rev.on { opacity: 1; transform: none; }
 
-    /* ── RESPONSIVE ── */
+    /* ══════════════════════════
+       RESPONSIVE
+    ══════════════════════════ */
     @media (max-width: 960px) {
-      .hero-grid, .client-layout, .ent-layout { grid-template-columns: 1fr; gap: 36px; }
-      .band-grid { grid-template-columns: 1fr; }
-      .band-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,.12); padding: 32px 28px; }
-      .band-item:last-child { border-bottom: none; }
-      .nav-links { display: none; }
+      .client-grid, .ent-grid { grid-template-columns: 1fr; gap: 28px; }
+      .strip-grid { grid-template-columns: 1fr; }
+      .strip-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,.15); padding: 32px 28px; }
+      .strip-item:last-child { border-bottom: none; }
     }
 
-    @media (max-width: 580px) {
-      .hero { padding: 48px 0 52px; }
-      .section { padding: 60px 0; }
+    @media (max-width: 600px) {
+      .hero { padding: 48px 20px 60px; }
+      .hero-logo { width: 88px; height: 88px; }
+      .section { padding: 64px 0; }
       .form-grid { grid-template-columns: 1fr; }
-      .h-cards-row { grid-template-columns: 1fr 1fr; }
-      .hero-trust { display: none; }
+      .card-body { padding: 22px 22px 26px; }
+      .card-head { padding: 20px 22px 18px; }
+      .side-card { padding: 20px; }
+      .btn { padding: 14px 22px; font-size: 15px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav class="nav">
-    <div class="nav-inner">
-      <a class="nav-logo" href="#top">
-        <img src="media/logob.png" alt="Intermediaire.io">
-        <span class="nav-logo-name">Intermediaire.io</span>
-      </a>
-      <div class="nav-links">
-        <a class="nav-link" href="#client">Je cherche un service</a>
-        <a class="nav-link" href="#entrepreneur">Je suis entrepreneur</a>
-      </div>
-      <a class="nav-btn" href="#entrepreneur">S'inscrire gratuitement</a>
+  <!-- ══ HERO ══ -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-blob blob-a"></div>
+      <div class="hero-blob blob-b"></div>
+      <div class="hero-blob blob-c"></div>
     </div>
-  </nav>
 
-  <!-- HERO -->
-  <section class="hero" id="top">
-    <div class="hero-wrap">
-      <div class="hero-grid">
+    <div class="hero-inner">
+      <img class="hero-logo" src="media/logob.png" alt="Intermediaire.io">
 
-        <div class="hero-left">
-          <div class="badge">
-            <span class="badge-dot"></span>
-            Simple · Rapide · Local
-          </div>
+      <div class="hero-sitename">Intermediaire.io</div>
 
-          <h1 class="hero-title">
-            Le bon entrepreneur,<br>
-            <span class="accent">trouvé en minutes.</span>
-          </h1>
+      <h1 class="hero-title">
+        Le bon entrepreneur,
+        <span class="line2">trouvé en minutes.</span>
+      </h1>
 
-          <p class="hero-sub">
-            Décrivez votre besoin une seule fois. On l'envoie directement aux entrepreneurs de votre région — pas besoin de chercher partout.
-          </p>
+      <p class="hero-sub">
+        Décrivez votre besoin une seule fois — on l'envoie directement aux entrepreneurs de votre région. Pas besoin de chercher partout.
+      </p>
 
-          <div class="hero-ctas">
-            <a class="btn-primary" href="#client">Faire une demande</a>
-            <a class="btn-ghost" href="#entrepreneur">Je suis entrepreneur →</a>
-          </div>
+      <div class="hero-ctas">
+        <a class="btn btn-solid" href="#client">
+          Je cherche un service
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </a>
+        <a class="btn btn-outline" href="#entrepreneur">
+          Je suis entrepreneur
+        </a>
+      </div>
 
-          <div class="hero-trust">
-            <div class="trust-faces">
-              <div class="trust-face">ML</div>
-              <div class="trust-face">JR</div>
-              <div class="trust-face">SC</div>
-              <div class="trust-face">+</div>
-            </div>
-            Des clients satisfaits dans votre région
-          </div>
-        </div>
-
-        <div class="hero-right">
-          <div class="h-cards-row">
-            <div class="h-card h-card--blue">
-              <div class="h-card-lbl">Demandes</div>
-              <div class="h-card-val">1<span class="unit">×</span></div>
-              <div class="h-card-sub">Une seule soumission</div>
-            </div>
-            <div class="h-card">
-              <div class="h-card-lbl">Inscription</div>
-              <div class="h-card-val">0<span class="unit">$</span></div>
-              <div class="h-card-sub">Gratuit, sans engagement</div>
-            </div>
-          </div>
-
-          <div class="sms-prev">
-            <div class="sms-prev-top">
-              <div class="sms-logo-wrap"><img src="media/logob.png" alt=""></div>
-              <div class="sms-from">Intermediaire.io</div>
-              <div class="sms-ts">14:28</div>
-            </div>
-            <div class="sms-msg">
-              <strong>🏠 Nouveau lead — Toiture · Sherbrooke</strong>
-              Besoin : infiltration d'eau au toit<br>
-              Urgence : rapide · Demande confirmée ✓
-              <div class="sms-chip">Débloquer ce lead — 50 $</div>
-            </div>
-          </div>
-
-          <div class="h-card">
-            <div class="h-card-lbl">Pas d'abonnement</div>
-            <div class="h-card-body">Recevez les leads par SMS. Vous payez seulement ceux qui vous intéressent. Aucune mensualité.</div>
-          </div>
-        </div>
-
+      <div class="scroll-hint">
+        <div class="scroll-bar"></div>
+        Défiler
       </div>
     </div>
   </section>
 
-  <!-- FEATURES BAND -->
-  <div class="band">
-    <div class="band-grid">
-      <div class="band-item reveal">
-        <div class="band-icon">
+  <!-- ══ FEATURES STRIP ══ -->
+  <div class="strip">
+    <div class="strip-grid">
+      <div class="strip-item">
+        <div class="strip-icon">
           <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4z"/></svg>
         </div>
-        <div class="band-title">Une demande, plusieurs pros</div>
-        <div class="band-desc">Remplissez un seul formulaire. Votre besoin est diffusé à tous les entrepreneurs disponibles dans votre secteur.</div>
+        <div class="strip-title">Une demande, plusieurs pros</div>
+        <div class="strip-desc">Remplissez un seul formulaire. Votre besoin est diffusé à tous les entrepreneurs disponibles dans votre secteur.</div>
       </div>
-      <div class="band-item reveal">
-        <div class="band-icon">
-          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+      <div class="strip-item">
+        <div class="strip-icon">
+          <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
         </div>
-        <div class="band-title">Leads reçus par SMS</div>
-        <div class="band-desc">Les entrepreneurs reçoivent un résumé directement par texto. Rapide à lire, facile à gérer depuis n'importe où.</div>
+        <div class="strip-title">Leads reçus par SMS</div>
+        <div class="strip-desc">Résumé direct par texto. Rapide à lire depuis le chantier, facile à gérer sans compte ou application.</div>
       </div>
-      <div class="band-item reveal">
-        <div class="band-icon">
+      <div class="strip-item">
+        <div class="strip-icon">
           <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
-        <div class="band-title">Vous choisissez, pas d'obligation</div>
-        <div class="band-desc">Chaque lead se paie individuellement. Aucun abonnement. Vous payez seulement ce qui vous intéresse.</div>
+        <div class="strip-title">Vous choisissez vos leads</div>
+        <div class="strip-desc">Aucun abonnement. Vous payez uniquement les leads que vous voulez. Inscription gratuite.</div>
       </div>
     </div>
   </div>
 
-  <!-- CLIENT SECTION -->
+  <!-- ══ CLIENT SECTION ══ -->
   <section class="section" id="client">
     <div class="wrap">
-      <div class="sec-head reveal">
-        <div class="sec-tag">Pour les clients</div>
-        <h2 class="sec-title">Envoyez une seule demande</h2>
-        <p class="sec-desc">Décrivez vos travaux une fois. Votre demande est envoyée aux bons entrepreneurs de votre région.</p>
+      <div class="sec-head rev">
+        <div class="sec-eyebrow">Pour les clients</div>
+        <h2 class="sec-h">Envoyez une seule demande</h2>
+        <p class="sec-p">Décrivez vos travaux une fois. Votre demande est transmise aux bons entrepreneurs autour de vous.</p>
       </div>
 
-      <div class="client-layout">
+      <div class="client-grid">
 
-        <div class="form-card reveal">
-          <div class="form-card-top">
-            <div class="form-card-title">Faire une demande</div>
-            <div class="form-card-desc">Court, clair, rapide à remplir.</div>
+        <!-- Form -->
+        <div class="card rev">
+          <div class="card-head">
+            <div class="card-head-icon">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </div>
+            <div>
+              <div class="card-head-title">Faire une demande</div>
+              <div class="card-head-sub">Court, clair, rapide à remplir.</div>
+            </div>
           </div>
-          <div class="form-bd">
+          <div class="card-body">
             <form class="form-grid">
               <div class="field full">
                 <label class="label" for="service">Service recherché</label>
@@ -775,50 +767,51 @@
                 <label class="label" for="details">Description des travaux</label>
                 <textarea class="textarea" id="details" placeholder="Décrivez brièvement les travaux…"></textarea>
               </div>
-              <label class="check-row">
+              <label class="check-block">
                 <input type="checkbox">
                 <span>Je confirme que ma demande est réelle et que mes informations sont exactes.</span>
               </label>
-              <div class="submit-row">
-                <button class="btn-primary" type="submit">Envoyer ma demande</button>
-                <div class="submit-note">Sans frais. Sans engagement.</div>
+              <div class="form-foot">
+                <button class="btn btn-solid" type="submit">Envoyer ma demande</button>
+                <span class="form-note">Sans frais. Sans engagement.</span>
               </div>
             </form>
           </div>
         </div>
 
-        <div class="client-side">
-          <div class="side-card reveal">
+        <!-- Side -->
+        <div class="side">
+          <div class="side-card side-card--dark rev">
             <div class="side-title">Comment ça marche</div>
             <div class="step">
-              <div class="step-num">1</div>
-              <div class="step-body"><strong>Vous remplissez une seule demande</strong>Décrivez votre besoin en quelques lignes, sans chercher plusieurs entreprises.</div>
+              <div class="step-n">1</div>
+              <div class="step-body"><strong>Vous remplissez une seule demande</strong>Décrivez votre besoin en quelques lignes, sans chercher vous-même.</div>
             </div>
             <div class="step">
-              <div class="step-num">2</div>
+              <div class="step-n">2</div>
               <div class="step-body"><strong>On l'envoie aux pros de votre région</strong>Votre demande part vers les entrepreneurs disponibles autour de vous.</div>
             </div>
             <div class="step">
-              <div class="step-num">3</div>
-              <div class="step-body"><strong>Vous êtes contacté rapidement</strong>Les entrepreneurs intéressés communiquent directement avec vous.</div>
+              <div class="step-n">3</div>
+              <div class="step-body"><strong>Vous êtes contacté directement</strong>Les entrepreneurs intéressés vous appellent ou vous écrivent.</div>
             </div>
           </div>
 
-          <div class="side-card reveal">
+          <div class="side-card rev">
             <div class="side-title">Ce que disent nos clients</div>
             <div class="review">
-              <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-              <div class="review-txt">« J'ai reçu des retours rapidement et j'ai évité de chercher partout moi-même. »</div>
+              <div class="stars">★★★★★</div>
+              <div class="review-q">« J'ai reçu des retours rapidement et j'ai évité de chercher partout. »</div>
               <div class="review-by">Marie L. — Sherbrooke</div>
             </div>
             <div class="review">
-              <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-              <div class="review-txt">« Très simple à utiliser. J'ai pu comparer mes options sans perdre mon temps. »</div>
+              <div class="stars">★★★★★</div>
+              <div class="review-q">« Très simple à utiliser. J'ai comparé mes options sans perdre mon temps. »</div>
               <div class="review-by">Jean-Philippe R. — Magog</div>
             </div>
             <div class="review">
-              <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-              <div class="review-txt">« Une seule demande, plusieurs entrepreneurs — c'est vraiment efficace. »</div>
+              <div class="stars">★★★★★</div>
+              <div class="review-q">« Une seule demande, plusieurs entrepreneurs — vraiment efficace. »</div>
               <div class="review-by">Sophie C. — Drummondville</div>
             </div>
           </div>
@@ -828,54 +821,63 @@
     </div>
   </section>
 
-  <!-- ENTREPRENEUR SECTION -->
-  <section class="section section--grey" id="entrepreneur">
+  <!-- ══ ENTREPRENEUR SECTION ══ -->
+  <section class="section section--off" id="entrepreneur">
     <div class="wrap">
-      <div class="sec-head reveal">
-        <div class="sec-tag">Pour les entrepreneurs</div>
-        <h2 class="sec-title">Recevez des leads par SMS</h2>
-        <p class="sec-desc">Inscrivez-vous gratuitement. Recevez un résumé des nouvelles demandes dans votre secteur, et choisissez ceux qui vous intéressent.</p>
+      <div class="sec-head rev">
+        <div class="sec-eyebrow">Pour les entrepreneurs</div>
+        <h2 class="sec-h">Recevez des leads par SMS</h2>
+        <p class="sec-p">Inscrivez-vous gratuitement. Recevez un résumé des nouvelles demandes dans votre région et choisissez ceux qui vous intéressent.</p>
       </div>
 
-      <div class="ent-layout">
+      <div class="ent-grid">
 
-        <div class="phone-col reveal">
-          <div class="phone-label-txt">Exemple de message reçu</div>
+        <!-- Phone -->
+        <div class="rev">
+          <div class="phone-label">Exemple de message reçu</div>
 
-          <div class="phone-shell">
-            <div class="phone-pill"><span></span></div>
-            <div class="phone-scr">
-              <div class="pscr-head">
-                <div class="pscr-av"><img src="media/logob.png" alt=""></div>
-                <div>
-                  <div class="pscr-name">Intermediaire.io</div>
-                  <div class="pscr-sub">Nouveau lead disponible</div>
+          <div class="phone-wrap">
+            <div class="phone-shell">
+              <div class="phone-notch"><span></span></div>
+              <div class="phone-scr">
+                <div class="phead">
+                  <div class="pav"><img src="media/logob.png" alt=""></div>
+                  <div>
+                    <div class="pname">Intermediaire.io</div>
+                    <div class="psub">Nouveau lead disponible</div>
+                  </div>
                 </div>
+                <div class="pbubble">
+                  <strong>🏠 Toiture — Sherbrooke</strong>
+                  Besoin : infiltration d'eau au toit<br>
+                  Urgence : rapide<br>
+                  Demande réelle confirmée ✓
+                  <div class="pchip">Débloquer — 50 $</div>
+                </div>
+                <div class="ptime">Aujourd'hui 14:28</div>
               </div>
-              <div class="pscr-bubble">
-                <strong>🏠 Toiture — Sherbrooke</strong>
-                Besoin : infiltration d'eau au toit<br>
-                Urgence : rapide<br>
-                Demande réelle confirmée ✓
-                <div class="pscr-chip">Débloquer — 50 $</div>
-              </div>
-              <div class="pscr-time">Aujourd'hui 14:28</div>
             </div>
           </div>
 
-          <div class="legend-pills">
-            <span class="leg-pill">Infos clés visibles</span>
-            <span class="leg-pill">Client masqué avant paiement</span>
-            <span class="leg-pill">Vous choisissez</span>
+          <div class="pills">
+            <span class="pill">Infos clés visibles</span>
+            <span class="pill">Client masqué avant paiement</span>
+            <span class="pill">Vous choisissez</span>
           </div>
         </div>
 
-        <div class="ent-card reveal">
-          <div class="ent-card-top">
-            <div class="form-card-title">Inscription gratuite</div>
-            <div class="form-card-desc">Recevez des leads SMS dans votre région.</div>
+        <!-- Form -->
+        <div class="card rev">
+          <div class="card-head">
+            <div class="card-head-icon">
+              <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div>
+              <div class="card-head-title">Inscription gratuite</div>
+              <div class="card-head-sub">Recevez des leads SMS dans votre région.</div>
+            </div>
           </div>
-          <div class="ent-card-body">
+          <div class="card-body">
             <form class="ent-form">
               <div class="field">
                 <label class="label" for="ent-name">Nom de l'entreprise</label>
@@ -900,7 +902,9 @@
                 <label class="label" for="ent-city">Ville / région couverte</label>
                 <input class="input" id="ent-city" type="text" placeholder="Ex. Sherbrooke">
               </div>
-              <button class="btn-primary" type="submit" style="width:100%;justify-content:center">M'inscrire gratuitement</button>
+              <button class="btn btn-solid" type="submit" style="width:100%; justify-content:center">
+                M'inscrire gratuitement
+              </button>
               <div class="ent-note">Aucun frais d'inscription. Vous choisissez les leads qui vous intéressent et les payez individuellement. Pas d'abonnement.</div>
             </form>
           </div>
@@ -910,13 +914,13 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- ══ FOOTER ══ -->
   <footer class="footer">
     <div class="wrap">
       <div class="footer-inner">
-        <div class="footer-logo">
+        <div class="footer-brand">
           <img src="media/logob.png" alt="">
-          Intermediaire.io
+          <span class="footer-brand-name">Intermediaire.io</span>
         </div>
         <div class="footer-copy">© 2025 Intermediaire.io — Simple. Rapide. Local.</div>
       </div>
@@ -924,13 +928,13 @@
   </footer>
 
   <script>
-    const els = document.querySelectorAll('.reveal');
+    // Scroll reveal
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); }
       });
     }, { threshold: 0.07 });
-    els.forEach(el => obs.observe(el));
+    document.querySelectorAll('.rev').forEach(el => obs.observe(el));
   </script>
 
 </body>
