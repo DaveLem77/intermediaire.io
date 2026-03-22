@@ -7,1479 +7,915 @@
   <meta name="description" content="Intermediaire.io aide à trouver le bon service local simplement." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@500;700;800;900&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --cream: #EDF6FF;
-      --warm-white: #F6FBFF;
-      --charcoal: #112738;
-      --dark: #081828;
-      --gold: #2f80ed;
-      --gold-light: #56a8ff;
-      --gold-pale: #deeeff;
-      --blue-ink: #1E3A5F;
-      --sky: #4A90D9;
-      --sky-light: #B8D9F5;
-      --muted: #6B7F90;
-      --border: rgba(17,39,56,0.08);
-      --border-strong: rgba(17,39,56,0.14);
+      --white:    #FFFFFF;
+      --bg:       #F3F7FB;
+      --blue:     #2163C8;
+      --blue-mid: #3A7EE0;
+      --blue-pale:#DDE9F8;
+      --blue-tint:#F0F5FC;
+      --ink:      #13243A;
+      --body:     #3C5268;
+      --soft:     #7A90A4;
+      --line:     #D6E2EF;
+      --shadow-card: 0 2px 0 #D0DCEA, 0 12px 36px rgba(19,36,58,.07);
+      --shadow-btn:  0 4px 16px rgba(33,99,200,.22);
+      --r-card: 18px;
+      --r-btn: 11px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html {
-      scroll-behavior: smooth;
-      font-size: 16px;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'DM Sans', system-ui, sans-serif;
-      background: var(--warm-white);
-      color: var(--charcoal);
+      font-family: 'Figtree', system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--white);
       overflow-x: hidden;
     }
 
-    /* ─── NOISE TEXTURE OVERLAY ─── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.4;
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
     }
 
-    /* ─── HERO ─── */
+    .nav-inner {
+      width: min(1140px, calc(100% - 40px));
+      margin: 0 auto;
+      height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    .nav-logo img { width: 34px; height: 34px; object-fit: contain; }
+
+    .nav-logo-name {
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 800; font-size: 17px;
+      color: var(--ink); letter-spacing: -0.025em;
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+
+    .nav-link {
+      padding: 8px 14px; font-size: 14px; font-weight: 600;
+      color: var(--body); border-radius: 8px;
+      transition: background .14s, color .14s;
+    }
+
+    .nav-link:hover { background: var(--blue-tint); color: var(--blue); }
+
+    .nav-btn {
+      padding: 9px 18px;
+      background: var(--blue); color: #fff;
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 700; font-size: 14px;
+      border-radius: var(--r-btn);
+      box-shadow: var(--shadow-btn);
+      transition: background .14s, transform .14s;
+    }
+
+    .nav-btn:hover { background: var(--blue-mid); transform: translateY(-1px); }
+
+    /* ── HERO ── */
     .hero {
-      min-height: 100svh;
+      background: var(--white);
+      padding: 80px 0 76px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle diagonal lines — like graph paper, grounded */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(
+        -52deg,
+        transparent, transparent 32px,
+        rgba(33,99,200,0.028) 32px,
+        rgba(33,99,200,0.028) 33px
+      );
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 640px; height: 640px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(33,99,200,0.06) 0%, transparent 65%);
+      top: -220px; right: -200px;
+      pointer-events: none;
+    }
+
+    .hero-wrap {
+      width: min(1140px, calc(100% - 40px));
+      margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+
+    .hero-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-left {
-      background: var(--dark);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 80px 72px 80px 80px;
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .hero-left::before {
-      content: '';
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(47,128,237,0.15) 0%, transparent 70%);
-      top: -200px;
-      left: -200px;
-      pointer-events: none;
-    }
-
-    .hero-left::after {
-      content: '';
-      position: absolute;
-      width: 400px;
-      height: 400px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(86,168,255,0.08) 0%, transparent 70%);
-      bottom: -100px;
-      right: -100px;
-      pointer-events: none;
-    }
-
-    /* Decorative grid lines on dark side */
-    .hero-grid {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-    }
-
-    .hero-right {
-      background: var(--cream);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 80px 80px 80px 72px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-right::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 60% 40% at 80% 20%, rgba(47,128,237,0.10) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(86,168,255,0.07) 0%, transparent 60%);
-      pointer-events: none;
-    }
-
-    /* Large decorative number */
-    .hero-deco {
-      position: absolute;
-      right: -20px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-family: 'Syne', sans-serif;
-      font-size: 320px;
-      font-weight: 800;
-      color: rgba(26,26,26,0.04);
-      line-height: 1;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    .logo-mark {
-      display: flex;
+      gap: 64px;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 48px;
-      position: relative;
-      z-index: 2;
     }
 
-    .logo-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 24px rgba(47,128,237,0.25);
-      flex-shrink: 0;
-    }
-
-    .logo-icon img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .logo-text {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 18px;
-      color: #fff;
-      letter-spacing: -0.02em;
-    }
-
-    .hero-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 28px;
-      padding: 8px 16px;
-      border: 1px solid rgba(201,168,76,0.3);
+    /* Badge */
+    .badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 6px 13px 6px 8px;
+      background: var(--blue-tint);
+      border: 1px solid var(--blue-pale);
       border-radius: 999px;
-      background: rgba(201,168,76,0.07);
-      color: var(--gold-light);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      width: fit-content;
-      position: relative;
-      z-index: 2;
+      font-size: 12px; font-weight: 600; color: var(--blue);
+      margin-bottom: 22px;
     }
 
-    .hero-kicker::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--gold);
-      animation: pulse 2s infinite;
+    .badge-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--blue);
+      animation: blink 2.2s ease-in-out infinite;
     }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.8); }
+    @keyframes blink {
+      0%,100% { opacity:1; } 50% { opacity:.35; }
     }
 
     .hero-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(52px, 5.5vw, 80px);
-      font-weight: 800;
-      line-height: 0.95;
-      letter-spacing: -0.04em;
-      color: #fff;
-      margin-bottom: 28px;
-      position: relative;
-      z-index: 2;
+      font-family: 'Epilogue', sans-serif;
+      font-size: clamp(36px, 4.6vw, 58px);
+      font-weight: 900;
+      line-height: 1.06;
+      letter-spacing: -0.038em;
+      color: var(--ink);
+      margin-bottom: 18px;
     }
 
-    .hero-title em {
-      font-style: normal;
-      color: var(--gold);
+    .hero-title .accent { color: var(--blue); }
+
+    .hero-sub {
+      font-size: 17px; font-weight: 400;
+      line-height: 1.68; color: var(--body);
+      margin-bottom: 34px; max-width: 430px;
     }
 
-    .hero-subtitle {
-      font-size: 17px;
-      font-weight: 300;
-      line-height: 1.65;
-      color: rgba(255,255,255,0.55);
-      margin-bottom: 52px;
-      max-width: 380px;
-      position: relative;
-      z-index: 2;
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 22px;
+      background: var(--blue); color: #fff;
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 700; font-size: 15px;
+      border-radius: var(--r-btn);
+      box-shadow: var(--shadow-btn);
+      transition: background .16s, transform .16s, box-shadow .16s;
+      border: none; cursor: pointer; letter-spacing: -0.01em;
     }
 
-    .hero-ctas {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .cta-primary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 20px 28px;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-      color: var(--dark);
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 15px;
-      letter-spacing: -0.01em;
-      border-radius: 16px;
-      text-decoration: none;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 8px 32px rgba(201,168,76,0.25);
-    }
-
-    .cta-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 16px 40px rgba(201,168,76,0.35);
-    }
-
-    .cta-arrow {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: transform 0.2s ease;
-    }
-
-    .cta-primary:hover .cta-arrow {
-      transform: translateX(3px);
-    }
-
-    .cta-secondary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 20px 28px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: rgba(255,255,255,0.8);
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 15px;
-      letter-spacing: -0.01em;
-      border-radius: 16px;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      backdrop-filter: blur(10px);
-    }
-
-    .cta-secondary:hover {
-      background: rgba(255,255,255,0.09);
-      border-color: rgba(255,255,255,0.18);
+    .btn-primary:hover {
+      background: var(--blue-mid);
       transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(33,99,200,.28);
     }
 
-    /* Right side hero content */
-    .hero-right-inner {
-      position: relative;
-      z-index: 2;
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 22px;
+      background: transparent; color: var(--body);
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 700; font-size: 15px;
+      border-radius: var(--r-btn);
+      border: 1.5px solid var(--line);
+      transition: border-color .16s, color .16s, background .16s;
+      cursor: pointer; letter-spacing: -0.01em;
     }
 
-    .stats-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-bottom: 40px;
+    .btn-ghost:hover {
+      border-color: var(--blue-pale);
+      background: var(--blue-tint);
+      color: var(--blue);
     }
 
-    .stat-box {
-      padding: 28px;
-      background: rgba(255,255,255,0.7);
-      border: 1px solid rgba(26,26,26,0.08);
-      border-radius: 20px;
-      backdrop-filter: blur(20px);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    .hero-trust {
+      margin-top: 26px;
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; color: var(--soft); font-weight: 500;
     }
 
-    .stat-box:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    .trust-faces { display: flex; }
+
+    .trust-face {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 2px solid #fff;
+      background: var(--blue-pale);
+      margin-left: -8px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 800; font-size: 10px; color: var(--blue);
     }
 
-    .stat-number {
-      font-family: 'Syne', sans-serif;
-      font-size: 42px;
-      font-weight: 800;
-      color: var(--charcoal);
-      letter-spacing: -0.04em;
-      line-height: 1;
-      margin-bottom: 6px;
+    .trust-face:first-child { margin-left: 0; }
+
+    /* Hero right — cards */
+    .hero-right { display: flex; flex-direction: column; gap: 14px; }
+
+    .h-cards-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .h-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--r-card);
+      padding: 20px 22px;
+      box-shadow: var(--shadow-card);
+      transition: transform .2s;
     }
 
-    .stat-number span {
-      color: var(--gold);
+    .h-card:hover { transform: translateY(-3px); }
+
+    .h-card--blue { background: var(--blue); border-color: var(--blue); }
+
+    .h-card-lbl {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--soft); margin-bottom: 5px;
     }
 
-    .stat-label {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--muted);
-      line-height: 1.4;
+    .h-card--blue .h-card-lbl { color: rgba(255,255,255,.55); }
+
+    .h-card-val {
+      font-family: 'Epilogue', sans-serif;
+      font-size: 30px; font-weight: 900;
+      color: var(--ink); letter-spacing: -0.04em; line-height: 1;
+      margin-bottom: 4px;
     }
 
-    .hero-tagline {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(28px, 3vw, 38px);
-      font-weight: 700;
-      color: var(--charcoal);
-      letter-spacing: -0.03em;
-      line-height: 1.15;
-      margin-bottom: 16px;
+    .h-card--blue .h-card-val { color: #fff; }
+    .h-card-val .unit { font-size: 16px; color: var(--blue); font-weight: 700; }
+    .h-card--blue .h-card-val .unit { color: rgba(255,255,255,.6); }
+
+    .h-card-sub { font-size: 12px; color: var(--soft); }
+    .h-card--blue .h-card-sub { color: rgba(255,255,255,.5); }
+
+    /* SMS preview */
+    .sms-prev {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--r-card);
+      padding: 18px 20px;
+      box-shadow: var(--shadow-card);
     }
 
-    .hero-tagline em {
-      font-style: normal;
-      color: var(--gold);
+    .sms-prev-top {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
     }
 
-    .hero-tagdesc {
-      font-size: 15px;
-      color: var(--muted);
-      line-height: 1.65;
-      font-weight: 300;
-      max-width: 380px;
+    .sms-logo-wrap {
+      width: 32px; height: 32px; border-radius: 9px;
+      overflow: hidden; flex-shrink: 0;
+      border: 1px solid var(--line);
     }
 
-    /* ─── SECTION SHARED ─── */
-    .section {
-      padding: 120px 0;
+    .sms-logo-wrap img { width: 100%; height: 100%; object-fit: contain; }
+    .sms-from { font-family: 'Epilogue',sans-serif; font-size: 13px; font-weight: 800; color: var(--ink); }
+    .sms-ts { font-size: 12px; color: var(--soft); margin-left: auto; }
+
+    .sms-msg {
+      background: var(--bg);
+      border-radius: 12px 12px 12px 4px;
+      padding: 13px 15px;
+      font-size: 13px; line-height: 1.62; color: var(--body);
     }
 
-    .section--dark {
-      background: var(--dark);
+    .sms-msg strong { color: var(--ink); font-weight: 600; display: block; margin-bottom: 5px; }
+
+    .sms-chip {
+      display: inline-block; margin-top: 10px;
+      padding: 5px 13px;
+      background: var(--blue); color: #fff;
+      border-radius: 999px;
+      font-family: 'Epilogue',sans-serif; font-size: 12px; font-weight: 700;
     }
 
-    .section--cream {
-      background: var(--cream);
+    .h-card-body { font-size: 14px; color: var(--body); line-height: 1.6; }
+
+    /* ── FEATURES BAND ── */
+    .band {
+      background: var(--blue);
+      padding: 0;
     }
 
-    .wrap {
-      width: min(1180px, calc(100% - 48px));
+    .band-grid {
+      width: min(1140px, calc(100% - 40px));
       margin: 0 auto;
-    }
-
-    .section-header {
-      margin-bottom: 72px;
-    }
-
-    .section-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 20px;
-      font-family: 'Syne', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
-    .section-tag::before {
-      content: '';
-      width: 32px;
-      height: 1px;
-      background: var(--gold);
-    }
-
-    .section-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(38px, 4.5vw, 60px);
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 1;
-      color: var(--charcoal);
-      margin-bottom: 20px;
-    }
-
-    .section--dark .section-title {
-      color: #fff;
-    }
-
-    .section-desc {
-      font-size: 17px;
-      font-weight: 300;
-      line-height: 1.65;
-      color: var(--muted);
-      max-width: 560px;
-    }
-
-    .section--dark .section-desc {
-      color: rgba(255,255,255,0.45);
-    }
-
-    /* ─── CLIENT SECTION ─── */
-    .client-layout {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 32px;
-      align-items: start;
+      grid-template-columns: repeat(3, 1fr);
     }
 
-    /* Form Card */
+    .band-item {
+      padding: 48px 40px;
+      border-right: 1px solid rgba(255,255,255,.12);
+    }
+
+    .band-item:last-child { border-right: none; }
+
+    .band-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: rgba(255,255,255,.12);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .band-icon svg { width: 22px; height: 22px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .band-title {
+      font-family: 'Epilogue', sans-serif;
+      font-size: 17px; font-weight: 800;
+      color: #fff; letter-spacing: -0.025em; margin-bottom: 8px;
+    }
+
+    .band-desc { font-size: 14px; color: rgba(255,255,255,.6); line-height: 1.65; }
+
+    /* ── SECTION ── */
+    .section { padding: 96px 0; }
+    .section--grey { background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+    .wrap { width: min(1140px, calc(100% - 40px)); margin: 0 auto; }
+
+    .sec-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 12px;
+    }
+
+    .sec-tag::before { content: ''; width: 22px; height: 2px; background: var(--blue); border-radius: 2px; }
+
+    .sec-title {
+      font-family: 'Epilogue', sans-serif;
+      font-size: clamp(28px, 3.4vw, 44px);
+      font-weight: 900; letter-spacing: -0.038em;
+      line-height: 1.06; color: var(--ink); margin-bottom: 12px;
+    }
+
+    .sec-desc { font-size: 16px; color: var(--body); line-height: 1.7; max-width: 520px; }
+    .sec-head { margin-bottom: 52px; }
+
+    /* Client layout */
+    .client-layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 28px; align-items: start; }
+
     .form-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      padding: 40px;
-      box-shadow: 0 2px 0 var(--border), 0 24px 60px rgba(0,0,0,0.05);
-      position: relative;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--r-card);
+      box-shadow: var(--shadow-card);
       overflow: hidden;
     }
 
-    .form-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
+    .form-card-top {
+      padding: 22px 26px 18px;
+      border-bottom: 1px solid var(--line);
+      background: var(--bg);
     }
 
-    .card-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 26px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: var(--charcoal);
-      margin-bottom: 6px;
-    }
+    .form-card-title { font-family: 'Epilogue',sans-serif; font-size: 19px; font-weight: 800; color: var(--ink); letter-spacing: -0.025em; margin-bottom: 2px; }
+    .form-card-desc { font-size: 13px; color: var(--soft); }
 
-    .card-desc {
-      font-size: 14px;
-      color: var(--muted);
-      font-weight: 300;
-      margin-bottom: 32px;
-      line-height: 1.6;
-    }
+    .form-bd { padding: 22px 26px 26px; }
 
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .field { display: flex; flex-direction: column; gap: 8px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+    .field { display: flex; flex-direction: column; gap: 5px; }
     .field.full { grid-column: 1 / -1; }
 
-    .label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--charcoal);
-    }
+    .label { font-size: 12px; font-weight: 700; color: var(--ink); }
 
     .input, .select, .textarea {
       width: 100%;
-      border: 1.5px solid var(--border-strong);
-      background: var(--warm-white);
-      color: var(--charcoal);
-      border-radius: 12px;
-      padding: 14px 16px;
+      border: 1.5px solid var(--line);
+      background: var(--white); color: var(--ink);
+      border-radius: 10px; padding: 11px 13px;
+      font-family: 'Figtree', sans-serif; font-size: 14px;
       outline: none;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 400;
-      transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      transition: border-color .14s, box-shadow .14s;
+      -webkit-appearance: none;
     }
 
-    .input::placeholder, .textarea::placeholder {
-      color: rgba(107,101,96,0.5);
-    }
+    .input::placeholder, .textarea::placeholder { color: var(--soft); }
 
     .input:focus, .select:focus, .textarea:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
-      background: #fff;
+      border-color: var(--blue-mid);
+      box-shadow: 0 0 0 3px rgba(33,99,200,.1);
     }
 
     .select {
       appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B6560' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 16px center;
-      padding-right: 44px;
-      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237A90A4' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center;
+      padding-right: 36px; cursor: pointer;
     }
 
-    .textarea {
-      min-height: 120px;
-      resize: vertical;
-      line-height: 1.6;
+    .textarea { min-height: 108px; resize: vertical; line-height: 1.6; }
+
+    .check-row {
+      grid-column: 1/-1;
+      display: flex; gap: 10px; align-items: flex-start;
+      padding: 12px 13px;
+      background: var(--blue-tint);
+      border: 1px solid var(--blue-pale); border-radius: 10px;
     }
 
-    .check-wrap {
-      grid-column: 1 / -1;
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 16px;
-      background: var(--gold-pale);
-      border-radius: 12px;
-      border: 1px solid rgba(201,168,76,0.2);
+    .check-row input { accent-color: var(--blue); width: 15px; height: 15px; flex-shrink: 0; margin-top: 1px; }
+    .check-row span { font-size: 13px; color: var(--body); line-height: 1.5; }
+
+    .submit-row { grid-column: 1/-1; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .submit-note { font-size: 12px; color: var(--soft); }
+
+    /* Side */
+    .client-side { display: flex; flex-direction: column; gap: 18px; }
+
+    .side-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--r-card);
+      padding: 22px 24px;
+      box-shadow: var(--shadow-card);
     }
 
-    .check-wrap input {
-      margin-top: 2px;
-      accent-color: var(--gold);
-      width: 16px;
-      height: 16px;
-      flex-shrink: 0;
-    }
+    .side-title { font-family: 'Epilogue',sans-serif; font-size: 17px; font-weight: 800; color: var(--ink); letter-spacing: -0.025em; margin-bottom: 16px; }
 
-    .check-text {
-      font-size: 12px;
-      color: #2a4a6a;
-      line-height: 1.55;
-      font-weight: 500;
-    }
-
-    .submit-row {
-      grid-column: 1 / -1;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .submit-btn {
-      border: none;
-      border-radius: 12px;
-      padding: 16px 28px;
-      font-family: 'Syne', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--dark);
-      cursor: pointer;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-      box-shadow: 0 8px 24px rgba(201,168,76,0.25);
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-      letter-spacing: -0.01em;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .submit-btn::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.25) 40%, transparent 70%);
-      transform: translateX(-120%);
-      transition: transform 0.6s ease;
-    }
-
-    .submit-btn:hover::before { transform: translateX(120%); }
-    .submit-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 32px rgba(201,168,76,0.35);
-    }
-
-    .submit-mini {
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    /* ─── SIDE CARDS ─── */
-    .client-side {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .steps-card {
-      background: var(--dark);
-      border-radius: 28px;
-      padding: 36px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .steps-card::before {
-      content: '';
-      position: absolute;
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(47,128,237,0.10) 0%, transparent 70%);
-      top: -100px;
-      right: -100px;
-      pointer-events: none;
-    }
-
-    .steps-card-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 20px;
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: -0.03em;
-      margin-bottom: 28px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .step-item {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-      padding: 18px 0;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      position: relative;
-      z-index: 1;
-    }
-
-    .step-item:first-of-type { border-top: none; padding-top: 0; }
+    .step { display: flex; gap: 13px; padding: 13px 0; border-top: 1px solid var(--line); }
+    .step:first-of-type { border-top: none; padding-top: 0; }
 
     .step-num {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      flex: 0 0 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-      font-family: 'Syne', sans-serif;
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--dark);
+      width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0;
+      background: var(--blue-tint); border: 1px solid var(--blue-pale);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Epilogue',sans-serif; font-size: 13px; font-weight: 900; color: var(--blue);
     }
 
-    .step-content strong {
-      display: block;
-      font-family: 'Syne', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 4px;
-      letter-spacing: -0.01em;
-    }
+    .step-body strong { display: block; font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+    .step-body { font-size: 13px; color: var(--soft); line-height: 1.55; }
 
-    .step-content {
-      font-size: 13px;
-      color: rgba(255,255,255,0.4);
-      line-height: 1.6;
-      font-weight: 300;
-    }
+    .review { padding: 13px 0; border-top: 1px solid var(--line); }
+    .review:first-of-type { border-top: none; padding-top: 0; }
 
-    .reviews-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      padding: 36px;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.04);
-    }
+    .stars { display: flex; gap: 2px; margin-bottom: 7px; }
+    .star { font-size: 13px; color: #F5A623; }
 
-    .reviews-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--charcoal);
-      letter-spacing: -0.03em;
-      margin-bottom: 24px;
-    }
+    .review-txt { font-size: 14px; color: var(--body); line-height: 1.6; font-style: italic; margin-bottom: 6px; }
+    .review-by { font-size: 12px; font-weight: 700; color: var(--soft); }
 
-    .review-item {
-      padding: 18px 0;
-      border-top: 1px solid var(--border);
-    }
+    /* ── ENT SECTION ── */
+    .ent-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
 
-    .review-item:first-of-type { border-top: none; padding-top: 0; }
+    .phone-col {}
+    .phone-label-txt { font-family: 'Epilogue',sans-serif; font-size: 17px; font-weight: 800; color: var(--ink); letter-spacing: -0.025em; margin-bottom: 20px; }
 
-    .stars {
-      display: flex;
-      gap: 3px;
-      margin-bottom: 10px;
-    }
-
-    .star {
-      width: 14px;
-      height: 14px;
-      background: var(--gold);
-      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-    }
-
-    .review-text {
-      font-size: 14px;
-      color: var(--charcoal);
-      line-height: 1.65;
-      font-weight: 400;
-      margin-bottom: 10px;
-    }
-
-    .review-author {
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 600;
-      letter-spacing: 0.03em;
-    }
-
-    /* ─── ENTREPRENEUR SECTION ─── */
-    .ent-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-      align-items: start;
-    }
-
-    /* SMS Phone Mock */
-    .sms-card {
-      position: relative;
-    }
-
-    .sms-card-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 20px;
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: -0.03em;
-      margin-bottom: 28px;
-    }
-
-    .phone-wrap {
-      perspective: 1000px;
-    }
-
-    .phone-mock {
-      background: linear-gradient(145deg, #1C1C1E, #2C2C2E);
-      border-radius: 44px;
-      padding: 16px;
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow:
-        0 0 0 1px rgba(0,0,0,0.3),
-        0 40px 80px rgba(0,0,0,0.5),
-        inset 0 1px 0 rgba(255,255,255,0.08);
-      max-width: 340px;
+    .phone-shell {
+      background: #1B1B1D;
+      border-radius: 42px;
+      padding: 14px;
+      max-width: 300px;
       margin: 0 auto;
-      transform: rotateY(-5deg) rotateX(3deg);
-      transition: transform 0.4s ease;
+      box-shadow: 0 2px 0 rgba(255,255,255,0.05) inset, 0 28px 56px rgba(0,0,0,.32);
+      border: 1px solid rgba(255,255,255,0.07);
     }
 
-    .phone-mock:hover {
-      transform: rotateY(0deg) rotateX(0deg);
-    }
+    .phone-pill { display: flex; justify-content: center; margin-bottom: 12px; }
+    .phone-pill span { display: block; width: 80px; height: 6px; background: #2a2a2c; border-radius: 99px; }
 
-    .phone-notch {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 14px;
-    }
-
-    .phone-notch span {
-      width: 100px;
-      height: 8px;
-      background: #111;
-      border-radius: 999px;
-      display: block;
-    }
-
-    .phone-screen {
+    .phone-scr {
       background: #F2F2F7;
-      border-radius: 32px;
-      padding: 20px;
-      min-height: 420px;
+      border-radius: 30px;
+      padding: 18px;
     }
 
-    .sms-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-      padding: 0 4px;
+    .pscr-head { display: flex; align-items: center; gap: 9px; margin-bottom: 14px; }
+
+    .pscr-av {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: #fff; border: 1px solid rgba(0,0,0,.07);
+      overflow: hidden; flex-shrink: 0;
     }
 
-    .sms-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--warm-white);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      border: 1px solid rgba(0,0,0,0.08);
-    }
+    .pscr-av img { width: 100%; height: 100%; object-fit: contain; }
+    .pscr-name { font-family: 'Epilogue',sans-serif; font-size: 13px; font-weight: 800; color: #1C1C1E; }
+    .pscr-sub { font-size: 11px; color: #8E8E93; }
 
-    .sms-header-name {
-      font-family: 'Syne', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      color: #1C1C1E;
-    }
-
-    .sms-header-sub {
-      font-size: 12px;
-      color: #8E8E93;
-      font-weight: 400;
-    }
-
-    .sms-bubble {
+    .pscr-bubble {
       background: #fff;
-      border-radius: 20px 20px 20px 6px;
-      padding: 18px 20px;
-      font-size: 13.5px;
-      line-height: 1.6;
-      color: #1C1C1E;
-      font-weight: 400;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      border-radius: 14px 14px 14px 4px;
+      padding: 13px 15px;
+      font-size: 13px; line-height: 1.62; color: #2C2C2E;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
     }
 
-    .sms-bubble strong {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 14px;
-      color: #1C1C1E;
-    }
+    .pscr-bubble strong { font-weight: 700; color: #1C1C1E; display: block; margin-bottom: 5px; font-size: 13.5px; }
 
-    .sms-price-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 14px;
-      padding: 8px 14px;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    .pscr-chip {
+      display: inline-flex; align-items: center;
+      margin-top: 11px; padding: 6px 13px;
+      background: var(--blue); color: #fff;
       border-radius: 999px;
-      font-family: 'Syne', sans-serif;
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--dark);
+      font-family: 'Epilogue',sans-serif; font-size: 12px; font-weight: 700;
     }
 
-    .sms-time {
-      margin-top: 12px;
-      text-align: right;
-      font-size: 11px;
-      color: #8E8E93;
-      font-weight: 400;
+    .pscr-time { margin-top: 8px; font-size: 11px; color: #8E8E93; text-align: right; }
+
+    .legend-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+
+    .leg-pill {
+      padding: 7px 13px; border-radius: 999px;
+      background: var(--white); border: 1px solid var(--line);
+      font-size: 12px; font-weight: 600; color: var(--body);
     }
 
-    .sms-legend {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 28px;
+    /* Ent form */
+    .ent-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--r-card);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
     }
 
-    .sms-pill {
-      padding: 8px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: rgba(255,255,255,0.05);
-      color: rgba(255,255,255,0.5);
-      font-size: 12px;
-      font-weight: 500;
-      backdrop-filter: blur(10px);
+    .ent-card-top {
+      padding: 22px 26px 18px;
+      border-bottom: 1px solid var(--line);
+      background: var(--bg);
     }
 
-    /* Ent Form */
-    .ent-form-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 28px;
-      padding: 40px;
-      backdrop-filter: blur(20px);
-      position: relative;
-    }
+    .ent-card-body { padding: 22px 26px 26px; }
 
-    .ent-form-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
-      border-radius: 28px 28px 0 0;
-    }
+    .ent-form { display: flex; flex-direction: column; gap: 13px; }
+    .ent-note { font-size: 12px; color: var(--soft); line-height: 1.55; margin-top: 4px; }
 
-    .ent-form-card .card-title { color: #fff; }
-    .ent-form-card .card-desc { color: rgba(255,255,255,0.4); }
-    .ent-form-card .label { color: rgba(255,255,255,0.6); }
-
-    .ent-form-card .input, .ent-form-card .select {
-      background: rgba(255,255,255,0.06);
-      border-color: rgba(255,255,255,0.1);
-      color: #fff;
-    }
-
-    .ent-form-card .input::placeholder {
-      color: rgba(255,255,255,0.25);
-    }
-
-    .ent-form-card .input:focus, .ent-form-card .select:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
-      background: rgba(255,255,255,0.08);
-    }
-
-    .ent-form {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-
-    .ent-bottom {
-      display: flex;
-      align-items: flex-start;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .ent-small {
-      font-size: 12px;
-      color: rgba(255,255,255,0.3);
-      line-height: 1.6;
-      font-weight: 300;
-    }
-
-    /* ─── DIVIDER / TRANSITION ─── */
-    .section-divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
-    }
-
-    /* ─── FOOTER BAR ─── */
-    .footer-bar {
-      background: var(--dark);
-      padding: 32px 0;
-      border-top: 1px solid rgba(255,255,255,0.06);
-    }
+    /* ── FOOTER ── */
+    .footer { background: var(--ink); padding: 34px 0; }
 
     .footer-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 14px;
     }
 
     .footer-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 16px;
-      color: rgba(255,255,255,0.5);
-      letter-spacing: -0.02em;
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Epilogue',sans-serif; font-weight: 800; font-size: 16px;
+      color: rgba(255,255,255,.65); letter-spacing: -0.02em;
     }
 
-    .footer-copy {
-      font-size: 12px;
-      color: rgba(255,255,255,0.25);
-      font-weight: 400;
+    .footer-logo img { width: 28px; height: 28px; object-fit: contain; opacity: .8; }
+    .footer-copy { font-size: 13px; color: rgba(255,255,255,.28); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .58s ease, transform .58s ease;
     }
 
-    /* ─── FLOATING PILLS ─── */
-    .pills-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 28px;
+    .reveal.on { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .hero-grid, .client-layout, .ent-layout { grid-template-columns: 1fr; gap: 36px; }
+      .band-grid { grid-template-columns: 1fr; }
+      .band-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,.12); padding: 32px 28px; }
+      .band-item:last-child { border-bottom: none; }
+      .nav-links { display: none; }
     }
 
-    .pill {
-      padding: 9px 18px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-    }
-
-    .pill--outline {
-      border: 1px solid var(--border-strong);
-      color: var(--muted);
-      background: #fff;
-    }
-
-    .pill--dark {
-      border: 1px solid rgba(255,255,255,0.08);
-      color: rgba(255,255,255,0.4);
-      background: rgba(255,255,255,0.04);
-    }
-
-    /* ─── SCROLL INDICATOR ─── */
-    .scroll-hint {
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      color: rgba(255,255,255,0.3);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-    }
-
-    .scroll-line {
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.3), transparent);
-      animation: scrollLine 1.5s ease-in-out infinite;
-    }
-
-    @keyframes scrollLine {
-      0%, 100% { transform: scaleY(1); opacity: 0.5; }
-      50% { transform: scaleY(0.5); opacity: 1; }
-    }
-
-    /* ─── ANIMATIONS ─── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .fade-up {
-      opacity: 0;
-      animation: fadeUp 0.7s ease forwards;
-    }
-
-    .fade-up:nth-child(1) { animation-delay: 0.1s; }
-    .fade-up:nth-child(2) { animation-delay: 0.2s; }
-    .fade-up:nth-child(3) { animation-delay: 0.3s; }
-    .fade-up:nth-child(4) { animation-delay: 0.4s; }
-    .fade-up:nth-child(5) { animation-delay: 0.5s; }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 900px) {
-      .hero {
-        grid-template-columns: 1fr;
-        min-height: auto;
-      }
-
-      .hero-left {
-        padding: 72px 32px 60px;
-        min-height: 100svh;
-      }
-
-      .hero-right {
-        padding: 60px 32px 72px;
-      }
-
-      .stats-row {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .client-layout,
-      .ent-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .section { padding: 80px 0; }
-
-      .phone-mock {
-        transform: none;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .hero-left {
-        padding: 60px 24px 52px;
-      }
-
-      .hero-right {
-        padding: 52px 24px 60px;
-      }
-
-      .stats-row {
-        grid-template-columns: 1fr;
-        gap: 14px;
-      }
-
-      .form-card {
-        padding: 28px 24px;
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .steps-card, .reviews-card {
-        padding: 28px 24px;
-      }
-
-      .ent-form-card {
-        padding: 28px 24px;
-      }
-
-      .scroll-hint { display: none; }
+    @media (max-width: 580px) {
+      .hero { padding: 48px 0 52px; }
+      .section { padding: 60px 0; }
+      .form-grid { grid-template-columns: 1fr; }
+      .h-cards-row { grid-template-columns: 1fr 1fr; }
+      .hero-trust { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
-  <section class="hero" id="top">
-
-    <!-- LEFT — Dark -->
-    <div class="hero-left">
-      <div class="hero-grid"></div>
-
-      <div class="logo-mark fade-up">
-        <div class="logo-icon"><img src="media/logob.png" alt="Intermediaire.io"></div>
-        <span class="logo-text">Intermediaire.io</span>
-      </div>
-
-      <div class="hero-kicker fade-up">
-        Plateforme locale de mise en relation
-      </div>
-
-      <h1 class="hero-title fade-up">
-        Le bon pro,<br>
-        <em>au bon moment</em>
-      </h1>
-
-      <p class="hero-subtitle fade-up">
-        Ta demande est envoyée directement à tous les professionnels de ta région. Simple, rapide, et sans tracas.
-      </p>
-
-      <div class="hero-ctas fade-up">
-        <a class="cta-primary" href="#client">
-          <span>Je cherche un service</span>
-          <div class="cta-arrow">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-        </a>
-        <a class="cta-secondary" href="#entrepreneur">
-          <span>Je suis entrepreneur</span>
-          <div class="cta-arrow" style="background:rgba(255,255,255,0.08)">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
-          </div>
-        </a>
-      </div>
-
-      <a class="scroll-hint" href="#client">
-        <div class="scroll-line"></div>
-        Défiler
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="nav-logo" href="#top">
+        <img src="media/logob.png" alt="Intermediaire.io">
+        <span class="nav-logo-name">Intermediaire.io</span>
       </a>
+      <div class="nav-links">
+        <a class="nav-link" href="#client">Je cherche un service</a>
+        <a class="nav-link" href="#entrepreneur">Je suis entrepreneur</a>
+      </div>
+      <a class="nav-btn" href="#entrepreneur">S'inscrire gratuitement</a>
     </div>
+  </nav>
 
-    <!-- RIGHT — Cream -->
-    <div class="hero-right">
-      <div class="hero-deco">1</div>
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-wrap">
+      <div class="hero-grid">
 
-      <div class="hero-right-inner">
-        <div class="stats-row">
-          <div class="stat-box fade-up">
-            <div class="stat-number">1<span>x</span></div>
-            <div class="stat-label">Une seule demande<br>à remplir</div>
+        <div class="hero-left">
+          <div class="badge">
+            <span class="badge-dot"></span>
+            Simple · Rapide · Local
           </div>
-          <div class="stat-box fade-up">
-            <div class="stat-number"><span>+</span>Pro</div>
-            <div class="stat-label">Plusieurs professionnels<br>locaux notifiés</div>
+
+          <h1 class="hero-title">
+            Le bon entrepreneur,<br>
+            <span class="accent">trouvé en minutes.</span>
+          </h1>
+
+          <p class="hero-sub">
+            Décrivez votre besoin une seule fois. On l'envoie directement aux entrepreneurs de votre région — pas besoin de chercher partout.
+          </p>
+
+          <div class="hero-ctas">
+            <a class="btn-primary" href="#client">Faire une demande</a>
+            <a class="btn-ghost" href="#entrepreneur">Je suis entrepreneur →</a>
           </div>
-          <div class="stat-box fade-up">
-            <div class="stat-number">SMS</div>
-            <div class="stat-label">Leads reçus par<br>message texte</div>
-          </div>
-          <div class="stat-box fade-up">
-            <div class="stat-number">0<span>$</span></div>
-            <div class="stat-label">Inscription gratuite<br>pour les pros</div>
+
+          <div class="hero-trust">
+            <div class="trust-faces">
+              <div class="trust-face">ML</div>
+              <div class="trust-face">JR</div>
+              <div class="trust-face">SC</div>
+              <div class="trust-face">+</div>
+            </div>
+            Des clients satisfaits dans votre région
           </div>
         </div>
 
-        <h2 class="hero-tagline fade-up">
-          Simple • Rapide<br><em>• Local</em>
-        </h2>
-        <p class="hero-tagdesc fade-up">
-          Décrivez vos travaux une seule fois. Votre demande part vers les bons contracteurs autour de vous — pas besoin de chercher partout.
-        </p>
+        <div class="hero-right">
+          <div class="h-cards-row">
+            <div class="h-card h-card--blue">
+              <div class="h-card-lbl">Demandes</div>
+              <div class="h-card-val">1<span class="unit">×</span></div>
+              <div class="h-card-sub">Une seule soumission</div>
+            </div>
+            <div class="h-card">
+              <div class="h-card-lbl">Inscription</div>
+              <div class="h-card-val">0<span class="unit">$</span></div>
+              <div class="h-card-sub">Gratuit, sans engagement</div>
+            </div>
+          </div>
+
+          <div class="sms-prev">
+            <div class="sms-prev-top">
+              <div class="sms-logo-wrap"><img src="media/logob.png" alt=""></div>
+              <div class="sms-from">Intermediaire.io</div>
+              <div class="sms-ts">14:28</div>
+            </div>
+            <div class="sms-msg">
+              <strong>🏠 Nouveau lead — Toiture · Sherbrooke</strong>
+              Besoin : infiltration d'eau au toit<br>
+              Urgence : rapide · Demande confirmée ✓
+              <div class="sms-chip">Débloquer ce lead — 50 $</div>
+            </div>
+          </div>
+
+          <div class="h-card">
+            <div class="h-card-lbl">Pas d'abonnement</div>
+            <div class="h-card-body">Recevez les leads par SMS. Vous payez seulement ceux qui vous intéressent. Aucune mensualité.</div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════ CLIENT SECTION ═══════════════════════════ -->
-  <section class="section" id="client" style="background: var(--warm-white)">
-    <div class="wrap">
-      <div class="section-header">
-        <div class="section-tag">Section client</div>
-        <h2 class="section-title">Envoyez une seule demande</h2>
-        <p class="section-desc">
-          Décrivez vos travaux une seule fois. Votre demande est envoyée aux contracteurs de votre région pour trouver le meilleur disponible.
-        </p>
-        <div class="pills-row">
-          <span class="pill pill--outline">Une seule demande</span>
-          <span class="pill pill--outline">Plusieurs pros locaux</span>
-          <span class="pill pill--outline">Réponse plus rapide</span>
+  <!-- FEATURES BAND -->
+  <div class="band">
+    <div class="band-grid">
+      <div class="band-item reveal">
+        <div class="band-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4z"/></svg>
         </div>
+        <div class="band-title">Une demande, plusieurs pros</div>
+        <div class="band-desc">Remplissez un seul formulaire. Votre besoin est diffusé à tous les entrepreneurs disponibles dans votre secteur.</div>
+      </div>
+      <div class="band-item reveal">
+        <div class="band-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        </div>
+        <div class="band-title">Leads reçus par SMS</div>
+        <div class="band-desc">Les entrepreneurs reçoivent un résumé directement par texto. Rapide à lire, facile à gérer depuis n'importe où.</div>
+      </div>
+      <div class="band-item reveal">
+        <div class="band-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="band-title">Vous choisissez, pas d'obligation</div>
+        <div class="band-desc">Chaque lead se paie individuellement. Aucun abonnement. Vous payez seulement ce qui vous intéresse.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLIENT SECTION -->
+  <section class="section" id="client">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-tag">Pour les clients</div>
+        <h2 class="sec-title">Envoyez une seule demande</h2>
+        <p class="sec-desc">Décrivez vos travaux une fois. Votre demande est envoyée aux bons entrepreneurs de votre région.</p>
       </div>
 
       <div class="client-layout">
 
-        <!-- Form -->
-        <div class="form-card">
-          <h3 class="card-title">Faire une demande</h3>
-          <p class="card-desc">Formulaire court, clair, et rapide à remplir.</p>
-
-          <form class="form-grid">
-            <div class="field full">
-              <label class="label" for="service">Service recherché</label>
-              <select class="select" id="service" name="service">
-                <option>Travaux de toiture</option>
-                <option>Plomberie</option>
-                <option>Électricité</option>
-                <option>Paysagement</option>
-                <option>Rénovation intérieure</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label class="label" for="nom">Nom et prénom</label>
-              <input class="input" id="nom" type="text" placeholder="Votre nom complet">
-            </div>
-
-            <div class="field">
-              <label class="label" for="tel">Téléphone</label>
-              <input class="input" id="tel" type="tel" placeholder="(___) ___-____">
-            </div>
-
-            <div class="field">
-              <label class="label" for="courriel">Courriel</label>
-              <input class="input" id="courriel" type="email" placeholder="vous@email.com">
-            </div>
-
-            <div class="field">
-              <label class="label" for="ville">Ville</label>
-              <input class="input" id="ville" type="text" placeholder="Votre ville">
-            </div>
-
-            <div class="field full">
-              <label class="label" for="details">Description des travaux</label>
-              <textarea class="textarea" id="details" placeholder="Décrivez brièvement les travaux à faire..."></textarea>
-            </div>
-
-            <label class="check-wrap">
-              <input type="checkbox">
-              <div class="check-text">
-                Je confirme que les renseignements envoyés sont véridiques et représentent une vraie demande de travaux.
+        <div class="form-card reveal">
+          <div class="form-card-top">
+            <div class="form-card-title">Faire une demande</div>
+            <div class="form-card-desc">Court, clair, rapide à remplir.</div>
+          </div>
+          <div class="form-bd">
+            <form class="form-grid">
+              <div class="field full">
+                <label class="label" for="service">Service recherché</label>
+                <select class="select" id="service">
+                  <option>Travaux de toiture</option>
+                  <option>Plomberie</option>
+                  <option>Électricité</option>
+                  <option>Paysagement</option>
+                  <option>Rénovation intérieure</option>
+                  <option>Autre</option>
+                </select>
               </div>
-            </label>
-
-            <div class="submit-row">
-              <button class="submit-btn" type="submit">Envoyer ma demande →</button>
-              <div class="submit-mini">Simple. Rapide. Sans perte de temps.</div>
-            </div>
-          </form>
+              <div class="field">
+                <label class="label" for="nom">Nom et prénom</label>
+                <input class="input" id="nom" type="text" placeholder="Votre nom">
+              </div>
+              <div class="field">
+                <label class="label" for="tel">Téléphone</label>
+                <input class="input" id="tel" type="tel" placeholder="(___) ___-____">
+              </div>
+              <div class="field">
+                <label class="label" for="courriel">Courriel</label>
+                <input class="input" id="courriel" type="email" placeholder="vous@email.com">
+              </div>
+              <div class="field">
+                <label class="label" for="ville">Ville</label>
+                <input class="input" id="ville" type="text" placeholder="Votre ville">
+              </div>
+              <div class="field full">
+                <label class="label" for="details">Description des travaux</label>
+                <textarea class="textarea" id="details" placeholder="Décrivez brièvement les travaux…"></textarea>
+              </div>
+              <label class="check-row">
+                <input type="checkbox">
+                <span>Je confirme que ma demande est réelle et que mes informations sont exactes.</span>
+              </label>
+              <div class="submit-row">
+                <button class="btn-primary" type="submit">Envoyer ma demande</button>
+                <div class="submit-note">Sans frais. Sans engagement.</div>
+              </div>
+            </form>
+          </div>
         </div>
 
-        <!-- Side -->
         <div class="client-side">
-          <div class="steps-card">
-            <h3 class="steps-card-title">Comment ça fonctionne</h3>
-
-            <div class="step-item">
-              <div class="step-num">01</div>
-              <div class="step-content">
-                <strong>Vous remplissez une seule demande</strong>
-                Décrivez votre besoin rapidement, sans chercher plusieurs entreprises vous-même.
-              </div>
+          <div class="side-card reveal">
+            <div class="side-title">Comment ça marche</div>
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-body"><strong>Vous remplissez une seule demande</strong>Décrivez votre besoin en quelques lignes, sans chercher plusieurs entreprises.</div>
             </div>
-
-            <div class="step-item">
-              <div class="step-num">02</div>
-              <div class="step-content">
-                <strong>On l'envoie à votre région</strong>
-                Votre demande part vers les contracteurs concernés autour de vous.
-              </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-body"><strong>On l'envoie aux pros de votre région</strong>Votre demande part vers les entrepreneurs disponibles autour de vous.</div>
             </div>
-
-            <div class="step-item">
-              <div class="step-num">03</div>
-              <div class="step-content">
-                <strong>Vous gagnez du temps</strong>
-                Vous trouvez plus vite quelqu'un de disponible pour vos travaux.
-              </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-body"><strong>Vous êtes contacté rapidement</strong>Les entrepreneurs intéressés communiquent directement avec vous.</div>
             </div>
           </div>
 
-          <div class="reviews-card">
-            <h3 class="reviews-title">Avis clients</h3>
-
-            <div class="review-item">
-              <div class="stars">
-                <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
-              </div>
-              <p class="review-text">J'ai reçu des retours rapidement et j'ai évité de chercher partout moi-même.</p>
-              <div class="review-author">Marie L. — Sherbrooke</div>
+          <div class="side-card reveal">
+            <div class="side-title">Ce que disent nos clients</div>
+            <div class="review">
+              <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+              <div class="review-txt">« J'ai reçu des retours rapidement et j'ai évité de chercher partout moi-même. »</div>
+              <div class="review-by">Marie L. — Sherbrooke</div>
             </div>
-
-            <div class="review-item">
-              <div class="stars">
-                <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
-              </div>
-              <p class="review-text">Très simple à utiliser. J'ai pu comparer mes options sans perdre mon temps.</p>
-              <div class="review-author">Jean-Philippe R. — Magog</div>
+            <div class="review">
+              <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+              <div class="review-txt">« Très simple à utiliser. J'ai pu comparer mes options sans perdre mon temps. »</div>
+              <div class="review-by">Jean-Philippe R. — Magog</div>
             </div>
-
-            <div class="review-item">
-              <div class="stars">
-                <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
-              </div>
-              <p class="review-text">Une seule demande envoyée à plusieurs entrepreneurs, c'est vraiment efficace.</p>
-              <div class="review-author">Sophie C. — Drummondville</div>
+            <div class="review">
+              <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+              <div class="review-txt">« Une seule demande, plusieurs entrepreneurs — c'est vraiment efficace. »</div>
+              <div class="review-by">Sophie C. — Drummondville</div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════ ENTREPRENEUR SECTION ═══════════════════════════ -->
-  <section class="section section--dark" id="entrepreneur">
+  <!-- ENTREPRENEUR SECTION -->
+  <section class="section section--grey" id="entrepreneur">
     <div class="wrap">
-      <div class="section-header">
-        <div class="section-tag">Section entrepreneur</div>
-        <h2 class="section-title">Recevez des leads par SMS</h2>
-        <p class="section-desc">
-          Recevez des demandes réelles dans votre région par SMS. Vous voyez le résumé du lead, puis vous décidez si vous voulez le débloquer.
-        </p>
-        <div class="pills-row">
-          <span class="pill pill--dark">Inscription gratuite</span>
-          <span class="pill pill--dark">Réception par SMS</span>
-          <span class="pill pill--dark">Vous choisissez</span>
-        </div>
+      <div class="sec-head reveal">
+        <div class="sec-tag">Pour les entrepreneurs</div>
+        <h2 class="sec-title">Recevez des leads par SMS</h2>
+        <p class="sec-desc">Inscrivez-vous gratuitement. Recevez un résumé des nouvelles demandes dans votre secteur, et choisissez ceux qui vous intéressent.</p>
       </div>
 
       <div class="ent-layout">
 
-        <!-- SMS Phone -->
-        <div class="sms-card">
-          <h3 class="sms-card-title">Exemple de SMS reçu</h3>
+        <div class="phone-col reveal">
+          <div class="phone-label-txt">Exemple de message reçu</div>
 
-          <div class="phone-wrap">
-            <div class="phone-mock">
-              <div class="phone-notch"><span></span></div>
-
-              <div class="phone-screen">
-                <div class="sms-header">
-                  <div class="sms-avatar"><img src="media/logob.png" alt="" style="width:100%;height:100%;object-fit:contain;border-radius:50%"></div>
-                  <div>
-                    <div class="sms-header-name">Intermediaire.io</div>
-                    <div class="sms-header-sub">Nouveau lead</div>
-                  </div>
+          <div class="phone-shell">
+            <div class="phone-pill"><span></span></div>
+            <div class="phone-scr">
+              <div class="pscr-head">
+                <div class="pscr-av"><img src="media/logob.png" alt=""></div>
+                <div>
+                  <div class="pscr-name">Intermediaire.io</div>
+                  <div class="pscr-sub">Nouveau lead disponible</div>
                 </div>
-
-                <div class="sms-bubble">
-                  <strong>🏠 Nouveau lead — Toiture</strong>
-                  <br><br>
-                  Ville : <strong>Sherbrooke</strong><br>
-                  Besoin : infiltration d'eau au toit<br>
-                  Urgence : rapide<br>
-                  Demande réelle confirmée ✓
-                  <br><br>
-                  <div class="sms-price-tag">
-                    Débloquer ce lead — 50$
-                  </div>
-                </div>
-
-                <div class="sms-time">Aujourd'hui 14:28</div>
               </div>
+              <div class="pscr-bubble">
+                <strong>🏠 Toiture — Sherbrooke</strong>
+                Besoin : infiltration d'eau au toit<br>
+                Urgence : rapide<br>
+                Demande réelle confirmée ✓
+                <div class="pscr-chip">Débloquer — 50 $</div>
+              </div>
+              <div class="pscr-time">Aujourd'hui 14:28</div>
             </div>
           </div>
 
-          <div class="sms-legend">
-            <span class="sms-pill">Infos essentielles</span>
-            <span class="sms-pill">Lecture rapide</span>
-            <span class="sms-pill">Client masqué avant paiement</span>
+          <div class="legend-pills">
+            <span class="leg-pill">Infos clés visibles</span>
+            <span class="leg-pill">Client masqué avant paiement</span>
+            <span class="leg-pill">Vous choisissez</span>
           </div>
         </div>
 
-        <!-- Ent Form -->
-        <div class="ent-form-card">
-          <h3 class="card-title">Inscription gratuite</h3>
-          <p class="card-desc" style="margin-bottom:28px">Ajoutez votre entreprise à notre liste d'envoi de leads SMS.</p>
-
-          <form class="ent-form">
-            <div class="field">
-              <label class="label" for="ent-name">Nom de l'entreprise</label>
-              <input class="input" id="ent-name" type="text" placeholder="Ex. Toitures ABC">
-            </div>
-
-            <div class="field">
-              <label class="label" for="ent-phone">Numéro de téléphone</label>
-              <input class="input" id="ent-phone" type="tel" placeholder="(___) ___-____">
-            </div>
-
-            <div class="field">
-              <label class="label" for="ent-service">Type de service offert</label>
-              <select class="select" id="ent-service">
-                <option>Toiture</option>
-                <option>Plomberie</option>
-                <option>Électricité</option>
-                <option>Paysagement</option>
-                <option>Autre</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label class="label" for="ent-city">Ville / région couverte</label>
-              <input class="input" id="ent-city" type="text" placeholder="Ex. Sherbrooke">
-            </div>
-
-            <div class="ent-bottom">
-              <button class="submit-btn" type="submit">M'inscrire gratuitement →</button>
-              <div class="ent-small">Aucun frais pour s'inscrire. Vous choisissez ensuite les leads que vous voulez débloquer.</div>
-            </div>
-          </form>
+        <div class="ent-card reveal">
+          <div class="ent-card-top">
+            <div class="form-card-title">Inscription gratuite</div>
+            <div class="form-card-desc">Recevez des leads SMS dans votre région.</div>
+          </div>
+          <div class="ent-card-body">
+            <form class="ent-form">
+              <div class="field">
+                <label class="label" for="ent-name">Nom de l'entreprise</label>
+                <input class="input" id="ent-name" type="text" placeholder="Ex. Toitures Tremblay">
+              </div>
+              <div class="field">
+                <label class="label" for="ent-phone">Numéro de téléphone</label>
+                <input class="input" id="ent-phone" type="tel" placeholder="(___) ___-____">
+              </div>
+              <div class="field">
+                <label class="label" for="ent-service">Type de travaux</label>
+                <select class="select" id="ent-service">
+                  <option>Toiture</option>
+                  <option>Plomberie</option>
+                  <option>Électricité</option>
+                  <option>Paysagement</option>
+                  <option>Rénovation</option>
+                  <option>Autre</option>
+                </select>
+              </div>
+              <div class="field">
+                <label class="label" for="ent-city">Ville / région couverte</label>
+                <input class="input" id="ent-city" type="text" placeholder="Ex. Sherbrooke">
+              </div>
+              <button class="btn-primary" type="submit" style="width:100%;justify-content:center">M'inscrire gratuitement</button>
+              <div class="ent-note">Aucun frais d'inscription. Vous choisissez les leads qui vous intéressent et les payez individuellement. Pas d'abonnement.</div>
+            </form>
+          </div>
         </div>
+
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer-bar">
+  <!-- FOOTER -->
+  <footer class="footer">
     <div class="wrap">
       <div class="footer-inner">
         <div class="footer-logo">
-          <div class="logo-icon" style="width:32px;height:32px"><img src="media/logob.png" alt=""></div>
+          <img src="media/logob.png" alt="">
           Intermediaire.io
         </div>
         <div class="footer-copy">© 2025 Intermediaire.io — Simple. Rapide. Local.</div>
@@ -1488,33 +924,14 @@
   </footer>
 
   <script>
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        const target = document.querySelector(a.getAttribute('href'));
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+    const els = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); }
       });
-    });
-
-    // Scroll-triggered fade-in for sections
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.form-card, .steps-card, .reviews-card, .sms-card, .ent-form-card, .section-header').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(32px)';
-      el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
-      observer.observe(el);
-    });
+    }, { threshold: 0.07 });
+    els.forEach(el => obs.observe(el));
   </script>
+
 </body>
 </html>
