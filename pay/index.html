@@ -51,21 +51,25 @@
   </div>
 
   <script>
-    const parts = window.location.pathname.split("/").filter(Boolean);
-    const leadId = parts[parts.length - 1];
+    const params = new URLSearchParams(window.location.search);
+    const leadId = params.get("lead_id");
 
-    fetch("https://hook.us2.make.com/4vt5dgbfwit7wkgqqtn0wmc1c6o6kam8?lead_id=" + encodeURIComponent(leadId))
-      .then(res => res.json())
-      .then(data => {
-        if (data.url) {
-          window.location.href = data.url;
-        } else {
-          document.body.innerHTML = "<div class='box'><h2>Lien invalide</h2><p>Ce lien de paiement est introuvable ou expiré.</p></div>";
-        }
-      })
-      .catch(() => {
-        document.body.innerHTML = "<div class='box'><h2>Erreur</h2><p>Impossible de charger le lien de paiement.</p></div>";
-      });
+    if (!leadId) {
+      document.body.innerHTML = "<div class='box'><h2>Lien invalide</h2><p>Aucun identifiant trouvé.</p></div>";
+    } else {
+      fetch("https://hook.us2.make.com/4vt5dgbfwit7wkgqqtn0wmc1c6o6kam8?lead_id=" + encodeURIComponent(leadId))
+        .then(res => res.json())
+        .then(data => {
+          if (data.url) {
+            window.location.href = data.url;
+          } else {
+            document.body.innerHTML = "<div class='box'><h2>Lien invalide</h2><p>Ce lien de paiement est introuvable ou expiré.</p></div>";
+          }
+        })
+        .catch(() => {
+          document.body.innerHTML = "<div class='box'><h2>Erreur</h2><p>Impossible de charger le lien de paiement.</p></div>";
+        });
+    }
   </script>
 </body>
 </html>
