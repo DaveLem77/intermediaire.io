@@ -1,85 +1,181 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Paiement confirmé</title>
+
+<style>
+:root{
+  --bg:#07111f;
+  --bg2:#0b1830;
+  --card:rgba(255,255,255,0.06);
+  --border:rgba(255,255,255,0.10);
+  --text:#f5f9ff;
+  --muted:#a9bad3;
+  --accent:#57b8ff;
+  --accent2:#7ef0c8;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter, sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(87,184,255,0.18), transparent 30%),
+    radial-gradient(circle at 80% 20%, rgba(126,240,200,0.10), transparent 30%),
+    linear-gradient(180deg,var(--bg),var(--bg2));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+}
+
+.card{
+  width:90%;
+  max-width:700px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:25px;
+}
+
+.hidden{display:none}
+
+h1{margin-bottom:10px}
+p{color:var(--muted)}
+
+.btn{
+  margin-top:15px;
+  padding:10px 15px;
+  border-radius:10px;
+  text-decoration:none;
+  display:inline-block;
+}
+
+.primary{
+  background:linear-gradient(90deg,var(--accent2),var(--accent));
+  color:#000;
+}
+
+.secondary{
+  background:rgba(255,255,255,0.06);
+  color:#fff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<!-- LOADING -->
+<div id="loadingState">
+  <h1>Chargement...</h1>
+  <p>Vérification du paiement...</p>
+</div>
+
+<!-- ERROR -->
+<div id="errorState" class="hidden">
+  <h1>Erreur</h1>
+  <p id="errorText"></p>
+  <a href="/" class="btn primary">Retour</a>
+</div>
+
+<!-- SUCCESS -->
+<div id="successState" class="hidden">
+  <h1>Paiement confirmé ✅</h1>
+
+  <p><strong>Nom :</strong> <span id="leadNom"></span></p>
+  <p><strong>Téléphone :</strong> <span id="leadTelephone"></span></p>
+  <p><strong>Ville :</strong> <span id="leadVille"></span></p>
+  <p><strong>Service :</strong> <span id="leadService"></span></p>
+  <p><strong>Description :</strong> <span id="leadDescription"></span></p>
+
+  <a id="callBtn" class="btn primary">Appeler</a>
+</div>
+
+</div>
+
 <script>
-  const WEBHOOK_URL = "https://hook.us2.make.com/ufvwvu0l7kwh9w9it8v4qk5ywbh39dur";
+const WEBHOOK_URL = "https://hook.us2.make.com/ufvwvu0l7kwh9w9it8v4qk5ywbh39dur";
 
-  const loadingState = document.getElementById("loadingState");
-  const errorState = document.getElementById("errorState");
-  const successState = document.getElementById("successState");
-  const errorText = document.getElementById("errorText");
+function safe(id){
+  return document.getElementById(id);
+}
 
-  function showError(message) {
-    loadingState.classList.add("hidden");
-    successState.classList.add("hidden");
-    errorState.classList.remove("hidden");
-    errorText.textContent = message || "Une erreur est survenue.";
+const loadingState = safe("loadingState");
+const errorState = safe("errorState");
+const successState = safe("successState");
+const errorText = safe("errorText");
+
+function showError(msg){
+  loadingState.classList.add("hidden");
+  successState.classList.add("hidden");
+  errorState.classList.remove("hidden");
+  errorText.textContent = msg;
+}
+
+function formatPhone(phone){
+  return String(phone || "").replace(/[^\d+]/g,"");
+}
+
+async function loadLead(){
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get("session_id");
+
+  console.log("SESSION:", sessionId);
+
+  if(!sessionId){
+    showError("Session manquante.");
+    return;
   }
 
-  function formatPhoneForTel(phone) {
-    return String(phone || "").replace(/[^\d+]/g, "");
-  }
+  try{
+    const url = WEBHOOK_URL + "?session_id=" + encodeURIComponent(sessionId);
+    console.log("CALL:", url);
 
-  async function loadLead() {
-    const params = new URLSearchParams(window.location.search);
-    const sessionId = params.get("session_id");
+    const res = await fetch(url, {cache:"no-store"});
+    const text = await res.text();
 
-    if (!sessionId) {
-      showError("Aucune session Stripe trouvée dans l’URL.");
+    console.log("RAW:", text);
+
+    if(!res.ok){
+      throw new Error("HTTP " + res.status);
+    }
+
+    const data = JSON.parse(text);
+
+    console.log("DATA:", data);
+
+    if(!data.success){
+      showError("Paiement non validé.");
       return;
     }
 
-    try {
-      const url = WEBHOOK_URL + "?session_id=" + encodeURIComponent(sessionId);
-      console.log("Webhook appelé :", url);
+    safe("leadNom").textContent = data.nom || "-";
+    safe("leadTelephone").textContent = data.telephone || "-";
+    safe("leadVille").textContent = data.ville || "-";
+    safe("leadService").textContent = data.service || "-";
+    safe("leadDescription").textContent = data.description || "-";
 
-      const response = await fetch(url, {
-        method: "GET",
-        cache: "no-store"
-      });
-
-      console.log("Status HTTP :", response.status);
-
-      const raw = await response.text();
-      console.log("Réponse brute :", raw);
-
-      if (!response.ok) {
-        throw new Error("HTTP " + response.status + " - " + raw);
-      }
-
-      let data;
-      try {
-        data = JSON.parse(raw);
-      } catch (e) {
-        throw new Error("Réponse non valide JSON : " + raw);
-      }
-
-      console.log("JSON final :", data);
-
-      if (!data.success) {
-        showError(data.message || "Paiement non confirmé ou lead introuvable.");
-        return;
-      }
-
-      document.getElementById("leadNom").textContent = data.nom || "—";
-      document.getElementById("leadTelephone").textContent = data.telephone || "—";
-      document.getElementById("leadVille").textContent = data.ville || "—";
-      document.getElementById("leadService").textContent = data.service || "—";
-      document.getElementById("leadDescription").textContent = data.description || "—";
-
-      const telClean = formatPhoneForTel(data.telephone);
-      const callBtn = document.getElementById("callBtn");
-      if (telClean) {
-        callBtn.href = "tel:" + telClean;
-      } else {
-        callBtn.style.display = "none";
-      }
-
-      loadingState.classList.add("hidden");
-      errorState.classList.add("hidden");
-      successState.classList.remove("hidden");
-    } catch (error) {
-      console.error("ERREUR EXACTE :", error);
-      showError("Erreur exacte : " + error.message);
+    const tel = formatPhone(data.telephone);
+    if(tel){
+      safe("callBtn").href = "tel:" + tel;
     }
-  }
 
-  loadLead();
+    loadingState.classList.add("hidden");
+    successState.classList.remove("hidden");
+
+  }catch(e){
+    console.error("ERROR:", e);
+    showError("Erreur: " + e.message);
+  }
+}
+
+loadLead();
 </script>
+
+</body>
+</html>
