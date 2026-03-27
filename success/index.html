@@ -4,7 +4,6 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Paiement confirmé</title>
-
 <style>
 :root{
   --bg:#07111f;
@@ -16,11 +15,10 @@
   --accent:#57b8ff;
   --accent2:#7ef0c8;
 }
-
 *{box-sizing:border-box}
 body{
   margin:0;
-  font-family:Inter, sans-serif;
+  font-family:Inter, Arial, sans-serif;
   color:var(--text);
   background:
     radial-gradient(circle at 20% 20%, rgba(87,184,255,0.18), transparent 30%),
@@ -31,7 +29,6 @@ body{
   justify-content:center;
   min-height:100vh;
 }
-
 .card{
   width:90%;
   max-width:700px;
@@ -40,12 +37,9 @@ body{
   border-radius:20px;
   padding:25px;
 }
-
 .hidden{display:none}
-
 h1{margin-bottom:10px}
 p{color:var(--muted)}
-
 .btn{
   margin-top:15px;
   padding:10px 15px;
@@ -53,53 +47,39 @@ p{color:var(--muted)}
   text-decoration:none;
   display:inline-block;
 }
-
 .primary{
   background:linear-gradient(90deg,var(--accent2),var(--accent));
   color:#000;
 }
-
-.secondary{
-  background:rgba(255,255,255,0.06);
-  color:#fff;
-}
 </style>
 </head>
-
 <body>
 
 <div class="card">
+  <div id="loadingState">
+    <h1>Chargement...</h1>
+    <p>Vérification du paiement...</p>
+  </div>
 
-<!-- LOADING -->
-<div id="loadingState">
-  <h1>Chargement...</h1>
-  <p>Vérification du paiement...</p>
-</div>
+  <div id="errorState" class="hidden">
+    <h1>Erreur</h1>
+    <p id="errorText"></p>
+    <a href="/" class="btn primary">Retour</a>
+  </div>
 
-<!-- ERROR -->
-<div id="errorState" class="hidden">
-  <h1>Erreur</h1>
-  <p id="errorText"></p>
-  <a href="/" class="btn primary">Retour</a>
-</div>
-
-<!-- SUCCESS -->
-<div id="successState" class="hidden">
-  <h1>Paiement confirmé ✅</h1>
-
-  <p><strong>Nom :</strong> <span id="leadNom"></span></p>
-  <p><strong>Téléphone :</strong> <span id="leadTelephone"></span></p>
-  <p><strong>Ville :</strong> <span id="leadVille"></span></p>
-  <p><strong>Service :</strong> <span id="leadService"></span></p>
-  <p><strong>Description :</strong> <span id="leadDescription"></span></p>
-
-  <a id="callBtn" class="btn primary">Appeler</a>
-</div>
-
+  <div id="successState" class="hidden">
+    <h1>Paiement confirmé ✅</h1>
+    <p><strong>Nom :</strong> <span id="leadNom"></span></p>
+    <p><strong>Téléphone :</strong> <span id="leadTelephone"></span></p>
+    <p><strong>Ville :</strong> <span id="leadVille"></span></p>
+    <p><strong>Service :</strong> <span id="leadService"></span></p>
+    <p><strong>Description :</strong> <span id="leadDescription"></span></p>
+    <a id="callBtn" class="btn primary">Appeler</a>
+  </div>
 </div>
 
 <script>
-const WEBHOOK_URL = "https://hook.us2.make.com/ufvwvu0l7kwh9w9it8v4qk5ywbh39dur";
+const WEBHOOK_URL = "https://hook.us2.make.com/6dnsvtfx9vtayl66yrzu397fzmivjpgl";
 
 function safe(id){
   return document.getElementById(id);
@@ -125,8 +105,6 @@ async function loadLead(){
   const params = new URLSearchParams(window.location.search);
   const sessionId = params.get("session_id");
 
-  console.log("SESSION:", sessionId);
-
   if(!sessionId){
     showError("Session manquante.");
     return;
@@ -134,20 +112,14 @@ async function loadLead(){
 
   try{
     const url = WEBHOOK_URL + "?session_id=" + encodeURIComponent(sessionId);
-    console.log("CALL:", url);
-
     const res = await fetch(url, {cache:"no-store"});
     const text = await res.text();
-
-    console.log("RAW:", text);
 
     if(!res.ok){
       throw new Error("HTTP " + res.status);
     }
 
     const data = JSON.parse(text);
-
-    console.log("DATA:", data);
 
     if(!data.success){
       showError("Paiement non validé.");
@@ -169,7 +141,6 @@ async function loadLead(){
     successState.classList.remove("hidden");
 
   }catch(e){
-    console.error("ERROR:", e);
     showError("Erreur: " + e.message);
   }
 }
