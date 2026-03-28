@@ -330,6 +330,106 @@ input[readonly]:focus{
   height:26px;
 }
 
+/* SUCCESS */
+
+.successBox{
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  padding:48px 32px 40px;
+  background:rgba(255,255,255,.72);
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(47,128,237,.12);
+  border-radius:28px;
+  box-shadow:0 24px 64px rgba(16,44,68,.09);
+  animation:popIn .5s cubic-bezier(.22,1,.36,1) both;
+}
+
+@keyframes popIn{
+  from{opacity:0;transform:translateY(18px) scale(.97)}
+  to{opacity:1;transform:none}
+}
+
+.successIcon{
+  width:72px;
+  height:72px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#2f80ed,#69c2ff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:22px;
+  box-shadow:0 12px 32px rgba(47,128,237,.28);
+}
+
+.successIcon svg{
+  width:34px;
+  height:34px;
+  stroke:#fff;
+  fill:none;
+  stroke-width:2.5;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.successTitle{
+  margin:0 0 10px;
+  font-family:"Plus Jakarta Sans", Inter, sans-serif;
+  font-size:26px;
+  font-weight:800;
+  letter-spacing:-0.03em;
+  color:var(--title);
+}
+
+.successText{
+  margin:0;
+  font-size:15px;
+  color:var(--muted);
+  line-height:1.65;
+  max-width:380px;
+}
+
+/* SUCCESS */
+.successBox{
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  padding:52px 32px 44px;
+  background:rgba(255,255,255,.75);
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(47,128,237,.12);
+  border-radius:28px;
+  box-shadow:0 24px 64px rgba(16,44,68,.09);
+  animation:popIn .5s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes popIn{
+  from{opacity:0;transform:translateY(18px) scale(.97)}
+  to{opacity:1;transform:none}
+}
+.successIcon{
+  width:72px;height:72px;border-radius:50%;
+  background:linear-gradient(135deg,#2f80ed,#69c2ff);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:22px;
+  box-shadow:0 12px 32px rgba(47,128,237,.28);
+}
+.successIcon svg{
+  width:34px;height:34px;stroke:#fff;fill:none;
+  stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;
+}
+.successTitle{
+  margin:0 0 10px;
+  font-family:"Plus Jakarta Sans",Inter,sans-serif;
+  font-size:26px;font-weight:800;letter-spacing:-0.03em;
+  color:var(--title);
+}
+.successText{
+  margin:0;font-size:15px;color:var(--muted);
+  line-height:1.7;max-width:360px;
+}
+
 @media(max-width:640px){
   .shell{
     padding:6px 18px 18px;
@@ -408,7 +508,7 @@ input[readonly]:focus{
       </div>
     </div>
 
-    <form action="https://hook.us2.make.com/to346qlepm88si74k1dngnwnawkd3b79" method="post">
+    <form id="mainForm">
       <div class="row2">
         <input type="text" name="prenom" placeholder="Prénom" required>
         <input type="text" name="ville" value="Sherbrooke" readonly>
@@ -433,8 +533,41 @@ input[readonly]:focus{
       <div class="bottomSpace"></div>
     </form>
 
+    <div class="successBox" id="successBox">
+      <div class="successIcon">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h2 class="successTitle">Demande bien reçue&nbsp;!</h2>
+      <p class="successText">Un professionnel de votre région vous contactera sous peu.<br>Merci de votre confiance.</p>
+    </div>
+
   </section>
 </main>
 
 </body>
 </html>
+<script>
+// Re-wire form to show success instead of navigating away
+(function(){
+  var form = document.getElementById('mainForm');
+  var successBox = document.getElementById('successBox');
+  if(!form || !successBox) return;
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    var btn = form.querySelector('.submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Envoi en cours…';
+    var data = {};
+    new FormData(form).forEach(function(v,k){ data[k]=v; });
+    try {
+      await fetch('https://hook.us2.make.com/to346qlepm88si74k1dngnwnawkd3b79',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(data)
+      });
+    } catch(err){ console.error(err); }
+    form.style.display = 'none';
+    successBox.style.display = 'flex';
+  });
+})();
+</script>
