@@ -3,150 +3,599 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Paiement confirmé</title>
+<title>Paiement confirmé — Intermediaire.io</title>
+<link rel="icon" href="media/logob.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#07111f;
-  --bg2:#0b1830;
-  --card:rgba(255,255,255,0.06);
-  --border:rgba(255,255,255,0.10);
-  --text:#f5f9ff;
-  --muted:#a9bad3;
-  --accent:#57b8ff;
-  --accent2:#7ef0c8;
+:root {
+  --az:       #55add9;
+  --az-deep:  #2e8fbf;
+  --az-dark:  #1a6499;
+  --az-lt:    #85caeb;
+  --az-pale:  #cce8f5;
+  --az-tint:  #edf6fb;
+
+  --white:    #ffffff;
+  --off:      #f5f9fb;
+  --ink:      #0c1c2b;
+  --body:     #385168;
+  --muted:    #7290a3;
+  --line:     #d3e6f0;
+
+  --shadow:    0 4px 0 var(--az-pale), 0 16px 48px rgba(12,28,43,.07);
+  --shadow-lg: 0 6px 0 var(--az-pale), 0 24px 64px rgba(12,28,43,.10);
 }
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Inter, Arial, sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(circle at 20% 20%, rgba(87,184,255,0.18), transparent 30%),
-    radial-gradient(circle at 80% 20%, rgba(126,240,200,0.10), transparent 30%),
-    linear-gradient(180deg,var(--bg),var(--bg2));
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  min-height:100vh;
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: 'Outfit', system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--white);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px 48px;
+  position: relative;
+  overflow-x: hidden;
 }
-.card{
-  width:90%;
-  max-width:700px;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:25px;
+
+/* Animated blobs */
+.blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(72px);
+  pointer-events: none;
+  z-index: 0;
 }
-.hidden{display:none}
-h1{margin-bottom:10px}
-p{color:var(--muted)}
-.btn{
-  margin-top:15px;
-  padding:10px 15px;
-  border-radius:10px;
-  text-decoration:none;
-  display:inline-block;
+.blob-1 {
+  width: min(600px,110vw); height: min(600px,110vw);
+  background: radial-gradient(circle, rgba(85,173,217,.38) 0%, rgba(133,202,235,.14) 55%, transparent 75%);
+  top: -30%; left: 50%; transform: translateX(-50%);
+  animation: drift1 11s ease-in-out infinite alternate;
 }
-.primary{
-  background:linear-gradient(90deg,var(--accent2),var(--accent));
-  color:#000;
+.blob-2 {
+  width: min(300px,70vw); height: min(300px,70vw);
+  background: radial-gradient(circle, rgba(46,143,191,.22) 0%, transparent 70%);
+  bottom: -8%; right: -6%;
+  animation: drift2 14s ease-in-out infinite alternate;
+}
+.blob-3 {
+  width: min(220px,55vw); height: min(220px,55vw);
+  background: radial-gradient(circle, rgba(85,173,217,.15) 0%, transparent 70%);
+  bottom: 10%; left: -5%;
+  animation: drift1 9s ease-in-out infinite alternate-reverse;
+}
+@keyframes drift1 {
+  from { transform: translateX(-50%) translateY(0) scale(1); }
+  to   { transform: translateX(-50%) translateY(-22px) scale(1.04); }
+}
+@keyframes drift2 {
+  from { transform: translate(0,0); }
+  to   { transform: translate(-12px,-18px); }
+}
+
+/* Dot grid */
+body::before {
+  content:'';
+  position: fixed; inset: 0; z-index: 0;
+  background-image: radial-gradient(rgba(85,173,217,.18) 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 10%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 10%, transparent 100%);
+  pointer-events: none;
+}
+
+/* ── UNLOCK OVERLAY ── */
+#unlock-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  background: var(--white);
+  transition: opacity .7s ease, visibility .7s ease;
+}
+#unlock-overlay.fade-out { opacity: 0; visibility: hidden; }
+
+.lock-container {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 24px;
+}
+
+.lock-wrap {
+  width: 88px; height: 88px;
+  position: relative;
+  animation: lockPop .4s cubic-bezier(.34,1.56,.64,1) .15s both;
+}
+@keyframes lockPop {
+  from { transform: scale(.4); opacity:0; }
+  to   { transform: scale(1);  opacity:1; }
+}
+
+.lock-body-el {
+  width: 56px; height: 46px;
+  background: linear-gradient(135deg, var(--az-dark) 0%, var(--az) 60%, var(--az-lt) 100%);
+  border-radius: 13px;
+  position: absolute;
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 28px rgba(85,173,217,.45), 0 4px 0 var(--az-pale);
+}
+
+.lock-keyhole-el {
+  width: 12px; height: 20px;
+  background: rgba(255,255,255,.9);
+  border-radius: 6px 6px 3px 3px;
+  position: relative;
+}
+.lock-keyhole-el::after {
+  content:'';
+  position: absolute;
+  width: 6px; height: 9px;
+  background: rgba(255,255,255,.9);
+  border-radius: 0 0 4px 4px;
+  bottom: -7px; left: 50%;
+  transform: translateX(-50%);
+}
+
+.lock-shackle-el {
+  width: 34px; height: 28px;
+  border: 5px solid var(--az);
+  border-bottom: none;
+  border-radius: 17px 17px 0 0;
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  transform-origin: bottom center;
+  animation: shackleOpen .55s cubic-bezier(.34,1.56,.64,1) 1.15s both;
+}
+@keyframes shackleOpen {
+  0%   { transform: translateX(-50%) rotate(0deg); }
+  100% { transform: translateX(-50%) rotate(-48deg) translateY(-5px); }
+}
+
+.unlock-label {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--muted);
+  animation: fadeUp .5s ease .4s both;
+}
+
+.unlock-dots {
+  display: flex; gap: 10px;
+  animation: fadeUp .5s ease .6s both;
+}
+.udot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--line);
+  animation: dotOn .25s ease forwards;
+}
+.udot:nth-child(1) { animation-delay: .95s; }
+.udot:nth-child(2) { animation-delay: 1.25s; }
+.udot:nth-child(3) { animation-delay: 1.55s; }
+
+@keyframes dotOn  { to { background: var(--az); box-shadow: 0 0 10px rgba(85,173,217,.5); } }
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+
+/* ── MAIN WRAPPER ── */
+.main-wrapper {
+  position: relative; z-index: 1;
+  width: 100%; max-width: 660px;
+  display: flex; flex-direction: column;
+  align-items: center;
+  opacity: 0; transform: translateY(18px);
+  transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
+}
+.main-wrapper.revealed { opacity: 1; transform: none; }
+
+/* Logo bar */
+.logo-wrap {
+  margin-bottom: 28px;
+  display: flex; align-items: center; gap: 11px;
+}
+.logo-wrap img {
+  height: 42px; width: auto; object-fit: contain;
+  filter: drop-shadow(0 6px 18px rgba(85,173,217,.3));
+}
+.logo-name {
+  font-size: 16px; font-weight: 800;
+  letter-spacing: -.025em; color: var(--ink);
+}
+.logo-name .az { color: var(--az); }
+
+/* ── CARD ── */
+.card {
+  width: 100%;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  position: relative;
+}
+/* Blue top line */
+.card::before {
+  content:'';
+  position: absolute;
+  inset: 0 0 auto 0; height: 3px;
+  background: linear-gradient(90deg, var(--az-dark), var(--az), var(--az-lt));
+}
+
+.hidden { display: none !important; }
+
+/* Loading */
+#loadingState {
+  padding: 56px 40px;
+  text-align: center;
+}
+#loadingState h1 {
+  font-size: 1.6rem; font-weight: 800;
+  letter-spacing: -.03em; color: var(--ink);
+  margin-bottom: 8px;
+}
+#loadingState p { color: var(--muted); font-size: 14px; font-weight: 500; }
+
+.spinner {
+  width: 38px; height: 38px;
+  border: 3px solid var(--line);
+  border-top-color: var(--az);
+  border-radius: 50%;
+  animation: spin .75s linear infinite;
+  margin: 22px auto 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Error */
+#errorState { padding: 48px 40px; }
+#errorState h1 {
+  font-size: 1.8rem; font-weight: 900;
+  letter-spacing: -.04em; margin-bottom: 10px;
+}
+#errorState p { color: var(--muted); margin-bottom: 22px; font-size: 15px; }
+
+.btn-back {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 24px; border-radius: 12px;
+  background: var(--az-tint);
+  border: 2px solid var(--az-pale);
+  color: var(--az-dark);
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px; font-weight: 700;
+  cursor: pointer; text-decoration: none;
+  transition: background .15s, border-color .15s;
+}
+.btn-back:hover { background: var(--az-pale); border-color: var(--az-lt); }
+
+/* Success header */
+#successState { overflow: hidden; }
+
+.success-head {
+  padding: 36px 40px 30px;
+  background: linear-gradient(135deg, #e0f3fc 0%, #eef8fe 40%, var(--white) 100%);
+  border-bottom: 1px solid var(--az-pale);
+  position: relative; overflow: hidden;
+  text-align: center;
+}
+.success-head::after {
+  content:'';
+  position: absolute;
+  width: 220px; height: 220px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(85,173,217,.14) 0%, transparent 70%);
+  top: -70px; right: -50px;
+  pointer-events: none;
+}
+
+/* sec-tag style badge */
+.badge {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--az); margin-bottom: 14px;
+}
+.badge::before, .badge::after {
+  content:''; display:block;
+  width: 22px; height: 3px;
+  background: var(--az); border-radius: 3px;
+}
+
+.success-head h1 {
+  font-size: clamp(1.65rem, 5vw, 2.3rem);
+  font-weight: 900; letter-spacing: -.04em;
+  line-height: 1.05; color: var(--ink);
+  margin-bottom: 10px;
+}
+.success-head h1 .az { color: var(--az); }
+
+.success-sub {
+  font-size: 14px; color: var(--body);
+  font-weight: 400; line-height: 1.6;
+  max-width: 380px; margin: 0 auto;
+  position: relative; z-index: 1;
+}
+
+/* Success body */
+.success-body { padding: 30px 40px 36px; }
+
+/* Fields grid */
+.fields-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+
+.field-item {
+  background: var(--off);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 15px 18px;
+  transition: border-color .18s, transform .18s;
+}
+.field-item:hover { border-color: var(--az-pale); transform: translateY(-2px); }
+.field-item.full { grid-column: 1 / -1; }
+
+.field-label {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 10.5px; font-weight: 700;
+  letter-spacing: .13em; text-transform: uppercase;
+  color: var(--az); margin-bottom: 5px;
+}
+.field-label::before {
+  content:''; display:block;
+  width: 14px; height: 2px;
+  background: var(--az); border-radius: 2px;
+}
+
+.field-value {
+  font-size: 15px; font-weight: 600;
+  color: var(--ink); line-height: 1.45;
+}
+
+/* Divider */
+.divider {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 20px;
+  font-size: 10.5px; font-weight: 700;
+  letter-spacing: .13em; text-transform: uppercase;
+  color: var(--muted);
+}
+.divider::before, .divider::after {
+  content:''; flex: 1; height: 1px;
+  background: var(--line);
+}
+
+/* ── CALL BUTTON ── */
+.call-btn {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  width: 100%;
+  padding: 18px 28px;
+  border-radius: 16px;
+  background: var(--az);
+  color: #fff;
+  text-decoration: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px; font-weight: 800;
+  letter-spacing: -.02em;
+  box-shadow: 0 6px 28px rgba(85,173,217,.42), inset 0 1px 0 rgba(255,255,255,.2), 0 4px 0 var(--az-dark);
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+  position: relative; overflow: hidden;
+  cursor: pointer;
+}
+.call-btn::before {
+  content:'';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,.16), transparent 60%);
+  pointer-events: none;
+}
+.call-btn:hover {
+  background: var(--az-deep);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 36px rgba(85,173,217,.48), inset 0 1px 0 rgba(255,255,255,.2), 0 4px 0 #1a527a;
+}
+.call-btn:active { transform: translateY(1px); }
+
+.call-icon {
+  width: 24px; height: 24px; flex-shrink: 0;
+  background: rgba(255,255,255,.2);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+}
+.call-icon svg {
+  width: 13px; height: 13px;
+  stroke: #fff; fill: none;
+  stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* Footer note */
+.footer-note {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 12px; font-weight: 500;
+  color: var(--muted);
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.dot-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--line); }
+
+@media (max-width: 560px) {
+  .fields-grid { grid-template-columns: 1fr; }
+  .field-item.full { grid-column: 1; }
+  .success-head, .success-body { padding-left: 22px; padding-right: 22px; }
+  #loadingState, #errorState { padding: 40px 22px; }
 }
 </style>
 </head>
 <body>
 
-<div class="card">
-  <div id="loadingState">
-    <h1>Chargement...</h1>
-    <p>Vérification du paiement...</p>
-  </div>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
 
-  <div id="errorState" class="hidden">
-    <h1>Erreur</h1>
-    <p id="errorText"></p>
-    <a href="/" class="btn primary">Retour</a>
-  </div>
-
-  <div id="successState" class="hidden">
-    <h1>Paiement confirmé ✅</h1>
-    <p><strong>Nom :</strong> <span id="leadNom"></span></p>
-    <p><strong>Téléphone :</strong> <span id="leadTelephone"></span></p>
-    <p><strong>Ville :</strong> <span id="leadVille"></span></p>
-    <p><strong>Service :</strong> <span id="leadService"></span></p>
-    <p><strong>Description :</strong> <span id="leadDescription"></span></p>
-    <a id="callBtn" class="btn primary">Appeler</a>
+<!-- ── UNLOCK OVERLAY ── -->
+<div id="unlock-overlay">
+  <div class="lock-container">
+    <div class="lock-wrap">
+      <div class="lock-shackle-el"></div>
+      <div class="lock-body-el">
+        <div class="lock-keyhole-el"></div>
+      </div>
+    </div>
+    <div class="unlock-label">Déverrouillage en cours</div>
+    <div class="unlock-dots">
+      <div class="udot"></div>
+      <div class="udot"></div>
+      <div class="udot"></div>
+    </div>
   </div>
 </div>
 
+<!-- ── MAIN CONTENT ── -->
+<div class="main-wrapper" id="mainWrapper">
+
+  <div class="logo-wrap">
+    <img src="media/logob.png" alt="Intermediaire.io" onerror="this.style.display='none'" />
+    <span class="logo-name">Intermedi<span class="az">aire</span>.io</span>
+  </div>
+
+  <div class="card">
+
+    <!-- Loading -->
+    <div id="loadingState">
+      <h1>Chargement…</h1>
+      <p>Vérification du paiement en cours</p>
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Error -->
+    <div id="errorState" class="hidden">
+      <h1>Erreur</h1>
+      <p id="errorText"></p>
+      <a href="/" class="btn-back">← Retour</a>
+    </div>
+
+    <!-- Success -->
+    <div id="successState" class="hidden">
+
+      <div class="success-head">
+        <div class="badge">Lead débloqué</div>
+        <h1>Paiement confirmé <span class="az">✓</span></h1>
+        <p class="success-sub">Félicitations — vous avez accès aux coordonnées complètes de ce lead. Contactez-le maintenant.</p>
+      </div>
+
+      <div class="success-body">
+
+        <div class="fields-grid">
+          <div class="field-item">
+            <div class="field-label">Nom</div>
+            <div class="field-value" id="leadNom">—</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Téléphone</div>
+            <div class="field-value" id="leadTelephone">—</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Ville</div>
+            <div class="field-value" id="leadVille">—</div>
+          </div>
+          <div class="field-item">
+            <div class="field-label">Service</div>
+            <div class="field-value" id="leadService">—</div>
+          </div>
+          <div class="field-item full">
+            <div class="field-label">Description</div>
+            <div class="field-value" id="leadDescription">—</div>
+          </div>
+        </div>
+
+        <div class="divider">Appeler maintenant</div>
+
+        <a id="callBtn" class="call-btn" href="#">
+          <div class="call-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.14 1.18 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.36 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.34 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          Appeler ce lead
+        </a>
+
+      </div>
+    </div><!-- /successState -->
+
+  </div><!-- /card -->
+
+  <div class="footer-note">
+    <span>🔒 Accès sécurisé</span>
+    <div class="dot-sep"></div>
+    <span>Lead exclusif</span>
+    <div class="dot-sep"></div>
+    <span>Usage unique</span>
+  </div>
+
+</div><!-- /main-wrapper -->
+
 <script>
+/* ── Unlock animation ── */
+const overlay     = document.getElementById('unlock-overlay');
+const mainWrapper = document.getElementById('mainWrapper');
+
+setTimeout(() => {
+  overlay.classList.add('fade-out');
+  setTimeout(() => {
+    overlay.style.display = 'none';
+    mainWrapper.classList.add('revealed');
+  }, 700);
+}, 2100);
+
+/* ── Lead loading logic (unchanged) ── */
 const WEBHOOK_URL = "https://hook.us2.make.com/6dnsvtfx9vtayl66yrzu397fzmivjpgl";
 
-function safe(id){
-  return document.getElementById(id);
-}
+function safe(id) { return document.getElementById(id); }
 
 const loadingState = safe("loadingState");
-const errorState = safe("errorState");
+const errorState   = safe("errorState");
 const successState = safe("successState");
-const errorText = safe("errorText");
+const errorText    = safe("errorText");
 
-function showError(msg){
+function showError(msg) {
   loadingState.classList.add("hidden");
   successState.classList.add("hidden");
   errorState.classList.remove("hidden");
   errorText.textContent = msg;
 }
 
-function formatPhone(phone){
-  return String(phone || "").replace(/[^\d+]/g,"");
+function formatPhone(phone) {
+  return String(phone || "").replace(/[^\d+]/g, "");
 }
 
-async function loadLead(){
-  const params = new URLSearchParams(window.location.search);
+async function loadLead() {
+  const params    = new URLSearchParams(window.location.search);
   const sessionId = params.get("session_id");
-
-  if(!sessionId){
-    showError("Session manquante.");
-    return;
-  }
-
-  try{
+  if (!sessionId) { showError("Session manquante."); return; }
+  try {
     const url = WEBHOOK_URL + "?session_id=" + encodeURIComponent(sessionId);
-    const res = await fetch(url, {cache:"no-store"});
+    const res  = await fetch(url, { cache: "no-store" });
     const text = await res.text();
-
-    if(!res.ok){
-      throw new Error("HTTP " + res.status);
-    }
-
+    if (!res.ok) throw new Error("HTTP " + res.status);
     const data = JSON.parse(text);
+    if (!data.success) { showError("Paiement non validé."); return; }
 
-    if(!data.success){
-      showError("Paiement non validé.");
-      return;
-    }
-
-    safe("leadNom").textContent = data.nom || "-";
-    safe("leadTelephone").textContent = data.telephone || "-";
-    safe("leadVille").textContent = data.ville || "-";
-    safe("leadService").textContent = data.service || "-";
-    safe("leadDescription").textContent = data.description || "-";
+    safe("leadNom").textContent         = data.nom         || "—";
+    safe("leadTelephone").textContent   = data.telephone   || "—";
+    safe("leadVille").textContent       = data.ville       || "—";
+    safe("leadService").textContent     = data.service     || "—";
+    safe("leadDescription").textContent = data.description || "—";
 
     const tel = formatPhone(data.telephone);
-    if(tel){
-      safe("callBtn").href = "tel:" + tel;
-    }
+    if (tel) safe("callBtn").href = "tel:" + tel;
 
     loadingState.classList.add("hidden");
     successState.classList.remove("hidden");
-
-  }catch(e){
-    showError("Erreur: " + e.message);
+  } catch(e) {
+    showError("Erreur : " + e.message);
   }
 }
-
 loadLead();
 </script>
-
 </body>
 </html>
