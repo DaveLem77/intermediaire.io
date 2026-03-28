@@ -7,7 +7,7 @@
 <link rel="icon" href="media/logob.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 :root {
@@ -23,9 +23,6 @@
   --body:    #385168;
   --muted:   #7290a3;
   --line:    #d3e6f0;
-  --gold:    #c9963a;
-  --gold-lt: #f0c876;
-  --gold-pale: #fdf3dc;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,39 +31,25 @@ html { -webkit-text-size-adjust: 100%; }
 body {
   font-family: 'Outfit', system-ui, sans-serif;
   color: var(--ink);
-  background: var(--white);
+  background: var(--off);
   min-height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 32px 20px 52px;
+  padding: 40px 20px 56px;
   position: relative;
   overflow-x: hidden;
 }
 
-/* ── BACKGROUND ── */
-.bg-layer {
+body::before {
+  content: '';
   position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(85,173,217,.18) 0%, transparent 65%),
-    radial-gradient(ellipse 60% 40% at 10% 100%, rgba(26,100,153,.08) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 40% at 90% 90%, rgba(85,173,217,.07) 0%, transparent 55%),
-    var(--white);
-}
-
-/* subtle grid */
-.bg-grid {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image: radial-gradient(rgba(85,173,217,.18) 1.5px, transparent 1.5px);
-  background-size: 28px 28px;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 10%, transparent 100%);
+  width: min(700px, 130vw); height: min(500px, 80vw);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(85,173,217,.12) 0%, transparent 70%);
+  top: -200px; left: 50%; transform: translateX(-50%);
+  pointer-events: none; z-index: 0;
 }
 
 /* ── UNLOCK OVERLAY ── */
@@ -74,7 +57,7 @@ body {
   position: fixed; inset: 0; z-index: 200;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  background: var(--white);
+  background: var(--off);
   transition: opacity .8s ease, visibility .8s ease;
 }
 #unlock-overlay.fade-out { opacity: 0; visibility: hidden; }
@@ -83,7 +66,6 @@ body {
   display: flex; flex-direction: column;
   align-items: center; gap: 28px;
 }
-
 .lock-wrap {
   width: 96px; height: 96px;
   position: relative;
@@ -93,7 +75,6 @@ body {
   from { transform: scale(.4); opacity: 0; }
   to   { transform: scale(1);  opacity: 1; }
 }
-
 .lock-body-el {
   width: 60px; height: 50px;
   background: linear-gradient(135deg, var(--az-dark) 0%, var(--az) 60%, var(--az-lt) 100%);
@@ -133,7 +114,6 @@ body {
   0%   { transform: translateX(-50%) rotate(0deg); }
   100% { transform: translateX(-50%) rotate(-48deg) translateY(-5px); }
 }
-
 .unlock-label {
   font-size: 11px; font-weight: 700;
   letter-spacing: .2em; text-transform: uppercase;
@@ -152,392 +132,192 @@ body {
 .udot:nth-child(1) { animation-delay: .95s; }
 .udot:nth-child(2) { animation-delay: 1.25s; }
 .udot:nth-child(3) { animation-delay: 1.55s; }
-@keyframes dotOn  { to { background: var(--az); box-shadow: 0 0 12px rgba(85,173,217,.6); } }
-@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+@keyframes dotOn  { to { background: var(--az); box-shadow: 0 0 12px rgba(85,173,217,.5); } }
+@keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
 
 /* ── MAIN WRAPPER ── */
 .main-wrapper {
   position: relative; z-index: 1;
-  width: 100%; max-width: 680px;
-  display: flex; flex-direction: column;
-  align-items: center;
-  opacity: 0; transform: translateY(20px);
-  transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
+  width: 100%; max-width: 580px;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
 }
 .main-wrapper.revealed { opacity: 1; transform: none; }
 
-/* Logo bar */
-.logo-wrap {
-  margin-bottom: 32px;
-  display: flex; align-items: center; gap: 11px;
-  animation: fadeUp .6s ease .1s both;
+.logo-row {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 24px;
 }
-.logo-wrap img {
-  height: 38px; width: auto; object-fit: contain;
-  filter: drop-shadow(0 4px 16px rgba(85,173,217,.4));
+.logo-row img {
+  height: 30px; width: auto; object-fit: contain;
+  filter: drop-shadow(0 3px 10px rgba(85,173,217,.28));
 }
-.logo-name {
-  font-size: 15px; font-weight: 800;
-  letter-spacing: -.025em;
-  color: var(--ink);
+.logo-row span {
+  font-size: 14px; font-weight: 800;
+  letter-spacing: -.02em; color: var(--ink);
 }
 
 /* ── CARD ── */
 .card {
-  width: 100%;
   background: var(--white);
+  border-radius: 18px;
   border: 1px solid var(--line);
-  border-radius: 28px;
+  box-shadow: 0 2px 0 var(--az-pale), 0 10px 36px rgba(12,28,43,.07);
   overflow: hidden;
-  position: relative;
-  box-shadow: 0 4px 0 var(--az-pale), 0 24px 64px rgba(12,28,43,.08);
-}
-
-/* top accent line */
-.card::before {
-  content:'';
-  position: absolute;
-  inset: 0 0 auto 0; height: 2px;
-  background: linear-gradient(90deg, transparent 0%, var(--az-dark) 20%, var(--az) 50%, var(--az-lt) 80%, transparent 100%);
 }
 
 .hidden { display: none !important; }
 
-/* Loading */
+/* loading */
 #loadingState {
-  padding: 64px 40px;
+  padding: 56px 32px;
   text-align: center;
 }
-#loadingState h1 {
-  font-size: 1.5rem; font-weight: 700;
-  color: var(--ink); margin-bottom: 8px;
+#loadingState p {
+  color: var(--muted); font-size: 13.5px;
+  font-weight: 500; margin-bottom: 18px;
 }
-#loadingState p { color: var(--muted); font-size: 14px; }
 .spinner {
-  width: 36px; height: 36px;
-  border: 2px solid rgba(85,173,217,.15);
+  width: 30px; height: 30px;
+  border: 2px solid var(--line);
   border-top-color: var(--az);
   border-radius: 50%;
-  animation: spin .75s linear infinite;
-  margin: 24px auto 0;
+  animation: spin .7s linear infinite;
+  margin: 0 auto;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* Error */
-#errorState { padding: 52px 40px; color: var(--ink); }
-#errorState h1 { font-size: 1.8rem; font-weight: 900; margin-bottom: 10px; }
-#errorState p { color: var(--muted); margin-bottom: 22px; font-size: 15px; }
+/* error */
+#errorState { padding: 44px 32px; }
+#errorState h2 { font-size: 1.25rem; font-weight: 800; margin-bottom: 8px; }
+#errorState p { color: var(--muted); margin-bottom: 18px; font-size: 14px; }
 .btn-back {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 12px 24px; border-radius: 12px;
-  background: var(--az-tint);
-  border: 1px solid var(--az-pale);
-  color: var(--az-dark);
-  font-family: 'Outfit', sans-serif;
-  font-size: 14px; font-weight: 700;
-  cursor: pointer; text-decoration: none;
-  transition: background .15s;
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 10px 18px; border-radius: 10px;
+  background: var(--az-tint); border: 1px solid var(--az-pale);
+  color: var(--az-dark); font-family: 'Outfit', sans-serif;
+  font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none;
 }
 .btn-back:hover { background: var(--az-pale); }
 
-/* ── SUCCESS HEAD ── */
-#successState { overflow: hidden; }
+/* ── SUCCESS ── */
 
-.success-head {
-  padding: 40px 44px 36px;
-  background: linear-gradient(135deg, #e8f6fd 0%, #f0f9fe 40%, var(--white) 100%);
-  border-bottom: 1px solid var(--az-pale);
-  position: relative;
-  overflow: hidden;
+/* card header */
+.card-head {
+  padding: 26px 30px 22px;
+  background: linear-gradient(135deg, #e8f6fd 0%, #f2fafe 50%, var(--white) 100%);
+  border-bottom: 1px solid var(--line);
 }
-
-/* decorative corner circle */
-.success-head::after {
-  content:'';
-  position: absolute;
-  width: 260px; height: 260px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(85,173,217,.1) 0%, transparent 70%);
-  top: -80px; right: -70px;
-  pointer-events: none;
+.card-head-eyebrow {
+  font-size: 10px; font-weight: 800;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--az); margin-bottom: 8px;
 }
-.success-head::before {
-  content:'';
-  position: absolute;
-  width: 160px; height: 160px; border-radius: 50%;
-  border: 1px solid rgba(85,173,217,.1);
-  top: -40px; right: -30px;
-  pointer-events: none;
+.card-head h1 {
+  font-size: clamp(1.35rem, 4vw, 1.7rem);
+  font-weight: 900; letter-spacing: -.04em;
+  line-height: 1.1; color: var(--ink);
+  margin-bottom: 5px;
+}
+.card-head p {
+  font-size: 13px; color: var(--body);
+  font-weight: 400; line-height: 1.6;
 }
 
-.badge-row {
-  display: flex; align-items: center; gap: 10px;
-  margin-bottom: 20px;
-}
-.badge {
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 5px 12px 5px 10px;
-  border-radius: 999px;
-  background: rgba(201,150,58,.12);
-  border: 1px solid rgba(201,150,58,.22);
-  font-size: 10.5px; font-weight: 800;
-  letter-spacing: .12em; text-transform: uppercase;
-  color: var(--gold-lt);
-}
-.badge-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 8px rgba(201,150,58,.6);
-  animation: pulse 2s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%,100% { opacity:1; transform: scale(1); }
-  50%      { opacity:.5; transform: scale(.7); }
-}
+/* rows */
+.info-list { padding: 4px 0; }
 
-.status-pill {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 5px 12px;
-  border-radius: 999px;
-  background: rgba(85,173,217,.1);
-  border: 1px solid rgba(85,173,217,.18);
+.info-row {
+  display: flex; align-items: baseline;
+  padding: 14px 30px; gap: 18px;
+  border-bottom: 1px solid var(--line);
+  transition: background .12s;
+}
+.info-row:last-child { border-bottom: none; }
+.info-row:hover { background: var(--off); }
+
+.info-key {
   font-size: 10.5px; font-weight: 700;
   letter-spacing: .1em; text-transform: uppercase;
-  color: var(--az-lt);
-}
-.status-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--az);
-  box-shadow: 0 0 8px rgba(85,173,217,.7);
-}
-
-.success-head h1 {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(2rem, 5.5vw, 2.8rem);
-  font-weight: 400;
-  font-style: italic;
-  line-height: 1.1;
-  color: var(--ink);
-  margin-bottom: 12px;
-  letter-spacing: -.02em;
-}
-
-.success-sub {
-  font-size: 14px;
-  color: var(--body);
-  font-weight: 400;
-  line-height: 1.7;
-  max-width: 400px;
-}
-
-/* ── SUCCESS BODY ── */
-.success-body {
-  padding: 32px 44px 40px;
-}
-
-/* section mini-label */
-.section-label {
-  font-size: 10px; font-weight: 800;
-  letter-spacing: .18em; text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 14px;
-  display: flex; align-items: center; gap: 10px;
-}
-.section-label::after {
-  content:''; flex: 1; height: 1px;
-  background: var(--line);
+  min-width: 100px; flex-shrink: 0;
+  padding-top: 3px;
 }
 
-/* fields grid */
-.fields-grid {
+.info-val {
+  font-size: 15px; font-weight: 600;
+  color: var(--ink); line-height: 1.45;
+  word-break: break-word; flex: 1;
+}
+.info-val.prominent { font-size: 16px; font-weight: 800; }
+.info-val.soft { font-size: 13.5px; font-weight: 400; color: var(--body); line-height: 1.65; }
+
+/* action bar */
+.card-actions {
+  padding: 18px 30px 24px;
+  border-top: 1px solid var(--line);
+  background: var(--off);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 28px;
+  gap: 9px;
 }
 
-.field-item {
-  background: var(--off);
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 16px 20px;
-  transition: background .2s, border-color .2s, transform .2s;
-  position: relative;
-  overflow: hidden;
+.btn-call {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 18px; border-radius: 11px;
+  background: var(--az); color: #fff;
+  text-decoration: none; font-family: 'Outfit', sans-serif;
+  font-size: 14px; font-weight: 800;
+  box-shadow: 0 4px 0 var(--az-dark), 0 6px 20px rgba(85,173,217,.28);
+  transition: transform .15s, box-shadow .15s, background .15s;
 }
-.field-item::before {
-  content:'';
-  position: absolute;
-  inset: 0 0 auto 0; height: 1px;
-  background: linear-gradient(90deg, rgba(255,255,255,.9), transparent);
-}
-.field-item:hover {
-  background: var(--az-tint);
-  border-color: var(--az-pale);
+.btn-call:hover {
+  background: var(--az-deep);
   transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--az-dark), 0 10px 26px rgba(85,173,217,.34);
 }
-.field-item.full { grid-column: 1 / -1; }
-.field-item.highlight {
-  background: var(--gold-pale);
-  border-color: rgba(201,150,58,.22);
-}
-.field-item.highlight:hover {
-  background: #faecd0;
-  border-color: rgba(201,150,58,.35);
-}
+.btn-call:active { transform: translateY(1px); box-shadow: 0 2px 0 var(--az-dark); }
 
-.field-label {
-  font-size: 9.5px; font-weight: 800;
-  letter-spacing: .16em; text-transform: uppercase;
-  color: var(--az);
-  margin-bottom: 6px;
-  display: flex; align-items: center; gap: 6px;
-}
-.field-item.highlight .field-label { color: var(--gold); }
-
-.field-label-icon {
-  width: 14px; height: 14px; opacity: .7;
-  flex-shrink: 0;
-}
-.field-label-icon svg {
-  width: 100%; height: 100%;
-  stroke: currentColor; fill: none;
-  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
-}
-
-.field-value {
-  font-size: 15px; font-weight: 600;
-  color: var(--ink);
-  line-height: 1.45;
-  word-break: break-word;
-}
-.field-value.large {
-  font-size: 17px; font-weight: 700;
-}
-
-/* description field */
-.field-item.desc {
-  grid-column: 1 / -1;
-}
-.field-item.desc .field-value {
-  font-size: 14px; font-weight: 400;
-  color: var(--body);
-  line-height: 1.65;
-}
-
-/* divider */
-.divider {
-  display: flex; align-items: center; gap: 14px;
-  margin-bottom: 18px;
-  font-size: 10px; font-weight: 800;
-  letter-spacing: .18em; text-transform: uppercase;
-  color: var(--muted);
-}
-.divider::before, .divider::after {
-  content:''; flex: 1; height: 1px;
-  background: var(--line);
-}
-
-/* ── CALL BUTTON ── */
-.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-.call-btn {
-  display: flex; align-items: center; justify-content: center; gap: 11px;
-  padding: 17px 24px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, var(--az-dark) 0%, var(--az) 60%, var(--az-lt) 100%);
-  color: #fff;
-  text-decoration: none;
+.btn-mail {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 18px; border-radius: 11px;
+  background: var(--white); border: 2px solid var(--line);
+  color: var(--ink); text-decoration: none;
   font-family: 'Outfit', sans-serif;
-  font-size: 15px; font-weight: 800;
-  letter-spacing: -.01em;
-  box-shadow: 0 6px 28px rgba(85,173,217,.38), inset 0 1px 0 rgba(255,255,255,.18), 0 4px 0 var(--az-dark);
-  transition: transform .18s ease, box-shadow .18s ease, filter .18s;
-  position: relative; overflow: hidden;
-  cursor: pointer;
+  font-size: 14px; font-weight: 700;
+  transition: border-color .15s, background .15s, transform .15s;
 }
-.call-btn::before {
-  content:'';
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,.14), transparent 55%);
-  pointer-events: none;
-}
-.call-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 38px rgba(85,173,217,.45), inset 0 1px 0 rgba(255,255,255,.18), 0 4px 0 var(--az-dark);
-  filter: brightness(1.05);
-}
-.call-btn:active { transform: translateY(0); }
-
-.mail-btn {
-  display: flex; align-items: center; justify-content: center; gap: 11px;
-  padding: 17px 24px;
-  border-radius: 16px;
-  background: var(--white);
-  border: 2px solid var(--line);
-  color: var(--ink);
-  text-decoration: none;
-  font-family: 'Outfit', sans-serif;
-  font-size: 15px; font-weight: 700;
-  letter-spacing: -.01em;
-  transition: background .18s, border-color .18s, transform .18s;
-  cursor: pointer;
-}
-.mail-btn:hover {
-  background: var(--az-tint);
+.btn-mail:hover {
   border-color: var(--az-pale);
+  background: var(--az-tint);
   color: var(--az-dark);
   transform: translateY(-2px);
 }
 
-.btn-icon {
-  width: 22px; height: 22px; flex-shrink: 0;
-  background: rgba(255,255,255,.2);
-  border-radius: 7px;
-  display: flex; align-items: center; justify-content: center;
-}
-.btn-icon svg {
-  width: 12px; height: 12px;
-  stroke: #fff; fill: none;
+.btn-call svg, .btn-mail svg {
+  width: 14px; height: 14px;
+  stroke: currentColor; fill: none;
   stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
+  flex-shrink: 0;
 }
-.mail-btn .btn-icon {
-  background: var(--az-tint);
-}
-.mail-btn .btn-icon svg { stroke: var(--az); }
 
-/* footer note */
-.footer-note {
-  margin-top: 22px;
+/* page footer */
+.page-footer {
+  margin-top: 18px;
   text-align: center;
-  font-size: 11.5px; font-weight: 500;
-  color: var(--muted);
-  display: flex; align-items: center; justify-content: center; gap: 12px;
-  flex-wrap: wrap;
+  font-size: 11px; color: var(--muted);
+  display: flex; align-items: center; justify-content: center; gap: 10px;
 }
-.dot-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--line); }
+.sep { width: 2px; height: 2px; border-radius: 50%; background: var(--muted); opacity: .35; }
 
-/* logo bottom */
-.bottom-brand {
-  margin-top: 36px;
-  opacity: .35;
-  font-size: 12px; font-weight: 700;
-  color: var(--ink);
-  letter-spacing: -.01em;
-}
-
-@media (max-width: 580px) {
-  .fields-grid { grid-template-columns: 1fr; }
-  .field-item.full, .field-item.desc { grid-column: 1; }
-  .success-head, .success-body { padding-left: 24px; padding-right: 24px; }
-  .actions { grid-template-columns: 1fr; }
-  #loadingState, #errorState { padding: 44px 24px; }
+@media (max-width: 500px) {
+  .card-head, .info-row, .card-actions { padding-left: 20px; padding-right: 20px; }
+  .card-actions { grid-template-columns: 1fr; }
+  .info-key { min-width: 82px; }
 }
 </style>
 </head>
 <body>
-
-<div class="bg-layer"></div>
-<div class="bg-grid"></div>
 
 <!-- ── UNLOCK OVERLAY ── -->
 <div id="unlock-overlay">
@@ -557,144 +337,87 @@ body {
   </div>
 </div>
 
-<!-- ── MAIN CONTENT ── -->
+<!-- ── MAIN ── -->
 <div class="main-wrapper" id="mainWrapper">
 
-  <div class="logo-wrap">
-    <img src="media/logob.png" alt="Intermediaire.io" onerror="this.style.display='none'" />
-    <span class="logo-name">Intermediaire.io</span>
+  <div class="logo-row">
+    <img src="media/logob.png" alt="Intermediaire.io" onerror="this.style.display='none'">
+    <span>Intermediaire.io</span>
   </div>
 
   <div class="card">
 
-    <!-- Loading -->
     <div id="loadingState">
-      <h1>Chargement…</h1>
-      <p>Vérification du paiement en cours</p>
+      <p>Vérification du paiement…</p>
       <div class="spinner"></div>
     </div>
 
-    <!-- Error -->
     <div id="errorState" class="hidden">
-      <h1>Erreur</h1>
+      <h2>Une erreur est survenue</h2>
       <p id="errorText"></p>
       <a href="/" class="btn-back">← Retour</a>
     </div>
 
-    <!-- Success -->
     <div id="successState" class="hidden">
 
-      <div class="success-head">
-        <div class="badge-row">
-          <div class="badge"><div class="badge-dot"></div>Lead débloqué</div>
-          <div class="status-pill"><div class="status-dot"></div>Paiement confirmé</div>
-        </div>
-        <h1>Coordonnées déverrouillées</h1>
-        <p class="success-sub">Vous avez accès aux informations complètes de ce client. Contactez-le dès maintenant pour conclure.</p>
+      <div class="card-head">
+        <div class="card-head-eyebrow">Paiement confirmé</div>
+        <h1>Voici vos coordonnées</h1>
+        <p>Contactez ce client dès maintenant pour prendre en charge sa demande.</p>
       </div>
 
-      <div class="success-body">
-
-        <div class="section-label">Informations du client</div>
-
-        <div class="fields-grid">
-
-          <div class="field-item highlight">
-            <div class="field-label">
-              <span class="field-label-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
-              Nom complet
-            </div>
-            <div class="field-value large" id="leadNom">—</div>
-          </div>
-
-          <div class="field-item highlight">
-            <div class="field-label">
-              <span class="field-label-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.14 1.18 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.36 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.34 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></span>
-              Téléphone
-            </div>
-            <div class="field-value large" id="leadTelephone">—</div>
-          </div>
-
-          <div class="field-item">
-            <div class="field-label">
-              <span class="field-label-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
-              Courriel
-            </div>
-            <div class="field-value" id="leadCourriel">—</div>
-          </div>
-
-          <div class="field-item">
-            <div class="field-label">
-              <span class="field-label-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
-              Ville
-            </div>
-            <div class="field-value" id="leadVille">—</div>
-          </div>
-
-          <div class="field-item">
-            <div class="field-label">
-              <span class="field-label-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 010 1.4l-8 8a1 1 0 01-.4.2l-3 1a1 1 0 01-1.3-1.3l1-3a1 1 0 01.2-.4l8-8a1 1 0 011.4 0z"/><path d="M11 8l3 3"/></svg></span>
-              Type de service
-            </div>
-            <div class="field-value" id="leadService">—</div>
-          </div>
-
-          <div class="field-item">
-            <div class="field-label">
-              <span class="field-label-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
-              Date de la demande
-            </div>
-            <div class="field-value" id="leadDate">—</div>
-          </div>
-
-          <div class="field-item desc">
-            <div class="field-label">
-              <span class="field-label-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
-              Description des travaux
-            </div>
-            <div class="field-value" id="leadDescription">—</div>
-          </div>
-
+      <div class="info-list">
+        <div class="info-row">
+          <div class="info-key">Nom</div>
+          <div class="info-val prominent" id="leadNom">—</div>
         </div>
-
-        <div class="divider">Contacter ce client</div>
-
-        <div class="actions">
-          <a id="callBtn" class="call-btn" href="#">
-            <div class="btn-icon">
-              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.14 1.18 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.36 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.34 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-            </div>
-            Appeler maintenant
-          </a>
-          <a id="mailBtn" class="mail-btn" href="#">
-            <div class="btn-icon">
-              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            </div>
-            Envoyer un courriel
-          </a>
+        <div class="info-row">
+          <div class="info-key">Téléphone</div>
+          <div class="info-val prominent" id="leadTelephone">—</div>
         </div>
-
+        <div class="info-row">
+          <div class="info-key">Courriel</div>
+          <div class="info-val" id="leadCourriel">—</div>
+        </div>
+        <div class="info-row">
+          <div class="info-key">Ville</div>
+          <div class="info-val" id="leadVille">—</div>
+        </div>
+        <div class="info-row">
+          <div class="info-key">Service</div>
+          <div class="info-val" id="leadService">—</div>
+        </div>
+        <div class="info-row">
+          <div class="info-key">Description</div>
+          <div class="info-val soft" id="leadDescription">—</div>
+        </div>
       </div>
-    </div><!-- /successState -->
 
-  </div><!-- /card -->
+      <div class="card-actions">
+        <a id="callBtn" class="btn-call" href="#">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.14 1.18 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.36 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.34 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Appeler
+        </a>
+        <a id="mailBtn" class="btn-mail" href="#">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Envoyer un courriel
+        </a>
+      </div>
 
-  <div class="footer-note">
-    <span>🔒 Accès sécurisé</span>
-    <div class="dot-sep"></div>
-    <span>Lead exclusif</span>
-    <div class="dot-sep"></div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Accès sécurisé</span>
+    <div class="sep"></div>
     <span>Usage unique</span>
-    <div class="dot-sep"></div>
+    <div class="sep"></div>
     <span>Ne pas partager</span>
   </div>
 
-  <div class="bottom-brand">Intermediaire.io</div>
-
-</div><!-- /main-wrapper -->
+</div>
 
 <script>
-/* ── Unlock animation ── */
 const overlay     = document.getElementById('unlock-overlay');
 const mainWrapper = document.getElementById('mainWrapper');
 
@@ -706,34 +429,15 @@ setTimeout(() => {
   }, 800);
 }, 2100);
 
-/* ── Lead loading logic ── */
 const WEBHOOK_URL = "https://hook.us2.make.com/6dnsvtfx9vtayl66yrzu397fzmivjpgl";
 
 function safe(id) { return document.getElementById(id); }
 
-const loadingState = safe("loadingState");
-const errorState   = safe("errorState");
-const successState = safe("successState");
-const errorText    = safe("errorText");
-
 function showError(msg) {
-  loadingState.classList.add("hidden");
-  successState.classList.add("hidden");
-  errorState.classList.remove("hidden");
-  errorText.textContent = msg;
-}
-
-function formatPhone(phone) {
-  return String(phone || "").replace(/[^\d+]/g, "");
-}
-
-function formatDate(raw) {
-  if (!raw) return "—";
-  try {
-    return new Date(raw).toLocaleDateString('fr-CA', {
-      year: 'numeric', month: 'long', day: 'numeric'
-    });
-  } catch(e) { return raw; }
+  safe("loadingState").classList.add("hidden");
+  safe("successState").classList.add("hidden");
+  safe("errorState").classList.remove("hidden");
+  safe("errorText").textContent = msg;
 }
 
 async function loadLead() {
@@ -741,8 +445,7 @@ async function loadLead() {
   const sessionId = params.get("session_id");
   if (!sessionId) { showError("Session manquante."); return; }
   try {
-    const url = WEBHOOK_URL + "?session_id=" + encodeURIComponent(sessionId);
-    const res  = await fetch(url, { cache: "no-store" });
+    const res  = await fetch(WEBHOOK_URL + "?session_id=" + encodeURIComponent(sessionId), { cache: "no-store" });
     const text = await res.text();
     if (!res.ok) throw new Error("HTTP " + res.status);
     const data = JSON.parse(text);
@@ -754,16 +457,15 @@ async function loadLead() {
     safe("leadVille").textContent       = data.ville       || "—";
     safe("leadService").textContent     = data.service     || "—";
     safe("leadDescription").textContent = data.description || "—";
-    safe("leadDate").textContent        = formatDate(data.soumis_le || data.date);
 
-    const tel = formatPhone(data.telephone);
+    const tel = String(data.telephone || "").replace(/[^\d+]/g, "");
     if (tel) safe("callBtn").href = "tel:" + tel;
 
-    const courriel = (data.courriel || "").trim();
-    if (courriel) safe("mailBtn").href = "mailto:" + courriel;
+    const mail = (data.courriel || "").trim();
+    if (mail) safe("mailBtn").href = "mailto:" + mail;
 
-    loadingState.classList.add("hidden");
-    successState.classList.remove("hidden");
+    safe("loadingState").classList.add("hidden");
+    safe("successState").classList.remove("hidden");
   } catch(e) {
     showError("Erreur : " + e.message);
   }
