@@ -276,6 +276,18 @@ input:focus,textarea:focus{
   box-shadow:0 0 0 4px rgba(47,128,237,.08);
 }
 
+input[readonly]{
+  background:rgba(240,246,251,.9);
+  color:#8a9faf;
+  cursor:not-allowed;
+  user-select:none;
+}
+
+input[readonly]:focus{
+  border-color:var(--line);
+  box-shadow:none;
+}
+
 /* CHECKBOX */
 
 .consent{
@@ -399,7 +411,7 @@ input:focus,textarea:focus{
     <form action="https://hook.us2.make.com/to346qlepm88si74k1dngnwnawkd3b79" method="post">
       <div class="row2">
         <input type="text" name="prenom" placeholder="Prénom" required>
-        <input type="text" name="ville" placeholder="Ville" required>
+        <input type="text" name="ville" value="Sherbrooke" readonly>
       </div>
 
       <div class="row2">
@@ -412,7 +424,7 @@ input:focus,textarea:focus{
       <div class="consent">
         <input type="checkbox" id="confirmation" name="confirmation" value="oui" required>
         <label for="confirmation">
-          Je confirme qu’il s’agit d’un vrai besoin et j’accepte que mes informations soient envoyées à des contracteurs de ma région.
+          Je confirme qu'il s'agit d'un vrai besoin et j'accepte que mes informations soient envoyées à des contracteurs de ma région.
         </label>
       </div>
 
