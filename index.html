@@ -981,10 +981,10 @@
 
             <div class="adv-card rev-d3">
               <div class="adv-icon">
-                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
               </div>
-              <div class="adv-title">Plusieurs pros comparés</div>
-              <div class="adv-desc">Recevez des contacts d'entrepreneurs locaux et choisissez celui qui vous convient le mieux.</div>
+              <div class="adv-title">Vous serez contacté</div>
+              <div class="adv-desc">Un entrepreneur qui correspond à votre besoin prendra contact avec vous directement.</div>
             </div>
 
             <div class="adv-card rev-d4">
@@ -1095,11 +1095,11 @@
                 <select class="sel" id="service" aria-label="Service recherché" required>
                   <option value="" disabled selected>Quel service vous faut-il ?</option>
                   <option>Travaux de toiture</option>
-                  <option>Plomberie</option>
-                  <option>Électricité</option>
-                  <option>Paysagement</option>
-                  <option>Rénovation intérieure</option>
-                  <option>Autre</option>
+                  <option disabled>Plomberie (à venir)</option>
+                  <option disabled>Électricité (à venir)</option>
+                  <option disabled>Paysagement (à venir)</option>
+                  <option disabled>Rénovation intérieure (à venir)</option>
+                  <option disabled>Autre (à venir)</option>
                 </select>
               </div>
               <div class="field">
@@ -1112,7 +1112,7 @@
                 <input class="inp" id="courriel" type="email" placeholder="Courriel" required>
               </div>
               <div class="field">
-                <input class="inp" id="ville" type="text" placeholder="Ville" required>
+                <input class="inp" id="ville" type="text" value="Sherbrooke" required readonly style="background:var(--off);color:var(--muted);cursor:not-allowed;user-select:none;">
               </div>
               <div class="field full">
                 <textarea class="txta" id="details" placeholder="Décrivez brièvement les travaux…"></textarea>
@@ -1164,8 +1164,8 @@
             </div>
             <div class="review">
               <div class="stars">★★★★★</div>
-              <div class="review-q">« Très simple. J'ai comparé sans perdre mon temps. »</div>
-              <div class="review-by">Jean-Philippe R. — Magog</div>
+              <div class="review-q">« Facile et rapide. J'ai été contacté rapidement sans rien faire. »</div>
+              <div class="review-by">Marc-André T. — Sherbrooke</div>
             </div>
             <div class="review">
               <div class="stars">★★★★★</div>
@@ -1287,11 +1287,11 @@
               <select class="sel" id="e-service" aria-label="Type de travaux">
                 <option value="" disabled selected>Type de travaux</option>
                 <option>Toiture</option>
-                <option>Plomberie</option>
-                <option>Électricité</option>
-                <option>Paysagement</option>
-                <option>Rénovation</option>
-                <option>Autre</option>
+                <option disabled>Plomberie (à venir)</option>
+                <option disabled>Électricité (à venir)</option>
+                <option disabled>Paysagement (à venir)</option>
+                <option disabled>Rénovation (à venir)</option>
+                <option disabled>Autre (à venir)</option>
               </select>
               <input class="inp" id="e-city" type="text" placeholder="Ville / région couverte" aria-label="Ville ou région">
               <button class="btn btn-solid btn-full" type="submit">
@@ -1314,7 +1314,7 @@
           <img src="media/logob.png" alt="">
           <span class="footer-brand-name">Intermediaire.io</span>
         </div>
-        <div class="footer-copy">© 2025 Intermediaire.io — Simple. Rapide. Local.</div>
+        <div class="footer-copy">© 2026 Intermediaire.io — Simple. Rapide. Local.</div>
       </div>
     </div>
   </footer>
