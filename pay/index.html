@@ -3,349 +3,137 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Confirmation des conditions</title>
+  <title>Confirmation</title>
   <style>
-    :root {
-      --bg: #f6f9ff;
-      --bg2: #eef4ff;
-      --card: rgba(255, 255, 255, 0.78);
-      --text: #142033;
-      --muted: #5f6f86;
-      --line: rgba(20, 32, 51, 0.08);
-      --blue: #2f6fff;
-      --blue2: #6aa4ff;
-      --blueSoft: rgba(47, 111, 255, 0.08);
-      --shadow: 0 20px 60px rgba(39, 77, 150, 0.10);
-      --radius: 24px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
-      min-height: 100vh;
+      height: 100vh;
       font-family: Arial, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(80, 140, 255, 0.18), transparent 32%),
-        radial-gradient(circle at bottom right, rgba(145, 190, 255, 0.22), transparent 34%),
-        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+      background: #ffffff;
+      color: #111;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 28px 18px;
-    }
-
-    .wrap {
-      width: 100%;
-      max-width: 620px;
+      padding: 20px;
     }
 
     .card {
-      background: var(--card);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.7);
-      border-radius: var(--radius);
-      padding: 34px 30px 26px;
-      box-shadow: var(--shadow);
-    }
-
-    .logo {
-      width: 78px;
-      height: 78px;
-      object-fit: contain;
-      display: block;
-      margin: 0 auto 18px;
-      filter: drop-shadow(0 10px 22px rgba(47, 111, 255, 0.10));
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(47, 111, 255, 0.08);
-      color: var(--blue);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin: 0 auto 16px;
-    }
-
-    .center {
+      width: 100%;
+      max-width: 460px;
       text-align: center;
     }
 
-    h1 {
-      margin: 0 0 12px;
-      font-size: 31px;
-      line-height: 1.08;
-      letter-spacing: -0.02em;
-      font-weight: 700;
+    .logo {
+      width: 70px;
+      margin-bottom: 16px;
     }
 
-    .intro {
-      margin: 0 auto 24px;
-      max-width: 500px;
-      font-size: 15px;
-      line-height: 1.65;
-      color: var(--muted);
+    h1 {
+      font-size: 24px;
+      margin: 0 0 10px;
+    }
+
+    .text {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.5;
+      margin-bottom: 20px;
     }
 
     .terms {
-      margin: 8px 0 24px;
-      padding: 0;
-      list-style: none;
-    }
-
-    .terms li {
-      position: relative;
-      padding-left: 22px;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.7;
-    }
-
-    .terms li + li {
-      margin-top: 12px;
-    }
-
-    .terms li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 10px;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--blue), var(--blue2));
-      box-shadow: 0 0 0 5px rgba(47, 111, 255, 0.08);
-    }
-
-    .accept-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      margin: 26px 0 20px;
-      padding: 20px 18px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.52);
-      border: 1px solid rgba(47, 111, 255, 0.08);
-    }
-
-    .check-wrap {
-      position: relative;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .check-wrap input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .custom-check {
-      width: 32px;
-      height: 32px;
-      border-radius: 10px;
-      border: 2px solid rgba(47, 111, 255, 0.24);
-      background: white;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.18s ease;
-      box-shadow: 0 8px 20px rgba(47, 111, 255, 0.06);
-    }
-
-    .custom-check::after {
-      content: "";
-      width: 9px;
-      height: 15px;
-      border-right: 3px solid white;
-      border-bottom: 3px solid white;
-      transform: rotate(45deg) scale(0);
-      transition: transform 0.16s ease;
-      margin-top: -2px;
-    }
-
-    .check-wrap input:checked + .custom-check {
-      background: linear-gradient(135deg, var(--blue), var(--blue2));
-      border-color: transparent;
-      box-shadow: 0 12px 28px rgba(47, 111, 255, 0.22);
-    }
-
-    .check-wrap input:checked + .custom-check::after {
-      transform: rotate(45deg) scale(1);
-    }
-
-    .accept-text {
-      font-size: 15px;
+      font-size: 14px;
+      color: #444;
       line-height: 1.6;
-      color: var(--text);
+      margin-bottom: 22px;
+    }
+
+    .accept {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 22px;
+      text-align: left;
+      justify-content: center;
+    }
+
+    .accept input {
+      width: 26px;
+      height: 26px;
       cursor: pointer;
     }
 
-    .accept-text strong {
-      font-weight: 700;
-    }
-
-    .actions {
-      margin-top: 8px;
+    .accept label {
+      font-size: 14px;
+      line-height: 1.5;
+      cursor: pointer;
     }
 
     .btn {
       width: 100%;
+      padding: 15px;
       border: none;
-      border-radius: 16px;
-      padding: 17px 20px;
-      font-size: 15px;
-      font-weight: 700;
+      border-radius: 10px;
+      background: #2f6fff;
       color: white;
-      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      font-weight: bold;
+      font-size: 15px;
       cursor: pointer;
-      transition: transform 0.16s ease, opacity 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 16px 34px rgba(47, 111, 255, 0.20);
-    }
-
-    .btn:hover:not(:disabled) {
-      transform: translateY(-1px);
     }
 
     .btn:disabled {
-      opacity: 0.52;
+      opacity: 0.5;
       cursor: not-allowed;
-      box-shadow: none;
     }
 
-    .subtext {
-      margin-top: 12px;
-      text-align: center;
+    .sub {
+      margin-top: 10px;
       font-size: 12px;
-      color: #7c8ca3;
-      line-height: 1.5;
-    }
-
-    .error-box {
-      margin-top: 16px;
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: rgba(255, 90, 90, 0.08);
-      color: #b44242;
-      border: 1px solid rgba(255, 90, 90, 0.10);
-      font-size: 14px;
-      line-height: 1.5;
-      display: none;
-    }
-
-    .loading-box {
-      text-align: center;
-      padding: 18px 0 6px;
+      color: #888;
     }
 
     .spinner {
-      width: 34px;
-      height: 34px;
+      width: 30px;
+      height: 30px;
+      border: 3px solid #ddd;
+      border-top: 3px solid #2f6fff;
       border-radius: 50%;
-      border: 3px solid rgba(47, 111, 255, 0.14);
-      border-top-color: var(--blue);
-      margin: 0 auto 16px;
-      animation: spin 0.9s linear infinite;
-    }
-
-    .loading-title {
-      margin: 0 0 8px;
-      font-size: 26px;
-      color: var(--text);
-    }
-
-    .loading-text {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 15px;
+      margin: 0 auto 15px;
+      animation: spin 0.8s linear infinite;
     }
 
     @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    @media (max-width: 640px) {
-      .card {
-        padding: 28px 20px 22px;
-        border-radius: 22px;
-      }
-
-      .logo {
-        width: 68px;
-        height: 68px;
-      }
-
-      h1 {
-        font-size: 27px;
-      }
-
-      .accept-row {
-        gap: 14px;
-        padding: 18px 16px;
-      }
-
-      .custom-check {
-        width: 30px;
-        height: 30px;
-      }
+      to { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card" id="mainCard">
-      <div class="center">
-        <img src="media/logob.png" alt="Logo" class="logo">
-        <div class="badge">Confirmation requise</div>
-        <h1>Avant de poursuivre</h1>
-        <p class="intro">
-          Afin de continuer vers le paiement, veuillez confirmer que vous comprenez les conditions de l’achat du lead.
-        </p>
-      </div>
 
-      <ul class="terms">
-        <li>L’achat vous donne accès à une opportunité de contact commercial.</li>
-        <li>L’achat ne garantit pas la conclusion d’une vente ni l’acceptation d’un devis par le client.</li>
-        <li>Les informations du lead proviennent de la demande transmise par le client.</li>
-        <li>Le paiement couvre l’accès au lead, et non un résultat commercial garanti.</li>
-      </ul>
+  <div class="card" id="mainCard">
+    <img src="media/logob.png" class="logo">
 
-      <div class="accept-row">
-        <label class="check-wrap">
-          <input type="checkbox" id="acceptTerms">
-          <span class="custom-check"></span>
-        </label>
+    <h1>Avant de continuer</h1>
+    <div class="text">
+      Confirmez simplement pour accéder au paiement.
+    </div>
 
-        <label for="acceptTerms" class="accept-text">
-          J’ai lu et j’accepte les conditions d’utilisation, incluant que
-          <strong>l’achat ne garantit pas la vente du lead</strong>.
-        </label>
-      </div>
+    <div class="terms">
+      • L’achat donne accès à un lead<br>
+      • Aucune vente n’est garantie
+    </div>
 
-      <div class="actions">
-        <button class="btn" id="continueBtn" disabled>
-          Continuer vers le paiement
-        </button>
-        <div class="subtext">
-          Paiement sécurisé • Vérification préalable
-        </div>
-      </div>
+    <div class="accept">
+      <input type="checkbox" id="acceptTerms">
+      <label for="acceptTerms">
+        J’accepte les conditions
+      </label>
+    </div>
 
-      <div class="error-box" id="errorBox"></div>
+    <button class="btn" id="continueBtn" disabled>
+      Continuer vers le paiement
+    </button>
+
+    <div class="sub">
+      Paiement sécurisé
     </div>
   </div>
 
@@ -355,29 +143,10 @@
 
     const acceptTerms = document.getElementById("acceptTerms");
     const continueBtn = document.getElementById("continueBtn");
-    const errorBox = document.getElementById("errorBox");
     const mainCard = document.getElementById("mainCard");
 
-    function showError(title, message) {
-      errorBox.style.display = "block";
-      errorBox.innerHTML = "<strong>" + title + "</strong><br>" + message;
-    }
-
-    function setLoadingState() {
-      mainCard.innerHTML = `
-        <div class="center loading-box">
-          <img src="media/logob.png" alt="Logo" class="logo">
-          <div class="spinner"></div>
-          <h2 class="loading-title">Redirection sécurisée...</h2>
-          <p class="loading-text">Veuillez patienter quelques secondes pendant le chargement du lien de paiement.</p>
-        </div>
-      `;
-    }
-
     if (!leadId) {
-      showError("Lien invalide", "Aucun identifiant de lead n’a été trouvé.");
-      continueBtn.disabled = true;
-      acceptTerms.disabled = true;
+      mainCard.innerHTML = "<h2>Lien invalide</h2>";
     }
 
     acceptTerms.addEventListener("change", function () {
@@ -385,13 +154,11 @@
     });
 
     continueBtn.addEventListener("click", function () {
-      if (!acceptTerms.checked) {
-        showError("Confirmation requise", "Veuillez accepter les conditions pour continuer.");
-        return;
-      }
-
-      errorBox.style.display = "none";
-      setLoadingState();
+      mainCard.innerHTML = `
+        <div class="spinner"></div>
+        <h2>Redirection...</h2>
+        <p style="color:#666;">Veuillez patienter</p>
+      `;
 
       fetch("https://hook.us2.make.com/4vt5dgbfwit7wkgqqtn0wmc1c6o6kam8?lead_id=" + encodeURIComponent(leadId))
         .then(res => res.json())
@@ -399,31 +166,14 @@
           if (data.url) {
             window.location.href = data.url;
           } else {
-            document.body.innerHTML = `
-              <div class="wrap">
-                <div class="card center">
-                  <img src="media/logob.png" alt="Logo" class="logo">
-                  <div class="badge">Lien invalide</div>
-                  <h1>Ce lien n’est plus disponible</h1>
-                  <p class="intro">Le lien de paiement est introuvable ou expiré.</p>
-                </div>
-              </div>
-            `;
+            mainCard.innerHTML = "<h2>Erreur</h2><p>Lien invalide</p>";
           }
         })
         .catch(() => {
-          document.body.innerHTML = `
-            <div class="wrap">
-              <div class="card center">
-                <img src="media/logob.png" alt="Logo" class="logo">
-                <div class="badge">Erreur</div>
-                <h1>Impossible de continuer</h1>
-                <p class="intro">Une erreur est survenue lors du chargement du paiement.</p>
-              </div>
-            </div>
-          `;
+          mainCard.innerHTML = "<h2>Erreur</h2><p>Impossible de continuer</p>";
         });
     });
   </script>
+
 </body>
 </html>
