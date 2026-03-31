@@ -3,73 +3,322 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Paiement sécurisé</title>
+  <title>Confirmation des conditions</title>
   <style>
+    :root {
+      --bg: #0b1020;
+      --card: rgba(255, 255, 255, 0.06);
+      --border: rgba(255, 255, 255, 0.12);
+      --text: #ffffff;
+      --muted: rgba(255, 255, 255, 0.72);
+      --soft: rgba(255, 255, 255, 0.5);
+      --accent: linear-gradient(135deg, #4f8cff, #6ea8ff);
+      --danger: #ff6b6b;
+      --success: #7dd3fc;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      background: #0b1020;
-      color: white;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(79, 140, 255, 0.18), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(110, 168, 255, 0.12), transparent 35%),
+        var(--bg);
+      color: var(--text);
       font-family: Arial, sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      text-align: center;
       padding: 24px;
     }
-    .box {
-      max-width: 500px;
+
+    .card {
+      width: 100%;
+      max-width: 560px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
     }
-    .spinner {
-      width: 42px;
-      height: 42px;
-      border: 4px solid rgba(255,255,255,0.15);
-      border-top: 4px solid white;
-      border-radius: 50%;
-      margin: 0 auto 20px;
-      animation: spin 0.9s linear infinite;
+
+    .badge {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--success);
+      background: rgba(125, 211, 252, 0.08);
+      border: 1px solid rgba(125, 211, 252, 0.18);
+      padding: 8px 10px;
+      border-radius: 999px;
+      margin-bottom: 18px;
     }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    h2 {
+
+    h1 {
       margin: 0 0 10px;
-      font-size: 26px;
+      font-size: 28px;
+      line-height: 1.15;
     }
-    p {
+
+    .intro {
+      margin: 0 0 22px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .terms-box {
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+
+    .terms-title {
+      margin: 0 0 14px;
+      font-size: 15px;
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .terms-list {
       margin: 0;
-      opacity: 0.8;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .terms-list li + li {
+      margin-top: 10px;
+    }
+
+    .checkbox-wrap {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin: 18px 0 10px;
+      text-align: left;
+    }
+
+    .checkbox-wrap input[type="checkbox"] {
+      margin-top: 2px;
+      width: 18px;
+      height: 18px;
+      accent-color: #4f8cff;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .checkbox-wrap label {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+      cursor: pointer;
+    }
+
+    .actions {
+      margin-top: 22px;
+    }
+
+    .btn {
+      width: 100%;
+      border: none;
+      border-radius: 14px;
+      padding: 16px 18px;
+      font-size: 15px;
+      font-weight: 700;
+      color: white;
+      background: var(--accent);
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 12px 30px rgba(79, 140, 255, 0.22);
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .subtext {
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--soft);
+      text-align: center;
       line-height: 1.5;
+    }
+
+    .spinner {
+      width: 22px;
+      height: 22px;
+      border: 3px solid rgba(255,255,255,0.2);
+      border-top: 3px solid white;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+      margin: 0 auto;
+    }
+
+    .loading-inline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .error-box {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(255, 107, 107, 0.08);
+      border: 1px solid rgba(255, 107, 107, 0.18);
+      color: #ffd1d1;
+      font-size: 14px;
+      line-height: 1.5;
+      display: none;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .card {
+        padding: 22px;
+        border-radius: 18px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="box">
-    <div class="spinner"></div>
-    <h2>Redirection sécurisée...</h2>
-    <p>Veuillez patienter quelques secondes.</p>
+  <div class="card" id="mainCard">
+    <div class="badge">Confirmation requise</div>
+    <h1>Avant de poursuivre au paiement</h1>
+    <p class="intro">
+      Veuillez confirmer que vous acceptez les conditions ci-dessous avant d’accéder au paiement sécurisé.
+    </p>
+
+    <div class="terms-box">
+      <p class="terms-title">Conditions d’utilisation</p>
+      <ul class="terms-list">
+        <li>L’achat donne accès à une opportunité de contact commercial.</li>
+        <li>L’achat ne garantit pas la conclusion d’une vente ni l’acceptation d’un devis par le client.</li>
+        <li>Le lead est fourni tel quel, selon les informations transmises par le client.</li>
+        <li>En poursuivant, vous reconnaissez comprendre que le paiement porte sur l’accès au lead, et non sur un résultat garanti.</li>
+      </ul>
+    </div>
+
+    <div class="checkbox-wrap">
+      <input type="checkbox" id="acceptTerms" />
+      <label for="acceptTerms">
+        J’ai lu et j’accepte les conditions d’utilisation, incluant le fait que l’achat ne garantit pas la vente du lead.
+      </label>
+    </div>
+
+    <div class="actions">
+      <button class="btn" id="continueBtn" disabled>
+        Continuer vers le paiement
+      </button>
+      <div class="subtext">
+        Paiement sécurisé • Redirection protégée
+      </div>
+    </div>
+
+    <div class="error-box" id="errorBox"></div>
   </div>
 
   <script>
     const params = new URLSearchParams(window.location.search);
     const leadId = params.get("lead_id");
 
+    const acceptTerms = document.getElementById("acceptTerms");
+    const continueBtn = document.getElementById("continueBtn");
+    const errorBox = document.getElementById("errorBox");
+    const mainCard = document.getElementById("mainCard");
+
+    function showError(title, message) {
+      errorBox.style.display = "block";
+      errorBox.innerHTML = "<strong>" + title + "</strong><br>" + message;
+    }
+
+    function setLoadingState() {
+      mainCard.innerHTML = `
+        <div class="badge">Paiement sécurisé</div>
+        <h1 style="margin-bottom:12px;">Redirection sécurisée...</h1>
+        <p class="intro" style="margin-bottom:20px;">
+          Veuillez patienter quelques secondes pendant le chargement du lien de paiement.
+        </p>
+        <div class="loading-inline">
+          <div class="spinner"></div>
+        </div>
+      `;
+    }
+
     if (!leadId) {
-      document.body.innerHTML = "<div class='box'><h2>Lien invalide</h2><p>Aucun identifiant trouvé.</p></div>";
-    } else {
+      showError("Lien invalide", "Aucun identifiant de lead n’a été trouvé.");
+      continueBtn.disabled = true;
+      acceptTerms.disabled = true;
+    }
+
+    acceptTerms.addEventListener("change", function () {
+      continueBtn.disabled = !this.checked || !leadId;
+    });
+
+    continueBtn.addEventListener("click", function () {
+      if (!acceptTerms.checked) {
+        showError("Confirmation requise", "Veuillez accepter les conditions d’utilisation pour continuer.");
+        return;
+      }
+
+      errorBox.style.display = "none";
+      setLoadingState();
+
       fetch("https://hook.us2.make.com/4vt5dgbfwit7wkgqqtn0wmc1c6o6kam8?lead_id=" + encodeURIComponent(leadId))
         .then(res => res.json())
         .then(data => {
           if (data.url) {
             window.location.href = data.url;
           } else {
-            document.body.innerHTML = "<div class='box'><h2>Lien invalide</h2><p>Ce lien de paiement est introuvable ou expiré.</p></div>";
+            document.body.innerHTML = `
+              <div class="card">
+                <div class="badge">Erreur</div>
+                <h1 style="margin-bottom:12px;">Lien invalide</h1>
+                <p class="intro">Ce lien de paiement est introuvable ou expiré.</p>
+              </div>
+            `;
           }
         })
         .catch(() => {
-          document.body.innerHTML = "<div class='box'><h2>Erreur</h2><p>Impossible de charger le lien de paiement.</p></div>";
+          document.body.innerHTML = `
+            <div class="card">
+              <div class="badge">Erreur</div>
+              <h1 style="margin-bottom:12px;">Impossible de continuer</h1>
+              <p class="intro">Impossible de charger le lien de paiement pour le moment.</p>
+            </div>
+          `;
         });
-    }
+    });
   </script>
 </body>
 </html>
