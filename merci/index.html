@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Intermediaire.io | Merci</title>
+<link rel="icon" type="image/png" href="media/logob.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f8fc;
+  --bg2:#edf5fb;
+  --text:#183246;
+  --title:#0d2233;
+  --muted:#6a7f90;
+  --line:rgba(18,55,83,.10);
+  --accent:#2f80ed;
+  --accent2:#69c2ff;
+  --max:520px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;min-height:100%;background:linear-gradient(180deg,#edf5fb,#f4f8fc);}
+body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);overflow-x:hidden;position:relative;}
+
+.bg{position:fixed;inset:-22vh;pointer-events:none;overflow:hidden;z-index:0;}
+.bgBase{position:absolute;inset:0;background:radial-gradient(1200px 700px at 0% 0%, rgba(105,194,255,.12), transparent 60%),radial-gradient(1000px 620px at 100% 0%, rgba(240,180,90,.10), transparent 58%),linear-gradient(180deg, #edf5fb, #f4f8fc);}
+.mesh{position:absolute;inset:-12%;background:radial-gradient(circle at 14% 18%, rgba(105,194,255,.22), transparent 16%),radial-gradient(circle at 82% 18%, rgba(240,180,90,.16), transparent 14%),radial-gradient(circle at 52% 82%, rgba(47,128,237,.12), transparent 16%);filter:blur(24px);opacity:.92;animation:meshMove 18s ease-in-out infinite alternate;}
+.orb{position:absolute;border-radius:999px;filter:blur(75px);opacity:.58;}
+.orb1{width:440px;height:440px;left:-110px;top:-100px;background:rgba(105,194,255,.22);animation:floatA 16s ease-in-out infinite;}
+.orb2{width:340px;height:340px;right:-70px;top:120px;background:rgba(240,180,90,.16);animation:floatB 18s ease-in-out infinite;}
+.orb3{width:320px;height:320px;left:46%;bottom:-130px;background:rgba(47,128,237,.13);animation:floatC 20s ease-in-out infinite;}
+
+@keyframes floatA{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(34px,-26px,0)}}
+@keyframes floatB{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-28px,24px,0)}}
+@keyframes floatC{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(22px,-24px,0)}}
+@keyframes meshMove{0%{transform:translateY(0)}100%{transform:translateY(-18px)}}
+
+.shell{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px 24px;}
+
+.card{
+  width:100%;
+  max-width:var(--max);
+  background:rgba(255,255,255,.72);
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(47,128,237,.12);
+  border-radius:28px;
+  box-shadow:0 24px 64px rgba(16,44,68,.09);
+  padding:52px 40px 48px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  animation:popIn .6s cubic-bezier(.22,1,.36,1) both;
+}
+
+@keyframes popIn{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:none}}
+
+.brandLink{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:inherit;margin-bottom:28px;}
+.brandLogo{width:80px;height:80px;object-fit:contain;filter:drop-shadow(0 10px 20px rgba(47,128,237,.12));animation:logoFloat 6.5s ease-in-out infinite;}
+@keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.brandName{margin:8px 0 0;font-family:"Plus Jakarta Sans",Inter,sans-serif;font-size:18px;font-weight:800;letter-spacing:-0.03em;color:var(--title);}
+
+.checkCircle{
+  width:72px;height:72px;border-radius:50%;
+  background:linear-gradient(135deg,#2f80ed,#69c2ff);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:24px;
+  box-shadow:0 12px 32px rgba(47,128,237,.28);
+  animation:checkPop .7s .3s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes checkPop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+.checkCircle svg{width:34px;height:34px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+
+h1{margin:0 0 12px;font-family:"Plus Jakarta Sans",Inter,sans-serif;font-size:30px;font-weight:800;letter-spacing:-0.04em;color:var(--title);}
+.subtitle{margin:0 0 32px;font-size:15px;color:var(--muted);line-height:1.7;max-width:360px;}
+
+.steps{width:100%;display:flex;flex-direction:column;gap:12px;margin-bottom:36px;}
+.step{display:flex;align-items:flex-start;gap:14px;background:rgba(47,128,237,.05);border:1px solid rgba(47,128,237,.10);border-radius:16px;padding:16px 18px;text-align:left;}
+.stepNum{min-width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#2f80ed,#69c2ff);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;margin-top:1px;}
+.stepText{font-size:13.5px;font-weight:700;color:var(--text);line-height:1.5;}
+.stepSub{font-size:12px;font-weight:500;color:var(--muted);margin-top:2px;}
+
+.backBtn{
+  display:inline-flex;align-items:center;gap:8px;
+  border:none;border-radius:14px;padding:14px 28px;
+  font-size:14px;font-weight:800;color:#fff;cursor:pointer;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  box-shadow:0 12px 28px rgba(47,128,237,.18);
+  text-decoration:none;
+  transition:opacity .15s;
+}
+.backBtn:hover{opacity:.88;}
+
+@media(max-width:540px){
+  .card{padding:40px 24px 36px;border-radius:20px;}
+  .shell{padding:20px 16px;}
+  h1{font-size:24px;}
+}
+</style>
+</head>
+<body>
+
+<div class="bg">
+  <div class="bgBase"></div>
+  <div class="mesh"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+
+<main class="shell">
+  <div class="card">
+
+    <a href="https://www.intermediaire.io" class="brandLink">
+      <img class="brandLogo" src="media/logob.png" alt="Intermediaire.io">
+      <span class="brandName">Intermediaire.io</span>
+    </a>
+
+    <div class="checkCircle">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+
+    <h1>Demande bien reçue&nbsp;!</h1>
+    <p class="subtitle">Votre demande de toiture a été transmise. Un professionnel de votre région vous contactera sous peu.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="stepNum">1</div>
+        <div>
+          <div class="stepText">Analyse de votre demande</div>
+          <div class="stepSub">Nous trouvons le bon contracteur pour votre projet.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="stepNum">2</div>
+        <div>
+          <div class="stepText">Contact par un professionnel</div>
+          <div class="stepSub">Un expert local vous rejoint pour discuter de votre besoin.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="stepNum">3</div>
+        <div>
+          <div class="stepText">Soumission gratuite</div>
+          <div class="stepSub">Recevez une soumission sans engagement et comparez.</div>
+        </div>
+      </div>
+    </div>
+
+    <a href="https://www.intermediaire.io" class="backBtn">Retour à l'accueil</a>
+
+  </div>
+</main>
+
+</body>
+</html>
