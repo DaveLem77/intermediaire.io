@@ -3,570 +3,374 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Intermediaire.io | Toiture</title>
-
+<title>Couvreur Sherbrooke — Intermediaire.io</title>
 <link rel="icon" type="image/png" href="media/logob.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#f4f8fc;
-  --bg2:#edf5fb;
-  --text:#183246;
-  --title:#0d2233;
-  --muted:#6a7f90;
-  --line:rgba(18,55,83,.10);
-  --accent:#2f80ed;
-  --accent2:#69c2ff;
-  --field-bg:rgba(255,255,255,.88);
-  --max:660px;
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%;background:#f4f8fc}
+body{font-family:'Sora',system-ui,sans-serif;color:#0d2233;-webkit-font-smoothing:antialiased}
+
+.page{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px 36px}
+
+/* BRAND */
+.brand{display:flex;flex-direction:column;align-items:center;gap:5px;margin-bottom:20px}
+.brand img{width:48px;height:48px;object-fit:contain;filter:drop-shadow(0 6px 14px rgba(47,128,237,.18))}
+.brand-name{font-size:13px;font-weight:700;color:#8aafc4}
+
+/* URGENCY */
+.urgency{display:inline-flex;align-items:center;gap:7px;background:#fff8f0;border:1.5px solid #fcd5a0;border-radius:99px;padding:6px 14px;margin-bottom:18px;min-width:260px;justify-content:center}
+.u-dot{width:7px;height:7px;border-radius:50%;background:#f59e0b;flex-shrink:0;animation:blink 1s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.25;transform:scale(.7)}}
+.u-text{font-size:12px;font-weight:800;color:#b45309;transition:opacity .35s;white-space:nowrap}
+
+/* HERO */
+.hero{text-align:center;max-width:390px;margin-bottom:20px}
+.hero h1{font-size:clamp(23px,5.5vw,30px);font-weight:900;letter-spacing:-1.2px;line-height:1.13;color:#0d2233;margin-bottom:10px}
+.hero h1 .accent{color:#2f80ed}
+.hero p{font-size:13.5px;font-weight:600;color:#7a9cb0;line-height:1.65;max-width:340px;margin:0 auto}
+
+/* DIAGRAM */
+.diagram{width:100%;max-width:390px;margin-bottom:18px}
+.diagram svg{width:100%;display:block;overflow:visible}
+
+/* GOOGLE REVIEW — compact inline pill */
+.g-row{display:flex;align-items:center;gap:10px;background:white;border:1.5px solid #e4eef6;border-radius:14px;padding:10px 14px;margin-bottom:20px;max-width:390px;width:100%;box-shadow:0 2px 12px rgba(16,44,68,.06)}
+.g-left{display:flex;align-items:center;gap:7px;flex-shrink:0}
+.g-left img{width:18px;height:18px;object-fit:contain}
+.g-stars{color:#FBBC04;font-size:12px;letter-spacing:.3px}
+.g-score{font-size:13px;font-weight:900;color:#0d2233}
+.g-sep{width:1px;height:28px;background:#e4eef6;flex-shrink:0}
+.g-quote{font-size:12px;font-weight:600;color:#4a6a7c;line-height:1.5;flex:1}
+.g-quote strong{color:#0d2233}
+.g-verified{flex-shrink:0;font-size:10px;font-weight:800;color:#2f80ed;background:#eff6ff;border-radius:99px;padding:3px 9px;white-space:nowrap}
+
+/* CTA BUTTON — the star of the show */
+.cta-outer{width:100%;max-width:390px;position:relative;margin-bottom:0}
+
+/* shimmer layer behind button */
+.cta-glow{position:absolute;inset:-8px;border-radius:24px;background:linear-gradient(135deg,#2f80ed,#55c8ff,#2f80ed);background-size:200% 200%;animation:glowRotate 3s linear infinite;filter:blur(14px);opacity:.5;z-index:0}
+@keyframes glowRotate{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+.cta-btn{position:relative;z-index:1;width:100%;height:60px;border:none;border-radius:16px;font-family:'Sora',sans-serif;font-size:16.5px;font-weight:900;color:white;cursor:pointer;letter-spacing:-.02em;overflow:hidden;background:linear-gradient(135deg,#1a6de0,#3d9cf0);animation:btnFloat 2.2s ease-in-out infinite}
+
+/* floating bounce */
+@keyframes btnFloat{
+  0%,100%{transform:translateY(0) scale(1);box-shadow:0 14px 36px rgba(47,128,237,.38)}
+  50%{transform:translateY(-5px) scale(1.012);box-shadow:0 22px 48px rgba(47,128,237,.50)}
 }
 
-*{box-sizing:border-box}
+/* inner shimmer sweep */
+.cta-btn::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);animation:shimmer 2.8s ease-in-out infinite;transform:skewX(-20deg)}
+@keyframes shimmer{0%{left:-100%}60%,100%{left:160%}}
 
-html,body{
-  margin:0;
-  padding:0;
-  min-height:100%;
-  background:linear-gradient(180deg,#edf5fb,#f4f8fc);
-}
+/* pulse ring */
+.cta-btn::after{content:'';position:absolute;inset:0;border-radius:16px;box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
 
-body{
-  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  color:var(--text);
-  overflow-x:hidden;
-  position:relative;
-}
+.cta-btn:hover{animation:none;transform:translateY(-3px) scale(1.015);box-shadow:0 22px 50px rgba(47,128,237,.52)}
+.cta-btn:active{animation:none;transform:scale(.98);box-shadow:0 8px 20px rgba(47,128,237,.3)}
 
-/* BACKGROUND */
+.cta-inner{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:10px}
+.cta-arrow{display:inline-block;transition:transform .2s;font-style:normal}
+.cta-btn:hover .cta-arrow{transform:translateX(4px)}
 
-.bg{
-  position:fixed;
-  inset:-22vh;
-  pointer-events:none;
-  overflow:hidden;
-  z-index:0;
-}
+.cta-note{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:12px;font-size:12px;font-weight:700;color:#a0bfcf}
+.dot-sep{width:3px;height:3px;border-radius:50%;background:#c8dde8}
 
-.bgBase{
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(1200px 700px at 0% 0%, rgba(105,194,255,.12), transparent 60%),
-    radial-gradient(1000px 620px at 100% 0%, rgba(240,180,90,.10), transparent 58%),
-    linear-gradient(180deg, #edf5fb, #f4f8fc);
-}
+/* FUNNEL */
+.funnel{display:none;width:100%;max-width:390px;flex-direction:column;align-items:center}
+.prog-wrap{width:100%;margin-bottom:26px}
+.prog-bar{height:3px;background:#dde9f2;border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,#2f80ed,#55b4f5);border-radius:99px;transition:width .4s cubic-bezier(.4,0,.2,1)}
+.prog-lbl{font-size:11px;font-weight:700;color:#9ab8c8;margin-top:6px;letter-spacing:.04em}
+.step{width:100%;animation:fadeUp .3s cubic-bezier(.22,1,.36,1)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.q{font-size:clamp(21px,5vw,27px);font-weight:900;letter-spacing:-1px;color:#0d2233;margin-bottom:20px;line-height:1.15;text-align:center}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:9px;width:100%}
+.tiles.three{grid-template-columns:1fr 1fr 1fr}
+.tile{border:2px solid #e0eaf2;border-radius:16px;padding:16px 12px 12px;background:white;cursor:pointer;text-align:left;transition:all .15s;display:flex;flex-direction:column;gap:5px;-webkit-tap-highlight-color:transparent}
+.tile:hover{border-color:#93c5fd;transform:translateY(-2px);box-shadow:0 8px 20px rgba(47,128,237,.1)}
+.tile.on{border-color:#2f80ed;background:#f0f7ff;box-shadow:0 0 0 4px rgba(47,128,237,.1)}
+.tile .ico{font-size:24px;line-height:1}
+.tile .lbl{font-size:13.5px;font-weight:800;color:#0d2233;letter-spacing:-.02em}
+.tile .sub{font-size:11.5px;font-weight:600;color:#8aabbf}
+.big-input{width:100%;height:58px;border:2px solid #e0eaf2;border-radius:14px;padding:0 18px;font-family:'Sora',sans-serif;font-size:17px;font-weight:700;color:#0d2233;background:white;outline:none;transition:border .15s,box-shadow .15s}
+.big-input::placeholder{color:#c0d4df;font-weight:600}
+.big-input:focus{border-color:#2f80ed;box-shadow:0 0 0 4px rgba(47,128,237,.1)}
+.next{width:100%;height:56px;border:none;border-radius:14px;font-family:'Sora',sans-serif;font-size:16px;font-weight:900;color:white;cursor:pointer;background:linear-gradient(135deg,#1d6fe0,#45a0f3);box-shadow:0 10px 28px rgba(47,128,237,.25);transition:transform .15s,box-shadow .15s;margin-top:14px;letter-spacing:-.02em}
+.next:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(47,128,237,.32)}
+.next:active{transform:translateY(0)}
+.next:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.consent-row{display:flex;align-items:flex-start;gap:9px;background:#f0f7ff;border-radius:12px;padding:12px 14px;margin-top:6px}
+.consent-row input{width:16px;height:16px;min-width:16px;margin-top:2px;accent-color:#2f80ed;cursor:pointer;flex-shrink:0}
+.consent-row label{font-size:12px;font-weight:600;color:#4a7a94;line-height:1.5;cursor:pointer}
+.gbadge-sm{display:flex;align-items:center;gap:7px;justify-content:center;margin-top:14px}
+.gbadge-sm img{width:16px;height:16px;object-fit:contain}
+.gbadge-sm .stars{color:#FBBC04;font-size:11px}
+.gbadge-sm .txt{font-size:11.5px;font-weight:700;color:#9ab8c8}
+.success{width:100%;text-align:center;animation:fadeUp .45s cubic-bezier(.22,1,.36,1)}
+.s-ring{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#2f80ed,#55c0f5);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 12px 30px rgba(47,128,237,.25)}
+.s-ring svg{width:32px;height:32px;stroke:white;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.success h2{font-size:26px;font-weight:900;letter-spacing:-.04em;margin-bottom:10px}
+.success p{font-size:15px;font-weight:600;color:#6a8ea0;line-height:1.65}
 
-.mesh{
-  position:absolute;
-  inset:-12%;
-  background:
-    radial-gradient(circle at 14% 18%, rgba(105,194,255,.22), transparent 16%),
-    radial-gradient(circle at 82% 18%, rgba(240,180,90,.16), transparent 14%),
-    radial-gradient(circle at 52% 82%, rgba(47,128,237,.12), transparent 16%);
-  filter:blur(24px);
-  opacity:.92;
-  animation:meshMove 18s ease-in-out infinite alternate;
-}
-
-.orb{
-  position:absolute;
-  border-radius:999px;
-  filter:blur(75px);
-  opacity:.58;
-}
-
-.orb1{
-  width:440px;
-  height:440px;
-  left:-110px;
-  top:-100px;
-  background:rgba(105,194,255,.22);
-  animation:floatA 16s ease-in-out infinite;
-}
-
-.orb2{
-  width:340px;
-  height:340px;
-  right:-70px;
-  top:120px;
-  background:rgba(240,180,90,.16);
-  animation:floatB 18s ease-in-out infinite;
-}
-
-.orb3{
-  width:320px;
-  height:320px;
-  left:46%;
-  bottom:-130px;
-  background:rgba(47,128,237,.13);
-  animation:floatC 20s ease-in-out infinite;
-}
-
-@keyframes floatA{
-  0%,100%{transform:translate3d(0,0,0)}
-  50%{transform:translate3d(34px,-26px,0)}
-}
-
-@keyframes floatB{
-  0%,100%{transform:translate3d(0,0,0)}
-  50%{transform:translate3d(-28px,24px,0)}
-}
-
-@keyframes floatC{
-  0%,100%{transform:translate3d(0,0,0)}
-  50%{transform:translate3d(22px,-24px,0)}
-}
-
-@keyframes meshMove{
-  0%{transform:translateY(0)}
-  100%{transform:translateY(-18px)}
-}
-
-/* LAYOUT */
-
-.shell{
-  position:relative;
-  z-index:1;
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:10px 24px 24px;
-}
-
-.formZone{
-  width:100%;
-  max-width:var(--max);
-}
-
-/* LOGO */
-
-.brandBlock{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  margin-bottom:10px;
-}
-
-.brandLink{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-decoration:none;
-  color:inherit;
-}
-
-.brandLogo{
-  width:108px;
-  height:108px;
-  object-fit:contain;
-  margin-bottom:10px;
-  filter:drop-shadow(0 14px 28px rgba(47,128,237,.12));
-  animation:logoFloat 6.5s ease-in-out infinite;
-}
-
-.brandName{
-  margin:0;
-  font-family:"Plus Jakarta Sans", Inter, sans-serif;
-  font-size:24px;
-  font-weight:800;
-  letter-spacing:-0.04em;
-  color:var(--title);
-  position:relative;
-  display:inline-block;
-}
-
-@keyframes logoFloat{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-5px)}
-}
-
-/* TAG */
-
-.miniTag{
-  width:max-content;
-  margin:0 auto 10px;
-  padding:8px 14px;
-  border-radius:999px;
-  border:1px solid rgba(18,55,83,.08);
-  background:rgba(255,255,255,.55);
-  font-size:11.5px;
-  font-weight:800;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  color:#4f6a7c;
-}
-
-/* TITLE */
-
-.formTop{
-  text-align:center;
-  margin-bottom:14px;
-}
-
-.formTop h1{
-  margin:0 0 8px;
-  font-size:34px;
-  line-height:1.1;
-  color:var(--title);
-  letter-spacing:-1px;
-}
-
-/* INFO */
-
-.infoRow{
-  display:flex;
-  justify-content:center;
-  gap:14px;
-  flex-wrap:wrap;
-  font-size:13px;
-  font-weight:700;
-  color:var(--muted);
-}
-
-.infoItem{
-  display:flex;
-  align-items:center;
-  gap:6px;
-}
-
-.infoIcon{
-  width:16px;
-  height:16px;
-}
-
-/* FORM */
-
-form{
-  display:grid;
-  gap:10px;
-}
-
-.row2{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-input,textarea{
-  width:100%;
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:18px;
-  font:inherit;
-  font-weight:600;
-  background:var(--field-bg);
-  box-shadow:0 8px 22px rgba(16,44,68,.05);
-  outline:none;
-}
-
-input{height:58px;}
-
-textarea{
-  min-height:118px;
-  resize:vertical;
-}
-
-input:focus,textarea:focus{
-  border-color:rgba(47,128,237,.4);
-  box-shadow:0 0 0 4px rgba(47,128,237,.08);
-}
-
-input[readonly]{
-  background:rgba(240,246,251,.9);
-  color:#8a9faf;
-  cursor:not-allowed;
-  user-select:none;
-}
-
-input[readonly]:focus{
-  border-color:var(--line);
-  box-shadow:none;
-}
-
-/* CHECKBOX */
-
-.consent{
-  display:flex;
-  align-items:flex-start;
-  gap:10px;
-  font-size:12px;
-  color:#5a7081;
-}
-
-.consent input[type="checkbox"]{
-  width:18px;
-  height:18px;
-  min-width:18px;
-  margin-top:2px;
-  cursor:pointer;
-  accent-color:var(--accent);
-  border:1px solid rgba(18,55,83,.16);
-  border-radius:4px;
-  background:white;
-}
-
-/* BUTTON */
-
-.submitBtn{
-  margin-top:2px;
-  width:100%;
-  border:none;
-  border-radius:18px;
-  padding:18px;
-  font-size:16px;
-  font-weight:900;
-  color:white;
-  cursor:pointer;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  box-shadow:0 18px 40px rgba(47,128,237,.20);
-}
-
-.bottomSpace{
-  height:26px;
-}
-
-/* SUCCESS */
-
-.successBox{
-  display:none;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  padding:48px 32px 40px;
-  background:rgba(255,255,255,.72);
-  backdrop-filter:blur(18px);
-  border:1px solid rgba(47,128,237,.12);
-  border-radius:28px;
-  box-shadow:0 24px 64px rgba(16,44,68,.09);
-  animation:popIn .5s cubic-bezier(.22,1,.36,1) both;
-}
-
-@keyframes popIn{
-  from{opacity:0;transform:translateY(18px) scale(.97)}
-  to{opacity:1;transform:none}
-}
-
-.successIcon{
-  width:72px;
-  height:72px;
-  border-radius:50%;
-  background:linear-gradient(135deg,#2f80ed,#69c2ff);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin-bottom:22px;
-  box-shadow:0 12px 32px rgba(47,128,237,.28);
-}
-
-.successIcon svg{
-  width:34px;
-  height:34px;
-  stroke:#fff;
-  fill:none;
-  stroke-width:2.5;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-}
-
-.successTitle{
-  margin:0 0 10px;
-  font-family:"Plus Jakarta Sans", Inter, sans-serif;
-  font-size:26px;
-  font-weight:800;
-  letter-spacing:-0.03em;
-  color:var(--title);
-}
-
-.successText{
-  margin:0;
-  font-size:15px;
-  color:var(--muted);
-  line-height:1.65;
-  max-width:380px;
-}
-
-/* SUCCESS */
-.successBox{
-  display:none;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  padding:52px 32px 44px;
-  background:rgba(255,255,255,.75);
-  backdrop-filter:blur(18px);
-  border:1px solid rgba(47,128,237,.12);
-  border-radius:28px;
-  box-shadow:0 24px 64px rgba(16,44,68,.09);
-  animation:popIn .5s cubic-bezier(.22,1,.36,1) both;
-}
-@keyframes popIn{
-  from{opacity:0;transform:translateY(18px) scale(.97)}
-  to{opacity:1;transform:none}
-}
-.successIcon{
-  width:72px;height:72px;border-radius:50%;
-  background:linear-gradient(135deg,#2f80ed,#69c2ff);
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:22px;
-  box-shadow:0 12px 32px rgba(47,128,237,.28);
-}
-.successIcon svg{
-  width:34px;height:34px;stroke:#fff;fill:none;
-  stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;
-}
-.successTitle{
-  margin:0 0 10px;
-  font-family:"Plus Jakarta Sans",Inter,sans-serif;
-  font-size:26px;font-weight:800;letter-spacing:-0.03em;
-  color:var(--title);
-}
-.successText{
-  margin:0;font-size:15px;color:var(--muted);
-  line-height:1.7;max-width:360px;
-}
-
-@media(max-width:640px){
-  .shell{
-    padding:6px 18px 18px;
-    align-items:flex-start;
-  }
-
-  .brandLogo{
-    width:96px;
-    height:96px;
-  }
-
-  .row2{
-    grid-template-columns:1fr;
-  }
-
-  .formTop h1{
-    font-size:28px;
-  }
-
-  .infoRow{
-    font-size:12px;
-  }
+@media(max-width:380px){
+  .tiles,.tiles.three{grid-template-columns:1fr 1fr}
+  .hero h1{font-size:21px}
 }
 </style>
 </head>
-
 <body>
+<div class="page" id="page">
 
-<div class="bg">
-  <div class="bgBase"></div>
-  <div class="mesh"></div>
-  <div class="orb orb1"></div>
-  <div class="orb orb2"></div>
-  <div class="orb orb3"></div>
+  <div class="brand" id="elBrand">
+    <img src="media/logob.png" alt="Intermediaire.io">
+    <span class="brand-name">Intermediaire.io</span>
+  </div>
+
+  <!-- URGENCY BAR -->
+  <div class="urgency" id="elUrgency">
+    <span class="u-dot"></span>
+    <span class="u-text" id="uText">12 demandes envoyées aujourd'hui à Sherbrooke</span>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero" id="elHero">
+    <h1>Une demande.<br>Les meilleurs couvreurs<br>de <span class="accent">Sherbrooke</span> vous rappellent.</h1>
+    <p>Décrivez votre projet en 30 secondes — on le transmet aux contracteurs disponibles dans votre région.</p>
+  </div>
+
+  <!-- DIAGRAM -->
+  <div class="diagram" id="elDiagram">
+    <svg id="svg" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrB" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+          <polyline points="1.5,1.5 6,4 1.5,6.5" stroke="#2f80ed" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+        <marker id="arrG" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+          <polyline points="1.5,1.5 6,4 1.5,6.5" stroke="#16a34a" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+
+      <!-- YOU -->
+      <rect x="6" y="60" width="86" height="40" rx="11" fill="white" stroke="#cfe2f4" stroke-width="1.5"/>
+      <text x="49" y="77" text-anchor="middle" font-family="Sora,sans-serif" font-size="10.5" font-weight="800" fill="#0d2233">Votre</text>
+      <text x="49" y="91" text-anchor="middle" font-family="Sora,sans-serif" font-size="10.5" font-weight="800" fill="#0d2233">demande</text>
+
+      <!-- arrow in -->
+      <line id="lineIn" x1="92" y1="80" x2="164" y2="80" stroke="#2f80ed" stroke-width="1.8" stroke-dasharray="6,4" opacity="0" marker-end="url(#arrB)"/>
+
+      <!-- HUB -->
+      <circle id="hubRing" cx="192" cy="80" r="26" fill="white" stroke="#2f80ed" stroke-width="2" opacity="0"/>
+      <circle id="hubFill" cx="192" cy="80" r="26" fill="#2f80ed" opacity="0"/>
+      <text id="hub1" x="192" y="76" text-anchor="middle" font-family="Sora,sans-serif" font-size="10" font-weight="900" fill="white" opacity="0">10+</text>
+      <text id="hub2" x="192" y="89" text-anchor="middle" font-family="Sora,sans-serif" font-size="9" font-weight="700" fill="rgba(255,255,255,.85)" opacity="0">couvreurs</text>
+
+      <!-- lines out -->
+      <line id="l1" x1="216" y1="68" x2="292" y2="26"  stroke="#16a34a" stroke-width="1.6" stroke-dasharray="6,4" opacity="0" marker-end="url(#arrG)"/>
+      <line id="l2" x1="218" y1="80" x2="294" y2="80"  stroke="#16a34a" stroke-width="1.6" stroke-dasharray="6,4" opacity="0" marker-end="url(#arrG)"/>
+      <line id="l3" x1="216" y1="92" x2="292" y2="134" stroke="#16a34a" stroke-width="1.6" stroke-dasharray="6,4" opacity="0" marker-end="url(#arrG)"/>
+
+      <!-- contractors -->
+      <g id="nC1" opacity="0">
+        <rect x="298" y="10" width="96" height="32" rx="9" fill="white" stroke="#bbf7d0" stroke-width="1.5"/>
+        <text x="346" y="23" text-anchor="middle" font-family="Sora,sans-serif" font-size="9.5" font-weight="800" fill="#14532d">Couvreur A</text>
+        <text x="346" y="35" text-anchor="middle" font-family="Sora,sans-serif" font-size="9" font-weight="700" fill="#16a34a">Disponible ✓</text>
+      </g>
+      <g id="nC2" opacity="0">
+        <rect x="298" y="64" width="96" height="32" rx="9" fill="white" stroke="#bbf7d0" stroke-width="1.5"/>
+        <text x="346" y="77" text-anchor="middle" font-family="Sora,sans-serif" font-size="9.5" font-weight="800" fill="#14532d">Couvreur B</text>
+        <text x="346" y="89" text-anchor="middle" font-family="Sora,sans-serif" font-size="9" font-weight="700" fill="#16a34a">Disponible ✓</text>
+      </g>
+      <g id="nC3" opacity="0">
+        <rect x="298" y="118" width="96" height="32" rx="9" fill="white" stroke="#dde9f2" stroke-width="1.5"/>
+        <text x="346" y="131" text-anchor="middle" font-family="Sora,sans-serif" font-size="9.5" font-weight="800" fill="#7a9cb0">Couvreur C</text>
+        <text x="346" y="143" text-anchor="middle" font-family="Sora,sans-serif" font-size="9" font-weight="600" fill="#a0bfcf">+ 8 autres...</text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- GOOGLE REVIEW compact -->
+  <div class="g-row" id="elReview">
+    <div class="g-left">
+      <img src="media/google.png" alt="Google">
+      <span class="g-stars">★★★★★</span>
+      <span class="g-score">4.9</span>
+    </div>
+    <div class="g-sep"></div>
+    <div class="g-quote"><strong>« 2 appels reçus le lendemain! »</strong> Simple et rapide, je recommande.</div>
+    <div class="g-verified">Vérifié</div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-outer" id="elCta">
+    <div class="cta-glow"></div>
+    <button class="cta-btn" onclick="startFunnel()">
+      <div class="cta-inner">
+        Trouver mon couvreur gratuitement <em class="cta-arrow">→</em>
+      </div>
+    </button>
+  </div>
+  <div class="cta-note" id="elNote">
+    <span>⏱ 30 secondes</span>
+    <span class="dot-sep"></span>
+    <span>Gratuit</span>
+    <span class="dot-sep"></span>
+    <span>Sans engagement</span>
+  </div>
+
+  <!-- FUNNEL -->
+  <div class="funnel" id="funnel">
+    <div class="prog-wrap">
+      <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+      <div class="prog-lbl" id="progLbl">Étape 1 sur 4</div>
+    </div>
+    <div id="mount" style="width:100%"></div>
+  </div>
+
 </div>
+<script>
+/* URGENCY ROTATOR */
+const msgs = [
+  "12 demandes envoyées aujourd'hui à Sherbrooke",
+  "3 couvreurs ont répondu dans la dernière heure",
+  "7 propriétaires ont trouvé leur couvreur cette semaine",
+  "5 demandes actives présentement à Sherbrooke",
+];
+let mIdx = 0;
+setInterval(()=>{
+  mIdx = (mIdx+1)%msgs.length;
+  const el = document.getElementById('uText');
+  el.style.opacity='0';
+  setTimeout(()=>{ el.textContent=msgs[mIdx]; el.style.opacity='1'; el.style.transition='opacity .4s'; }, 320);
+}, 3800);
 
-<main class="shell">
-  <section class="formZone">
+/* DIAGRAM ANIMATION */
+function g(id){ return document.getElementById(id); }
+function lerp(a,b,t){ return a+(b-a)*t; }
+function ease(t){ return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2; }
 
-    <div class="brandBlock">
-      <a href="https://www.intermediaire.io" class="brandLink">
-        <img class="brandLogo" src="media/logob.png" alt="Intermediaire.io">
-        <span class="brandName">Intermediaire.io</span>
-      </a>
-    </div>
+const seq = [
+  ['lineIn','opacity',0,1,  200,480],
+  ['hubRing','opacity',0,1, 780,380],
+  ['hubFill','opacity',0,1, 960,340],
+  ['hub1','opacity',0,1,   1060,280],
+  ['hub2','opacity',0,1,   1110,280],
+  ['l1','opacity',0,1,     1480,380],
+  ['nC1','opacity',0,1,    1620,360],
+  ['l2','opacity',0,1,     1660,380],
+  ['nC2','opacity',0,1,    1800,360],
+  ['l3','opacity',0,1,     1840,380],
+  ['nC3','opacity',0,1,    1980,360],
+];
+const CYCLE = 3400;
+let t0 = null;
 
-    <div class="miniTag">Toiture</div>
+function frame(ts){
+  if(!t0) t0=ts;
+  const t = ts-t0;
+  seq.forEach(([id,attr,from,to,start,dur])=>{
+    if(t<start) return;
+    const p = ease(Math.min(1,(t-start)/dur));
+    const el=g(id); if(el) el.setAttribute(attr, lerp(from,to,p).toFixed(3));
+  });
+  if(t<CYCLE) requestAnimationFrame(frame);
+  else setTimeout(reset,1000);
+}
+function reset(){
+  ['lineIn','hubRing','hubFill','hub1','hub2','l1','l2','l3','nC1','nC2','nC3'].forEach(id=>{
+    const el=g(id); if(el) el.setAttribute('opacity','0');
+  });
+  t0=null; requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
 
-    <div class="formTop">
-      <h1>Décrivez votre besoin en toiture</h1>
+/* FUNNEL */
+const state={};
+let step=0;
+const STEPS=[
+  {key:'travaux',q:'Quel type de travaux?',type:'tiles',options:[
+    {val:'Remplacement complet',ico:'🏠',lbl:'Remplacement',sub:'Nouvelle toiture'},
+    {val:'Réparation',ico:'🩹',lbl:'Réparation',sub:'Fuite ou bardeaux'},
+    {val:'Inspection / devis',ico:'🔍',lbl:'Inspection',sub:'Évaluation gratuite'},
+    {val:'Autre',ico:'💬',lbl:'Autre',sub:'Je vais préciser'},
+  ]},
+  {key:'urgence',q:"C'est pour quand?",type:'tiles3',options:[
+    {val:'Urgent',ico:'🚨',lbl:'Urgent',sub:'Dès que possible'},
+    {val:'Prochaines semaines',ico:'📅',lbl:'2–4 semaines',sub:'Planifié bientôt'},
+    {val:'Je planifie',ico:'🗓️',lbl:'Je planifie',sub:'Pas de rush'},
+  ]},
+  {key:'prenom',q:'Votre prénom?',type:'input',inputType:'text',placeholder:'Ex: Marie',next:'Continuer →'},
+  {key:'contact',q:'Comment vous rejoindre?',type:'contact',next:'Recevoir mes soumissions →'},
+];
 
-      <div class="infoRow">
-        <span class="infoItem">
-          <svg class="infoIcon" viewBox="0 0 24 24" fill="none">
-            <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2"/>
-            <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/>
-          </svg>
-          Une seule demande
-        </span>
-
-        <span class="infoItem">
-          <svg class="infoIcon" viewBox="0 0 24 24" fill="none">
-            <path d="M4 12h16" stroke="currentColor" stroke-width="2"/>
-            <path d="M13 5l7 7-7 7" stroke="currentColor" stroke-width="2"/>
-          </svg>
-          Sans appeler partout
-        </span>
-
-        <span class="infoItem">
-          <svg class="infoIcon" viewBox="0 0 24 24" fill="none">
-            <path d="M7 12.5l3 3 7-7" stroke="currentColor" stroke-width="2"/>
-            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
-          </svg>
-          Contracteur local
-        </span>
-      </div>
-    </div>
-
-    <form id="mainForm">
-      <div class="row2">
-        <input type="text" name="prenom" placeholder="Prénom" required>
-        <input type="text" name="ville" value="Sherbrooke" readonly>
-      </div>
-
-      <div class="row2">
-        <input type="tel" name="telephone" placeholder="Téléphone" required>
-        <input type="email" name="courriel" placeholder="Courriel" required>
-      </div>
-
-      <textarea name="travaux" placeholder="Décrivez vos travaux de toiture..." required></textarea>
-
-      <div class="consent">
-        <input type="checkbox" id="confirmation" name="confirmation" value="oui" required>
-        <label for="confirmation">
-          Je confirme qu'il s'agit d'un vrai besoin et j'accepte que mes informations soient envoyées à des contracteurs de ma région.
-        </label>
-      </div>
-
-      <button class="submitBtn" type="submit">Trouver le bon contracteur</button>
-
-      <div class="bottomSpace"></div>
-    </form>
-
-    <div class="successBox" id="successBox">
-      <div class="successIcon">
-        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-      </div>
-      <h2 class="successTitle">Demande bien reçue&nbsp;!</h2>
-      <p class="successText">Un professionnel de votre région vous contactera sous peu.<br>Merci de votre confiance.</p>
-    </div>
-
-  </section>
-</main>
-
+function startFunnel(){
+  ['elBrand','elUrgency','elHero','elDiagram','elReview','elCta','elNote'].forEach(id=>g(id).style.display='none');
+  g('funnel').style.display='flex';
+  render();
+}
+function pct(){ return Math.round((step/STEPS.length)*100); }
+function render(){
+  g('progFill').style.width=pct()+'%';
+  g('progLbl').textContent='Étape '+(step+1)+' sur '+STEPS.length;
+  const mount=g('mount');
+  if(step>=STEPS.length){
+    g('progFill').closest('.prog-wrap').style.display='none';
+    mount.innerHTML=`<div class="success"><div class="s-ring"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><h2>Demande envoyée!</h2><p>Les meilleurs couvreurs de Sherbrooke vont vous contacter sous peu.</p></div>`;
+    return;
+  }
+  const s=STEPS[step];
+  let html=`<div class="q">${s.q}</div>`;
+  if(s.type==='tiles'){
+    html+=`<div class="tiles" id="tiles">`;
+    s.options.forEach((o,i)=>html+=`<button class="tile" onclick="pick(${i})"><span class="ico">${o.ico}</span><span class="lbl">${o.lbl}</span><span class="sub">${o.sub}</span></button>`);
+    html+=`</div><button class="next" id="nb" disabled onclick="advance()">Continuer →</button>`;
+  }
+  if(s.type==='tiles3'){
+    html+=`<div class="tiles three" id="tiles">`;
+    s.options.forEach((o,i)=>html+=`<button class="tile" onclick="pick(${i})"><span class="ico">${o.ico}</span><span class="lbl">${o.lbl}</span><span class="sub">${o.sub}</span></button>`);
+    html+=`</div><button class="next" id="nb" disabled onclick="advance()">Continuer →</button>`;
+  }
+  if(s.type==='input'){
+    html+=`<input class="big-input" id="inp" type="${s.inputType}" placeholder="${s.placeholder}" autocomplete="given-name">`;
+    html+=`<button class="next" id="nb" onclick="advInput()">${s.next}</button>`;
+  }
+  if(s.type==='contact'){
+    html+=`<div style="display:flex;flex-direction:column;gap:10px"><input class="big-input" id="tel" type="tel" placeholder="Téléphone" autocomplete="tel"><input class="big-input" id="em" type="email" placeholder="Courriel" autocomplete="email"></div><div class="consent-row"><input type="checkbox" id="ok"><label for="ok">J'accepte que ma demande soit transmise à des couvreurs vérifiés de ma région.</label></div>`;
+    html+=`<button class="next" id="nb" onclick="advContact()">${s.next}</button>`;
+    html+=`<div class="gbadge-sm"><img src="media/google.png" alt="Google"><span class="stars">★★★★★</span><span class="txt">4.9 · 94 avis Google</span></div>`;
+  }
+  const div=document.createElement('div');
+  div.className='step'; div.innerHTML=html;
+  mount.innerHTML=''; mount.appendChild(div);
+  if(s.type==='input'){ const i=g('inp'); i.focus(); i.addEventListener('keydown',e=>{if(e.key==='Enter')advInput();}); }
+  if(s.type==='contact'){ g('tel').focus(); }
+}
+function pick(i){
+  document.querySelectorAll('.tile').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.tile')[i].classList.add('on');
+  state[STEPS[step].key]=STEPS[step].options[i].val;
+  g('nb').disabled=false;
+}
+function advance(){ step++; render(); }
+function advInput(){
+  const v=g('inp').value.trim();
+  if(!v){ g('inp').focus(); return; }
+  state[STEPS[step].key]=v; step++; render();
+}
+async function advContact(){
+  const tel=g('tel').value.trim(), email=g('em').value.trim(), ok=g('ok').checked;
+  if(!tel||!email){ alert('Remplissez téléphone et courriel.'); return; }
+  if(!ok){ alert('Veuillez cocher la case.'); return; }
+  state.telephone=tel; state.courriel=email; state.ville='Sherbrooke'; state.confirmation='oui';
+  const btn=g('nb'); btn.disabled=true; btn.textContent='Envoi en cours…';
+  try{
+    await fetch('https://hook.us2.make.com/to346qlepm88si74k1dngnwnawkd3b79',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(state)});
+  }catch(e){console.error(e);}
+  window.location.href='https://intermediaire.io/merci';
+}
+</script>
 </body>
 </html>
-<script>
-// Re-wire form to show success instead of navigating away
-(function(){
-  var form = document.getElementById('mainForm');
-  var successBox = document.getElementById('successBox');
-  if(!form || !successBox) return;
-  form.addEventListener('submit', async function(e){
-    e.preventDefault();
-    var btn = form.querySelector('.submitBtn');
-    btn.disabled = true;
-    btn.textContent = 'Envoi en cours…';
-    var data = {};
-    new FormData(form).forEach(function(v,k){ data[k]=v; });
-    try {
-      await fetch('https://hook.us2.make.com/to346qlepm88si74k1dngnwnawkd3b79',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify(data)
-      });
-    } catch(err){ console.error(err); }
-    window.location.href = 'https://intermediaire.io/merci';
-  });
-})();
-</script>
