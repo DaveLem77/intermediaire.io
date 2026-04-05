@@ -82,6 +82,12 @@ body{font-family:'Sora',system-ui,sans-serif;color:#0d2233;-webkit-font-smoothin
 .cta-note{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:12px;font-size:12px;font-weight:700;color:#a0bfcf}
 .dot-sep{width:3px;height:3px;border-radius:50%;background:#c8dde8}
 
+.cta-urgency-note{text-align:center;margin-top:6px;font-size:12px;font-weight:800;color:#e5533d;animation:pulseUrgency 1.8s infinite}
+@keyframes pulseUrgency{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.6;transform:scale(1.03)}
+}
+
 /* FUNNEL */
 .funnel{display:none;width:100%;max-width:390px;flex-direction:column;align-items:center}
 .prog-wrap{width:100%;margin-bottom:26px}
@@ -102,10 +108,48 @@ body{font-family:'Sora',system-ui,sans-serif;color:#0d2233;-webkit-font-smoothin
 .big-input{width:100%;height:58px;border:2px solid #e0eaf2;border-radius:14px;padding:0 18px;font-family:'Sora',sans-serif;font-size:17px;font-weight:700;color:#0d2233;background:white;outline:none;transition:border .15s,box-shadow .15s}
 .big-input::placeholder{color:#c0d4df;font-weight:600}
 .big-input:focus{border-color:#2f80ed;box-shadow:0 0 0 4px rgba(47,128,237,.1)}
+
+.big-textarea{
+  width:100%;
+  min-height:110px;
+  border:2px solid #e0eaf2;
+  border-radius:14px;
+  padding:16px 18px;
+  font-family:'Sora',sans-serif;
+  font-size:15px;
+  font-weight:700;
+  color:#0d2233;
+  background:white;
+  outline:none;
+  transition:border .15s,box-shadow .15s;
+  resize:vertical;
+  margin-top:12px;
+}
+.big-textarea::placeholder{color:#c0d4df;font-weight:600}
+.big-textarea:focus{border-color:#2f80ed;box-shadow:0 0 0 4px rgba(47,128,237,.1)}
+
 .next{width:100%;height:56px;border:none;border-radius:14px;font-family:'Sora',sans-serif;font-size:16px;font-weight:900;color:white;cursor:pointer;background:linear-gradient(135deg,#1d6fe0,#45a0f3);box-shadow:0 10px 28px rgba(47,128,237,.25);transition:transform .15s,box-shadow .15s;margin-top:14px;letter-spacing:-.02em}
 .next:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(47,128,237,.32)}
 .next:active{transform:translateY(0)}
 .next:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+
+.back{
+  width:100%;
+  height:52px;
+  border:2px solid #dce8f2;
+  border-radius:14px;
+  font-family:'Sora',sans-serif;
+  font-size:15px;
+  font-weight:800;
+  color:#5f8296;
+  cursor:pointer;
+  background:white;
+  transition:all .15s;
+  margin-top:10px;
+}
+.back:hover{border-color:#bdd4e6;background:#f9fcff}
+.back:active{transform:scale(.99)}
+
 .consent-row{display:flex;align-items:flex-start;gap:9px;background:#f0f7ff;border-radius:12px;padding:12px 14px;margin-top:6px}
 .consent-row input{width:16px;height:16px;min-width:16px;margin-top:2px;accent-color:#2f80ed;cursor:pointer;flex-shrink:0}
 .consent-row label{font-size:12px;font-weight:600;color:#4a7a94;line-height:1.5;cursor:pointer}
@@ -224,6 +268,9 @@ body{font-family:'Sora',system-ui,sans-serif;color:#0d2233;-webkit-font-smoothin
     <span class="dot-sep"></span>
     <span>Sans engagement</span>
   </div>
+  <div class="cta-urgency-note" id="elUrgencyNote">
+    ⚠️ Les disponibilités se remplissent rapidement aujourd’hui
+  </div>
 
   <!-- FUNNEL -->
   <div class="funnel" id="funnel">
@@ -311,11 +358,17 @@ const STEPS=[
 ];
 
 function startFunnel(){
-  ['elBrand','elUrgency','elHero','elDiagram','elReview','elCta','elNote'].forEach(id=>g(id).style.display='none');
+  ['elBrand','elUrgency','elHero','elDiagram','elReview','elCta','elNote','elUrgencyNote'].forEach(id=>g(id).style.display='none');
   g('funnel').style.display='flex';
   render();
 }
 function pct(){ return Math.round((step/STEPS.length)*100); }
+
+function backBtn(){
+  if(step===0) return '';
+  return `<button class="back" type="button" onclick="goBack()">← Retour</button>`;
+}
+
 function render(){
   g('progFill').style.width=pct()+'%';
   g('progLbl').textContent='Étape '+(step+1)+' sur '+STEPS.length;
@@ -325,53 +378,144 @@ function render(){
     mount.innerHTML=`<div class="success"><div class="s-ring"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><h2>Demande envoyée!</h2><p>Les meilleurs couvreurs de Sherbrooke vont vous contacter sous peu.</p></div>`;
     return;
   }
+
+  g('progFill').closest('.prog-wrap').style.display='block';
+
   const s=STEPS[step];
   let html=`<div class="q">${s.q}</div>`;
+
   if(s.type==='tiles'){
     html+=`<div class="tiles" id="tiles">`;
-    s.options.forEach((o,i)=>html+=`<button class="tile" onclick="pick(${i})"><span class="ico">${o.ico}</span><span class="lbl">${o.lbl}</span><span class="sub">${o.sub}</span></button>`);
-    html+=`</div><button class="next" id="nb" disabled onclick="advance()">Continuer →</button>`;
+    s.options.forEach((o,i)=>{
+      const isOn = state[s.key]===o.val ? ' on' : '';
+      html+=`<button class="tile${isOn}" type="button" onclick="pick(${i})"><span class="ico">${o.ico}</span><span class="lbl">${o.lbl}</span><span class="sub">${o.sub}</span></button>`;
+    });
+    html+=`</div>`;
+
+    if(state[s.key]==='Autre'){
+      html+=`<textarea class="big-textarea" id="autreTxt" placeholder="Décrivez brièvement votre problème...">${state.autreDetails||''}</textarea>`;
+    }
+
+    html+=`<button class="next" id="nb" ${state[s.key] ? '' : 'disabled'} onclick="advance()">Continuer →</button>`;
+    html+=backBtn();
   }
+
   if(s.type==='tiles3'){
     html+=`<div class="tiles three" id="tiles">`;
-    s.options.forEach((o,i)=>html+=`<button class="tile" onclick="pick(${i})"><span class="ico">${o.ico}</span><span class="lbl">${o.lbl}</span><span class="sub">${o.sub}</span></button>`);
-    html+=`</div><button class="next" id="nb" disabled onclick="advance()">Continuer →</button>`;
+    s.options.forEach((o,i)=>{
+      const isOn = state[s.key]===o.val ? ' on' : '';
+      html+=`<button class="tile${isOn}" type="button" onclick="pick(${i})"><span class="ico">${o.ico}</span><span class="lbl">${o.lbl}</span><span class="sub">${o.sub}</span></button>`;
+    });
+    html+=`</div><button class="next" id="nb" ${state[s.key] ? '' : 'disabled'} onclick="advance()">Continuer →</button>`;
+    html+=backBtn();
   }
+
   if(s.type==='input'){
-    html+=`<input class="big-input" id="inp" type="${s.inputType}" placeholder="${s.placeholder}" autocomplete="given-name">`;
+    html+=`<input class="big-input" id="inp" type="${s.inputType}" placeholder="${s.placeholder}" autocomplete="given-name" value="${state[s.key] || ''}">`;
     html+=`<button class="next" id="nb" onclick="advInput()">${s.next}</button>`;
+    html+=backBtn();
   }
+
   if(s.type==='contact'){
-    html+=`<div style="display:flex;flex-direction:column;gap:10px"><input class="big-input" id="tel" type="tel" placeholder="Téléphone" autocomplete="tel"><input class="big-input" id="em" type="email" placeholder="Courriel" autocomplete="email"></div><div class="consent-row"><input type="checkbox" id="ok"><label for="ok">J'accepte que ma demande soit transmise à des couvreurs vérifiés de ma région.</label></div>`;
+    html+=`<div style="display:flex;flex-direction:column;gap:10px">
+      <input class="big-input" id="tel" type="tel" placeholder="Téléphone" autocomplete="tel" value="${state.telephone || ''}">
+      <input class="big-input" id="em" type="email" placeholder="Courriel" autocomplete="email" value="${state.courriel || ''}">
+    </div>
+    <div class="consent-row">
+      <input type="checkbox" id="ok" ${state.confirmation==='oui' ? 'checked' : ''}>
+      <label for="ok">J'accepte que ma demande soit transmise à des couvreurs vérifiés de ma région.</label>
+    </div>`;
     html+=`<button class="next" id="nb" onclick="advContact()">${s.next}</button>`;
+    html+=backBtn();
     html+=`<div class="gbadge-sm"><img src="media/google.png" alt="Google"><span class="stars">★★★★★</span><span class="txt">4.9 · 94 avis Google</span></div>`;
   }
+
   const div=document.createElement('div');
-  div.className='step'; div.innerHTML=html;
-  mount.innerHTML=''; mount.appendChild(div);
-  if(s.type==='input'){ const i=g('inp'); i.focus(); i.addEventListener('keydown',e=>{if(e.key==='Enter')advInput();}); }
-  if(s.type==='contact'){ g('tel').focus(); }
+  div.className='step';
+  div.innerHTML=html;
+  mount.innerHTML='';
+  mount.appendChild(div);
+
+  if(s.type==='input'){
+    const i=g('inp');
+    i.focus();
+    i.addEventListener('keydown',e=>{if(e.key==='Enter')advInput();});
+  }
+
+  if(s.type==='contact'){
+    g('tel').focus();
+  }
+
+  if(s.type==='tiles' && state[s.key]==='Autre' && g('autreTxt')){
+    g('autreTxt').focus();
+  }
 }
+
 function pick(i){
+  const current = STEPS[step];
   document.querySelectorAll('.tile').forEach(t=>t.classList.remove('on'));
   document.querySelectorAll('.tile')[i].classList.add('on');
-  state[STEPS[step].key]=STEPS[step].options[i].val;
+  state[current.key]=current.options[i].val;
+
+  if(current.key==='travaux'){
+    if(state[current.key] === 'Autre'){
+      render();
+      return;
+    }else{
+      delete state.autreDetails;
+    }
+  }
+
   g('nb').disabled=false;
 }
-function advance(){ step++; render(); }
+
+function goBack(){
+  if(step>0){
+    step--;
+    render();
+  }
+}
+
+function advance(){
+  if(STEPS[step].key==='travaux' && state.travaux==='Autre'){
+    const txt = g('autreTxt') ? g('autreTxt').value.trim() : '';
+    if(!txt){
+      if(g('autreTxt')) g('autreTxt').focus();
+      return;
+    }
+    state.autreDetails = txt;
+  }
+  step++;
+  render();
+}
+
 function advInput(){
   const v=g('inp').value.trim();
   if(!v){ g('inp').focus(); return; }
-  state[STEPS[step].key]=v; step++; render();
+  state[STEPS[step].key]=v;
+  step++;
+  render();
 }
+
 async function advContact(){
   const tel=g('tel').value.trim(), email=g('em').value.trim(), ok=g('ok').checked;
   if(!tel||!email){ alert('Remplissez téléphone et courriel.'); return; }
   if(!ok){ alert('Veuillez cocher la case.'); return; }
-  state.telephone=tel; state.courriel=email; state.ville='Sherbrooke'; state.confirmation='oui';
-  const btn=g('nb'); btn.disabled=true; btn.textContent='Envoi en cours…';
+  state.telephone=tel;
+  state.courriel=email;
+  state.ville='Sherbrooke';
+  state.confirmation='oui';
+
+  const btn=g('nb');
+  btn.disabled=true;
+  btn.textContent='Envoi en cours…';
+
   try{
-    await fetch('https://hook.us2.make.com/to346qlepm88si74k1dngnwnawkd3b79',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(state)});
+    await fetch('https://hook.us2.make.com/to346qlepm88si74k1dngnwnawkd3b79',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(state)
+    });
   }catch(e){console.error(e);}
   window.location.href='https://intermediaire.io/merci';
 }
