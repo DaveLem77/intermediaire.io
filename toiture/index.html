@@ -609,10 +609,11 @@ body{
   </div>
 
   <div class="hero" id="elHero">
-<h1>
-Évitez les appels inutiles.<br>
-Trouvez un couvreur à <span class="accent">Sherbrooke</span> rapidement.
-</h1>  </div>
+    <h1>
+      Évitez les appels inutiles.<br>
+      Trouvez un couvreur à <span class="accent">Sherbrooke</span> rapidement.
+    </h1>
+  </div>
 
   <div class="diagram" id="elDiagram"></div>
 
@@ -841,6 +842,7 @@ async function advContact(){
   const tel=g('tel').value.trim(), email=g('em').value.trim(), ok=g('ok').checked;
   if(!tel||!email){ alert('Remplissez téléphone et courriel.'); return; }
   if(!ok){ alert('Veuillez cocher la case.'); return; }
+
   state.telephone=tel;
   state.courriel=email;
   state.ville='Sherbrooke';
@@ -850,11 +852,36 @@ async function advContact(){
   btn.disabled=true;
   btn.textContent='Envoi en cours…';
 
+  let travauxWebhook = state.travaux || '';
+
+  if(state.travaux === 'Remplacement complet'){
+    travauxWebhook = 'Remplacement complet de toiture';
+  }else if(state.travaux === 'Réparation'){
+    travauxWebhook = 'Réparation de toiture';
+  }else if(state.travaux === 'Inspection / devis'){
+    travauxWebhook = 'Inspection de toiture / demande de devis';
+  }else if(state.travaux === 'Autre'){
+    travauxWebhook = state.autreDetails
+      ? `Autre problème de toiture : ${state.autreDetails}`
+      : 'Autre problème de toiture';
+  }
+
+  const payload = {
+    travaux: travauxWebhook,
+    urgence: state.urgence || '',
+    prenom: state.prenom || '',
+    telephone: state.telephone || '',
+    courriel: state.courriel || '',
+    ville: state.ville || '',
+    confirmation: state.confirmation || '',
+    autreDetails: state.autreDetails || ''
+  };
+
   try{
     await fetch('https://hook.us2.make.com/to346qlepm88si74k1dngnwnawkd3b79',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(state)
+      body:JSON.stringify(payload)
     });
   }catch(e){
     console.error(e);
