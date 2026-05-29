@@ -17,7 +17,7 @@
   --blue:#0a84ff;--blue-dim:rgba(10,132,255,0.1);
   --r:14px;--r2:10px;--r3:8px;
 }
-html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;max-width:430px;margin:0 auto;padding-bottom:40px}
+html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;max-width:430px;margin:0 auto;padding-bottom:48px}
 
 /* PIN */
 #pin{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;z-index:100;max-width:430px;margin:0 auto}
@@ -34,86 +34,91 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;
 .perr{font-size:12px;color:var(--red);height:14px;text-align:center}
 
 /* APP */
-#app{display:none;padding:0}
+#app{display:none}
 #app.on{display:block}
 
 /* BALANCE HERO */
 .hero{padding:52px 24px 28px;text-align:center}
 .hero-label{font-size:12px;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:10px}
-.hero-cad{font-size:44px;font-weight:300;letter-spacing:-0.03em;line-height:1;margin-bottom:6px}
+.hero-cad{font-size:44px;font-weight:300;letter-spacing:-0.03em;line-height:1;margin-bottom:8px}
 .hero-sub{display:flex;justify-content:center;gap:16px;font-size:14px;color:var(--muted)}
-.hero-sub span{display:flex;align-items:center;gap:4px}
-.refresh-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;margin-left:2px}
+.rdot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;display:none}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
 
+.divider{height:0.5px;background:var(--muted2);opacity:0.25;margin:0 20px}
+
 /* SECTIONS */
-.section{padding:0 16px;margin-top:24px}
+.section{padding:0 16px;margin-top:26px}
 .section-title{font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;padding:0 2px}
+.section-sub{font-size:12px;color:var(--muted2);margin-bottom:12px;padding:0 2px;line-height:1.5}
 
 /* CARDS */
 .card{background:var(--bg2);border-radius:var(--r);padding:16px;margin-bottom:10px;border:0.5px solid transparent}
-.card.elite{border-color:var(--green-b)}
-.card.followed-card{border-color:rgba(10,132,255,0.25)}
+.card.c-green{border-color:var(--green-b)}
+.card.c-blue{border-color:rgba(10,132,255,0.25)}
+.card.c-amber{border-color:rgba(255,214,10,0.2)}
 
-/* WALLET CARD */
-.wc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
-.wc-name{font-size:15px;font-weight:500;margin-bottom:3px}
-.wc-addr-row{display:flex;align-items:center;gap:6px}
-.wc-addr{font-size:10px;color:var(--muted);font-family:'SF Mono','Fira Mono',monospace;word-break:break-all;flex:1;line-height:1.4}
+/* WALLET FOUND CARD */
+.wf-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.wf-meta{flex:1}
+.wf-verdict{font-size:13px;font-weight:600;margin-bottom:3px}
+.wf-addr-row{display:flex;align-items:flex-start;gap:6px;margin-top:4px}
+.wf-addr{font-size:10px;color:var(--muted);font-family:'SF Mono','Fira Mono',monospace;word-break:break-all;flex:1;line-height:1.4}
 .copy-btn{background:var(--bg3);border:none;color:var(--muted);font-size:10px;padding:3px 8px;border-radius:5px;cursor:pointer;white-space:nowrap;font-family:'Inter',sans-serif;transition:all .15s;flex-shrink:0}
-.copy-btn:active{background:var(--bg4);color:var(--text)}
+.copy-btn:active{background:var(--bg4)}
 .copy-btn.copied{color:var(--green)}
-.score-wrap{text-align:right;flex-shrink:0;margin-left:12px}
-.score-n{font-size:26px;font-weight:600;color:var(--green);line-height:1}
-.score-l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em}
+.confidence{text-align:right;flex-shrink:0;margin-left:10px}
+.conf-n{font-size:22px;font-weight:600;line-height:1}
+.conf-l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em}
 
-.wc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
+.wf-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
 .ws{background:var(--bg3);border-radius:var(--r3);padding:7px 9px}
 .ws-l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:2px}
 .ws-v{font-size:13px;font-weight:500}
-.g{color:var(--green)}.p{color:var(--purple)}.a{color:var(--amber)}
+.g{color:var(--green)}.p{color:var(--purple)}.a{color:var(--amber)}.r{color:var(--red)}
 
-.wc-ai{font-size:12px;color:#bbb;line-height:1.65;margin-bottom:12px;min-height:16px}
-.wc-ai.loading{color:var(--muted2);font-style:italic;display:flex;align-items:center;gap:6px}
+.wf-ai{font-size:12px;color:#bbb;line-height:1.65;margin-bottom:12px}
+.wf-ai.loading{color:var(--muted2);font-style:italic;display:flex;align-items:center;gap:6px}
 
 .bullx-btn{display:block;width:100%;padding:12px;border-radius:var(--r2);border:none;font-size:14px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;text-decoration:none;text-align:center;transition:all .15s;background:var(--green);color:#000}
 .bullx-btn:active{transform:scale(0.97)}
 
-/* ANALYSE SECTION */
-.analyze-wrap{display:flex;gap:8px;margin-bottom:10px}
-.analyze-input{flex:1;background:var(--bg3);border:0.5px solid var(--muted2);border-radius:var(--r2);padding:11px 12px;font-size:12px;color:var(--text);font-family:'SF Mono','Fira Mono',monospace;outline:none;transition:border-color .2s}
-.analyze-input:focus{border-color:var(--purple)}
-.analyze-input::placeholder{color:var(--muted2)}
-.analyze-go{background:var(--purple);border:none;border-radius:var(--r2);padding:11px 16px;color:#fff;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;white-space:nowrap;transition:all .15s}
-.analyze-go:active{transform:scale(0.96)}
-.analyze-result{background:var(--bg3);border-radius:var(--r2);padding:14px;font-size:12px;color:#bbb;line-height:1.7;display:none}
-.analyze-result.show{display:block}
+/* ANALYSE INPUT */
+.input-row{display:flex;gap:8px;margin-bottom:10px}
+.addr-input{flex:1;background:var(--bg3);border:0.5px solid var(--muted2);border-radius:var(--r2);padding:11px 12px;font-size:12px;color:var(--text);font-family:'SF Mono','Fira Mono',monospace;outline:none;transition:border-color .2s}
+.addr-input:focus{border-color:var(--purple)}
+.addr-input::placeholder{color:var(--muted2)}
+.go-btn{border:none;border-radius:var(--r2);padding:11px 16px;color:#fff;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;white-space:nowrap;transition:all .15s}
+.go-btn:active{transform:scale(0.96)}
+.go-btn.purple{background:var(--purple)}
+.go-btn.blue{background:var(--blue)}
 
-/* FOLLOW INPUT */
-.follow-input-wrap{display:flex;gap:8px;margin-bottom:10px}
-.follow-input{flex:1;background:var(--bg3);border:0.5px solid var(--muted2);border-radius:var(--r2);padding:11px 12px;font-size:12px;color:var(--text);font-family:'SF Mono','Fira Mono',monospace;outline:none;transition:border-color .2s}
-.follow-input:focus{border-color:var(--blue)}
-.follow-input::placeholder{color:var(--muted2)}
-.follow-go{background:var(--blue);border:none;border-radius:var(--r2);padding:11px 16px;color:#fff;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;white-space:nowrap}
-.follow-go:active{transform:scale(0.96)}
+.result-card{background:var(--bg3);border-radius:var(--r2);padding:14px;font-size:12px;color:#bbb;line-height:1.7;display:none}
+.result-card.show{display:block}
 
-/* FOLLOWED CARD */
-.fc-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
-.fc-addr-row{display:flex;align-items:center;gap:6px;flex:1}
-.fc-addr{font-size:10px;color:var(--muted);font-family:'SF Mono','Fira Mono',monospace;word-break:break-all;flex:1;line-height:1.4}
-.unfollow-btn{background:var(--red-dim);border:0.5px solid rgba(255,69,58,0.2);color:var(--red);font-size:10px;padding:3px 8px;border-radius:5px;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;flex-shrink:0}
-.fc-last-trade{background:var(--bg3);border-radius:var(--r3);padding:10px 12px;margin-bottom:8px}
-.fc-trade-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px}
-.fc-trade-row{display:flex;justify-content:space-between;font-size:12px}
-.fc-ai{font-size:11px;color:var(--muted);line-height:1.6;font-style:italic}
+/* FOLLOWED */
+.fc-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;gap:8px}
+.fc-addr-col{flex:1}
+.fc-label{font-size:11px;color:var(--muted);margin-bottom:3px}
+.fc-addr{font-size:10px;color:var(--muted);font-family:'SF Mono','Fira Mono',monospace;word-break:break-all;line-height:1.4}
+.fc-copy-row{display:flex;gap:6px;margin-top:4px}
+.unfollow-btn{background:var(--red-dim);border:0.5px solid rgba(255,69,58,0.2);color:var(--red);font-size:10px;padding:4px 9px;border-radius:5px;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;flex-shrink:0}
 
-.empty-state{text-align:center;padding:24px;color:var(--muted2);font-size:13px}
+.trade-box{background:var(--bg3);border-radius:var(--r3);padding:10px 12px;margin-bottom:8px}
+.trade-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:7px}
+.trade-row{display:flex;justify-content:space-between;font-size:12px;padding:2px 0}
+.trade-row span:first-child{color:var(--muted)}
+
+.fc-ai{font-size:11px;color:var(--muted);line-height:1.6}
+.empty-state{text-align:center;padding:24px 16px;color:var(--muted2);font-size:13px;line-height:1.6}
 
 /* SPINNER */
 .spin{display:inline-block;width:10px;height:10px;border:1.5px solid var(--muted2);border-top-color:var(--green);border-radius:50%;animation:sp .8s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
-.spin-p{border-top-color:var(--purple)}
-.spin-b{border-top-color:var(--blue)}
+.spin.p{border-top-color:var(--purple)}
+.spin.b{border-top-color:var(--blue)}
+
+.notice{background:var(--amber-dim);border:0.5px solid rgba(255,214,10,0.2);border-radius:var(--r3);padding:10px 12px;font-size:11px;color:var(--amber);line-height:1.5;margin-bottom:10px}
 </style>
 </head>
 <body>
@@ -139,44 +144,54 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;
 <!-- APP -->
 <div id="app">
 
-  <!-- BALANCE HERO -->
+  <!-- BALANCE -->
   <div class="hero">
     <div class="hero-label">Solde Phantom</div>
-    <div class="hero-cad" id="h-cad">—</div>
+    <div class="hero-cad" id="h-cad">$0.00 CAD</div>
     <div class="hero-sub">
-      <span id="h-usd">— USD</span>
+      <span id="h-usd">$0.00 USD</span>
       <span>·</span>
-      <span id="h-sol">— SOL</span>
-      <span><div class="refresh-dot" id="rdot" style="display:none"></div></span>
+      <span id="h-sol">0.0000 SOL</span>
+      <span><div class="rdot" id="rdot"></div></span>
     </div>
   </div>
 
-  <!-- WALLETS À SUIVRE -->
+  <div class="divider"></div>
+
+  <!-- WALLETS RECOMMANDÉS -->
   <div class="section">
-    <div class="section-title">Wallets à suivre maintenant</div>
+    <div class="section-title">Wallets recommandés</div>
+    <div class="notice">
+      ⚠️ Je ne montre ici que des wallets vérifiables sur GMGN.ai et Solscan. Vérifie toujours toi-même avant de copier.
+    </div>
     <div id="wlist">
-      <div style="padding:20px;text-align:center;color:var(--muted2);font-size:13px;display:flex;align-items:center;justify-content:center;gap:8px">
-        <span class="spin"></span> Analyse en cours...
+      <div class="empty-state">
+        Colle une adresse dans "Analyser" ci-dessous.<br>Si l'IA juge que c'est un insider légitime avec un bon historique, elle l'affichera ici automatiquement.
       </div>
     </div>
   </div>
 
-  <!-- ANALYSER UNE ADRESSE -->
+  <div class="divider" style="margin-top:26px"></div>
+
+  <!-- ANALYSER -->
   <div class="section">
     <div class="section-title">Analyser une adresse</div>
-    <div class="analyze-wrap">
-      <input class="analyze-input" id="analyze-input" placeholder="Colle une adresse wallet..." />
-      <button class="analyze-go" onclick="doAnalyze()">Analyser</button>
+    <div class="section-sub">Colle n'importe quel wallet trouvé sur GMGN.ai ou DexScreener — l'IA te dit quoi en faire.</div>
+    <div class="input-row">
+      <input class="addr-input" id="analyze-input" placeholder="Adresse wallet Solana..." />
+      <button class="go-btn purple" onclick="doAnalyze()">Analyser</button>
     </div>
-    <div class="analyze-result card" id="analyze-result"></div>
+    <div class="result-card" id="analyze-result"></div>
   </div>
+
+  <div class="divider" style="margin-top:26px"></div>
 
   <!-- WALLETS SUIVIS -->
   <div class="section">
     <div class="section-title">Wallets que je suis</div>
-    <div class="follow-input-wrap">
-      <input class="follow-input" id="follow-input" placeholder="Adresse à suivre..." />
-      <button class="follow-go" onclick="addFollowed()">+ Suivre</button>
+    <div class="input-row">
+      <input class="addr-input" id="follow-input" placeholder="Adresse à suivre..." />
+      <button class="go-btn blue" onclick="addFollowed()">+ Suivre</button>
     </div>
     <div id="followed-list"></div>
   </div>
@@ -187,7 +202,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;
 const PIN='2788', SK='sol_v5';
 const MY_ADDR='BACsRrMPgpWzhomHVDVQehHdLAeAYkPeLEY9vV18Dydj';
 let buf='';
-let st={analyses:{},followed:[],followedAnalyses:{},solPrice:150,cadPrice:1.38};
+let st={recommended:[],followed:[],followedAI:{},solPrice:150,cadPrice:207};
 
 function load(){try{const s=localStorage.getItem(SK);if(s)st={...st,...JSON.parse(s)}}catch(e){}}
 function save(){try{localStorage.setItem(SK,JSON.stringify(st))}catch(e){}}
@@ -213,154 +228,15 @@ function k(v){
 }
 function rdots(){for(let i=0;i<4;i++){const d=document.getElementById('d'+i);d.classList.toggle('on',i<buf.length);d.classList.remove('err')}}
 
-// WALLETS INSIDERS — seulement les vrais excellents
-const WALLETS=[
-  {id:'w1',name:'Insider #1',addr:'Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Tx2mfe8s',wr:97,pnl:'+$4.3M',hold:'45s',score:99,trades:892},
-  {id:'w3',name:'Insider #2',addr:'DzM2oL5QXKM8w9Tk1aP7UvBcNhRsYjW3FnEqG6HuCe',wr:96,pnl:'+$2.1M',hold:'1m08s',score:98,trades:541},
-];
-
-function copyAddr(addr,btnId){
-  navigator.clipboard.writeText(addr).catch(()=>{
-    const ta=document.createElement('textarea');ta.value=addr;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+// COPY
+function copyText(txt, btnId){
+  navigator.clipboard.writeText(txt).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
   });
-  const btn=document.getElementById(btnId);
-  if(btn){btn.textContent='Copié ✓';btn.classList.add('copied');setTimeout(()=>{btn.textContent='Copier';btn.classList.remove('copied')},1500)}
-}
-
-function renderWallets(){
-  const list=document.getElementById('wlist');
-  list.innerHTML=WALLETS.map(w=>{
-    const ai=st.analyses[w.id];
-    const aiHtml=ai
-      ?`<div class="wc-ai">${ai}</div>`
-      :`<div class="wc-ai loading"><span class="spin"></span>&nbsp;Analyse IA...</div>`;
-    const bullxUrl=`https://bullx.io/copy-trade?address=${w.addr}`;
-    return`<div class="card elite">
-      <div class="wc-top">
-        <div style="flex:1">
-          <div class="wc-name">${w.name}</div>
-          <div class="wc-addr-row">
-            <div class="wc-addr">${w.addr}</div>
-            <button class="copy-btn" id="cb-${w.id}" onclick="copyAddr('${w.addr}','cb-${w.id}')">Copier</button>
-          </div>
-        </div>
-        <div class="score-wrap">
-          <div class="score-n">${w.score}</div>
-          <div class="score-l">Score</div>
-        </div>
-      </div>
-      <div class="wc-stats">
-        <div class="ws"><div class="ws-l">Win rate</div><div class="ws-v g">${w.wr}%</div></div>
-        <div class="ws"><div class="ws-l">PnL total</div><div class="ws-v g">${w.pnl}</div></div>
-        <div class="ws"><div class="ws-l">Hold moy.</div><div class="ws-v p">${w.hold}</div></div>
-      </div>
-      ${aiHtml}
-      <a class="bullx-btn" href="${bullxUrl}" target="_blank">Suivre sur BullX →</a>
-    </div>`;
-  }).join('');
-}
-
-// ANALYSER UNE ADRESSE
-async function doAnalyze(){
-  const addr=document.getElementById('analyze-input').value.trim();
-  if(!addr||addr.length<20)return;
-  const res=document.getElementById('analyze-result');
-  res.className='analyze-result card show';
-  res.innerHTML=`<span class="spin spin-p"></span>&nbsp; Analyse en cours...`;
-  try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,
-        messages:[{role:'user',content:`Tu es expert Solana/pump.fun. Analyse ce wallet: ${addr}
-
-Donne en français (4-5 phrases max):
-1. Est-ce un insider, bot, ou trader normal?
-2. Win rate estimé et historique PnL si connu
-3. Risque rug pull (faible/moyen/élevé)?
-4. Recommandation: SUIVRE / SURVEILLER / ÉVITER
-
-Si tu ne connais pas ce wallet spécifique, dis-le clairement et donne des conseils généraux sur comment le vérifier sur GMGN.ai`}]})
-    });
-    const d=await r.json();
-    const txt=d.content?.[0]?.text||'Analyse indisponible';
-    res.innerHTML=txt;
-  }catch(e){res.innerHTML='Erreur lors de l\'analyse. Vérifie ta connexion.'}
-}
-
-// WALLETS SUIVIS
-function addFollowed(){
-  const addr=document.getElementById('follow-input').value.trim();
-  if(!addr||addr.length<20)return;
-  if(st.followed.find(f=>f.addr===addr))return;
-  const ts=new Date().toISOString();
-  const entry={addr,ts,lastTrade:null};
-  st.followed.push(entry);
-  save();
-  document.getElementById('follow-input').value='';
-  renderFollowed();
-  analyzeFollowed(entry);
-}
-
-function removeFollowed(addr){
-  st.followed=st.followed.filter(f=>f.addr!==addr);
-  delete st.followedAnalyses[addr];
-  save();
-  renderFollowed();
-}
-
-function renderFollowed(){
-  const list=document.getElementById('followed-list');
-  if(!st.followed.length){
-    list.innerHTML='<div class="empty-state">Aucun wallet suivi — colle une adresse ci-dessus</div>';
-    return;
+  if(btnId){
+    const b=document.getElementById(btnId);
+    if(b){b.textContent='Copié ✓';b.classList.add('copied');setTimeout(()=>{b.textContent='Copier';b.classList.remove('copied')},1500)}
   }
-  list.innerHTML=st.followed.map(f=>{
-    const ai=st.followedAnalyses[f.addr];
-    const since=new Date(f.ts).toLocaleDateString('fr-CA',{day:'numeric',month:'short'});
-    const lastTrade=f.lastTrade||{token:'—',action:'—',montant:'—',temps:'—'};
-    const aiHtml=ai
-      ?`<div class="fc-ai">${ai}</div>`
-      :`<div class="fc-ai" id="fai-${f.addr.slice(0,8)}"><span class="spin spin-b"></span>&nbsp;Analyse...</div>`;
-    return`<div class="card followed-card">
-      <div class="fc-header">
-        <div class="fc-addr-row">
-          <div class="fc-addr">${f.addr}</div>
-          <button class="copy-btn" id="fcb-${f.addr.slice(0,8)}" onclick="copyAddr('${f.addr}','fcb-${f.addr.slice(0,8)}')">Copier</button>
-        </div>
-        <button class="unfollow-btn" onclick="removeFollowed('${f.addr}')">Retirer</button>
-      </div>
-      <div class="fc-last-trade">
-        <div class="fc-trade-label">Dernier trade connu</div>
-        <div class="fc-trade-row">
-          <span style="color:var(--muted)">Token</span><span style="font-weight:500">${lastTrade.token}</span>
-        </div>
-        <div class="fc-trade-row">
-          <span style="color:var(--muted)">Action</span><span style="color:var(--green);font-weight:500">${lastTrade.action}</span>
-        </div>
-        <div class="fc-trade-row">
-          <span style="color:var(--muted)">Montant</span><span>${lastTrade.montant}</span>
-        </div>
-        <div class="fc-trade-row">
-          <span style="color:var(--muted)">Suivi depuis</span><span style="color:var(--muted)">${since}</span>
-        </div>
-      </div>
-      ${aiHtml}
-    </div>`;
-  }).join('');
-}
-
-async function analyzeFollowed(entry){
-  if(st.followedAnalyses[entry.addr])return;
-  try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,
-        messages:[{role:'user',content:`Expert Solana/pump.fun. Wallet: ${entry.addr}. En 3 phrases max en français: type de trader, risque rug pull, et si je devrais le suivre pour du copy-trading pump.fun. Si inconnu, dis-le et conseille de vérifier sur GMGN.ai`}]})
-    });
-    const d=await r.json();
-    const txt=d.content?.[0]?.text||'';
-    if(txt){st.followedAnalyses[entry.addr]=txt;save();renderFollowed()}
-  }catch(e){}
 }
 
 // BALANCE
@@ -380,38 +256,177 @@ async function fetchBalance(){
       body:JSON.stringify({jsonrpc:'2.0',id:1,method:'getBalance',params:[MY_ADDR,{commitment:'confirmed'}]})
     });
     const d=await r.json();
-    if(d.result!==undefined){
-      const sol=(d.result.value/1e9);
-      const cad=(sol*st.cadPrice).toFixed(2);
-      const usd=(sol*st.solPrice).toFixed(2);
-      const solFmt=sol.toFixed(4);
-      document.getElementById('h-cad').textContent='$'+parseFloat(cad).toLocaleString('fr-CA',{minimumFractionDigits:2,maximumFractionDigits:2})+' CAD';
-      document.getElementById('h-usd').textContent='$'+usd+' USD';
-      document.getElementById('h-sol').textContent=solFmt+' SOL';
-      document.getElementById('rdot').style.display='block';
-    }
+    const lamports=d?.result?.value ?? 0;
+    const sol=lamports/1e9;
+    const cad=(sol*st.cadPrice).toFixed(2);
+    const usd=(sol*st.solPrice).toFixed(2);
+    document.getElementById('h-cad').textContent='$'+parseFloat(cad).toLocaleString('fr-CA',{minimumFractionDigits:2,maximumFractionDigits:2})+' CAD';
+    document.getElementById('h-usd').textContent='$'+usd+' USD';
+    document.getElementById('h-sol').textContent=sol.toFixed(4)+' SOL';
+    document.getElementById('rdot').style.display='block';
   }catch(e){
-    document.getElementById('h-cad').textContent='Erreur RPC';
+    document.getElementById('h-cad').textContent='—';
+    document.getElementById('h-usd').textContent='Erreur connexion';
   }
 }
 
-// AI WALLETS
-async function analyzeWallet(w){
-  if(st.analyses[w.id])return;
+// ANALYSER UNE ADRESSE
+async function doAnalyze(){
+  const addr=document.getElementById('analyze-input').value.trim();
+  if(!addr||addr.length<20)return;
+  const res=document.getElementById('analyze-result');
+  res.className='result-card show';
+  res.innerHTML='<span class="spin p"></span>&nbsp; Analyse en cours...';
+
+  const prompt=`Tu es un expert en analyse de wallets Solana et copy-trading sur pump.fun.
+
+Analyse ce wallet: ${addr}
+
+Réponds en français avec ces sections EXACTES:
+
+VERDICT: [SUIVRE / SURVEILLER / ÉVITER]
+CONFIANCE: [0-100]%
+
+ANALYSE:
+[3-4 phrases: type de trader, patterns détectés, win rate estimé si connu, risque rug pull]
+
+Si tu ne peux pas vérifier ce wallet spécifiquement car il dépasse ta date de connaissance, dis-le clairement et recommande de vérifier sur GMGN.ai et Solscan avant de suivre.
+
+IMPORTANT: Ne jamais inventer des métriques. Si tu ne connais pas ce wallet précis, dis-le.`;
+
   try{
     const r=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,
-        messages:[{role:'user',content:`Expert Solana pump.fun. 2 phrases max en français. Confirme si c'est un insider légitime à suivre pour copy-trading. Win rate: ${w.wr}%, PnL: ${w.pnl}, Hold moyen: ${w.hold}, Score: ${w.score}/100, ${w.trades} trades, 0 rug pull impliqué.`}]})
+        messages:[{role:'user',content:prompt}]})
     });
     const d=await r.json();
-    const txt=d.content?.[0]?.text;
-    if(txt){st.analyses[w.id]=txt;save();const el=document.getElementById(`ai-${w.id}`)||document.querySelector(`.wc-ai.loading`);renderWallets()}
-  }catch(e){}
+    const txt=d.content?.[0]?.text||'Analyse indisponible';
+    res.innerHTML=txt.replace(/\n/g,'<br>');
+
+    // Si verdict SUIVRE et confiance > 75, ajouter aux recommandés
+    const isFollow=txt.includes('VERDICT: SUIVRE')||txt.includes('VERDICT: **SUIVRE**');
+    const confMatch=txt.match(/CONFIANCE:\s*\*?\*?(\d+)/);
+    const conf=confMatch?parseInt(confMatch[1]):0;
+    if(isFollow && conf>=75){
+      addRecommended(addr, txt, conf);
+    }
+  }catch(e){res.innerHTML='Erreur lors de l\'analyse. Vérifie ta connexion.'}
 }
 
-async function runAI(){
-  for(const w of WALLETS){await analyzeWallet(w);await new Promise(r=>setTimeout(r,600))}
+function addRecommended(addr, aiText, conf){
+  if(st.recommended.find(r=>r.addr===addr))return;
+  st.recommended.push({addr, aiText, conf, ts:Date.now()});
+  save();
+  renderRecommended();
+}
+
+function renderRecommended(){
+  const list=document.getElementById('wlist');
+  if(!st.recommended.length){
+    list.innerHTML='<div class="empty-state">Colle une adresse dans "Analyser" ci-dessous.<br>Si l\'IA juge que c\'est un insider légitime avec un bon historique, elle l\'affichera ici automatiquement.</div>';
+    return;
+  }
+  list.innerHTML=st.recommended.map((w,i)=>{
+    const bid='rcb-'+i;
+    const confColor=w.conf>=80?'g':w.conf>=60?'a':'r';
+    const bullxUrl=`https://bullx.io/copy-trade?address=${w.addr}`;
+    const shortAI=w.aiText.replace(/VERDICT:.*\n/,'').replace(/CONFIANCE:.*\n/,'').replace(/ANALYSE:\n?/,'').trim().split('<br>').slice(0,3).join('<br>');
+    return`<div class="card c-green">
+      <div class="wf-top">
+        <div class="wf-meta">
+          <div class="wf-verdict" style="color:var(--green)">✓ Recommandé par l'IA</div>
+          <div class="wf-addr-row">
+            <div class="wf-addr">${w.addr}</div>
+            <button class="copy-btn" id="${bid}" onclick="copyText('${w.addr}','${bid}')">Copier</button>
+          </div>
+        </div>
+        <div class="confidence" style="margin-left:10px">
+          <div class="conf-n ${confColor}">${w.conf}%</div>
+          <div class="conf-l">Confiance</div>
+        </div>
+      </div>
+      <div class="wf-ai">${w.aiText.replace(/\n/g,'<br>').split('<br>').slice(0,5).join('<br>')}</div>
+      <a class="bullx-btn" href="${bullxUrl}" target="_blank">Suivre sur BullX →</a>
+    </div>`;
+  }).join('');
+}
+
+// WALLETS SUIVIS
+function addFollowed(){
+  const addr=document.getElementById('follow-input').value.trim();
+  if(!addr||addr.length<20)return;
+  if(st.followed.find(f=>f.addr===addr))return;
+  st.followed.push({addr,ts:new Date().toISOString(),lastTrade:genFakeTrade()});
+  save();
+  document.getElementById('follow-input').value='';
+  renderFollowed();
+  analyzeFollowed(addr);
+}
+
+function genFakeTrade(){
+  // Aucune donnée inventée — on indique que c'est à vérifier en live
+  return null;
+}
+
+function removeFollowed(addr){
+  st.followed=st.followed.filter(f=>f.addr!==addr);
+  delete st.followedAI[addr];
+  save();
+  renderFollowed();
+}
+
+function renderFollowed(){
+  const list=document.getElementById('followed-list');
+  if(!st.followed.length){
+    list.innerHTML='<div class="empty-state">Aucun wallet suivi.<br>Colle une adresse ci-dessus pour commencer à surveiller.</div>';
+    return;
+  }
+  list.innerHTML=st.followed.map((f,i)=>{
+    const since=new Date(f.ts).toLocaleDateString('fr-CA',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+    const addrKey='fcb-'+i;
+    const ai=st.followedAI[f.addr];
+    const aiHtml=ai
+      ?`<div class="fc-ai">${ai}</div>`
+      :`<div class="fc-ai" id="fcai-${i}"><span class="spin b"></span>&nbsp;Analyse en cours...</div>`;
+    const gmgnUrl=`https://gmgn.ai/sol/address/${f.addr}`;
+    const solscanUrl=`https://solscan.io/account/${f.addr}`;
+    return`<div class="card c-blue">
+      <div class="fc-header">
+        <div class="fc-addr-col">
+          <div class="fc-label">Adresse complète</div>
+          <div class="fc-addr">${f.addr}</div>
+          <div class="fc-copy-row">
+            <button class="copy-btn" id="${addrKey}" onclick="copyText('${f.addr}','${addrKey}')">Copier</button>
+            <a href="${gmgnUrl}" target="_blank" style="font-size:10px;color:var(--blue);text-decoration:none">GMGN ↗</a>
+            <a href="${solscanUrl}" target="_blank" style="font-size:10px;color:var(--blue);text-decoration:none">Solscan ↗</a>
+          </div>
+        </div>
+        <button class="unfollow-btn" onclick="removeFollowed('${f.addr}')">Retirer</button>
+      </div>
+      <div class="trade-box">
+        <div class="trade-label">Infos en direct</div>
+        <div class="trade-row"><span>Suivi depuis</span><span style="color:var(--muted)">${since}</span></div>
+        <div class="trade-row"><span>Derniers trades</span><span style="color:var(--blue)">→ Voir sur GMGN.ai</span></div>
+        <div class="trade-row"><span>Transactions</span><span style="color:var(--blue)">→ Voir sur Solscan</span></div>
+      </div>
+      ${aiHtml}
+    </div>`;
+  }).join('');
+}
+
+async function analyzeFollowed(addr){
+  if(st.followedAI[addr])return;
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,
+        messages:[{role:'user',content:`Expert Solana/pump.fun. Wallet: ${addr}. En 2-3 phrases max en français: dis si tu connais ce wallet, son type (insider/trader/bot), et le risque. Si tu ne le connais pas, dis-le honnêtement et recommande de vérifier sur GMGN.ai avant de suivre.`}]})
+    });
+    const d=await r.json();
+    const txt=d.content?.[0]?.text||'';
+    if(txt){st.followedAI[addr]=txt;save();renderFollowed()}
+  }catch(e){}
 }
 
 setInterval(fetchBalance,30000);
@@ -419,11 +434,9 @@ setInterval(fetchBalance,30000);
 function init(){
   load();
   fetchBalance();
-  renderWallets();
+  renderRecommended();
   renderFollowed();
-  runAI();
-  // Re-analyze followed wallets not yet analyzed
-  st.followed.forEach(f=>{if(!st.followedAnalyses[f.addr])analyzeFollowed(f)});
+  st.followed.forEach(f=>{if(!st.followedAI[f.addr])analyzeFollowed(f.addr)});
 }
 </script>
 </body>
