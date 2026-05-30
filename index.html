@@ -10,13 +10,15 @@
 :root{
   --bg:#1c1c1e;--bg2:#2c2c2e;--bg3:#3a3a3c;--bg4:#48484a;
   --text:#fff;--muted:#8e8e93;--muted2:#48484a;
-  --green:#30d158;--green-dim:rgba(48,209,88,0.1);--green-b:rgba(48,209,88,0.25);
-  --red:#ff453a;--red-dim:rgba(255,69,58,0.1);--red-b:rgba(255,69,58,0.25);
-  --amber:#ffd60a;--amber-dim:rgba(255,214,10,0.1);--amber-b:rgba(255,214,10,0.25);
-  --blue:#0a84ff;--blue-dim:rgba(10,132,255,0.1);
+  --green:#30d158;--green-b:rgba(48,209,88,0.25);
+  --red:#ff453a;--red-dim:rgba(255,69,58,0.12);--red-b:rgba(255,69,58,0.3);
+  --amber:#ffd60a;--amber-b:rgba(255,214,10,0.25);
+  --blue:#0a84ff;
   --r:14px;--r2:10px;--r3:8px;
 }
 html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100dvh;max-width:430px;margin:0 auto;padding-bottom:48px}
+
+/* PIN */
 #pin-screen{position:fixed;inset:0;max-width:430px;margin:0 auto;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;z-index:999}
 .pin-icon{width:60px;height:60px;background:var(--blue);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px}
 .pin-title{font-size:18px;font-weight:600}
@@ -27,26 +29,36 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;
 .key{height:58px;background:var(--bg2);border:none;border-radius:var(--r2);font-size:20px;color:var(--text);cursor:pointer;font-family:'Inter',sans-serif;transition:background .1s}
 .key:active{background:var(--bg4)}.key.sym{font-size:16px;color:var(--muted)}
 .pin-err{font-size:12px;color:var(--red);height:16px;text-align:center}
+
+/* APP */
 #app{display:none}#app.on{display:block}
 .header{padding:48px 20px 16px;display:flex;justify-content:space-between;align-items:flex-start}
 .h-title{font-size:22px;font-weight:600;letter-spacing:-.02em}
 .h-sub{font-size:12px;color:var(--muted);margin-top:3px}
-.scan-btn{background:var(--blue);border:none;border-radius:var(--r2);padding:10px 16px;color:#fff;font-size:13px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:all .15s;white-space:nowrap}
+.scan-btn{background:var(--blue);border:none;border-radius:var(--r2);padding:10px 16px;color:#fff;font-size:13px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;white-space:nowrap}
 .scan-btn:active{transform:scale(.95)}.scan-btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* PROGRESS */
 .prog{background:var(--bg2);border-radius:var(--r2);padding:12px 16px;margin:0 16px 12px;display:none}
 .prog.on{display:block}
 .prog-bar{height:3px;background:var(--bg3);border-radius:2px;overflow:hidden;margin-bottom:7px}
-.prog-fill{height:100%;background:var(--blue);border-radius:2px;width:0%;transition:width .4s}
+.prog-fill{height:100%;background:var(--blue);border-radius:2px;width:0%;transition:width .3s}
 .prog-txt{font-size:11px;color:var(--muted)}
 .prog-sub{font-size:10px;color:var(--muted2);margin-top:3px}
+
+/* SUMMARY */
 .summary{display:none;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px;margin-bottom:14px}
 .summary.on{display:grid}
 .sc{background:var(--bg2);border-radius:var(--r3);padding:10px;text-align:center}
 .sc-v{font-size:20px;font-weight:700;line-height:1;margin-bottom:2px}.sc-l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+
+/* FILTERS */
 .filters{display:none;gap:6px;padding:0 16px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none}
 .filters.on{display:flex}.filters::-webkit-scrollbar{display:none}
-.ftab{flex-shrink:0;padding:5px 13px;border-radius:20px;border:none;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;background:var(--bg2);color:var(--muted);transition:all .15s}
+.ftab{flex-shrink:0;padding:5px 13px;border-radius:20px;border:none;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;background:var(--bg2);color:var(--muted)}
 .ftab.on{background:var(--blue);color:#fff}
+
+/* BETS */
 .bets{padding:0 16px}
 .last-up{font-size:10px;color:var(--muted2);text-align:center;margin-bottom:10px}
 .bet{background:var(--bg2);border-radius:var(--r);padding:16px;margin-bottom:10px;border:.5px solid transparent;position:relative;overflow:hidden}
@@ -54,9 +66,10 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;
 .etop{position:absolute;top:0;left:0;right:0;height:2.5px}
 .etop.green{background:var(--green)}.etop.amber{background:var(--amber)}
 .bet-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;gap:8px}
-.bet-city{font-size:15px;font-weight:600}.bet-q{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4}
+.bet-city{font-size:15px;font-weight:600}.bet-date{font-size:11px;color:var(--muted);margin-top:2px}
+.bet-q{font-size:11px;color:var(--muted);margin-top:3px}
 .edge-blk{text-align:right;flex-shrink:0}
-.edge-n{font-size:24px;font-weight:700;line-height:1}.edge-l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.edge-n{font-size:26px;font-weight:700;line-height:1}.edge-l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
 .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
 .st{background:var(--bg3);border-radius:var(--r3);padding:7px 9px}
@@ -64,16 +77,19 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;
 .st-v{font-size:13px;font-weight:600}
 .cg{color:var(--green)}.cr{color:var(--red)}.ca{color:var(--amber)}.cb{color:var(--blue)}
 .logic{font-size:11px;color:#bbb;line-height:1.6;padding:9px 11px;background:var(--bg3);border-radius:var(--r3);margin-bottom:10px}
+.logic.loading{color:var(--muted2);font-style:italic;display:flex;align-items:center;gap:6px}
 .act{display:flex;gap:8px}
-.abtn{flex:1;padding:11px;border-radius:var(--r2);font-size:13px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;text-align:center;text-decoration:none;display:block;border:none;transition:all .15s}
+.abtn{flex:1;padding:11px;border-radius:var(--r2);font-size:13px;font-weight:600;font-family:'Inter',sans-serif;text-align:center;text-decoration:none;display:block;border:none;transition:all .15s}
 .abtn:active{transform:scale(.97)}
 .abtn.yes{background:var(--green);color:#000}.abtn.no{background:var(--red-dim);color:var(--red);border:.5px solid var(--red-b)}
+
 .empty{text-align:center;padding:48px 20px;color:var(--muted2);font-size:13px;line-height:1.7}
 .spin{display:inline-block;width:10px;height:10px;border:1.5px solid var(--muted2);border-radius:50%;animation:sp .8s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}.spin.b{border-top-color:var(--blue)}
 </style>
 </head>
 <body>
+
 <div id="pin-screen">
   <div class="pin-icon">🌤</div>
   <div class="pin-title">Météo Edge</div>
@@ -90,7 +106,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;
 
 <div id="app">
   <div class="header">
-    <div><div class="h-title">Météo Edge</div><div class="h-sub">Polymarket vs météo réelle</div></div>
+    <div><div class="h-title">Météo Edge</div><div class="h-sub">Vraies cotes Polymarket vs météo réelle</div></div>
     <button class="scan-btn" id="scan-btn" onclick="runScan()">↻ Scanner</button>
   </div>
   <div class="prog" id="prog">
@@ -101,25 +117,27 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;
   <div class="summary" id="sum">
     <div class="sc"><div class="sc-v cg" id="s1">0</div><div class="sc-l">Fort edge</div></div>
     <div class="sc"><div class="sc-v ca" id="s2">0</div><div class="sc-l">Modéré</div></div>
-    <div class="sc"><div class="sc-v cb" id="s3">0</div><div class="sc-l">Trouvés</div></div>
+    <div class="sc"><div class="sc-v cb" id="s3">0</div><div class="sc-l">Analysés</div></div>
   </div>
   <div class="filters" id="filters">
     <button class="ftab on" onclick="setF('all',this)">Tous</button>
     <button class="ftab" onclick="setF('strong',this)">Fort ✓</button>
-    <button class="ftab" onclick="setF('yes',this)">YES</button>
-    <button class="ftab" onclick="setF('no',this)">NO</button>
+    <button class="ftab" onclick="setF('yes',this)">Parier YES</button>
+    <button class="ftab" onclick="setF('no',this)">Parier NO</button>
   </div>
   <div class="bets">
     <div class="last-up" id="last-up"></div>
-    <div id="bets-list"><div class="empty">Appuie sur <strong>Scanner</strong> pour analyser les marchés météo Polymarket.</div></div>
+    <div id="bets-list"><div class="empty">Appuie sur <strong>Scanner</strong> pour analyser tous les marchés météo Polymarket de demain.</div></div>
   </div>
 </div>
 
 <script>
-const PIN='2788', SK='pme_v7';
+const PIN='2788', SK='pme_v8';
+const PROXY='https://square-union-05ed.dlemieux730.workers.dev';
 const CLAUDE='https://api.anthropic.com/v1/messages';
 const METEO='https://api.open-meteo.com/v1/forecast';
 
+// Toutes les villes Polymarket avec leurs slugs et coordonnées météo
 const CITIES=[
   {name:'Seoul',slug:'seoul',flag:'🇰🇷',lat:37.57,lon:126.98},
   {name:'Shanghai',slug:'shanghai',flag:'🇨🇳',lat:31.23,lon:121.47},
@@ -149,16 +167,22 @@ const CITIES=[
   {name:'Amsterdam',slug:'amsterdam',flag:'🇳🇱',lat:52.37,lon:4.90},
   {name:'Madrid',slug:'madrid',flag:'🇪🇸',lat:40.42,lon:-3.70},
   {name:'Istanbul',slug:'istanbul',flag:'🇹🇷',lat:41.01,lon:28.96},
+  {name:'Kuala Lumpur',slug:'kuala-lumpur',flag:'🇲🇾',lat:3.14,lon:101.69},
+  {name:'Manila',slug:'manila',flag:'🇵🇭',lat:14.60,lon:120.98},
 ];
 
-function getDateInfo(offset=0){
+// Génère le slug de date pour demain (c'est demain qui est pertinent pour parier)
+function buildSlug(citySlug, offsetDays=1){
   const d=new Date();
-  d.setDate(d.getDate()+offset);
+  d.setDate(d.getDate()+offsetDays);
   const months=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
-  return{
-    slug:`${months[d.getMonth()]}-${d.getDate()}-${d.getFullYear()}`,
-    label:`${months[d.getMonth()]}-${d.getDate()}`
-  };
+  return `highest-temperature-in-${citySlug}-on-${months[d.getMonth()]}-${d.getDate()}-${d.getFullYear()}`;
+}
+function dateLabel(offsetDays=1){
+  const d=new Date();
+  d.setDate(d.getDate()+offsetDays);
+  const months=['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
+  return `${d.getDate()} ${months[d.getMonth()]}`;
 }
 
 let pinBuf='', activeFilter='all';
@@ -180,70 +204,90 @@ function kp(v){
 function setF(f,btn){activeFilter=f;document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');renderBets();}
 function setP(p,t,sub=''){document.getElementById('pfill').style.width=p+'%';document.getElementById('ptxt').textContent=t;document.getElementById('psub').textContent=sub;}
 
-// Utilise Claude comme proxy pour fetch Polymarket (évite CORS)
-async function fetchPolymarketViaAI(cities, dates){
-  const slugs=[];
-  for(const c of cities) for(const d of dates) slugs.push(`highest-temperature-in-${c.slug}-on-${d.slug}`);
-
-  const prompt=`Tu as accès à internet. Récupère les données en temps réel de l'API Polymarket Gamma pour ces marchés météo actifs.
-
-Pour CHAQUE slug dans cette liste, fais un fetch de https://gamma-api.polymarket.com/events?slug=SLUG et retourne les données.
-
-Slugs à checker: ${slugs.slice(0,20).join(', ')}
-
-Pour chaque marché trouvé, retourne EXACTEMENT ce format JSON (un objet par marché trouvé):
-[{
-  "slug": "...",
-  "city": "...",
-  "date": "...",
-  "markets": [{"threshold": 25, "yesPrice": 0.44}, ...]
-}]
-
-Si un slug n'existe pas ou le marché est fermé, skip-le. Retourne SEULEMENT le JSON, rien d'autre.`;
-
-  const r=await fetch(CLAUDE,{
-    method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
-      model:'claude-sonnet-4-20250514',
-      max_tokens:1000,
-      tools:[{type:'web_search_20250305',name:'web_search'}],
-      messages:[{role:'user',content:prompt}]
-    })
-  });
+// Fetch Polymarket via ton Worker Cloudflare
+async function fetchPoly(slug){
+  const r=await fetch(`${PROXY}/?slug=${slug}`);
+  if(!r.ok) return null;
   const d=await r.json();
-  const txt=(d.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('');
-  try{
-    const clean=txt.replace(/```json|```/g,'').trim();
-    const start=clean.indexOf('[');
-    const end=clean.lastIndexOf(']');
-    if(start>=0&&end>start) return JSON.parse(clean.slice(start,end+1));
-  }catch(e){}
-  return[];
+  return Array.isArray(d)&&d.length?d[0]:null;
 }
 
-async function fetchWeather(lat,lon){
-  const url=`${METEO}?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&forecast_days=3`;
+// Fetch météo réelle Open-Meteo
+async function fetchWeather(lat,lon,offsetDays=1){
+  const url=`${METEO}?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&forecast_days=${offsetDays+2}`;
   const r=await fetch(url);
   const d=await r.json();
   return{
-    today:{max:Math.round(d.daily.temperature_2m_max[0]),min:Math.round(d.daily.temperature_2m_min[0]),rain:d.daily.precipitation_probability_max[0]||0},
-    tomorrow:{max:Math.round(d.daily.temperature_2m_max[1]),min:Math.round(d.daily.temperature_2m_min[1]),rain:d.daily.precipitation_probability_max[1]||0}
+    max:Math.round(d.daily.temperature_2m_max[offsetDays]),
+    min:Math.round(d.daily.temperature_2m_min[offsetDays]),
+    rain:d.daily.precipitation_probability_max[offsetDays]||0
   };
 }
 
-function realProb(realMax,threshold){
-  return Math.max(3,Math.min(97,Math.round(50+(realMax-threshold)*15)));
+// Calcule la probabilité réelle que la temp soit exactement ce seuil
+// Polymarket = marché sur temp EXACTE (ex: 25°C), pas "au-dessus de"
+function realProbExact(realMax, threshold){
+  const diff=Math.abs(realMax-threshold);
+  // Si météo prédit exactement ce seuil → ~65% de prob
+  // Chaque degré d'écart → moins probable
+  if(diff===0) return 65;
+  if(diff===1) return 20;
+  if(diff===2) return 8;
+  return 2;
 }
 
-async function askClaudeAnalysis(b){
+// Trouver le meilleur edge parmi tous les seuils d'un marché
+function findBestEdge(markets, realMax){
+  let best=null;
+  for(const m of markets){
+    const title=m.groupItemTitle||m.question||'';
+    // Extrait le seuil ex: "24°C", "25°C", "27°C or higher", "17°C or below"
+    const numM=title.match(/(\d+)[°\s]*C/);
+    if(!numM) continue;
+    const threshold=parseInt(numM[1]);
+    const isAbove=title.toLowerCase().includes('or higher')||title.toLowerCase().includes('above');
+    const isBelow=title.toLowerCase().includes('or below')||title.toLowerCase().includes('below');
+
+    // Cote Polymarket réelle
+    let polyYes=50;
+    if(m.outcomePrices){
+      try{const p=typeof m.outcomePrices==='string'?JSON.parse(m.outcomePrices):m.outcomePrices;polyYes=Math.round(parseFloat(p[0])*100);}catch(e){}
+    } else if(m.bestBid||m.bestAsk){
+      const bid=parseFloat(m.bestBid||0);
+      const ask=parseFloat(m.bestAsk||1);
+      polyYes=Math.round(((bid+ask)/2)*100);
+    } else if(m.lastTradePrice){
+      polyYes=Math.round(parseFloat(m.lastTradePrice)*100);
+    }
+
+    // Calcul prob réelle selon type de marché
+    let rProb;
+    if(isAbove) rProb=realMax>=threshold?85:10;
+    else if(isBelow) rProb=realMax<=threshold?85:10;
+    else rProb=realProbExact(realMax, threshold);
+
+    const edge=Math.abs(rProb-polyYes);
+    const direction=rProb>polyYes?'YES':'NO';
+
+    if(edge>=15&&(!best||edge>best.edge)){
+      best={threshold,isAbove,isBelow,polyYes,rProb,edge,direction,
+        marketUrl:`https://polymarket.com/event/${m.slug||''}`,
+        volume:Math.round(parseFloat(m.volume24hr||0))};
+    }
+  }
+  return best;
+}
+
+async function askClaude(b){
   try{
+    const typeLabel=b.isAbove?`${b.threshold}°C ou plus`:b.isBelow?`${b.threshold}°C ou moins`:`exactement ${b.threshold}°C`;
     const r=await fetch(CLAUDE,{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,
-        messages:[{role:'user',content:`Expert marchés météo Polymarket. 2 phrases max, français, direct et honnête.
-Ville: ${b.city} | Seuil: ${b.threshold}°C | Date: ${b.dateLabel}
-Prévision météo réelle (Open-Meteo): max ${b.realMax}°C | Pluie: ${b.rain}%
-Cote Polymarket YES: ${b.polyOdds}% | Prob réelle estimée: ${b.realProb}% | Edge: +${b.edge}% → Parier ${b.direction}
-Est-ce un bet solide? Pourquoi?`}]})});
+        messages:[{role:'user',content:`Expert marchés météo Polymarket. 2 phrases max, français, direct.
+Ville: ${b.city} | Date: ${b.dateLabel} | Marché: temp max ${typeLabel}
+Météo Open-Meteo prévue: ${b.realMax}°C max | Pluie: ${b.rain}%
+Cote Polymarket YES: ${b.polyYes}% | Prob réelle estimée: ${b.rProb}% | Edge: +${b.edge}% → Parier ${b.direction}
+Est-ce un bon bet? Sois honnête.`}]})});
     const d=await r.json();return d.content?.[0]?.text||'';
   }catch(e){return '';}
 }
@@ -257,107 +301,71 @@ async function runScan(){
   document.getElementById('sum').classList.remove('on');
   allBets=[];
 
-  const dates=[getDateInfo(0),getDateInfo(1),getDateInfo(2)];
-  setP(5,'Récupération des cotes Polymarket via IA...','Utilise le web search pour accéder aux vrais marchés');
-
-  // Étape 1: Claude récupère les vraies cotes Polymarket
-  let polyData=[];
-  try{
-    polyData=await fetchPolymarketViaAI(CITIES,dates);
-  }catch(e){polyData=[];}
-
-  setP(40,`${polyData.length} marchés récupérés — analyse météo...`,'');
+  // Scan demain ET après-demain
+  const offsets=[1,2];
+  let strong=0,mod=0,scanned=0;
   document.getElementById('sum').classList.add('on');
 
-  let strong=0,mod=0,found=0;
-
-  if(polyData.length===0){
-    // Fallback: construire les bets directement avec météo + cotes estimées depuis les titres
-    setP(45,'Aucun marché via IA — construction directe...','');
-    // On utilise quand même la météo et on affiche les liens directs
-    for(let ci=0;ci<Math.min(CITIES.length,15);ci++){
+  for(const offset of offsets){
+    const label=dateLabel(offset);
+    for(let ci=0;ci<CITIES.length;ci++){
       const city=CITIES[ci];
-      setP(45+Math.round((ci/15)*35),`${city.flag} ${city.name}...`,'');
-      try{
-        const w=await fetchWeather(city.lat,city.lon);
-        for(let di=0;di<2;di++){
-          const dateInfo=dates[di];
-          const weather=di===0?w.today:w.tomorrow;
-          const eventSlug=`highest-temperature-in-${city.slug}-on-${dateInfo.slug}`;
-          // Cotes synthétiques autour de la temp prévue (ce que Polymarket pricera)
-          const predictedTemp=weather.max;
-          for(const offset of[-1,0,1]){
-            const threshold=predictedTemp+offset;
-            const polyYes=offset===0?45:offset<0?75:25; // approximation réaliste
-            const rProb=realProb(weather.max,threshold);
-            const edge=Math.abs(rProb-polyYes);
-            const direction=rProb>polyYes?'YES':'NO';
-            if(edge>=15){
-              const strength=edge>=25?'strong':'mod';
-              if(strength==='strong')strong++;else mod++;found++;
-              allBets.push({city:city.name,flag:city.flag,threshold,
-                realMax:weather.max,rain:weather.rain,polyOdds:polyYes,
-                realProb:rProb,edge,direction,strength,ai:'',
-                marketUrl:`https://polymarket.com/event/${eventSlug}`,
-                dateLabel:dateInfo.label,volume:0,estimated:true});
-              allBets.sort((a,b)=>b.edge-a.edge);
-              document.getElementById('s1').textContent=strong;
-              document.getElementById('s2').textContent=mod;
-              document.getElementById('s3').textContent=found;
-              renderBets();
-              document.getElementById('filters').classList.add('on');
-            }
-          }
-        }
-      }catch(e){}
-      await new Promise(r=>setTimeout(r,60));
-    }
-  } else {
-    // Données réelles de Polymarket
-    for(const event of polyData){
-      const city=CITIES.find(c=>event.slug.includes(c.slug));
-      if(!city) continue;
-      const di=dates.findIndex(d=>event.slug.includes(d.slug));
-      let weather;
-      try{const w=await fetchWeather(city.lat,city.lon);weather=di<=0?w.today:w.tomorrow;}
-      catch(e){continue;}
+      const pct=Math.round(((offsets.indexOf(offset)*CITIES.length+ci)/(offsets.length*CITIES.length))*80);
+      setP(pct,`${city.flag} ${city.name} — ${label}`,`${scanned} marchés analysés`);
 
-      for(const m of(event.markets||[])){
-        const threshold=m.threshold;
-        const polyYes=Math.round((m.yesPrice||0.5)*100);
-        const rProb=realProb(weather.max,threshold);
-        const edge=Math.abs(rProb-polyYes);
-        const direction=rProb>polyYes?'YES':'NO';
-        if(edge>=12){
-          const strength=edge>=22?'strong':'mod';
-          if(strength==='strong')strong++;else mod++;found++;
-          allBets.push({city:city.name,flag:city.flag,threshold,
-            realMax:weather.max,rain:weather.rain,polyOdds:polyYes,
-            realProb:rProb,edge,direction,strength,ai:'',
-            marketUrl:`https://polymarket.com/event/${event.slug}`,
-            dateLabel:dates[di]?.label||'',volume:0,estimated:false});
-          allBets.sort((a,b)=>b.edge-a.edge);
-          document.getElementById('s1').textContent=strong;
-          document.getElementById('s2').textContent=mod;
-          document.getElementById('s3').textContent=found;
-          renderBets();
-          document.getElementById('filters').classList.add('on');
-        }
-      }
+      try{
+        const slug=buildSlug(city.slug,offset);
+        const [event, weather]=await Promise.all([
+          fetchPoly(slug),
+          fetchWeather(city.lat,city.lon,offset)
+        ]);
+
+        scanned++;
+        document.getElementById('s3').textContent=scanned;
+
+        if(!event||!event.markets||!event.markets.length) continue;
+
+        const best=findBestEdge(event.markets,weather.max);
+        if(!best) continue;
+
+        const strength=best.edge>=25?'strong':'mod';
+        if(strength==='strong')strong++;else mod++;
+
+        allBets.push({
+          city:city.name,flag:city.flag,
+          dateLabel:label,offset,
+          threshold:best.threshold,isAbove:best.isAbove,isBelow:best.isBelow,
+          realMax:weather.max,realMin:weather.min,rain:weather.rain,
+          polyYes:best.polyYes,rProb:best.rProb,edge:best.edge,
+          direction:best.direction,strength,ai:'',
+          marketUrl:best.marketUrl||`https://polymarket.com/event/${slug}`,
+          volume:best.volume
+        });
+        allBets.sort((a,b)=>b.edge-a.edge);
+
+        document.getElementById('s1').textContent=strong;
+        document.getElementById('s2').textContent=mod;
+        renderBets();
+        document.getElementById('filters').classList.add('on');
+
+      }catch(e){}
+      await new Promise(r=>setTimeout(r,80));
     }
   }
 
-  setP(82,'Analyse IA des meilleurs bets...','');
-  for(let i=0;i<Math.min(4,allBets.length);i++){
-    const ai=await askClaudeAnalysis(allBets[i]);
+  setP(82,`Analyse IA des ${Math.min(5,allBets.length)} meilleurs bets...`,'');
+  for(let i=0;i<Math.min(5,allBets.length);i++){
+    const ai=await askClaude(allBets[i]);
     if(ai){allBets[i].ai=ai;renderBets();}
-    setP(82+(i+1)/4*18,`Analyse IA ${i+1}/${Math.min(4,allBets.length)}...`,'');
+    setP(82+(i+1)/5*18,`IA ${i+1}/${Math.min(5,allBets.length)}...`,'');
     await new Promise(r=>setTimeout(r,300));
   }
 
-  if(!found) document.getElementById('bets-list').innerHTML='<div class="empty">Lance le scan demain matin — les marchés météo Polymarket ouvrent quotidiennement vers 8h-9h UTC.</div>';
+  if(!allBets.length){
+    document.getElementById('bets-list').innerHTML='<div class="empty">Aucun edge significatif trouvé pour demain et après-demain.<br>Réessaie demain matin quand les nouveaux marchés ouvrent.</div>';
+  }
 
-  setP(100,found?`✓ ${found} opportunité${found>1?'s':''}  trouvée${found>1?'s':''}`:'Scan complet');
+  setP(100,`✓ ${allBets.length} opportunité${allBets.length>1?'s':''} — ${scanned} villes×jours analysés`,'');
   S.lastScan=new Date().toISOString();
   document.getElementById('last-up').textContent='Mis à jour '+new Date().toLocaleString('fr-CA',{hour:'2-digit',minute:'2-digit',day:'numeric',month:'short'});
   saveS();
@@ -374,16 +382,17 @@ function renderBets(){
   if(!bets.length){list.innerHTML='<div class="empty">Aucune opportunité avec ce filtre.</div>';return;}
 
   list.innerHTML=bets.map((b,i)=>{
-    const ec=b.edge>=22?'cg':b.edge>=12?'ca':'cb';
+    const ec=b.edge>=25?'cg':b.edge>=15?'ca':'cb';
     const tc=b.strength==='strong'?'green':'amber';
-    const estNote=b.estimated?'<span style="font-size:9px;color:var(--amber);margin-left:4px">cote estimée</span>':'';
-    const aiHtml=b.ai?`<div class="logic">${b.ai}</div>`:'';
+    const typeLabel=b.isAbove?`≥${b.threshold}°C`:b.isBelow?`≤${b.threshold}°C`:`=${b.threshold}°C`;
+    const aiHtml=b.ai?`<div class="logic">${b.ai}</div>`:(i<5?`<div class="logic loading"><span class="spin b"></span>&nbsp;Analyse IA...</div>`:'');
     return`<div class="bet s-${b.strength}">
       <div class="etop ${tc}"></div>
       <div class="bet-top">
         <div>
-          <div class="bet-city">${b.flag} ${b.city}${estNote}</div>
-          <div class="bet-q">Seuil ${b.threshold}°C · ${b.dateLabel} · Parier <strong style="color:${b.direction==='YES'?'var(--green)':'var(--red)'}">${b.direction}</strong></div>
+          <div class="bet-city">${b.flag} ${b.city}</div>
+          <div class="bet-date">${b.dateLabel} · Temp max ${typeLabel}</div>
+          <div class="bet-q">Parier <strong style="color:${b.direction==='YES'?'var(--green)':'var(--red)'}">${b.direction}</strong></div>
         </div>
         <div class="edge-blk">
           <div class="edge-n ${ec}">+${b.edge}%</div>
@@ -392,23 +401,24 @@ function renderBets(){
       </div>
       <div class="grid4">
         <div class="st"><div class="st-l">Météo réelle</div><div class="st-v cb">${b.realMax}°C</div></div>
-        <div class="st"><div class="st-l">Seuil</div><div class="st-v">${b.threshold}°C</div></div>
-        <div class="st"><div class="st-l">Poly cote</div><div class="st-v">${b.polyOdds}%${b.estimated?' ~':''}</div></div>
-        <div class="st"><div class="st-l">Prob réelle</div><div class="st-v ${ec}">${b.realProb}%</div></div>
+        <div class="st"><div class="st-l">Seuil marché</div><div class="st-v">${b.threshold}°C</div></div>
+        <div class="st"><div class="st-l">Cote Poly</div><div class="st-v">${b.polyYes}%</div></div>
+        <div class="st"><div class="st-l">Prob réelle</div><div class="st-v ${ec}">${b.rProb}%</div></div>
       </div>
       <div class="grid2">
         <div class="st"><div class="st-l">Pluie prévue</div><div class="st-v ${b.rain>50?'cr':'cg'}">${b.rain}%</div></div>
-        <div class="st"><div class="st-l">Cotes</div><div class="st-v" style="font-size:11px">${b.estimated?'Estimées':'Polymarket live'}</div></div>
+        <div class="st"><div class="st-l">Volume 24h</div><div class="st-v">${b.volume>0?'$'+b.volume.toLocaleString():'—'}</div></div>
       </div>
       ${aiHtml}
       <div class="act">
-        <a class="abtn ${b.direction==='YES'?'yes':'no'}" href="${b.marketUrl}" target="_blank">Voir sur Polymarket →</a>
+        <a class="abtn ${b.direction==='YES'?'yes':'no'}" href="${b.marketUrl}" target="_blank">Parier ${b.direction} sur Polymarket →</a>
       </div>
     </div>`;
   }).join('');
 }
 
 setInterval(()=>{if(document.getElementById('app').classList.contains('on'))runScan();},3600000);
+
 function init(){
   loadS();
   if(allBets.length){
