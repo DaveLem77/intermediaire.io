@@ -2,441 +2,369 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>SOL Insider</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Météo Edge</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg:#1c1c1e;--bg2:#2c2c2e;--bg3:#3a3a3c;--bg4:#444446;
-  --text:#ffffff;--muted:#8e8e93;--muted2:#48484a;
-  --green:#30d158;--green-dim:rgba(48,209,88,0.1);--green-b:rgba(48,209,88,0.22);
-  --purple:#bf5af2;--purple-dim:rgba(191,90,242,0.1);
-  --amber:#ffd60a;--amber-dim:rgba(255,214,10,0.1);
-  --red:#ff453a;--red-dim:rgba(255,69,58,0.1);
-  --blue:#0a84ff;--blue-dim:rgba(10,132,255,0.1);
+  --bg:#1c1c1e;--bg2:#2c2c2e;--bg3:#3a3a3c;--bg4:#48484a;
+  --text:#fff;--muted:#8e8e93;--muted2:#48484a;
+  --green:#30d158;--green-dim:rgba(48,209,88,0.1);--green-b:rgba(48,209,88,0.25);
+  --red:#ff453a;--red-dim:rgba(255,69,58,0.1);--red-b:rgba(255,69,58,0.25);
+  --amber:#ffd60a;--amber-dim:rgba(255,214,10,0.1);--amber-b:rgba(255,214,10,0.25);
+  --blue:#0a84ff;--blue-dim:rgba(10,132,255,0.1);--blue-b:rgba(10,132,255,0.25);
   --r:14px;--r2:10px;--r3:8px;
 }
-html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;max-width:430px;margin:0 auto;padding-bottom:48px}
-
-/* PIN */
-#pin{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;z-index:100;max-width:430px;margin:0 auto}
-.pin-icon{width:60px;height:60px;background:var(--purple);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px}
-.pin-title{font-size:17px;font-weight:600}
+html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100dvh;max-width:430px;margin:0 auto;padding-bottom:48px}
+#pin-screen{position:fixed;inset:0;max-width:430px;margin:0 auto;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;z-index:999}
+.pin-icon{width:60px;height:60px;background:var(--blue);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px}
+.pin-title{font-size:18px;font-weight:600}.pin-sub{font-size:12px;color:var(--muted);margin-top:-24px}
 .dots{display:flex;gap:14px}
 .dot{width:13px;height:13px;border-radius:50%;border:1.5px solid var(--muted2);transition:all .15s}
-.dot.on{background:var(--purple);border-color:var(--purple)}
-.dot.err{background:var(--red);border-color:var(--red)}
-.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:272px}
-.key{height:58px;background:var(--bg2);border:none;border-radius:var(--r2);font-size:20px;font-weight:400;color:var(--text);cursor:pointer;transition:all .1s;font-family:'Inter',sans-serif}
-.key:active{background:var(--bg3);transform:scale(0.94)}
-.key.del{font-size:15px;color:var(--muted)}
-.perr{font-size:12px;color:var(--red);height:14px;text-align:center}
-
-/* APP */
-#app{display:none}
-#app.on{display:block}
-
-/* BALANCE HERO */
-.hero{padding:52px 24px 28px;text-align:center}
-.hero-label{font-size:12px;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:10px}
-.hero-cad{font-size:44px;font-weight:300;letter-spacing:-0.03em;line-height:1;margin-bottom:8px}
-.hero-sub{display:flex;justify-content:center;gap:16px;font-size:14px;color:var(--muted)}
-.rdot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;display:none}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
-
-.divider{height:0.5px;background:var(--muted2);opacity:0.25;margin:0 20px}
-
-/* SECTIONS */
-.section{padding:0 16px;margin-top:26px}
-.section-title{font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;padding:0 2px}
-.section-sub{font-size:12px;color:var(--muted2);margin-bottom:12px;padding:0 2px;line-height:1.5}
-
-/* CARDS */
-.card{background:var(--bg2);border-radius:var(--r);padding:16px;margin-bottom:10px;border:0.5px solid transparent}
-.card.c-green{border-color:var(--green-b)}
-.card.c-blue{border-color:rgba(10,132,255,0.25)}
-.card.c-amber{border-color:rgba(255,214,10,0.2)}
-
-/* WALLET FOUND CARD */
-.wf-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
-.wf-meta{flex:1}
-.wf-verdict{font-size:13px;font-weight:600;margin-bottom:3px}
-.wf-addr-row{display:flex;align-items:flex-start;gap:6px;margin-top:4px}
-.wf-addr{font-size:10px;color:var(--muted);font-family:'SF Mono','Fira Mono',monospace;word-break:break-all;flex:1;line-height:1.4}
-.copy-btn{background:var(--bg3);border:none;color:var(--muted);font-size:10px;padding:3px 8px;border-radius:5px;cursor:pointer;white-space:nowrap;font-family:'Inter',sans-serif;transition:all .15s;flex-shrink:0}
-.copy-btn:active{background:var(--bg4)}
-.copy-btn.copied{color:var(--green)}
-.confidence{text-align:right;flex-shrink:0;margin-left:10px}
-.conf-n{font-size:22px;font-weight:600;line-height:1}
-.conf-l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em}
-
-.wf-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
-.ws{background:var(--bg3);border-radius:var(--r3);padding:7px 9px}
-.ws-l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:2px}
-.ws-v{font-size:13px;font-weight:500}
-.g{color:var(--green)}.p{color:var(--purple)}.a{color:var(--amber)}.r{color:var(--red)}
-
-.wf-ai{font-size:12px;color:#bbb;line-height:1.65;margin-bottom:12px}
-.wf-ai.loading{color:var(--muted2);font-style:italic;display:flex;align-items:center;gap:6px}
-
-.bullx-btn{display:block;width:100%;padding:12px;border-radius:var(--r2);border:none;font-size:14px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;text-decoration:none;text-align:center;transition:all .15s;background:var(--green);color:#000}
-.bullx-btn:active{transform:scale(0.97)}
-
-/* ANALYSE INPUT */
-.input-row{display:flex;gap:8px;margin-bottom:10px}
-.addr-input{flex:1;background:var(--bg3);border:0.5px solid var(--muted2);border-radius:var(--r2);padding:11px 12px;font-size:12px;color:var(--text);font-family:'SF Mono','Fira Mono',monospace;outline:none;transition:border-color .2s}
-.addr-input:focus{border-color:var(--purple)}
-.addr-input::placeholder{color:var(--muted2)}
-.go-btn{border:none;border-radius:var(--r2);padding:11px 16px;color:#fff;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;white-space:nowrap;transition:all .15s}
-.go-btn:active{transform:scale(0.96)}
-.go-btn.purple{background:var(--purple)}
-.go-btn.blue{background:var(--blue)}
-
-.result-card{background:var(--bg3);border-radius:var(--r2);padding:14px;font-size:12px;color:#bbb;line-height:1.7;display:none}
-.result-card.show{display:block}
-
-/* FOLLOWED */
-.fc-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;gap:8px}
-.fc-addr-col{flex:1}
-.fc-label{font-size:11px;color:var(--muted);margin-bottom:3px}
-.fc-addr{font-size:10px;color:var(--muted);font-family:'SF Mono','Fira Mono',monospace;word-break:break-all;line-height:1.4}
-.fc-copy-row{display:flex;gap:6px;margin-top:4px}
-.unfollow-btn{background:var(--red-dim);border:0.5px solid rgba(255,69,58,0.2);color:var(--red);font-size:10px;padding:4px 9px;border-radius:5px;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;flex-shrink:0}
-
-.trade-box{background:var(--bg3);border-radius:var(--r3);padding:10px 12px;margin-bottom:8px}
-.trade-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:7px}
-.trade-row{display:flex;justify-content:space-between;font-size:12px;padding:2px 0}
-.trade-row span:first-child{color:var(--muted)}
-
-.fc-ai{font-size:11px;color:var(--muted);line-height:1.6}
-.empty-state{text-align:center;padding:24px 16px;color:var(--muted2);font-size:13px;line-height:1.6}
-
-/* SPINNER */
-.spin{display:inline-block;width:10px;height:10px;border:1.5px solid var(--muted2);border-top-color:var(--green);border-radius:50%;animation:sp .8s linear infinite}
-@keyframes sp{to{transform:rotate(360deg)}}
-.spin.p{border-top-color:var(--purple)}
-.spin.b{border-top-color:var(--blue)}
-
-.notice{background:var(--amber-dim);border:0.5px solid rgba(255,214,10,0.2);border-radius:var(--r3);padding:10px 12px;font-size:11px;color:var(--amber);line-height:1.5;margin-bottom:10px}
+.dot.on{background:var(--blue);border-color:var(--blue)}.dot.err{background:var(--red);border-color:var(--red)}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:270px}
+.key{height:58px;background:var(--bg2);border:none;border-radius:var(--r2);font-size:20px;color:var(--text);cursor:pointer;font-family:'Inter',sans-serif;transition:background .1s}
+.key:active{background:var(--bg4)}.key.sym{font-size:16px;color:var(--muted)}
+.pin-err{font-size:12px;color:var(--red);height:16px;text-align:center}
+#app{display:none}#app.on{display:block}
+.header{padding:48px 20px 16px;display:flex;justify-content:space-between;align-items:flex-start}
+.h-title{font-size:22px;font-weight:600;letter-spacing:-.02em}
+.h-sub{font-size:12px;color:var(--muted);margin-top:3px}
+.scan-btn{background:var(--blue);border:none;border-radius:var(--r2);padding:10px 16px;color:#fff;font-size:13px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:all .15s;white-space:nowrap}
+.scan-btn:active{transform:scale(.95)}.scan-btn:disabled{opacity:.4;cursor:not-allowed}
+.prog{background:var(--bg2);border-radius:var(--r2);padding:12px 16px;margin:0 16px 12px;display:none}
+.prog.on{display:block}
+.prog-bar{height:3px;background:var(--bg3);border-radius:2px;overflow:hidden;margin-bottom:7px}
+.prog-fill{height:100%;background:var(--blue);border-radius:2px;width:0%;transition:width .3s}
+.prog-txt{font-size:11px;color:var(--muted);font-family:'SF Mono',monospace}
+.summary{display:none;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px;margin-bottom:14px}
+.summary.on{display:grid}
+.sc{background:var(--bg2);border-radius:var(--r3);padding:10px;text-align:center}
+.sc-v{font-size:20px;font-weight:700;line-height:1;margin-bottom:2px}.sc-l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.filters{display:flex;gap:6px;padding:0 16px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.ftab{flex-shrink:0;padding:5px 13px;border-radius:20px;border:none;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;background:var(--bg2);color:var(--muted);transition:all .15s}
+.ftab.on{background:var(--blue);color:#fff}
+.bets{padding:0 16px}
+.last-up{font-size:10px;color:var(--muted2);text-align:center;margin-bottom:10px}
+.bet{background:var(--bg2);border-radius:var(--r);padding:16px;margin-bottom:10px;border:.5px solid transparent;position:relative;overflow:hidden}
+.bet.s-strong{border-color:var(--green-b)}.bet.s-mod{border-color:var(--amber-b)}
+.etop{position:absolute;top:0;left:0;right:0;height:2.5px}
+.etop.green{background:var(--green)}.etop.amber{background:var(--amber)}
+.bet-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;gap:8px}
+.bet-city{font-size:15px;font-weight:600}.bet-q{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4}
+.edge-blk{text-align:right;flex-shrink:0}
+.edge-n{font-size:24px;font-weight:700;line-height:1}.edge-l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.st{background:var(--bg3);border-radius:var(--r3);padding:7px 9px}
+.st-l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
+.st-v{font-size:13px;font-weight:600}
+.cg{color:var(--green)}.cr{color:var(--red)}.ca{color:var(--amber)}.cb{color:var(--blue)}
+.logic{font-size:11px;color:#bbb;line-height:1.6;padding:9px 11px;background:var(--bg3);border-radius:var(--r3);margin-bottom:10px}
+.logic.loading{color:var(--muted2);font-style:italic;display:flex;align-items:center;gap:6px}
+.act{display:flex;gap:8px}
+.abtn{flex:1;padding:11px;border-radius:var(--r2);font-size:13px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;text-align:center;text-decoration:none;display:block;border:none;transition:all .15s}
+.abtn:active{transform:scale(.97)}
+.abtn.yes{background:var(--green);color:#000}.abtn.no{background:var(--red-dim);color:var(--red);border:.5px solid var(--red-b)}
+.empty{text-align:center;padding:48px 20px;color:var(--muted2);font-size:13px;line-height:1.7}
+.err-box{background:var(--red-dim);border:.5px solid var(--red-b);border-radius:var(--r2);padding:14px;margin-bottom:12px;font-size:12px;color:var(--red);line-height:1.6;display:none}
+.err-box.on{display:block}
+.spin{display:inline-block;width:10px;height:10px;border:1.5px solid var(--muted2);border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}.spin.b{border-top-color:var(--blue)}.spin.g{border-top-color:var(--green)}
 </style>
 </head>
 <body>
-
-<!-- PIN -->
-<div id="pin">
-  <div class="pin-icon">◎</div>
-  <div class="pin-title">SOL Insider</div>
-  <div class="dots">
-    <div class="dot" id="d0"></div><div class="dot" id="d1"></div>
-    <div class="dot" id="d2"></div><div class="dot" id="d3"></div>
-  </div>
+<div id="pin-screen">
+  <div class="pin-icon">🌤</div>
+  <div class="pin-title">Météo Edge</div>
+  <div class="pin-sub">Polymarket vs API météo</div>
+  <div class="dots"><div class="dot" id="d0"></div><div class="dot" id="d1"></div><div class="dot" id="d2"></div><div class="dot" id="d3"></div></div>
   <div class="pad">
-    <button class="key" onclick="k('1')">1</button><button class="key" onclick="k('2')">2</button><button class="key" onclick="k('3')">3</button>
-    <button class="key" onclick="k('4')">4</button><button class="key" onclick="k('5')">5</button><button class="key" onclick="k('6')">6</button>
-    <button class="key" onclick="k('7')">7</button><button class="key" onclick="k('8')">8</button><button class="key" onclick="k('9')">9</button>
-    <button class="key del" onclick="k('⌫')">⌫</button><button class="key" onclick="k('0')">0</button>
-    <button class="key" style="opacity:0" disabled></button>
+    <button class="key" onclick="kp('1')">1</button><button class="key" onclick="kp('2')">2</button><button class="key" onclick="kp('3')">3</button>
+    <button class="key" onclick="kp('4')">4</button><button class="key" onclick="kp('5')">5</button><button class="key" onclick="kp('6')">6</button>
+    <button class="key" onclick="kp('7')">7</button><button class="key" onclick="kp('8')">8</button><button class="key" onclick="kp('9')">9</button>
+    <button class="key sym" onclick="kp('del')">⌫</button><button class="key" onclick="kp('0')">0</button>
+    <button class="key" style="visibility:hidden"></button>
   </div>
-  <div class="perr" id="perr"></div>
+  <div class="pin-err" id="pin-err"></div>
 </div>
 
-<!-- APP -->
 <div id="app">
-
-  <!-- BALANCE -->
-  <div class="hero">
-    <div class="hero-label">Solde Phantom</div>
-    <div class="hero-cad" id="h-cad">$0.00 CAD</div>
-    <div class="hero-sub">
-      <span id="h-usd">$0.00 USD</span>
-      <span>·</span>
-      <span id="h-sol">0.0000 SOL</span>
-      <span><div class="rdot" id="rdot"></div></span>
-    </div>
+  <div class="header">
+    <div><div class="h-title">Météo Edge</div><div class="h-sub">Vrais marchés Polymarket vs météo réelle</div></div>
+    <button class="scan-btn" id="scan-btn" onclick="runScan()">↻ Scanner</button>
   </div>
-
-  <div class="divider"></div>
-
-  <!-- WALLETS RECOMMANDÉS -->
-  <div class="section">
-    <div class="section-title">Wallets recommandés</div>
-    <div class="notice">
-      ⚠️ Je ne montre ici que des wallets vérifiables sur GMGN.ai et Solscan. Vérifie toujours toi-même avant de copier.
-    </div>
-    <div id="wlist">
-      <div class="empty-state">
-        Colle une adresse dans "Analyser" ci-dessous.<br>Si l'IA juge que c'est un insider légitime avec un bon historique, elle l'affichera ici automatiquement.
-      </div>
-    </div>
+  <div class="prog" id="prog"><div class="prog-bar"><div class="prog-fill" id="pfill"></div></div><div class="prog-txt" id="ptxt">...</div></div>
+  <div style="padding:0 16px"><div class="err-box" id="err-box"></div></div>
+  <div class="summary" id="sum">
+    <div class="sc"><div class="sc-v cg" id="s1">0</div><div class="sc-l">Fort edge</div></div>
+    <div class="sc"><div class="sc-v ca" id="s2">0</div><div class="sc-l">Modéré</div></div>
+    <div class="sc"><div class="sc-v cb" id="s3">0</div><div class="sc-l">Marchés</div></div>
   </div>
-
-  <div class="divider" style="margin-top:26px"></div>
-
-  <!-- ANALYSER -->
-  <div class="section">
-    <div class="section-title">Analyser une adresse</div>
-    <div class="section-sub">Colle n'importe quel wallet trouvé sur GMGN.ai ou DexScreener — l'IA te dit quoi en faire.</div>
-    <div class="input-row">
-      <input class="addr-input" id="analyze-input" placeholder="Adresse wallet Solana..." />
-      <button class="go-btn purple" onclick="doAnalyze()">Analyser</button>
-    </div>
-    <div class="result-card" id="analyze-result"></div>
+  <div class="filters" id="filters" style="display:none">
+    <button class="ftab on" onclick="setF('all',this)">Tous</button>
+    <button class="ftab" onclick="setF('strong',this)">Fort ✓</button>
+    <button class="ftab" onclick="setF('yes',this)">Parier YES</button>
+    <button class="ftab" onclick="setF('no',this)">Parier NO</button>
   </div>
-
-  <div class="divider" style="margin-top:26px"></div>
-
-  <!-- WALLETS SUIVIS -->
-  <div class="section">
-    <div class="section-title">Wallets que je suis</div>
-    <div class="input-row">
-      <input class="addr-input" id="follow-input" placeholder="Adresse à suivre..." />
-      <button class="go-btn blue" onclick="addFollowed()">+ Suivre</button>
-    </div>
-    <div id="followed-list"></div>
-  </div>
-
+  <div class="bets"><div class="last-up" id="last-up"></div><div id="bets-list"><div class="empty">Appuie sur <strong>Scanner</strong> pour analyser tous les marchés météo Polymarket et trouver les meilleures opportunités.</div></div></div>
 </div>
 
 <script>
-const PIN='2788', SK='sol_v5';
-const MY_ADDR='BACsRrMPgpWzhomHVDVQehHdLAeAYkPeLEY9vV18Dydj';
-let buf='';
-let st={recommended:[],followed:[],followedAI:{},solPrice:150,cadPrice:207};
+const PIN='2788', SK='pme_v4', CLAUDE='https://api.anthropic.com/v1/messages';
 
-function load(){try{const s=localStorage.getItem(SK);if(s)st={...st,...JSON.parse(s)}}catch(e){}}
-function save(){try{localStorage.setItem(SK,JSON.stringify(st))}catch(e){}}
+// Coordonnées villes
+const COORDS={
+  'seoul':{lat:37.57,lon:126.98,flag:'🇰🇷'},'shanghai':{lat:31.23,lon:121.47,flag:'🇨🇳'},
+  'chicago':{lat:41.88,lon:-87.63,flag:'🇺🇸'},'new york':{lat:40.71,lon:-74.01,flag:'🇺🇸'},
+  'los angeles':{lat:34.05,lon:-118.24,flag:'🇺🇸'},'london':{lat:51.51,lon:-0.13,flag:'🇬🇧'},
+  'paris':{lat:48.86,lon:2.35,flag:'🇫🇷'},'tokyo':{lat:35.68,lon:139.65,flag:'🇯🇵'},
+  'dubai':{lat:25.20,lon:55.27,flag:'🇦🇪'},'singapore':{lat:1.35,lon:103.82,flag:'🇸🇬'},
+  'sydney':{lat:-33.87,lon:151.21,flag:'🇦🇺'},'toronto':{lat:43.65,lon:-79.38,flag:'🇨🇦'},
+  'miami':{lat:25.76,lon:-80.19,flag:'🇺🇸'},'berlin':{lat:52.52,lon:13.41,flag:'🇩🇪'},
+  'beijing':{lat:39.90,lon:116.41,flag:'🇨🇳'},'mumbai':{lat:19.08,lon:72.88,flag:'🇮🇳'},
+  'moscow':{lat:55.76,lon:37.62,flag:'🇷🇺'},'bangkok':{lat:13.76,lon:100.50,flag:'🇹🇭'},
+  'hong kong':{lat:22.32,lon:114.17,flag:'🇭🇰'},'taipei':{lat:25.03,lon:121.57,flag:'🇹🇼'},
+  'houston':{lat:29.76,lon:-95.37,flag:'🇺🇸'},'dallas':{lat:32.78,lon:-96.80,flag:'🇺🇸'},
+  'phoenix':{lat:33.45,lon:-112.07,flag:'🇺🇸'},'amsterdam':{lat:52.37,lon:4.90,flag:'🇳🇱'},
+  'madrid':{lat:40.42,lon:-3.70,flag:'🇪🇸'},'rome':{lat:41.90,lon:12.50,flag:'🇮🇹'},
+};
 
-// PIN
-function k(v){
-  if(v==='⌫'){buf=buf.slice(0,-1)}
-  else if(buf.length<4){buf+=v}
-  rdots();
-  if(buf.length===4){
-    if(buf===PIN){
-      setTimeout(()=>{
-        document.getElementById('pin').style.display='none';
-        document.getElementById('app').classList.add('on');
-        init();
-      },150);
-    } else {
-      document.querySelectorAll('.dot').forEach(d=>d.classList.add('err'));
-      document.getElementById('perr').textContent='Code incorrect';
-      setTimeout(()=>{buf='';rdots();document.querySelectorAll('.dot').forEach(d=>{d.classList.remove('err','on')});document.getElementById('perr').textContent=''},700);
-    }
+let pinBuf='', activeFilter='all';
+let S={bets:[],lastScan:null};
+let allBets=[];
+
+function loadS(){try{const d=localStorage.getItem(SK);if(d){S={...S,...JSON.parse(d)};allBets=S.bets||[];}}catch(e){}}
+function saveS(){try{S.bets=allBets;localStorage.setItem(SK,JSON.stringify(S));}catch(e){}}
+
+function kp(v){
+  if(v==='del') pinBuf=pinBuf.slice(0,-1);
+  else if(pinBuf.length<4) pinBuf+=v;
+  for(let i=0;i<4;i++){const d=document.getElementById('d'+i);d.classList.toggle('on',i<pinBuf.length);d.classList.remove('err');}
+  if(pinBuf.length===4){
+    if(pinBuf===PIN){setTimeout(()=>{document.getElementById('pin-screen').style.display='none';document.getElementById('app').classList.add('on');init();},150);}
+    else{document.querySelectorAll('.dot').forEach(d=>d.classList.add('err'));document.getElementById('pin-err').textContent='Code incorrect';setTimeout(()=>{pinBuf='';document.querySelectorAll('.dot').forEach(d=>d.classList.remove('err','on'));document.getElementById('pin-err').textContent='';},800);}
   }
 }
-function rdots(){for(let i=0;i<4;i++){const d=document.getElementById('d'+i);d.classList.toggle('on',i<buf.length);d.classList.remove('err')}}
+function setF(f,btn){activeFilter=f;document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');renderBets();}
+function setP(p,t){document.getElementById('pfill').style.width=p+'%';document.getElementById('ptxt').textContent=t;}
+function showErr(msg){const e=document.getElementById('err-box');e.textContent=msg;e.classList.add('on');}
+function hideErr(){document.getElementById('err-box').classList.remove('on');}
 
-// COPY
-function copyText(txt, btnId){
-  navigator.clipboard.writeText(txt).catch(()=>{
-    const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
-  });
-  if(btnId){
-    const b=document.getElementById(btnId);
-    if(b){b.textContent='Copié ✓';b.classList.add('copied');setTimeout(()=>{b.textContent='Copier';b.classList.remove('copied')},1500)}
-  }
-}
-
-// BALANCE
-async function fetchPrices(){
-  try{
-    const r=await fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd,cad');
-    const d=await r.json();
-    if(d.solana){st.solPrice=d.solana.usd||150;st.cadPrice=d.solana.cad||(st.solPrice*1.38);save()}
-  }catch(e){}
-}
-
-async function fetchBalance(){
-  try{
-    await fetchPrices();
-    const r=await fetch('https://api.mainnet-beta.solana.com',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({jsonrpc:'2.0',id:1,method:'getBalance',params:[MY_ADDR,{commitment:'confirmed'}]})
-    });
-    const d=await r.json();
-    const lamports=d?.result?.value ?? 0;
-    const sol=lamports/1e9;
-    const cad=(sol*st.cadPrice).toFixed(2);
-    const usd=(sol*st.solPrice).toFixed(2);
-    document.getElementById('h-cad').textContent='$'+parseFloat(cad).toLocaleString('fr-CA',{minimumFractionDigits:2,maximumFractionDigits:2})+' CAD';
-    document.getElementById('h-usd').textContent='$'+usd+' USD';
-    document.getElementById('h-sol').textContent=sol.toFixed(4)+' SOL';
-    document.getElementById('rdot').style.display='block';
-  }catch(e){
-    document.getElementById('h-cad').textContent='—';
-    document.getElementById('h-usd').textContent='Erreur connexion';
-  }
-}
-
-// ANALYSER UNE ADRESSE
-async function doAnalyze(){
-  const addr=document.getElementById('analyze-input').value.trim();
-  if(!addr||addr.length<20)return;
-  const res=document.getElementById('analyze-result');
-  res.className='result-card show';
-  res.innerHTML='<span class="spin p"></span>&nbsp; Analyse en cours...';
-
-  const prompt=`Tu es un expert en analyse de wallets Solana et copy-trading sur pump.fun.
-
-Analyse ce wallet: ${addr}
-
-Réponds en français avec ces sections EXACTES:
-
-VERDICT: [SUIVRE / SURVEILLER / ÉVITER]
-CONFIANCE: [0-100]%
-
-ANALYSE:
-[3-4 phrases: type de trader, patterns détectés, win rate estimé si connu, risque rug pull]
-
-Si tu ne peux pas vérifier ce wallet spécifiquement car il dépasse ta date de connaissance, dis-le clairement et recommande de vérifier sur GMGN.ai et Solscan avant de suivre.
-
-IMPORTANT: Ne jamais inventer des métriques. Si tu ne connais pas ce wallet précis, dis-le.`;
-
-  try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,
-        messages:[{role:'user',content:prompt}]})
-    });
-    const d=await r.json();
-    const txt=d.content?.[0]?.text||'Analyse indisponible';
-    res.innerHTML=txt.replace(/\n/g,'<br>');
-
-    // Si verdict SUIVRE et confiance > 75, ajouter aux recommandés
-    const isFollow=txt.includes('VERDICT: SUIVRE')||txt.includes('VERDICT: **SUIVRE**');
-    const confMatch=txt.match(/CONFIANCE:\s*\*?\*?(\d+)/);
-    const conf=confMatch?parseInt(confMatch[1]):0;
-    if(isFollow && conf>=75){
-      addRecommended(addr, txt, conf);
-    }
-  }catch(e){res.innerHTML='Erreur lors de l\'analyse. Vérifie ta connexion.'}
-}
-
-function addRecommended(addr, aiText, conf){
-  if(st.recommended.find(r=>r.addr===addr))return;
-  st.recommended.push({addr, aiText, conf, ts:Date.now()});
-  save();
-  renderRecommended();
-}
-
-function renderRecommended(){
-  const list=document.getElementById('wlist');
-  if(!st.recommended.length){
-    list.innerHTML='<div class="empty-state">Colle une adresse dans "Analyser" ci-dessous.<br>Si l\'IA juge que c\'est un insider légitime avec un bon historique, elle l\'affichera ici automatiquement.</div>';
-    return;
-  }
-  list.innerHTML=st.recommended.map((w,i)=>{
-    const bid='rcb-'+i;
-    const confColor=w.conf>=80?'g':w.conf>=60?'a':'r';
-    const bullxUrl=`https://bullx.io/copy-trade?address=${w.addr}`;
-    const shortAI=w.aiText.replace(/VERDICT:.*\n/,'').replace(/CONFIANCE:.*\n/,'').replace(/ANALYSE:\n?/,'').trim().split('<br>').slice(0,3).join('<br>');
-    return`<div class="card c-green">
-      <div class="wf-top">
-        <div class="wf-meta">
-          <div class="wf-verdict" style="color:var(--green)">✓ Recommandé par l'IA</div>
-          <div class="wf-addr-row">
-            <div class="wf-addr">${w.addr}</div>
-            <button class="copy-btn" id="${bid}" onclick="copyText('${w.addr}','${bid}')">Copier</button>
-          </div>
-        </div>
-        <div class="confidence" style="margin-left:10px">
-          <div class="conf-n ${confColor}">${w.conf}%</div>
-          <div class="conf-l">Confiance</div>
-        </div>
-      </div>
-      <div class="wf-ai">${w.aiText.replace(/\n/g,'<br>').split('<br>').slice(0,5).join('<br>')}</div>
-      <a class="bullx-btn" href="${bullxUrl}" target="_blank">Suivre sur BullX →</a>
-    </div>`;
-  }).join('');
-}
-
-// WALLETS SUIVIS
-function addFollowed(){
-  const addr=document.getElementById('follow-input').value.trim();
-  if(!addr||addr.length<20)return;
-  if(st.followed.find(f=>f.addr===addr))return;
-  st.followed.push({addr,ts:new Date().toISOString(),lastTrade:genFakeTrade()});
-  save();
-  document.getElementById('follow-input').value='';
-  renderFollowed();
-  analyzeFollowed(addr);
-}
-
-function genFakeTrade(){
-  // Aucune donnée inventée — on indique que c'est à vérifier en live
+function findCity(title){
+  const t=title.toLowerCase();
+  for(const[name,coords] of Object.entries(COORDS)){if(t.includes(name))return{name,coords};}
   return null;
 }
-
-function removeFollowed(addr){
-  st.followed=st.followed.filter(f=>f.addr!==addr);
-  delete st.followedAI[addr];
-  save();
-  renderFollowed();
+function extractTemp(title){
+  // Match "25°C", "25°", "above 25", "exceed 25"
+  const m=title.match(/(\d{1,3})[°\s]*[Cc°]/);
+  return m?parseInt(m[1]):null;
+}
+function isAboveMarket(title){
+  const t=title.toLowerCase();
+  return t.includes('above')||t.includes('exceed')||t.includes('at least')||t.includes('high')||t.includes('≥')||t.includes('or above')||t.includes('or higher');
 }
 
-function renderFollowed(){
-  const list=document.getElementById('followed-list');
-  if(!st.followed.length){
-    list.innerHTML='<div class="empty-state">Aucun wallet suivi.<br>Colle une adresse ci-dessus pour commencer à surveiller.</div>';
+async function fetchPolyWeather(){
+  // Essaie plusieurs endpoints Polymarket Gamma API
+  const endpoints=[
+    'https://gamma-api.polymarket.com/markets?active=true&limit=200&order=volume24hr&ascending=false',
+    'https://gamma-api.polymarket.com/markets?closed=false&limit=200',
+    'https://gamma-api.polymarket.com/events?active=true&limit=100',
+  ];
+  for(const url of endpoints){
+    try{
+      const r=await fetch(url,{headers:{'Accept':'application/json'}});
+      if(!r.ok) continue;
+      const d=await r.json();
+      const markets=Array.isArray(d)?d:(d.markets||d.events||d.data||[]);
+      if(markets.length>0) return markets;
+    }catch(e){continue;}
+  }
+  throw new Error('Polymarket API inaccessible depuis ce browser');
+}
+
+async function fetchWeather(lat,lon){
+  const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&forecast_days=2`;
+  const r=await fetch(url);
+  if(!r.ok) throw new Error('weather');
+  const d=await r.json();
+  return{max:Math.round(d.daily.temperature_2m_max[0]),min:Math.round(d.daily.temperature_2m_min[0]),rain:d.daily.precipitation_probability_max[0]||0};
+}
+
+function realProb(realMax, threshold, isAbove){
+  const diff=isAbove?(realMax-threshold):(threshold-realMax);
+  const p=Math.round(50+diff*14);
+  return Math.max(3,Math.min(97,p));
+}
+
+async function askClaude(prompt){
+  try{
+    const r=await fetch(CLAUDE,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+    const d=await r.json();return d.content?.[0]?.text||'';
+  }catch(e){return '';}
+}
+
+async function runScan(){
+  const btn=document.getElementById('scan-btn');
+  btn.disabled=true;btn.textContent='Scan...';
+  document.getElementById('prog').classList.add('on');
+  document.getElementById('bets-list').innerHTML='';
+  document.getElementById('filters').style.display='none';
+  document.getElementById('sum').classList.remove('on');
+  allBets=[];hideErr();
+  setP(5,'Connexion à Polymarket...');
+
+  let markets=[];
+  try{
+    markets=await fetchPolyWeather();
+  }catch(e){
+    showErr('❌ '+e.message+'\n\nPolymarket bloque les appels directs depuis certains browsers. Essaie depuis Safari ou Chrome sur iOS/Android. GitHub Pages fonctionne mieux que fichier local.');
+    btn.disabled=false;btn.textContent='↻ Scanner';
+    document.getElementById('prog').classList.remove('on');
     return;
   }
-  list.innerHTML=st.followed.map((f,i)=>{
-    const since=new Date(f.ts).toLocaleDateString('fr-CA',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
-    const addrKey='fcb-'+i;
-    const ai=st.followedAI[f.addr];
-    const aiHtml=ai
-      ?`<div class="fc-ai">${ai}</div>`
-      :`<div class="fc-ai" id="fcai-${i}"><span class="spin b"></span>&nbsp;Analyse en cours...</div>`;
-    const gmgnUrl=`https://gmgn.ai/sol/address/${f.addr}`;
-    const solscanUrl=`https://solscan.io/account/${f.addr}`;
-    return`<div class="card c-blue">
-      <div class="fc-header">
-        <div class="fc-addr-col">
-          <div class="fc-label">Adresse complète</div>
-          <div class="fc-addr">${f.addr}</div>
-          <div class="fc-copy-row">
-            <button class="copy-btn" id="${addrKey}" onclick="copyText('${f.addr}','${addrKey}')">Copier</button>
-            <a href="${gmgnUrl}" target="_blank" style="font-size:10px;color:var(--blue);text-decoration:none">GMGN ↗</a>
-            <a href="${solscanUrl}" target="_blank" style="font-size:10px;color:var(--blue);text-decoration:none">Solscan ↗</a>
-          </div>
+
+  // Filtre marchés météo température
+  const weatherMarkets=markets.filter(m=>{
+    const t=(m.question||m.title||m.name||'').toLowerCase();
+    return(t.includes('temperature')||t.includes('temp')||t.includes('°')||t.includes('degree'))&&!t.includes('ocean')&&!t.includes('sea surface');
+  });
+
+  setP(20,`${weatherMarkets.length} marchés météo trouvés sur ${markets.length} total`);
+
+  if(!weatherMarkets.length){
+    // Pas de marchés météo actifs — affiche quand même les données météo des villes
+    showErr('ℹ️ Polymarket n\'a pas de marchés météo actifs en ce moment. Ils s\'ouvrent quotidiennement le matin. Lance le scan demain matin vers 8h-9h.');
+    btn.disabled=false;btn.textContent='↻ Scanner';
+    document.getElementById('prog').classList.remove('on');
+    return;
+  }
+
+  let processed=0, strongCount=0, modCount=0;
+
+  for(const m of weatherMarkets){
+    const title=m.question||m.title||m.name||'';
+    const cityInfo=findCity(title);
+    const threshold=extractTemp(title);
+    if(!cityInfo||!threshold){processed++;continue;}
+
+    setP(20+Math.round((processed/weatherMarkets.length)*60),`${cityInfo.coords.flag} ${cityInfo.name}...`);
+
+    try{
+      // Vraie cote Polymarket
+      let polyYes=50;
+      if(m.outcomePrices){
+        try{const p=typeof m.outcomePrices==='string'?JSON.parse(m.outcomePrices):m.outcomePrices;polyYes=Math.round(parseFloat(p[0])*100);}catch(e){}
+      }else if(m.bestBid||m.bestAsk){polyYes=Math.round(((parseFloat(m.bestBid)||0)+(parseFloat(m.bestAsk)||100))/2);}
+
+      const weather=await fetchWeather(cityInfo.coords.lat,cityInfo.coords.lon);
+      const above=isAboveMarket(title);
+      const rProb=realProb(weather.max,threshold,above);
+      const edge=Math.abs(rProb-polyYes);
+      const direction=rProb>polyYes?'YES':'NO';
+
+      if(edge>=12){
+        const strength=edge>=22?'strong':'mod';
+        if(strength==='strong')strongCount++;else modCount++;
+        allBets.push({
+          city:cityInfo.name,flag:cityInfo.coords.flag,title,threshold,
+          realMax:weather.max,realMin:weather.min,rain:weather.rain,
+          polyOdds:polyYes,realProb:rProb,edge,direction,strength,above,ai:'',
+          marketUrl:m.url||`https://polymarket.com/event/${m.slug||m.id||''}`,
+          volume:Math.round(parseFloat(m.volume24hr||m.volume||0))
+        });
+        allBets.sort((a,b)=>b.edge-a.edge);
+        renderBets();
+        document.getElementById('filters').style.display='flex';
+        document.getElementById('sum').classList.add('on');
+        document.getElementById('s1').textContent=strongCount;
+        document.getElementById('s2').textContent=modCount;
+        document.getElementById('s3').textContent=processed+1;
+      }
+    }catch(e){}
+    processed++;
+    await new Promise(r=>setTimeout(r,100));
+  }
+
+  setP(85,`Analyse IA des ${Math.min(5,allBets.length)} meilleurs bets...`);
+
+  for(let i=0;i<Math.min(5,allBets.length);i++){
+    const b=allBets[i];
+    const ai=await askClaude(`Expert marchés météo Polymarket. 2 phrases max en français.\nVille: ${b.city} | Marché: "${b.title.slice(0,80)}"\nPrévision Open-Meteo: max ${b.realMax}°C | Seuil: ${b.threshold}°C | ${b.above?'Marché=Au-dessus':'Marché=En-dessous'}\nCote Polymarket YES: ${b.polyOdds}% | Prob réelle: ${b.realProb}% | Edge: +${b.edge}% → Parier ${b.direction}\nEst-ce un bon bet? Sois honnête et direct.`);
+    allBets[i].ai=ai;
+    renderBets();
+    setP(85+(i+1)/5*15,`IA ${i+1}/5...`);
+    await new Promise(r=>setTimeout(r,200));
+  }
+
+  setP(100,`✓ ${allBets.length} opportunités trouvées`);
+  S.lastScan=new Date().toISOString();
+  document.getElementById('last-up').textContent='Mis à jour '+new Date().toLocaleString('fr-CA',{hour:'2-digit',minute:'2-digit',day:'numeric',month:'short'});
+  saveS();
+  setTimeout(()=>document.getElementById('prog').classList.remove('on'),2000);
+  btn.disabled=false;btn.textContent='↻ Scanner';
+}
+
+function renderBets(){
+  const list=document.getElementById('bets-list');
+  let bets=[...allBets];
+  if(activeFilter==='strong')bets=bets.filter(b=>b.strength==='strong');
+  else if(activeFilter==='yes')bets=bets.filter(b=>b.direction==='YES');
+  else if(activeFilter==='no')bets=bets.filter(b=>b.direction==='NO');
+  if(!bets.length){list.innerHTML='<div class="empty">Aucune opportunité avec ce filtre.</div>';return;}
+
+  list.innerHTML=bets.map((b,i)=>{
+    const ec=b.edge>=22?'cg':b.edge>=12?'ca':'cb';
+    const tc=b.strength==='strong'?'green':'amber';
+    const aiHtml=b.ai?`<div class="logic">${b.ai}</div>`:(i<5?`<div class="logic loading"><span class="spin b"></span>&nbsp;Analyse IA...</div>`:'');
+    return`<div class="bet s-${b.strength}">
+      <div class="etop ${tc}"></div>
+      <div class="bet-top">
+        <div>
+          <div class="bet-city">${b.flag} ${b.city.charAt(0).toUpperCase()+b.city.slice(1)}</div>
+          <div class="bet-q">Temp ${b.above?'≥':'<'} ${b.threshold}°C — Parier <strong style="color:${b.direction==='YES'?'var(--green)':'var(--red)'}">${b.direction}</strong></div>
+          <div style="font-size:10px;color:var(--muted2);margin-top:2px">${b.title.slice(0,55)}...</div>
         </div>
-        <button class="unfollow-btn" onclick="removeFollowed('${f.addr}')">Retirer</button>
+        <div class="edge-blk">
+          <div class="edge-n ${ec}">+${b.edge}%</div>
+          <div class="edge-l">Edge</div>
+        </div>
       </div>
-      <div class="trade-box">
-        <div class="trade-label">Infos en direct</div>
-        <div class="trade-row"><span>Suivi depuis</span><span style="color:var(--muted)">${since}</span></div>
-        <div class="trade-row"><span>Derniers trades</span><span style="color:var(--blue)">→ Voir sur GMGN.ai</span></div>
-        <div class="trade-row"><span>Transactions</span><span style="color:var(--blue)">→ Voir sur Solscan</span></div>
+      <div class="grid4">
+        <div class="st"><div class="st-l">Météo réelle</div><div class="st-v cb">${b.realMax}°C</div></div>
+        <div class="st"><div class="st-l">Seuil marché</div><div class="st-v">${b.threshold}°C</div></div>
+        <div class="st"><div class="st-l">Poly cote</div><div class="st-v">${b.polyOdds}%</div></div>
+        <div class="st"><div class="st-l">Prob réelle</div><div class="st-v ${ec}">${b.realProb}%</div></div>
+      </div>
+      <div class="grid2">
+        <div class="st"><div class="st-l">Pluie prévue</div><div class="st-v ${b.rain>50?'cr':'cg'}">${b.rain}%</div></div>
+        <div class="st"><div class="st-l">Vol. 24h</div><div class="st-v">${b.volume>0?'$'+b.volume.toLocaleString():'—'}</div></div>
       </div>
       ${aiHtml}
+      <div class="act">
+        <a class="abtn ${b.direction==='YES'?'yes':'no'}" href="${b.marketUrl}" target="_blank">Parier ${b.direction} sur Polymarket →</a>
+      </div>
     </div>`;
   }).join('');
 }
 
-async function analyzeFollowed(addr){
-  if(st.followedAI[addr])return;
-  try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,
-        messages:[{role:'user',content:`Expert Solana/pump.fun. Wallet: ${addr}. En 2-3 phrases max en français: dis si tu connais ce wallet, son type (insider/trader/bot), et le risque. Si tu ne le connais pas, dis-le honnêtement et recommande de vérifier sur GMGN.ai avant de suivre.`}]})
-    });
-    const d=await r.json();
-    const txt=d.content?.[0]?.text||'';
-    if(txt){st.followedAI[addr]=txt;save();renderFollowed()}
-  }catch(e){}
-}
-
-setInterval(fetchBalance,30000);
+setInterval(()=>{if(document.getElementById('app').classList.contains('on'))runScan();},3600000);
 
 function init(){
-  load();
-  fetchBalance();
-  renderRecommended();
-  renderFollowed();
-  st.followed.forEach(f=>{if(!st.followedAI[f.addr])analyzeFollowed(f.addr)});
+  loadS();
+  if(allBets.length){
+    renderBets();document.getElementById('filters').style.display='flex';document.getElementById('sum').classList.add('on');
+    const s=allBets.filter(b=>b.strength==='strong').length,mod=allBets.filter(b=>b.strength==='mod').length;
+    document.getElementById('s1').textContent=s;document.getElementById('s2').textContent=mod;document.getElementById('s3').textContent=allBets.length;
+    if(S.lastScan)document.getElementById('last-up').textContent='Dernier scan: '+new Date(S.lastScan).toLocaleString('fr-CA',{hour:'2-digit',minute:'2-digit',day:'numeric',month:'short'});
+  }
+  const old=!S.lastScan||Date.now()-new Date(S.lastScan).getTime()>3600000;
+  if(old)setTimeout(runScan,800);
 }
 </script>
 </body>
