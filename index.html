@@ -17,8 +17,6 @@
   --r:14px;--r2:10px;--r3:8px;
 }
 html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100dvh;max-width:430px;margin:0 auto;padding-bottom:48px}
-
-/* PIN */
 #pin-screen{position:fixed;inset:0;max-width:430px;margin:0 auto;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;z-index:999}
 .pin-icon{width:60px;height:60px;background:var(--blue);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px}
 .pin-title{font-size:18px;font-weight:600}
@@ -26,93 +24,78 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;
 .dot{width:13px;height:13px;border-radius:50%;border:1.5px solid var(--muted2);transition:all .15s}
 .dot.on{background:var(--blue);border-color:var(--blue)}.dot.err{background:var(--red);border-color:var(--red)}
 .pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:270px}
-.key{height:58px;background:var(--bg2);border:none;border-radius:var(--r2);font-size:20px;color:var(--text);cursor:pointer;font-family:'Inter',sans-serif;transition:background .1s}
+.key{height:58px;background:var(--bg2);border:none;border-radius:var(--r2);font-size:20px;color:var(--text);cursor:pointer;font-family:'Inter',sans-serif}
 .key:active{background:var(--bg4)}.key.sym{font-size:16px;color:var(--muted)}
 .pin-err{font-size:12px;color:var(--red);height:16px;text-align:center}
-
-/* APP */
 #app{display:none}#app.on{display:block}
 .header{padding:48px 20px 16px;display:flex;justify-content:space-between;align-items:flex-start}
 .h-title{font-size:22px;font-weight:600;letter-spacing:-.02em}
 .h-sub{font-size:12px;color:var(--muted);margin-top:3px}
 .scan-btn{background:var(--blue);border:none;border-radius:var(--r2);padding:10px 16px;color:#fff;font-size:13px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;white-space:nowrap}
 .scan-btn:active{transform:scale(.95)}.scan-btn:disabled{opacity:.4;cursor:not-allowed}
-
 .prog{background:var(--bg2);border-radius:var(--r2);padding:12px 16px;margin:0 16px 12px;display:none}
 .prog.on{display:block}
 .prog-bar{height:3px;background:var(--bg3);border-radius:2px;overflow:hidden;margin-bottom:7px}
 .prog-fill{height:100%;background:var(--blue);border-radius:2px;width:0%;transition:width .3s}
 .prog-txt{font-size:11px;color:var(--muted)}
 .prog-sub{font-size:10px;color:var(--muted2);margin-top:3px}
-
 .summary{display:none;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px;margin-bottom:14px}
 .summary.on{display:grid}
 .sc{background:var(--bg2);border-radius:var(--r3);padding:10px;text-align:center}
 .sc-v{font-size:20px;font-weight:700;line-height:1;margin-bottom:2px}
 .sc-l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
-
+.filters{display:none;gap:6px;padding:0 16px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none}
+.filters.on{display:flex}.filters::-webkit-scrollbar{display:none}
+.ftab{flex-shrink:0;padding:5px 13px;border-radius:20px;border:none;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;background:var(--bg2);color:var(--muted)}
+.ftab.on{background:var(--blue);color:#fff}
 .bets{padding:0 16px}
-.last-up{font-size:10px;color:var(--muted2);text-align:center;margin-bottom:10px}
-
-/* NO BETS */
-.empty{text-align:center;padding:48px 20px;color:var(--muted2);font-size:13px;line-height:1.7}
-
-/* SKIP CARD */
-.skip-section{margin-bottom:24px}
-.skip-title{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
-
-/* BET CARD */
+.last-up{font-size:10px;color:var(--muted2);text-align:center;margin-bottom:12px}
+.total-box{background:var(--green-dim);border:.5px solid var(--green-b);border-radius:var(--r2);padding:12px 14px;margin-bottom:16px}
+.total-lbl{font-size:11px;color:var(--muted);margin-bottom:4px}
+.total-val{font-size:28px;font-weight:700;color:var(--green)}
+.total-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.day-label{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin:20px 0 10px;padding:0 2px}
 .bet{background:var(--bg2);border-radius:var(--r);padding:16px;margin-bottom:12px;border:.5px solid transparent;position:relative;overflow:hidden}
-.bet.go{border-color:var(--green-b)}
-.bet.skip{border-color:var(--muted2);opacity:.6}
+.bet.strong{border-color:var(--green-b)}.bet.moderate{border-color:var(--amber-b)}
 .etop{position:absolute;top:0;left:0;right:0;height:3px}
-.etop.green{background:var(--green)}.etop.amber{background:var(--amber)}.etop.gray{background:var(--muted2)}
-
-/* VERDICT BANNER */
-.verdict-banner{border-radius:var(--r3);padding:10px 12px;margin-bottom:12px;display:flex;align-items:center;gap:10px}
-.verdict-banner.go{background:var(--green-dim);border:.5px solid var(--green-b)}
-.verdict-banner.skip{background:var(--red-dim);border:.5px solid var(--red-b)}
-.verdict-icon{font-size:20px;flex-shrink:0}
-.verdict-text{font-size:13px;font-weight:600;line-height:1.3}
-.verdict-sub{font-size:11px;color:var(--muted);margin-top:2px;font-weight:400}
-
-.bet-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;gap:8px}
+.etop.green{background:var(--green)}.etop.amber{background:var(--amber)}
+.vbanner{border-radius:var(--r3);padding:10px 12px;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.vbanner.strong{background:var(--green-dim);border:.5px solid var(--green-b)}
+.vbanner.moderate{background:var(--amber-dim);border:.5px solid var(--amber-b)}
+.v-icon{font-size:18px;flex-shrink:0}
+.v-title{font-size:13px;font-weight:600}
+.v-sub{font-size:11px;color:var(--muted);margin-top:1px}
+.bet-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;gap:8px}
 .bet-city{font-size:15px;font-weight:600}
 .bet-meta{font-size:11px;color:var(--muted);margin-top:2px}
-.conf-blk{text-align:right;flex-shrink:0}
-.conf-n{font-size:26px;font-weight:700;line-height:1}
-.conf-l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
-
+.edge-blk{text-align:right;flex-shrink:0}
+.edge-n{font-size:26px;font-weight:700;line-height:1}
+.edge-l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
 .st{background:var(--bg3);border-radius:var(--r3);padding:7px 9px}
 .st-l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
 .st-v{font-size:14px;font-weight:600}
 .cg{color:var(--green)}.cr{color:var(--red)}.ca{color:var(--amber)}.cb{color:var(--blue)}
-
-/* KELLY BET BOX */
-.kelly-box{background:var(--green-dim);border:.5px solid var(--green-b);border-radius:var(--r3);padding:12px 14px;margin-bottom:10px}
-.kelly-row{display:flex;justify-content:space-between;align-items:center}
-.kelly-label{font-size:12px;color:var(--muted)}
-.kelly-amount{font-size:22px;font-weight:700;color:var(--green)}
-.kelly-note{font-size:10px;color:var(--muted);margin-top:4px}
-
-/* AI */
+.kelly-box{border-radius:var(--r3);padding:12px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.kelly-box.strong{background:var(--green-dim);border:.5px solid var(--green-b)}
+.kelly-box.moderate{background:var(--amber-dim);border:.5px solid var(--amber-b)}
+.k-label{font-size:11px;color:var(--muted)}
+.k-note{font-size:10px;color:var(--muted2);margin-top:2px}
+.k-amount{font-size:24px;font-weight:700}
+.k-amount.strong{color:var(--green)}.k-amount.moderate{color:var(--amber)}
 .ai-box{font-size:11px;color:#bbb;line-height:1.65;padding:10px 11px;background:var(--bg3);border-radius:var(--r3);margin-bottom:10px}
 .ai-box.loading{color:var(--muted2);font-style:italic;display:flex;align-items:center;gap:6px}
-
 .act-btn{display:block;width:100%;padding:13px;border-radius:var(--r2);font-size:14px;font-weight:600;font-family:'Inter',sans-serif;text-align:center;text-decoration:none;border:none;transition:all .15s;cursor:pointer}
 .act-btn:active{transform:scale(.97)}
-.act-btn.go{background:var(--green);color:#000}
-.act-btn.skip-btn{background:var(--bg3);color:var(--muted);font-size:12px;padding:10px}
-
+.act-btn.strong{background:var(--green);color:#000}
+.act-btn.moderate{background:var(--amber-dim);color:var(--amber);border:.5px solid var(--amber-b)}
+.no-market{background:var(--bg2);border-radius:var(--r3);padding:12px 14px;margin-bottom:10px;font-size:12px;color:var(--muted);text-align:center}
+.disclaimer{font-size:10px;color:var(--muted2);text-align:center;padding:8px 16px 0;line-height:1.5}
 .spin{display:inline-block;width:10px;height:10px;border:1.5px solid var(--muted2);border-radius:50%;animation:sp .8s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}.spin.b{border-top-color:var(--blue)}
-
-.disclaimer{font-size:10px;color:var(--muted2);text-align:center;padding:0 16px 8px;line-height:1.5}
 </style>
 </head>
 <body>
-
 <div id="pin-screen">
   <div class="pin-icon">🌤</div>
   <div class="pin-title">Météo Edge</div>
@@ -129,31 +112,35 @@ html,body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;
 
 <div id="app">
   <div class="header">
-    <div><div class="h-title">Météo Edge</div><div class="h-sub">Bets validés uniquement</div></div>
+    <div><div class="h-title">Météo Edge</div><div class="h-sub">Aujourd'hui + demain · Kelly sizing</div></div>
     <button class="scan-btn" id="scan-btn" onclick="runScan()">↻ Scanner</button>
   </div>
-
   <div class="prog" id="prog">
     <div class="prog-bar"><div class="prog-fill" id="pfill"></div></div>
     <div class="prog-txt" id="ptxt">...</div>
     <div class="prog-sub" id="psub"></div>
   </div>
-
   <div class="summary" id="sum">
-    <div class="sc"><div class="sc-v cg" id="s-go">0</div><div class="sc-l">À jouer</div></div>
-    <div class="sc"><div class="sc-v ca" id="s-skip">0</div><div class="sc-l">À éviter</div></div>
-    <div class="sc"><div class="sc-v cb" id="s-total">0</div><div class="sc-l">Scannés</div></div>
+    <div class="sc"><div class="sc-v cg" id="s1">0</div><div class="sc-l">Fort ✓</div></div>
+    <div class="sc"><div class="sc-v ca" id="s2">0</div><div class="sc-l">Modéré</div></div>
+    <div class="sc"><div class="sc-v cb" id="s3">0</div><div class="sc-l">Scannés</div></div>
   </div>
-
+  <div class="filters" id="filters">
+    <button class="ftab on" onclick="setF('all',this)">Tous</button>
+    <button class="ftab" onclick="setF('strong',this)">Fort</button>
+    <button class="ftab" onclick="setF('today',this)">Aujourd'hui</button>
+    <button class="ftab" onclick="setF('tomorrow',this)">Demain</button>
+  </div>
   <div class="bets" id="bets-container">
-    <div class="empty">Appuie sur <strong>Scanner</strong>.<br>L'outil analyse demain et après-demain pour toutes les villes et te dit exactement quoi faire.</div>
+    <div style="text-align:center;padding:48px 20px;color:var(--muted2);font-size:13px;line-height:1.7">
+      Appuie sur <strong>Scanner</strong> — aujourd'hui + demain, toutes les villes, décision + montant exact.
+    </div>
   </div>
-
-  <div class="disclaimer">Les bets météo ont un taux de réussite ~60-65%. Ne mise jamais plus que le montant suggéré. Capital de départ: $100.</div>
+  <div class="disclaimer">Edge réel ~60-65% de succès. Kelly 25% conservateur. Capital: $100.</div>
 </div>
 
 <script>
-const PIN='2788', SK='pme_v9';
+const PIN='2788', SK='pme_v11';
 const PROXY='https://square-union-05ed.dlemieux730.workers.dev';
 const CLAUDE='https://api.anthropic.com/v1/messages';
 const METEO='https://api.open-meteo.com/v1/forecast';
@@ -192,19 +179,19 @@ const CITIES=[
   {name:'Manila',slug:'manila',flag:'🇵🇭',lat:14.60,lon:120.98},
 ];
 
-function buildSlug(citySlug,offset){
-  const d=new Date();d.setDate(d.getDate()+offset);
+function buildSlug(s,o){
+  const d=new Date();d.setDate(d.getDate()+o);
   const m=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
-  return`highest-temperature-in-${citySlug}-on-${m[d.getMonth()]}-${d.getDate()}-${d.getFullYear()}`;
+  return`highest-temperature-in-${s}-on-${m[d.getMonth()]}-${d.getDate()}-${d.getFullYear()}`;
 }
-function fmtDate(offset){
-  const d=new Date();d.setDate(d.getDate()+offset);
+function fmtDate(o){
+  const d=new Date();d.setDate(d.getDate()+o);
   const m=['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
-  const days=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
-  return`${days[d.getDay()]} ${d.getDate()} ${m[d.getMonth()]}`;
+  const j=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+  return`${j[d.getDay()]} ${d.getDate()} ${m[d.getMonth()]}`;
 }
 
-let pinBuf='';
+let pinBuf='',activeFilter='all';
 let S={bets:[],lastScan:null};
 let allBets=[];
 
@@ -220,100 +207,90 @@ function kp(v){
     else{document.querySelectorAll('.dot').forEach(d=>d.classList.add('err'));document.getElementById('pin-err').textContent='Code incorrect';setTimeout(()=>{pinBuf='';document.querySelectorAll('.dot').forEach(d=>d.classList.remove('err','on'));document.getElementById('pin-err').textContent='';},800);}
   }
 }
-
-function setP(p,t,sub=''){
-  document.getElementById('pfill').style.width=p+'%';
-  document.getElementById('ptxt').textContent=t;
-  document.getElementById('psub').textContent=sub;
-}
+function setF(f,btn){activeFilter=f;document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');renderBets();}
+function setP(p,t,sub=''){document.getElementById('pfill').style.width=p+'%';document.getElementById('ptxt').textContent=t;document.getElementById('psub').textContent=sub;}
 
 async function fetchPoly(slug){
   try{
     const r=await fetch(`${PROXY}/?slug=${slug}`);
     if(!r.ok) return null;
     const d=await r.json();
-    return Array.isArray(d)&&d.length?d[0]:null;
+    // Vérifie que le marché est encore actif (pas fermé)
+    if(Array.isArray(d)&&d.length){
+      const ev=d[0];
+      if(ev.closed||ev.archived) return null;
+      return ev;
+    }
+    return null;
   }catch(e){return null;}
 }
 
-async function fetchWeather(lat,lon,offset){
-  const r=await fetch(`${METEO}?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,temperature_2m_max_confidence&timezone=auto&forecast_days=${offset+2}`);
+async function fetchWeather(lat,lon,o){
+  const r=await fetch(`${METEO}?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&forecast_days=${o+2}`);
   const d=await r.json();
   return{
-    max:Math.round(d.daily.temperature_2m_max[offset]),
-    min:Math.round(d.daily.temperature_2m_min[offset]),
-    rain:d.daily.precipitation_probability_max[offset]||0
+    max:Math.round(d.daily.temperature_2m_max[o]),
+    min:Math.round(d.daily.temperature_2m_min[o]),
+    rain:d.daily.precipitation_probability_max[o]||0
   };
 }
 
-// Kelly Criterion conservateur (25% du Kelly complet)
-function kellyBet(prob, polyOdds){
-  const p=prob/100;
-  const q=1-p;
-  const b=(100/polyOdds)-1; // payout ratio
-  const kelly=(p*b-q)/b;
-  const conservative=Math.max(0,kelly*0.25); // 25% du Kelly
-  const amount=Math.round(CAPITAL*conservative*100)/100;
-  return Math.min(amount, 8); // max $8 par bet
+function kellyBet(prob,polyOdds){
+  if(polyOdds<=0||polyOdds>=100) return 0;
+  const p=prob/100,q=1-p;
+  const b=(100/polyOdds)-1;
+  const k=Math.max(0,(p*b-q)/b)*0.25;
+  return Math.min(Math.round(k*CAPITAL*100)/100,10);
 }
 
-// Analyse chaque seuil du marché et trouve LE meilleur edge sur marché à faible volume
-function analyzeBestOpportunity(markets, realMax, realMin){
-  // Filtre: seulement marchés à faible volume (moins de $50K) — moins bien pricés
-  const lowVol=markets.filter(m=>parseFloat(m.volume24hr||0)<50000);
-  const targets=lowVol.length>0?lowVol:markets;
+function realProb(realMax,threshold,isAbove,isBelow){
+  if(isAbove){
+    const d=realMax-threshold;
+    return d>=3?93:d>=2?82:d>=1?68:d===0?52:d>=-1?32:d>=-2?18:8;
+  }
+  if(isBelow){
+    const d=threshold-realMax;
+    return d>=3?93:d>=2?82:d>=1?68:d===0?52:d>=-1?32:d>=-2?18:8;
+  }
+  const d=Math.abs(realMax-threshold);
+  return d===0?62:d===1?22:d===2?7:2;
+}
 
-  let bestGo=null;
-
-  for(const m of targets){
+function findBestBet(markets,realMax){
+  let best=null;
+  for(const m of markets){
+    if(!m.active||m.closed) continue;
     const title=m.groupItemTitle||'';
-    const numM=title.match(/(\d+)/);
-    if(!numM) continue;
-    const threshold=parseInt(numM[1]);
+    const nm=title.match(/(\d+)/);
+    if(!nm) continue;
+    const threshold=parseInt(nm[1]);
     const isAbove=title.toLowerCase().includes('or higher');
     const isBelow=title.toLowerCase().includes('or below');
 
-    // Cote réelle Polymarket
     let polyYes=50;
-    if(m.lastTradePrice) polyYes=Math.round(parseFloat(m.lastTradePrice)*100);
+    if(m.lastTradePrice&&parseFloat(m.lastTradePrice)>0) polyYes=Math.round(parseFloat(m.lastTradePrice)*100);
     else if(m.bestBid&&m.bestAsk) polyYes=Math.round(((parseFloat(m.bestBid)+parseFloat(m.bestAsk))/2)*100);
-    else if(m.outcomePrices){
-      try{const p=typeof m.outcomePrices==='string'?JSON.parse(m.outcomePrices):m.outcomePrices;polyYes=Math.round(parseFloat(p[0])*100);}catch(e){}
-    }
+    else if(m.outcomePrices){try{const p=typeof m.outcomePrices==='string'?JSON.parse(m.outcomePrices):m.outcomePrices;const v=parseFloat(p[0]);if(v>0&&v<1)polyYes=Math.round(v*100);}catch(e){}}
 
-    // Prob réelle basée sur météo
-    let rProb;
-    if(isAbove){
-      const diff=realMax-threshold;
-      rProb=diff>=3?92:diff>=2?80:diff>=1?65:diff===0?50:diff>=-1?30:10;
-    } else if(isBelow){
-      const diff=threshold-realMax;
-      rProb=diff>=3?92:diff>=2?80:diff>=1?65:diff===0?50:diff>=-1?30:10;
-    } else {
-      // Marché sur température exacte
-      const diff=Math.abs(realMax-threshold);
-      rProb=diff===0?60:diff===1?25:diff===2?8:2;
-    }
+    if(polyYes<=0||polyYes>=100) continue;
 
-    const edge=rProb-polyYes; // positif = parier YES, négatif = parier NO
+    const rProb=realProb(realMax,threshold,isAbove,isBelow);
+    const edge=rProb-polyYes;
     const absEdge=Math.abs(edge);
     const direction=edge>0?'YES':'NO';
     const vol=Math.round(parseFloat(m.volume24hr||0));
 
-    // SEUIL STRICT: seulement edge >= 20% ET volume < $30K
-    if(absEdge>=20 && vol<30000){
-      const kelly=kellyBet(rProb, polyYes);
-      if(kelly>0 && (!bestGo||absEdge>Math.abs(bestGo.edge))){
-        bestGo={
-          threshold,isAbove,isBelow,polyYes,rProb,edge:absEdge,
-          direction,kelly,vol,
+    // Edge >= 12%, volume < $150K
+    if(absEdge>=12&&vol<150000){
+      const kelly=kellyBet(rProb,polyYes);
+      if(kelly>0&&(!best||absEdge>Math.abs(best.edge))){
+        best={threshold,isAbove,isBelow,polyYes,rProb,edge:absEdge,direction,kelly,vol,
           marketUrl:`https://polymarket.com/event/${m.slug||''}`,
-          question:m.question||title
-        };
+          strength:absEdge>=22?'strong':'moderate'};
       }
     }
   }
-  return bestGo;
+  return best;
 }
 
 async function askClaude(b){
@@ -321,17 +298,13 @@ async function askClaude(b){
     const typeLabel=b.isAbove?`${b.threshold}°C ou plus`:b.isBelow?`${b.threshold}°C ou moins`:`exactement ${b.threshold}°C`;
     const r=await fetch(CLAUDE,{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,
-        messages:[{role:'user',content:`Expert marchés météo Polymarket. Tu dois donner un avis CLAIR en 2 phrases max en français.
-
-Ville: ${b.city} | Date: ${b.dateLabel}
-Marché: température maximale ${typeLabel}
-Météo Open-Meteo (fiable): ${b.realMax}°C prévue | Min: ${b.realMin}°C | Pluie: ${b.rain}%
-Cote Polymarket YES: ${b.polyYes}% | Prob réelle estimée: ${b.rProb}% | Edge: +${b.edge}%
-Volume 24h: $${b.vol} (marché peu tradé = moins bien pricé)
-Décision: Parier ${b.direction} ${b.kelly}$ sur 100$
-
-Confirme si c'est justifié ou pas. Sois honnête sur le risque résiduel.`}]})});
-    const d=await r.json();return d.content?.[0]?.text||'';
+        messages:[{role:'user',content:`Expert météo Polymarket. 2 phrases max, français, direct.
+${b.flag} ${b.city} · ${b.dateLabel} · Temp max ${typeLabel}
+Météo Open-Meteo: ${b.realMax}°C · Pluie: ${b.rain}% · Volume marché: $${b.vol.toLocaleString()}
+Cote Poly YES: ${b.polyYes}% · Prob réelle: ${b.rProb}% · Edge: +${b.edge}% · Parier ${b.direction} · $${b.kelly}
+Confirme si justifié. Risque principal en 1 phrase.`}]})});
+    const d=await r.json();
+    return d.content?.[0]?.text||'';
   }catch(e){return '';}
 }
 
@@ -340,64 +313,73 @@ async function runScan(){
   btn.disabled=true;btn.textContent='Scan...';
   document.getElementById('prog').classList.add('on');
   document.getElementById('bets-container').innerHTML='';
+  document.getElementById('filters').classList.remove('on');
   document.getElementById('sum').classList.remove('on');
   allBets=[];
 
-  let goCount=0,skipCount=0,scanned=0;
+  let strong=0,moderate=0,scanned=0;
   document.getElementById('sum').classList.add('on');
 
-  for(const offset of[1,2]){
+  // Aujourd'hui (offset 0) ET demain (offset 1)
+  for(const offset of[0,1]){
     const dateLabel=fmtDate(offset);
     for(let ci=0;ci<CITIES.length;ci++){
       const city=CITIES[ci];
-      const pct=Math.round(((offset-1)*CITIES.length+ci)/(2*CITIES.length)*78);
-      setP(pct,`${city.flag} ${city.name} — ${dateLabel}`,`${scanned} analysés`);
-
+      const pct=Math.round((offset*CITIES.length+ci)/(2*CITIES.length)*76);
+      setP(pct,`${city.flag} ${city.name} · ${dateLabel}`,`${scanned} analysés`);
       try{
         const slug=buildSlug(city.slug,offset);
-        const[event,weather]=await Promise.all([fetchPoly(slug),fetchWeather(city.lat,city.lon,offset)]);
+        const[event,weather]=await Promise.all([
+          fetchPoly(slug),
+          fetchWeather(city.lat,city.lon,offset)
+        ]);
         scanned++;
+        document.getElementById('s3').textContent=scanned;
 
         if(!event?.markets?.length) continue;
 
-        const best=analyzeBestOpportunity(event.markets,weather.max,weather.min);
-
+        const best=findBestBet(event.markets,weather.max);
         if(best){
-          goCount++;
+          if(best.strength==='strong')strong++;else moderate++;
           allBets.push({
             city:city.name,flag:city.flag,dateLabel,offset,
-            ...best,realMax:weather.max,realMin:weather.min,rain:weather.rain,
-            verdict:'go',ai:''
+            ...best,realMax:weather.max,realMin:weather.min,rain:weather.rain,ai:''
           });
+          allBets.sort((a,b)=>{
+            if(a.strength!==b.strength) return a.strength==='strong'?-1:1;
+            return b.edge-a.edge;
+          });
+          document.getElementById('s1').textContent=strong;
+          document.getElementById('s2').textContent=moderate;
+          renderBets();
+          document.getElementById('filters').classList.add('on');
         }
-
-        document.getElementById('s-go').textContent=goCount;
-        document.getElementById('s-skip').textContent=skipCount;
-        document.getElementById('s-total').textContent=scanned;
-        if(goCount>0) renderBets();
-
       }catch(e){}
       await new Promise(r=>setTimeout(r,80));
     }
   }
 
-  // Analyse IA sur tous les bets validés
-  setP(80,`Validation IA de ${allBets.length} bet${allBets.length>1?'s':''}...`,'');
+  // Analyse IA sur tous les bets
+  setP(78,`Analyse IA · ${allBets.length} bet${allBets.length>1?'s':''}...`,'');
   for(let i=0;i<allBets.length;i++){
     const ai=await askClaude(allBets[i]);
-    if(ai) allBets[i].ai=ai;
-    renderBets();
-    setP(80+(i+1)/allBets.length*20,`Validation IA ${i+1}/${allBets.length}...`,'');
-    await new Promise(r=>setTimeout(r,300));
+    if(ai){allBets[i].ai=ai;renderBets();}
+    setP(78+(i+1)/allBets.length*22,`IA ${i+1}/${allBets.length}...`,'');
+    await new Promise(r=>setTimeout(r,250));
   }
 
   if(!allBets.length){
-    document.getElementById('bets-container').innerHTML='<div class="empty">✅ Aucun bet avec edge suffisant (≥20%) sur marché peu tradé aujourd\'hui.<br><br>C\'est une bonne journée pour ne pas jouer. Réessaie demain matin.</div>';
+    document.getElementById('bets-container').innerHTML=`
+      <div style="text-align:center;padding:32px 20px;color:var(--muted2);font-size:13px;line-height:1.7">
+        ✅ Aucun edge significatif aujourd'hui et demain.<br>
+        Les marchés d'aujourd'hui ferment à 12h UTC.<br>
+        Reviens demain matin pour les nouveaux marchés.
+      </div>`;
   }
 
-  setP(100,allBets.length?`✓ ${allBets.length} bet${allBets.length>1?'s':''} validé${allBets.length>1?'s':''}  — total suggéré $${allBets.reduce((a,b)=>a+b.kelly,0).toFixed(2)}`:'Aucun bet aujourd\'hui');
+  const totalKelly=allBets.reduce((a,b)=>a+b.kelly,0);
+  setP(100,allBets.length?`✓ ${allBets.length} bet${allBets.length>1?'s':''} · Total suggéré $${totalKelly.toFixed(2)}`:'Aucun bet aujourd\'hui');
   S.lastScan=new Date().toISOString();
-  document.getElementById('last-up').textContent='Mis à jour '+new Date().toLocaleString('fr-CA',{hour:'2-digit',minute:'2-digit',day:'numeric',month:'short'});
   saveS();
   setTimeout(()=>document.getElementById('prog').classList.remove('on'),2500);
   btn.disabled=false;btn.textContent='↻ Scanner';
@@ -405,64 +387,74 @@ async function runScan(){
 
 function renderBets(){
   const container=document.getElementById('bets-container');
-  if(!allBets.length){
-    container.innerHTML='<div class="empty">Scan en cours...</div>';
-    return;
+  let bets=[...allBets];
+  if(activeFilter==='strong') bets=bets.filter(b=>b.strength==='strong');
+  else if(activeFilter==='today') bets=bets.filter(b=>b.offset===0);
+  else if(activeFilter==='tomorrow') bets=bets.filter(b=>b.offset===1);
+  if(!bets.length){container.innerHTML='<div style="text-align:center;padding:32px;color:var(--muted2);font-size:13px">Aucun bet avec ce filtre.</div>';return;}
+
+  const totalKelly=bets.reduce((a,b)=>a+b.kelly,0);
+  const lastUp=S.lastScan?'Mis à jour '+new Date(S.lastScan).toLocaleString('fr-CA',{hour:'2-digit',minute:'2-digit',day:'numeric',month:'short'}):'';
+
+  const todayBets=bets.filter(b=>b.offset===0);
+  const tomorrowBets=bets.filter(b=>b.offset===1);
+
+  function renderBetCard(b,i){
+    const typeLabel=b.isAbove?`≥${b.threshold}°C`:b.isBelow?`≤${b.threshold}°C`:`=${b.threshold}°C`;
+    const ec=b.strength==='strong'?'cg':'ca';
+    const icon=b.strength==='strong'?'✅':'⚡';
+    const strengthLabel=b.strength==='strong'?'Fort edge':'Edge modéré';
+    const aiHtml=b.ai
+      ?`<div class="ai-box">${b.ai}</div>`
+      :`<div class="ai-box loading"><span class="spin b"></span>&nbsp;Analyse IA...</div>`;
+    return`<div class="bet ${b.strength}">
+      <div class="etop ${b.strength==='strong'?'green':'amber'}"></div>
+      <div class="vbanner ${b.strength}">
+        <div class="v-icon">${icon}</div>
+        <div>
+          <div class="v-title">Parier ${b.direction} · ${b.flag} ${b.city}</div>
+          <div class="v-sub">Temp max ${typeLabel} · ${strengthLabel}</div>
+        </div>
+      </div>
+      <div class="bet-row">
+        <div>
+          <div class="bet-city">Météo prévue: ${b.realMax}°C</div>
+          <div class="bet-meta">Min: ${b.realMin}°C · Pluie: ${b.rain}% · Vol: $${b.vol.toLocaleString()}</div>
+        </div>
+        <div class="edge-blk">
+          <div class="edge-n ${ec}">+${b.edge}%</div>
+          <div class="edge-l">Edge</div>
+        </div>
+      </div>
+      <div class="grid3">
+        <div class="st"><div class="st-l">Cote Poly</div><div class="st-v">${b.polyYes}%</div></div>
+        <div class="st"><div class="st-l">Prob réelle</div><div class="st-v ${ec}">${b.rProb}%</div></div>
+        <div class="st"><div class="st-l">Direction</div><div class="st-v ${b.direction==='YES'?'cg':'cr'}">${b.direction}</div></div>
+      </div>
+      <div class="kelly-box ${b.strength}">
+        <div>
+          <div class="k-label">Montant suggéré (Kelly 25%)</div>
+          <div class="k-note">Risque max: perdre $${b.kelly.toFixed(2)}</div>
+        </div>
+        <div class="k-amount ${b.strength}">$${b.kelly.toFixed(2)}</div>
+      </div>
+      ${aiHtml}
+      <a class="act-btn ${b.strength}" href="${b.marketUrl}" target="_blank">
+        Parier ${b.direction} $${b.kelly.toFixed(2)} sur Polymarket →
+      </a>
+    </div>`;
   }
 
-  const sorted=[...allBets].sort((a,b)=>b.edge-a.edge);
-  const totalKelly=sorted.reduce((a,b)=>a+b.kelly,0);
-
   container.innerHTML=`
-    <div class="last-up" id="last-up" style="margin-bottom:12px"></div>
-    <div style="background:var(--green-dim);border:.5px solid var(--green-b);border-radius:var(--r2);padding:12px 14px;margin-bottom:16px">
-      <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Total à miser sur $100</div>
-      <div style="font-size:28px;font-weight:700;color:var(--green)">$${totalKelly.toFixed(2)}</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:2px">Réparti sur ${sorted.length} bet${sorted.length>1?'s':''} · Kelly conservateur 25%</div>
+    <div class="last-up">${lastUp}</div>
+    <div class="total-box">
+      <div class="total-lbl">Total à miser aujourd'hui + demain</div>
+      <div class="total-val">$${totalKelly.toFixed(2)}</div>
+      <div class="total-sub">${bets.length} bet${bets.length>1?'s':''} · Kelly 25% conservateur sur $${CAPITAL}</div>
     </div>
-    ${sorted.map((b,i)=>{
-      const typeLabel=b.isAbove?`≥${b.threshold}°C`:b.isBelow?`≤${b.threshold}°C`:`=${b.threshold}°C`;
-      const ec=b.edge>=30?'cg':'ca';
-      const aiHtml=b.ai?`<div class="ai-box">${b.ai}</div>`:`<div class="ai-box loading"><span class="spin b"></span>&nbsp;Validation IA...</div>`;
-      return`<div class="bet go">
-        <div class="etop green"></div>
-        <div class="verdict-banner go">
-          <div class="verdict-icon">✅</div>
-          <div>
-            <div class="verdict-text">Parier ${b.direction} · ${b.flag} ${b.city}</div>
-            <div class="verdict-sub">${b.dateLabel} · Temp max ${typeLabel}</div>
-          </div>
-        </div>
-        <div class="bet-top">
-          <div>
-            <div class="bet-city">Temp prévue: ${b.realMax}°C</div>
-            <div class="bet-meta">Pluie: ${b.rain}% · Vol. marché: $${b.vol.toLocaleString()}</div>
-          </div>
-          <div class="conf-blk">
-            <div class="conf-n ${ec}">+${b.edge}%</div>
-            <div class="conf-l">Edge</div>
-          </div>
-        </div>
-        <div class="grid3">
-          <div class="st"><div class="st-l">Cote Poly</div><div class="st-v">${b.polyYes}%</div></div>
-          <div class="st"><div class="st-l">Prob réelle</div><div class="st-v ${ec}">${b.rProb}%</div></div>
-          <div class="st"><div class="st-l">Direction</div><div class="st-v ${b.direction==='YES'?'cg':'cr'}">${b.direction}</div></div>
-        </div>
-        <div class="kelly-box">
-          <div class="kelly-row">
-            <div class="kelly-label">Montant suggéré (Kelly 25%)</div>
-            <div class="kelly-amount">$${b.kelly.toFixed(2)}</div>
-          </div>
-          <div class="kelly-note">Sur $100 capital · Risque max: perdre $${b.kelly.toFixed(2)}</div>
-        </div>
-        ${aiHtml}
-        <a class="act-btn go" href="${b.marketUrl}" target="_blank">
-          Parier ${b.direction} $${b.kelly.toFixed(2)} sur Polymarket →
-        </a>
-      </div>`;
-    }).join('')}
+    ${todayBets.length?`<div class="day-label">Aujourd'hui — ${fmtDate(0)}</div>${todayBets.map(renderBetCard).join('')}`:''}
+    ${tomorrowBets.length?`<div class="day-label">Demain — ${fmtDate(1)}</div>${tomorrowBets.map(renderBetCard).join('')}`:''}
   `;
-  if(S.lastScan) document.getElementById('last-up').textContent='Mis à jour '+new Date(S.lastScan).toLocaleString('fr-CA',{hour:'2-digit',minute:'2-digit',day:'numeric',month:'short'});
 }
 
 setInterval(()=>{if(document.getElementById('app').classList.contains('on'))runScan();},3600000);
@@ -471,10 +463,11 @@ function init(){
   loadS();
   if(allBets.length){
     renderBets();
+    document.getElementById('filters').classList.add('on');
     document.getElementById('sum').classList.add('on');
-    document.getElementById('s-go').textContent=allBets.length;
-    document.getElementById('s-total').textContent=allBets.length;
-    if(S.lastScan)document.getElementById('last-up').textContent='Dernier scan: '+new Date(S.lastScan).toLocaleString('fr-CA',{hour:'2-digit',minute:'2-digit',day:'numeric',month:'short'});
+    document.getElementById('s1').textContent=allBets.filter(b=>b.strength==='strong').length;
+    document.getElementById('s2').textContent=allBets.filter(b=>b.strength==='moderate').length;
+    document.getElementById('s3').textContent=allBets.length;
   }
   const old=!S.lastScan||Date.now()-new Date(S.lastScan).getTime()>3600000;
   if(old)setTimeout(runScan,800);
