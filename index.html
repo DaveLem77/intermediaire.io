@@ -2,462 +2,954 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>FELT — AI Poker Coach</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ORBITAL — Satellite Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@200;300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
-* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-:root {
-  --bg:#0a0a0a; --surface:#111; --surface2:#161616;
-  --border:rgba(255,255,255,0.06); --white:#f0ede8;
-  --muted:#404040; --muted2:#2a2a2a;
-  --gold:#d4a847; --gold-soft:rgba(212,168,71,0.12);
-  --red:#e05252; --red-soft:rgba(224,82,82,0.12);
-  --green:#4caf80; --green-soft:rgba(76,175,128,0.12);
-  --blue:#5b9cf6; --blue-soft:rgba(91,156,246,0.12);
-  --orange:#f0814a; --orange-soft:rgba(240,129,74,0.12);
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --void:#020408;
+  --deep:#060d14;
+  --panel:rgba(6,20,35,0.85);
+  --border:rgba(0,200,255,0.08);
+  --border2:rgba(0,200,255,0.18);
+  --cyan:#00c8ff;
+  --cyan-dim:rgba(0,200,255,0.08);
+  --cyan-glow:rgba(0,200,255,0.25);
+  --green:#00ff9d;
+  --green-dim:rgba(0,255,157,0.08);
+  --amber:#ffb800;
+  --red:#ff3d5a;
+  --text:#e8f4ff;
+  --muted:rgba(200,230,255,0.4);
+  --muted2:rgba(200,230,255,0.15);
+  --mono:'Space Mono',monospace;
+  --sans:'Outfit',sans-serif;
 }
-html,body { height:100%; background:var(--bg); color:var(--white); overflow:hidden; }
-body { font-family:'JetBrains Mono',monospace; display:flex; flex-direction:column; }
+html,body{background:var(--void);color:var(--text);font-family:var(--sans);height:100%;overflow:hidden}
 
-/* HEADER */
-#header { flex-shrink:0; padding:18px 18px 14px; }
-#decision-chip {
-  display:inline-flex; align-items:center; gap:8px;
-  background:var(--surface); border:1px solid var(--border);
-  border-radius:100px; padding:8px 16px; margin-bottom:12px;
-  transition:all 0.5s cubic-bezier(0.16,1,0.3,1);
-}
-#decision-dot {
-  width:7px; height:7px; border-radius:50%;
-  background:var(--muted); transition:background 0.4s ease; flex-shrink:0;
-}
-#decision-chip-text {
-  font-family:'Syne',sans-serif; font-size:12px; font-weight:600;
-  letter-spacing:0.08em; color:var(--muted); transition:color 0.4s ease;
-}
-#confidence-badge { font-size:10px; color:var(--muted); margin-left:2px; transition:color 0.4s ease; }
-#decision-main {
-  font-family:'Syne',sans-serif; font-size:clamp(36px,10vw,52px);
-  font-weight:800; letter-spacing:-0.02em; line-height:1;
-  color:var(--white); transition:color 0.4s ease; margin-bottom:5px;
-}
-#decision-reason {
-  font-size:11px; color:var(--muted); font-weight:300;
-  letter-spacing:0.02em; line-height:1.6; max-width:340px; min-height:16px;
+/* STARFIELD */
+#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* SCAN LINE */
+.scanline{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,200,255,0.015) 2px,rgba(0,200,255,0.015) 4px);
 }
 
-/* STATE COLORS */
-.s-fold #decision-main{color:var(--red)} .s-fold #decision-dot{background:var(--red);box-shadow:0 0 8px var(--red)}
-.s-fold #decision-chip{border-color:rgba(224,82,82,0.2);background:var(--red-soft)} .s-fold #decision-chip-text{color:var(--red)}
-.s-call #decision-main{color:var(--blue)} .s-call #decision-dot{background:var(--blue);box-shadow:0 0 8px var(--blue)}
-.s-call #decision-chip{border-color:rgba(91,156,246,0.2);background:var(--blue-soft)} .s-call #decision-chip-text{color:var(--blue)}
-.s-raise #decision-main{color:var(--green)} .s-raise #decision-dot{background:var(--green);box-shadow:0 0 8px var(--green)}
-.s-raise #decision-chip{border-color:rgba(76,175,128,0.2);background:var(--green-soft)} .s-raise #decision-chip-text{color:var(--green)}
-.s-allin #decision-main{color:var(--orange)} .s-allin #decision-dot{background:var(--orange);box-shadow:0 0 10px var(--orange);animation:pdot 0.8s ease-in-out infinite}
-.s-allin #decision-chip{border-color:rgba(240,129,74,0.2);background:var(--orange-soft)} .s-allin #decision-chip-text{color:var(--orange)}
-.s-check #decision-main{color:var(--white)} .s-check #decision-dot{background:var(--white)}
-.s-check #decision-chip{border-color:rgba(240,237,232,0.15)} .s-check #decision-chip-text{color:var(--white)}
-.s-scanning #decision-main{color:var(--gold)} .s-scanning #decision-dot{background:var(--gold);animation:pdot 1s ease-in-out infinite}
-.s-scanning #decision-chip{border-color:rgba(212,168,71,0.2);background:var(--gold-soft)} .s-scanning #decision-chip-text{color:var(--gold)}
-@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.3;transform:scale(0.6)}}
+/* LAYOUT */
+.layout{position:relative;z-index:2;height:100vh;display:grid;grid-template-rows:56px 1fr;grid-template-columns:280px 1fr 280px;gap:0}
 
-/* CAMERA */
-#camera-wrap {
-  flex:1; position:relative; overflow:hidden;
-  margin:0 14px; border-radius:22px; background:#060606; min-height:0;
+/* TOPBAR */
+.topbar{
+  grid-column:1/-1;
+  background:rgba(2,8,18,0.95);
+  border-bottom:1px solid var(--border2);
+  display:flex;align-items:center;padding:0 20px;gap:20px;
+  backdrop-filter:blur(20px);
 }
-#video { width:100%; height:100%; object-fit:cover; display:block; border-radius:22px; }
-#camera-wrap::after {
-  content:''; position:absolute; inset:0; border-radius:22px;
-  background:radial-gradient(ellipse at center,transparent 35%,rgba(0,0,0,0.55) 100%);
-  pointer-events:none; z-index:2;
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{
+  width:28px;height:28px;border:1.5px solid var(--cyan);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;position:relative;
 }
-#scan-overlay { display:none; position:absolute; inset:0; border-radius:22px; z-index:3; pointer-events:none; overflow:hidden; }
-.s-scanning #scan-overlay { display:block; }
-#scan-line-el {
-  position:absolute; left:0; right:0; height:1px;
-  background:linear-gradient(90deg,transparent,rgba(212,168,71,0.7) 40%,rgba(212,168,71,1) 50%,rgba(212,168,71,0.7) 60%,transparent);
-  animation:scanl 2.5s ease-in-out infinite;
+.logo-mark::before{
+  content:'';position:absolute;width:8px;height:8px;background:var(--cyan);border-radius:50%;
+  box-shadow:0 0 12px var(--cyan);
 }
-@keyframes scanl{0%{top:10%;opacity:0}15%{opacity:1}85%{opacity:1}100%{top:90%;opacity:0}}
-#no-cam { display:none; position:absolute; inset:0; align-items:center; justify-content:center; flex-direction:column; gap:8px; z-index:5; }
-#no-cam.show { display:flex; }
-#no-cam p { font-size:11px; color:var(--muted); letter-spacing:0.1em; text-align:center; line-height:1.8; }
+.logo-mark::after{
+  content:'';position:absolute;width:20px;height:20px;border:1px solid rgba(0,200,255,0.3);
+  border-radius:50%;animation:orbit 3s linear infinite;
+}
+@keyframes orbit{to{transform:rotate(360deg)}}
+.logo-text{font-size:15px;font-weight:700;letter-spacing:.25em;color:var(--cyan);text-transform:uppercase}
+.logo-sub{font-size:9px;color:var(--muted);letter-spacing:.15em;font-family:var(--mono)}
 
-/* INSIGHT */
-#insight-pill {
-  margin:8px 14px 0; background:var(--gold-soft); border:1px solid rgba(212,168,71,0.18);
-  border-radius:14px; padding:9px 14px; font-size:11px; color:var(--gold);
-  letter-spacing:0.03em; line-height:1.5; display:none;
-}
-#insight-pill.show { display:block; }
+.topbar-center{flex:1;display:flex;justify-content:center;align-items:center;gap:24px}
+.tb-stat{display:flex;flex-direction:column;align-items:center;gap:1px}
+.tb-val{font-size:14px;font-weight:700;font-family:var(--mono);color:var(--cyan)}
+.tb-lbl{font-size:9px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
 
-/* MY HAND */
-#my-hand { flex-shrink:0; padding:10px 14px 0; display:flex; gap:10px; align-items:stretch; }
-#cards-area { display:flex; gap:5px; align-items:center; }
-.card {
-  width:38px; height:52px; background:var(--surface); border:1px solid var(--border);
-  border-radius:10px; display:flex; align-items:center; justify-content:center;
-  font-family:'Syne',sans-serif; font-size:14px; font-weight:800; transition:all 0.3s ease;
+.tb-time{font-family:var(--mono);font-size:13px;color:var(--text);letter-spacing:.05em}
+.live-badge{
+  display:flex;align-items:center;gap:5px;
+  background:rgba(0,255,157,0.08);border:1px solid rgba(0,255,157,0.2);
+  border-radius:3px;padding:3px 8px;font-size:10px;font-weight:700;
+  color:var(--green);letter-spacing:.1em;text-transform:uppercase;font-family:var(--mono);
 }
-.card.red{color:#e05252} .card.black{color:var(--white)} .card.empty{color:var(--muted2);font-size:20px;font-weight:300}
-#my-info { flex:1; display:flex; flex-direction:column; gap:5px; }
-.info-row {
-  background:var(--surface); border:1px solid var(--border); border-radius:12px;
-  padding:7px 12px; display:flex; align-items:center; justify-content:space-between;
-}
-.info-label { font-size:9px; color:var(--muted); letter-spacing:0.2em; text-transform:uppercase; }
-.info-value { font-family:'Syne',sans-serif; font-size:14px; font-weight:700; color:var(--white); }
-.info-value.gold{color:var(--gold)} .info-value.green{color:var(--green)}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
 
-/* PLAYERS */
-#players-section { flex-shrink:0; padding:10px 14px 0; }
-#players-label { font-size:9px; color:var(--muted); letter-spacing:0.2em; text-transform:uppercase; margin-bottom:7px; }
-#players-scroll { display:flex; gap:8px; overflow-x:auto; padding-bottom:2px; scrollbar-width:none; }
-#players-scroll::-webkit-scrollbar{display:none}
-.player-card {
-  flex-shrink:0; background:var(--surface); border:1px solid var(--border);
-  border-radius:16px; padding:10px 12px; min-width:110px; position:relative; overflow:hidden;
-  transition:border-color 0.3s ease;
+/* LEFT PANEL */
+.panel-left{
+  background:var(--panel);border-right:1px solid var(--border);
+  overflow-y:auto;backdrop-filter:blur(20px);
+  scrollbar-width:none;
 }
-.player-card::before {
-  content:''; position:absolute; top:0; left:0; right:0; height:2px;
-  border-radius:16px 16px 0 0; background:var(--muted2); transition:background 0.3s ease;
-}
-.player-card.aggressive::before{background:var(--red)} .player-card.passive::before{background:var(--green)}
-.player-card.loose::before{background:var(--orange)} .player-card.tight::before{background:var(--blue)}
-.player-card.bluffer::before{background:var(--gold)} 
-.player-card.aggressive{border-color:rgba(224,82,82,0.15)} .player-card.passive{border-color:rgba(76,175,128,0.15)}
-.player-card.loose{border-color:rgba(240,129,74,0.15)} .player-card.tight{border-color:rgba(91,156,246,0.15)}
-.player-card.bluffer{border-color:rgba(212,168,71,0.15)}
-.player-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--white);margin-bottom:2px}
-.player-type{font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.player-card.aggressive .player-type{color:var(--red)} .player-card.passive .player-type{color:var(--green)}
-.player-card.loose .player-type{color:var(--orange)} .player-card.tight .player-type{color:var(--blue)}
-.player-card.bluffer .player-type{color:var(--gold)}
-.player-stat{font-size:9px;color:var(--muted);line-height:1.5}
-.player-stat span{color:#666}
-.player-notes{font-size:8px;color:#444;margin-top:3px;line-height:1.4}
-.player-card-empty {
-  flex-shrink:0; background:transparent; border:1px dashed var(--muted2);
-  border-radius:16px; padding:10px 14px; min-width:90px; display:flex;
-  align-items:center; justify-content:center; color:var(--muted2);
-  font-size:10px; letter-spacing:0.1em; text-align:center; line-height:1.7;
-}
+.panel-left::-webkit-scrollbar{display:none}
 
-/* CONTROLS */
-#controls { flex-shrink:0; padding:10px 14px 28px; display:flex; gap:8px; align-items:center; }
-#btn-analyze {
-  flex:1; height:54px; background:var(--white); color:var(--bg);
-  border:none; border-radius:100px; font-family:'Syne',sans-serif;
-  font-size:13px; font-weight:700; letter-spacing:0.06em; cursor:pointer;
-  transition:all 0.2s ease; position:relative; overflow:hidden;
+/* RIGHT PANEL */
+.panel-right{
+  background:var(--panel);border-left:1px solid var(--border);
+  overflow-y:auto;backdrop-filter:blur(20px);
+  scrollbar-width:none;
 }
-#btn-analyze:active{transform:scale(0.98)}
-#btn-analyze.loading{background:var(--gold);pointer-events:none}
-#btn-auto,#btn-flip {
-  width:54px; height:54px; background:var(--surface); border:1px solid var(--border);
-  border-radius:50%; color:var(--muted); font-size:18px; cursor:pointer;
-  display:flex; align-items:center; justify-content:center; transition:all 0.2s ease; flex-shrink:0;
-}
-#btn-auto.active{border-color:rgba(212,168,71,0.4);color:var(--gold);background:var(--gold-soft)}
-#btn-flip:active{opacity:0.6;transform:scale(0.95)}
+.panel-right::-webkit-scrollbar{display:none}
 
-#capture-canvas{display:none}
-#toast {
-  position:fixed; bottom:110px; left:50%;
-  transform:translateX(-50%) translateY(10px);
-  background:var(--surface2); border:1px solid var(--border);
-  border-radius:100px; padding:8px 18px; font-size:11px;
-  letter-spacing:0.08em; color:#888; opacity:0;
-  transition:all 0.3s cubic-bezier(0.16,1,0.3,1);
-  pointer-events:none; white-space:nowrap; z-index:999;
+/* CENTER MAP */
+.center-map{position:relative;overflow:hidden;background:var(--deep)}
+
+/* PANEL SECTIONS */
+.p-section{padding:16px;border-bottom:1px solid var(--border)}
+.p-title{font-size:9px;color:var(--cyan);letter-spacing:.2em;text-transform:uppercase;font-family:var(--mono);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.p-title::before{content:'';width:3px;height:3px;background:var(--cyan);border-radius:50%;box-shadow:0 0 6px var(--cyan)}
+
+/* SAT LIST */
+.sat-item{
+  display:flex;align-items:center;gap:10px;padding:8px 10px;
+  border-radius:4px;cursor:pointer;transition:all .2s;margin-bottom:4px;
+  border:1px solid transparent;
 }
-#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.sat-item:hover{background:var(--cyan-dim);border-color:var(--border2)}
+.sat-item.active{background:rgba(0,200,255,0.12);border-color:var(--cyan)}
+.sat-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sat-info{flex:1;min-width:0}
+.sat-name{font-size:11px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sat-id{font-size:9px;color:var(--muted);font-family:var(--mono)}
+.sat-alt{font-size:10px;color:var(--cyan);font-family:var(--mono);white-space:nowrap}
+
+/* METRICS */
+.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.metric{
+  background:rgba(0,200,255,0.04);border:1px solid var(--border);
+  border-radius:6px;padding:10px;
+}
+.metric-val{font-size:18px;font-weight:700;font-family:var(--mono);color:var(--cyan);line-height:1}
+.metric-lbl{font-size:9px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:3px}
+.metric.green .metric-val{color:var(--green)}
+.metric.amber .metric-val{color:var(--amber)}
+
+/* DETAIL CARD */
+.detail-card{
+  background:rgba(0,200,255,0.04);border:1px solid var(--border2);
+  border-radius:6px;padding:12px;margin-bottom:8px;
+}
+.detail-name{font-size:13px;font-weight:600;margin-bottom:8px;color:var(--cyan)}
+.detail-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);font-size:11px}
+.detail-row:last-child{border-bottom:none}
+.detail-key{color:var(--muted)}
+.detail-val{font-family:var(--mono);color:var(--text)}
+
+/* SIGNAL BAR */
+.signal-wrap{margin-top:8px}
+.signal-label{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:4px}
+.signal-bar{height:3px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden}
+.signal-fill{height:100%;border-radius:2px;transition:width .5s}
+
+/* ALERT FEED */
+.alert-item{
+  display:flex;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);
+  font-size:11px;
+}
+.alert-item:last-child{border-bottom:none}
+.alert-time{color:var(--muted);font-family:var(--mono);white-space:nowrap;font-size:10px}
+.alert-text{color:var(--text);line-height:1.4}
+.alert-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:3px}
+
+/* GLOBE CANVAS */
+#globe{display:block;width:100%;height:100%}
+
+/* OVERLAY INFO */
+.map-overlay{
+  position:absolute;bottom:16px;left:16px;right:16px;
+  display:flex;justify-content:space-between;align-items:flex-end;
+  pointer-events:none;
+}
+.coord-display{
+  background:rgba(2,8,18,0.85);border:1px solid var(--border2);
+  border-radius:4px;padding:6px 10px;font-family:var(--mono);font-size:10px;
+  color:var(--cyan);backdrop-filter:blur(10px);
+}
+.map-legend{
+  display:flex;flex-direction:column;gap:4px;
+  background:rgba(2,8,18,0.85);border:1px solid var(--border2);
+  border-radius:4px;padding:8px 10px;backdrop-filter:blur(10px);
+}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.legend-dot{width:6px;height:6px;border-radius:50%}
+
+/* ORBIT PATH TOGGLE */
+.map-controls{
+  position:absolute;top:12px;right:12px;display:flex;gap:6px;
+}
+.ctrl-btn{
+  background:rgba(2,8,18,0.85);border:1px solid var(--border2);
+  border-radius:4px;padding:5px 10px;font-size:9px;font-family:var(--mono);
+  color:var(--muted);cursor:pointer;letter-spacing:.08em;text-transform:uppercase;
+  transition:all .15s;pointer-events:all;
+}
+.ctrl-btn:hover{border-color:var(--cyan);color:var(--cyan)}
+.ctrl-btn.active{border-color:var(--cyan);color:var(--cyan);background:var(--cyan-dim)}
+
+/* PASS TIMELINE */
+.timeline{margin-top:8px}
+.tl-item{display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);font-size:10px}
+.tl-item:last-child{border-bottom:none}
+.tl-time{font-family:var(--mono);color:var(--cyan);width:50px;flex-shrink:0}
+.tl-sat{color:var(--text);flex:1}
+.tl-dur{color:var(--muted);font-family:var(--mono)}
+.tl-el{color:var(--green);font-family:var(--mono);width:30px;text-align:right}
+
+/* FREQUENCY SPECTRUM */
+.spectrum{
+  height:48px;background:rgba(0,200,255,0.03);border:1px solid var(--border);
+  border-radius:4px;overflow:hidden;position:relative;margin-top:8px;
+}
+.spectrum canvas{display:block}
+
+/* AIS DATA */
+.ais-item{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:10px}
+.ais-item:last-child{border-bottom:none}
+.ais-name{color:var(--text);font-weight:500}
+.ais-pos{color:var(--muted);font-family:var(--mono)}
+.ais-speed{color:var(--amber);font-family:var(--mono)}
+
+@media(max-width:900px){
+  .layout{grid-template-columns:0 1fr 0}
+  .panel-left,.panel-right{display:none}
+}
 </style>
 </head>
 <body>
-<div id="app" class="s-waiting">
 
-  <div id="header">
-    <div id="decision-chip">
-      <div id="decision-dot"></div>
-      <span id="decision-chip-text">EN ATTENTE</span>
-      <span id="confidence-badge"></span>
-    </div>
-    <div id="decision-main">—</div>
-    <div id="decision-reason">Pointe ta caméra vers la table de poker</div>
-  </div>
+<canvas id="stars"></canvas>
+<div class="scanline"></div>
 
-  <div id="camera-wrap">
-    <video id="video" autoplay playsinline muted></video>
-    <canvas id="capture-canvas"></canvas>
-    <div id="scan-overlay"><div id="scan-line-el"></div></div>
-    <div id="no-cam"><p>Caméra non disponible<br>Vérifie les permissions Safari</p></div>
-  </div>
+<div class="layout">
 
-  <div id="insight-pill"></div>
-
-  <div id="my-hand">
-    <div id="cards-area">
-      <div class="card empty" id="card1">?</div>
-      <div class="card empty" id="card2">?</div>
-    </div>
-    <div id="my-info">
-      <div class="info-row">
-        <span class="info-label">Mon stack</span>
-        <span class="info-value gold" id="my-stack">—</span>
-      </div>
-      <div class="info-row">
-        <span class="info-label">Pot · Ma mise</span>
-        <span class="info-value" id="pot-info">— · —</span>
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="logo">
+      <div class="logo-mark"></div>
+      <div>
+        <div class="logo-text">Orbital</div>
+        <div class="logo-sub">Intelligence System v3.1</div>
       </div>
     </div>
-  </div>
-
-  <div id="players-section">
-    <div id="players-label">Joueurs à la table</div>
-    <div id="players-scroll">
-      <div class="player-card-empty">Aucun<br>joueur<br>détecté</div>
+    <div class="topbar-center">
+      <div class="tb-stat"><div class="tb-val" id="tb-sats">847</div><div class="tb-lbl">Satellites actifs</div></div>
+      <div class="tb-stat"><div class="tb-val" id="tb-ships">12,483</div><div class="tb-lbl">Navires AIS</div></div>
+      <div class="tb-stat"><div class="tb-val" id="tb-alerts">3</div><div class="tb-lbl">Alertes actives</div></div>
+      <div class="tb-stat"><div class="tb-val" id="tb-cov" style="color:var(--green)">94.2%</div><div class="tb-lbl">Couverture globale</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="live-badge"><span class="live-dot"></span>Live</div>
+      <div class="tb-time" id="utc-clock">00:00:00 UTC</div>
     </div>
   </div>
 
-  <div id="controls">
-    <button id="btn-flip" onclick="flipCamera()">⟳</button>
-    <button id="btn-analyze" onclick="analyzeNow()">Analyser la table</button>
-    <button id="btn-auto" onclick="toggleAuto()">⚡</button>
+  <!-- LEFT PANEL -->
+  <div class="panel-left">
+
+    <!-- SATELLITES LIST -->
+    <div class="p-section">
+      <div class="p-title">Satellites en vue</div>
+      <div id="sat-list"></div>
+    </div>
+
+    <!-- NEXT PASSES -->
+    <div class="p-section">
+      <div class="p-title">Prochains passages</div>
+      <div class="timeline" id="pass-list"></div>
+    </div>
+
+    <!-- METRICS -->
+    <div class="p-section">
+      <div class="p-title">Métriques système</div>
+      <div class="metric-grid">
+        <div class="metric"><div class="metric-val" id="m-lat" style="font-size:13px">45.50°N</div><div class="metric-lbl">Latitude ref.</div></div>
+        <div class="metric"><div class="metric-val" id="m-lon" style="font-size:13px">73.57°W</div><div class="metric-lbl">Longitude ref.</div></div>
+        <div class="metric green"><div class="metric-val" id="m-tracked">23</div><div class="metric-lbl">Suivis actifs</div></div>
+        <div class="metric amber"><div class="metric-val" id="m-debris">412</div><div class="metric-lbl">Débris trackés</div></div>
+      </div>
+    </div>
+
+    <!-- SIGNAL SPECTRUM -->
+    <div class="p-section">
+      <div class="p-title">Spectre signal reçu</div>
+      <div class="spectrum"><canvas id="spectrum-canvas" width="248" height="48"></canvas></div>
+    </div>
+
   </div>
 
+  <!-- CENTER: GLOBE -->
+  <div class="center-map">
+    <canvas id="globe"></canvas>
+    <div class="map-controls">
+      <button class="ctrl-btn active" onclick="toggleLayer('orbits',this)">Orbites</button>
+      <button class="ctrl-btn active" onclick="toggleLayer('ais',this)">AIS</button>
+      <button class="ctrl-btn" onclick="toggleLayer('grid',this)">Grille</button>
+      <button class="ctrl-btn" onclick="toggleLayer('terminator',this)">Terminateur</button>
+    </div>
+    <div class="map-overlay">
+      <div class="coord-display" id="coord-display">LAT — · LON —</div>
+      <div class="map-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#00c8ff"></div>Satellite LEO</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#00ff9d"></div>Station ISS</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ffb800"></div>Satellite MEO</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ff3d5a"></div>Alerte collision</div>
+        <div class="legend-item"><div class="legend-dot" style="background:rgba(255,255,255,0.4)"></div>Navire AIS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="panel-right">
+
+    <!-- SELECTED SAT DETAIL -->
+    <div class="p-section">
+      <div class="p-title">Satellite sélectionné</div>
+      <div id="sat-detail">
+        <div style="color:var(--muted);font-size:11px;text-align:center;padding:16px 0">
+          Clique sur un satellite
+        </div>
+      </div>
+    </div>
+
+    <!-- AIS SHIPS -->
+    <div class="p-section">
+      <div class="p-title">Navires AIS — Anomalies détectées</div>
+      <div id="ais-list"></div>
+    </div>
+
+    <!-- ALERT FEED -->
+    <div class="p-section">
+      <div class="p-title">Journal d'événements</div>
+      <div id="alert-feed"></div>
+    </div>
+
+    <!-- COMMODITIES -->
+    <div class="p-section">
+      <div class="p-title">Signaux commodités (AIS→Prix)</div>
+      <div id="commodity-signals"></div>
+    </div>
+
+  </div>
 </div>
-<div id="toast"></div>
 
 <script>
-const app = document.getElementById('app');
-const video = document.getElementById('video');
-const canvas = document.getElementById('capture-canvas');
-const noCam = document.getElementById('no-cam');
-
-let stream = null, facingMode = 'environment';
-let autoMode = false, autoTimer = null, isAnalyzing = false;
-
-let session = {
-  scans:0, hands:0,
-  players:{}, // id -> {type,notes,hands,lastAction,stack}
-  history:[], myStack:null
-};
-
-async function startCamera() {
-  try {
-    if (stream) stream.getTracks().forEach(t=>t.stop());
-    stream = await navigator.mediaDevices.getUserMedia({
-      video:{facingMode,width:{ideal:1280},height:{ideal:720}}, audio:false
+// ══════════════════════════════════════
+// STARFIELD
+// ══════════════════════════════════════
+const starsCanvas=document.getElementById('stars');
+const sCtx=starsCanvas.getContext('2d');
+let stars=[];
+function initStars(){
+  starsCanvas.width=window.innerWidth;
+  starsCanvas.height=window.innerHeight;
+  stars=[];
+  for(let i=0;i<300;i++){
+    stars.push({
+      x:Math.random()*starsCanvas.width,
+      y:Math.random()*starsCanvas.height,
+      r:Math.random()*1.2,
+      a:Math.random(),
+      speed:Math.random()*0.003+0.001
     });
-    video.srcObject = stream;
-    video.style.transform = facingMode==='user' ? 'scaleX(-1)' : 'scaleX(1)';
-    noCam.classList.remove('show');
-  } catch(e) {
-    noCam.classList.add('show');
-    toast('Accès caméra refusé');
   }
 }
+function drawStars(){
+  sCtx.clearRect(0,0,starsCanvas.width,starsCanvas.height);
+  stars.forEach(s=>{
+    s.a+=s.speed;
+    const alpha=0.3+Math.sin(s.a)*0.3;
+    sCtx.beginPath();
+    sCtx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    sCtx.fillStyle=`rgba(200,230,255,${alpha})`;
+    sCtx.fill();
+  });
+  requestAnimationFrame(drawStars);
+}
+initStars();
+drawStars();
+window.addEventListener('resize',initStars);
 
-function flipCamera() {
-  facingMode = facingMode==='environment' ? 'user' : 'environment';
-  if (stream) startCamera();
+// ══════════════════════════════════════
+// UTC CLOCK
+// ══════════════════════════════════════
+function updateClock(){
+  const now=new Date();
+  const h=String(now.getUTCHours()).padStart(2,'0');
+  const m=String(now.getUTCMinutes()).padStart(2,'0');
+  const s=String(now.getUTCSeconds()).padStart(2,'0');
+  document.getElementById('utc-clock').textContent=`${h}:${m}:${s} UTC`;
+}
+setInterval(updateClock,1000);
+updateClock();
+
+// ══════════════════════════════════════
+// SATELLITE DATA (simulé réaliste)
+// ══════════════════════════════════════
+const SAT_TYPES=[
+  {name:'ISS (ZARYA)',id:'25544',type:'iss',color:'#00ff9d',alt:408,inc:51.6},
+  {name:'STARLINK-1234',id:'48274',type:'leo',color:'#00c8ff',alt:550,inc:53.0},
+  {name:'STARLINK-2891',id:'49832',type:'leo',color:'#00c8ff',alt:550,inc:53.0},
+  {name:'NOAA-19',id:'33591',type:'leo',color:'#00c8ff',alt:870,inc:99.1},
+  {name:'TERRA',id:'25994',type:'leo',color:'#00a8ff',alt:705,inc:98.2},
+  {name:'SENTINEL-2A',id:'40697',type:'leo',color:'#0088ff',alt:786,inc:98.6},
+  {name:'GPS BIIF-3',id:'40294',type:'meo',color:'#ffb800',alt:20200,inc:55.0},
+  {name:'GOES-16',id:'41866',type:'geo',color:'#ff8800',alt:35786,inc:0.1},
+  {name:'IRIDIUM-117',id:'43478',type:'leo',color:'#00c8ff',alt:780,inc:86.4},
+  {name:'AQUA',id:'27424',type:'leo',color:'#00a8ff',alt:705,inc:98.2},
+  {name:'LANDSAT-8',id:'39084',type:'leo',color:'#0088ff',alt:705,inc:98.2},
+  {name:'DEBRIS-2007-001',id:'29228',type:'debris',color:'#ff3d5a',alt:800,inc:98.5},
+];
+
+let satellites=SAT_TYPES.map((s,i)=>({
+  ...s,
+  lat:(Math.random()-0.5)*180,
+  lon:(Math.random()-0.5)*360,
+  vel:Math.random()*2+6,
+  azimuth:Math.random()*360,
+  elevation:Math.random()*90,
+  signal:0.4+Math.random()*0.6,
+  selected:false,
+  orbitPhase:Math.random()*Math.PI*2,
+  orbitSpeed:0.001+Math.random()*0.002,
+}));
+
+let selectedSat=null;
+
+function updateSatPositions(){
+  satellites.forEach(s=>{
+    s.orbitPhase+=s.orbitSpeed;
+    s.lat=Math.sin(s.orbitPhase)*s.inc*0.9;
+    s.lon=(s.lon+0.08*(7800/s.alt))%360;
+    if(s.lon>180) s.lon-=360;
+    s.elevation=Math.max(0,Math.random()*20-5+Math.abs(s.lat)*0.3);
+    s.signal=Math.max(0.1,Math.min(1,s.signal+(Math.random()-0.5)*0.05));
+  });
 }
 
-startCamera();
-
-function captureFrame() {
-  const w = video.videoWidth||640, h = video.videoHeight||480;
-  canvas.width=w; canvas.height=h;
-  const ctx = canvas.getContext('2d');
-  if (facingMode==='user') { ctx.translate(w,0); ctx.scale(-1,1); }
-  ctx.drawImage(video,0,0,w,h);
-  return canvas.toDataURL('image/jpeg',0.85).split(',')[1];
+// ══════════════════════════════════════
+// RENDER SAT LIST
+// ══════════════════════════════════════
+function renderSatList(){
+  const el=document.getElementById('sat-list');
+  const visible=satellites.filter(s=>s.elevation>5).slice(0,8);
+  el.innerHTML=visible.map(s=>`
+    <div class="sat-item ${selectedSat===s.id?'active':''}" onclick="selectSat('${s.id}')">
+      <div class="sat-dot" style="background:${s.color};box-shadow:0 0 6px ${s.color}"></div>
+      <div class="sat-info">
+        <div class="sat-name">${s.name}</div>
+        <div class="sat-id">${s.id} · El: ${s.elevation.toFixed(1)}°</div>
+      </div>
+      <div class="sat-alt">${s.alt}km</div>
+    </div>
+  `).join('');
 }
 
-async function analyzeNow() {
-  if (isAnalyzing) return;
-  if (!stream) { await startCamera(); return; }
-  isAnalyzing=true;
-  setState('s-scanning');
-  setUI('LECTURE…','','');
-  setBtnLoading(true);
-  const img = captureFrame();
-  session.scans++;
+// ══════════════════════════════════════
+// SELECT SATELLITE
+// ══════════════════════════════════════
+function selectSat(id){
+  selectedSat=id;
+  const s=satellites.find(x=>x.id===id);
+  if(!s) return;
+  document.getElementById('sat-detail').innerHTML=`
+    <div class="detail-card">
+      <div class="detail-name" style="color:${s.color}">${s.name}</div>
+      <div class="detail-row"><span class="detail-key">NORAD ID</span><span class="detail-val">${s.id}</span></div>
+      <div class="detail-row"><span class="detail-key">Latitude</span><span class="detail-val">${s.lat.toFixed(4)}°</span></div>
+      <div class="detail-row"><span class="detail-key">Longitude</span><span class="detail-val">${s.lon.toFixed(4)}°</span></div>
+      <div class="detail-row"><span class="detail-key">Altitude</span><span class="detail-val">${s.alt} km</span></div>
+      <div class="detail-row"><span class="detail-key">Vitesse</span><span class="detail-val">${s.vel.toFixed(2)} km/s</span></div>
+      <div class="detail-row"><span class="detail-key">Élévation</span><span class="detail-val">${s.elevation.toFixed(1)}°</span></div>
+      <div class="detail-row"><span class="detail-key">Azimuth</span><span class="detail-val">${s.azimuth.toFixed(1)}°</span></div>
+      <div class="detail-row"><span class="detail-key">Inclinaison</span><span class="detail-val">${s.inc}°</span></div>
+    </div>
+    <div class="signal-wrap">
+      <div class="signal-label"><span>Signal</span><span style="color:${s.color}">${(s.signal*100).toFixed(0)}%</span></div>
+      <div class="signal-bar"><div class="signal-fill" style="width:${s.signal*100}%;background:${s.color}"></div></div>
+    </div>
+  `;
+  renderSatList();
+}
 
-  const playersCtx = Object.keys(session.players).length>0
-    ? '\nJOUEURS TRACKÉS:\n'+Object.entries(session.players).map(([n,p])=>
-        `  ${n}: type=${p.type}, mains=${p.hands}, dernière action=${p.lastAction||'?'}, notes="${p.notes}"`
-      ).join('\n')
-    : '\nAucun joueur tracké.';
+// ══════════════════════════════════════
+// NEXT PASSES
+// ══════════════════════════════════════
+const PASSES=[
+  {time:'02:14',sat:'ISS (ZARYA)',dur:'6m 32s',el:'82°'},
+  {time:'03:48',sat:'NOAA-19',dur:'4m 18s',el:'45°'},
+  {time:'05:22',sat:'SENTINEL-2A',dur:'7m 01s',el:'71°'},
+  {time:'06:15',sat:'TERRA',dur:'3m 44s',el:'38°'},
+  {time:'07:33',sat:'ISS (ZARYA)',dur:'5m 55s',el:'67°'},
+];
+function renderPasses(){
+  document.getElementById('pass-list').innerHTML=PASSES.map(p=>`
+    <div class="tl-item">
+      <div class="tl-time">${p.time}</div>
+      <div class="tl-sat">${p.sat}</div>
+      <div class="tl-dur" style="color:var(--muted)">${p.dur}</div>
+      <div class="tl-el">${p.el}</div>
+    </div>
+  `).join('');
+}
+renderPasses();
 
-  const histCtx = session.history.length>0
-    ? '\nDERNIÈRES DÉCISIONS:\n'+session.history.slice(-4).map(h=>`  ${h.decision} — ${h.sit}`).join('\n')
-    : '';
+// ══════════════════════════════════════
+// AIS SHIPS
+// ══════════════════════════════════════
+const AIS_SHIPS=[
+  {name:'EVER GIVEN',pos:'30.5°N 32.3°E',speed:'3.2 kn',flag:'anomalie vitesse'},
+  {name:'MSC GÜLSÜN',pos:'1.2°N 103.8°E',speed:'0.0 kn',flag:'arrêt suspect'},
+  {name:'CSCL GLOBE',pos:'25.8°N 56.2°E',speed:'14.1 kn',flag:'signal AIS coupé'},
+  {name:'OOCL HONG KONG',pos:'22.3°N 114.2°E',speed:'8.7 kn',flag:'changement route'},
+  {name:'UNKNOWN-4821',pos:'35.2°N 25.1°E',speed:'18.3 kn',flag:'non identifié'},
+];
+function renderAIS(){
+  document.getElementById('ais-list').innerHTML=AIS_SHIPS.map(s=>`
+    <div class="ais-item">
+      <div>
+        <div class="ais-name">${s.name}</div>
+        <div style="font-size:9px;color:var(--red);margin-top:1px">${s.flag}</div>
+      </div>
+      <div style="text-align:right">
+        <div class="ais-speed">${s.speed}</div>
+        <div class="ais-pos">${s.pos}</div>
+      </div>
+    </div>
+  `).join('');
+}
+renderAIS();
 
-  const prompt = `Tu es un coach poker d'élite niveau GTO + exploitative. Tu analyses une image d'une table de poker filmée en direct avec une caméra iPhone.
+// ══════════════════════════════════════
+// ALERT FEED
+// ══════════════════════════════════════
+const ALERTS=[
+  {time:'03:42',text:'Conjunction alert: DEBRIS-2007-001 ↔ ISS — distance 2.3km',dot:'#ff3d5a'},
+  {time:'03:38',text:'NOAA-19 signal nominal — pass complete',dot:'#00ff9d'},
+  {time:'03:21',text:'AIS anomaly: UNKNOWN-4821 transponder off 14min',dot:'#ffb800'},
+  {time:'03:15',text:'SENTINEL-2A image acquisition: zone Niger Delta',dot:'#00c8ff'},
+  {time:'02:58',text:'Solar flux index: 148.2 SFU — elevated',dot:'#ffb800'},
+  {time:'02:44',text:'ISS maneuver complete — new orbit 408.2km',dot:'#00ff9d'},
+];
+function renderAlerts(){
+  document.getElementById('alert-feed').innerHTML=ALERTS.map(a=>`
+    <div class="alert-item">
+      <div class="alert-dot" style="background:${a.dot};box-shadow:0 0 4px ${a.dot}"></div>
+      <div class="alert-time">${a.time}</div>
+      <div class="alert-text">${a.text}</div>
+    </div>
+  `).join('');
+}
+renderAlerts();
 
-CONTEXTE SESSION:${playersCtx}${histCtx}
-Stack précédemment détecté: ${session.myStack||'inconnu'}
+// ══════════════════════════════════════
+// COMMODITY SIGNALS
+// ══════════════════════════════════════
+const COMMODITIES=[
+  {name:'Pétrole WTI',signal:'↑ +12 tankers Golfe Persique',change:'+2.1%',color:'#00ff9d'},
+  {name:'Gaz naturel',signal:'↓ LNG carriers en attente Houston',change:'-0.8%',color:'#ff3d5a'},
+  {name:'Blé',signal:'→ Trafic Black Sea normal',change:'+0.2%',color:'#ffb800'},
+  {name:'Cuivre',signal:'↑ Bulk carriers Chili ×3 semaines',change:'+1.4%',color:'#00ff9d'},
+];
+function renderCommodities(){
+  document.getElementById('commodity-signals').innerHTML=COMMODITIES.map(c=>`
+    <div style="padding:7px 0;border-bottom:1px solid var(--border)">
+      <div style="display:flex;justify-content:space-between;margin-bottom:2px">
+        <span style="font-size:11px;font-weight:500">${c.name}</span>
+        <span style="font-size:11px;font-family:var(--mono);color:${c.color}">${c.change}</span>
+      </div>
+      <div style="font-size:9px;color:var(--muted)">${c.signal}</div>
+    </div>
+  `).join('');
+}
+renderCommodities();
 
-Analyse l'image avec attention maximale. Réponds UNIQUEMENT en JSON valide, zéro texte avant/après:
-{
-  "gameDetected": boolean,
-  "decision": "FOLD"|"CALL"|"RAISE"|"CHECK"|"ALL-IN"|"WAIT"|"NO GAME",
-  "decisionDetail": "ex: raise 2.5x" ou null,
-  "confidence": 0-100,
-  "reasoning": "explication directe en français max 2 phrases",
-  "myCards": ["As","Kd"] ou null,
-  "boardCards": ["7h","8c","Qd"] ou null,
-  "myStack": "ex: $245" ou null,
-  "myBet": "ex: $40" ou null,
-  "pot": "ex: $120" ou null,
-  "position": "BTN"|"SB"|"BB"|"UTG"|"MP"|"CO" ou null,
-  "handStrength": "ex: top pair top kicker" ou null,
-  "potOdds": "ex: 28%" ou null,
-  "equity": "ex: ~65%" ou null,
-  "newHand": boolean,
-  "insight": "observation psychologique clé sur un joueur ou la table" ou null,
-  "players": [
-    {
-      "id": "Joueur 1"|"Joueur 2" etc,
-      "type": "aggressive"|"passive"|"loose"|"tight"|"bluffer"|"unknown",
-      "stack": "$320" ou null,
-      "lastAction": "ex: 3-bet préflop",
-      "notes": "comportement observé en 1 phrase courte"
+// ══════════════════════════════════════
+// SPECTRUM ANALYZER
+// ══════════════════════════════════════
+const specCanvas=document.getElementById('spectrum-canvas');
+const specCtx=specCanvas.getContext('2d');
+let specData=new Array(124).fill(0).map(()=>Math.random()*30+5);
+function drawSpectrum(){
+  specCtx.clearRect(0,0,248,48);
+  const grad=specCtx.createLinearGradient(0,0,0,48);
+  grad.addColorStop(0,'rgba(0,200,255,0.9)');
+  grad.addColorStop(1,'rgba(0,200,255,0.1)');
+  specCtx.fillStyle=grad;
+  specData.forEach((v,i)=>{
+    specData[i]=Math.max(5,Math.min(42,v+(Math.random()-0.5)*4));
+    const h=specData[i];
+    specCtx.fillRect(i*2,48-h,1.5,h);
+  });
+  // Occasional spike
+  if(Math.random()<0.05){
+    const si=Math.floor(Math.random()*124);
+    specData[si]=40+Math.random()*8;
+  }
+}
+setInterval(drawSpectrum,80);
+
+// ══════════════════════════════════════
+// GLOBE RENDERER
+// ══════════════════════════════════════
+const globe=document.getElementById('globe');
+const gCtx=globe.getContext('2d');
+let layers={orbits:true,ais:true,grid:false,terminator:false};
+let rotation=0;
+let mouseX=0, mouseY=0;
+let isDragging=false;
+let dragStartX=0;
+let dragRotation=0;
+
+function resizeGlobe(){
+  const container=globe.parentElement;
+  globe.width=container.clientWidth;
+  globe.height=container.clientHeight;
+}
+resizeGlobe();
+window.addEventListener('resize',resizeGlobe);
+
+globe.addEventListener('mousemove',e=>{
+  const rect=globe.getBoundingClientRect();
+  mouseX=e.clientX-rect.left;
+  mouseY=e.clientY-rect.top;
+  if(isDragging){
+    rotation=dragRotation+(e.clientX-dragStartX)*0.3;
+  }
+  // Update coord display
+  const cx=globe.width/2, cy=globe.height/2;
+  const R=Math.min(cx,cy)*0.78;
+  const dx=mouseX-cx, dy=mouseY-cy;
+  const dist=Math.sqrt(dx*dx+dy*dy);
+  if(dist<R){
+    const lat=Math.asin(dy/R)*180/Math.PI*-1;
+    const lon=Math.asin(Math.min(1,dx/Math.sqrt(R*R-dy*dy)))*180/Math.PI;
+    document.getElementById('coord-display').textContent=
+      `LAT ${lat.toFixed(2)}° · LON ${lon.toFixed(2)}°`;
+  }
+});
+globe.addEventListener('mousedown',e=>{isDragging=true;dragStartX=e.clientX;dragRotation=rotation;});
+globe.addEventListener('mouseup',()=>isDragging=false);
+
+function toggleLayer(name,btn){
+  layers[name]=!layers[name];
+  btn.classList.toggle('active',layers[name]);
+}
+
+// World map outline points (simplified coastlines)
+const LAND_OUTLINES=[
+  // North America outline (simplified)
+  [[0.15,-0.45],[0.22,-0.43],[0.28,-0.40],[0.30,-0.35],[0.27,-0.28],[0.20,-0.22],[0.15,-0.18],[0.10,-0.20],[0.05,-0.25],[0.08,-0.32],[0.12,-0.38]],
+  // Europe
+  [[0.52,-0.65],[0.55,-0.62],[0.58,-0.58],[0.55,-0.54],[0.50,-0.52],[0.48,-0.55],[0.50,-0.60]],
+  // Africa
+  [[0.48,-0.35],[0.52,-0.30],[0.54,-0.20],[0.52,-0.05],[0.48,0.08],[0.44,0.12],[0.40,0.08],[0.38,-0.05],[0.40,-0.20],[0.44,-0.30]],
+  // Asia
+  [[0.58,-0.58],[0.65,-0.55],[0.72,-0.50],[0.78,-0.45],[0.82,-0.38],[0.80,-0.30],[0.75,-0.25],[0.70,-0.28],[0.65,-0.35],[0.60,-0.45]],
+  // Australia
+  [[0.78,0.15],[0.82,0.12],[0.85,0.18],[0.82,0.25],[0.78,0.28],[0.74,0.22],[0.72,0.15],[0.75,0.10]],
+  // South America
+  [[0.28,-0.12],[0.32,-0.08],[0.30,0.05],[0.25,0.20],[0.22,0.30],[0.20,0.22],[0.18,0.10],[0.20,-0.05],[0.24,-0.10]],
+];
+
+// AIS ship positions (random ships on ocean)
+let aisShips=[];
+for(let i=0;i<80;i++){
+  aisShips.push({
+    lon:(Math.random()-0.5)*360,
+    lat:(Math.random()-0.5)*120,
+    speed:Math.random()*20,
+    anomaly:Math.random()<0.05
+  });
+}
+
+function drawGlobe(){
+  const W=globe.width, H=globe.height;
+  const cx=W/2, cy=H/2;
+  const R=Math.min(cx,cy)*0.78;
+
+  gCtx.clearRect(0,0,W,H);
+
+  // Background glow
+  const bgGrad=gCtx.createRadialGradient(cx,cy,R*0.3,cx,cy,R*1.2);
+  bgGrad.addColorStop(0,'rgba(0,30,60,0.4)');
+  bgGrad.addColorStop(1,'rgba(0,10,20,0)');
+  gCtx.fillStyle=bgGrad;
+  gCtx.fillRect(0,0,W,H);
+
+  // Globe base
+  const globeGrad=gCtx.createRadialGradient(cx-R*0.2,cy-R*0.2,R*0.1,cx,cy,R);
+  globeGrad.addColorStop(0,'rgba(0,40,80,0.9)');
+  globeGrad.addColorStop(0.5,'rgba(0,20,45,0.95)');
+  globeGrad.addColorStop(1,'rgba(0,5,15,1)');
+  gCtx.beginPath();
+  gCtx.arc(cx,cy,R,0,Math.PI*2);
+  gCtx.fillStyle=globeGrad;
+  gCtx.fill();
+
+  // Globe border glow
+  gCtx.beginPath();
+  gCtx.arc(cx,cy,R,0,Math.PI*2);
+  gCtx.strokeStyle='rgba(0,200,255,0.3)';
+  gCtx.lineWidth=1.5;
+  gCtx.stroke();
+  gCtx.strokeStyle='rgba(0,200,255,0.08)';
+  gCtx.lineWidth=8;
+  gCtx.stroke();
+
+  // Clip to globe
+  gCtx.save();
+  gCtx.beginPath();
+  gCtx.arc(cx,cy,R-1,0,Math.PI*2);
+  gCtx.clip();
+
+  // GRID
+  if(layers.grid){
+    gCtx.strokeStyle='rgba(0,200,255,0.07)';
+    gCtx.lineWidth=0.5;
+    for(let lat=-80;lat<=80;lat+=20){
+      gCtx.beginPath();
+      for(let lon=-180;lon<=180;lon+=2){
+        const p=project(lat,lon,cx,cy,R,rotation);
+        if(p.visible){
+          if(lon===-180) gCtx.moveTo(p.x,p.y);
+          else gCtx.lineTo(p.x,p.y);
+        }
+      }
+      gCtx.stroke();
     }
-  ]
-}`;
-
-  try {
-    const resp = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1200,
-        messages:[{role:'user',content:[
-          {type:'image',source:{type:'base64',media_type:'image/jpeg',data:img}},
-          {type:'text',text:prompt}
-        ]}]
-      })
-    });
-    const data = await resp.json();
-    const raw = data.content?.[0]?.text||'{}';
-    const r = JSON.parse(raw.replace(/```json|```/g,'').trim());
-    processResult(r);
-  } catch(e) {
-    setState('s-waiting');
-    setUI('ERREUR','','Réessaie dans un instant');
-    console.error(e);
+    for(let lon=-180;lon<=180;lon+=30){
+      gCtx.beginPath();
+      for(let lat=-90;lat<=90;lat+=2){
+        const p=project(lat,lon,cx,cy,R,rotation);
+        if(p.visible){
+          if(lat===-90) gCtx.moveTo(p.x,p.y);
+          else gCtx.lineTo(p.x,p.y);
+        }
+      }
+      gCtx.stroke();
+    }
   }
-  isAnalyzing=false;
-  setBtnLoading(false);
+
+  // LAND MASSES (simplified)
+  drawLand(cx,cy,R);
+
+  // TERMINATOR (day/night)
+  if(layers.terminator){
+    const now=new Date();
+    const dayAngle=(now.getUTCHours()*3600+now.getUTCMinutes()*60+now.getUTCSeconds())/86400*360-180;
+    gCtx.fillStyle='rgba(0,0,0,0.35)';
+    gCtx.beginPath();
+    for(let lat=-90;lat<=90;lat+=2){
+      const termLon=dayAngle+90;
+      const p=project(lat,termLon,cx,cy,R,rotation);
+      if(lat===-90) gCtx.moveTo(p.x,p.y);
+      else gCtx.lineTo(p.x,p.y);
+    }
+    gCtx.lineTo(cx+R,cy+R);gCtx.lineTo(cx-R,cy+R);
+    gCtx.closePath();
+    gCtx.fill();
+  }
+
+  // EQUATOR line
+  gCtx.strokeStyle='rgba(0,200,255,0.15)';
+  gCtx.lineWidth=0.8;
+  gCtx.beginPath();
+  let first=true;
+  for(let lon=-180;lon<=180;lon+=2){
+    const p=project(0,lon,cx,cy,R,rotation);
+    if(p.visible){
+      if(first){gCtx.moveTo(p.x,p.y);first=false;}
+      else gCtx.lineTo(p.x,p.y);
+    } else first=true;
+  }
+  gCtx.stroke();
+
+  // AIS SHIPS
+  if(layers.ais){
+    aisShips.forEach(ship=>{
+      const p=project(ship.lat,ship.lon,cx,cy,R,rotation);
+      if(!p.visible) return;
+      gCtx.beginPath();
+      gCtx.arc(p.x,p.y,ship.anomaly?2.5:1.5,0,Math.PI*2);
+      gCtx.fillStyle=ship.anomaly?'rgba(255,184,0,0.9)':'rgba(255,255,255,0.35)';
+      if(ship.anomaly) gCtx.shadowColor='#ffb800',gCtx.shadowBlur=6;
+      gCtx.fill();
+      gCtx.shadowBlur=0;
+    });
+  }
+
+  // SATELLITE ORBITS & POSITIONS
+  satellites.forEach(s=>{
+    const p=project(s.lat,s.lon,cx,cy,R,rotation);
+
+    // Orbit path
+    if(layers.orbits&&s.type!=='geo'&&s.type!=='debris'){
+      gCtx.beginPath();
+      let firstOrbit=true;
+      for(let lon2=-180;lon2<=180;lon2+=3){
+        const lat2=Math.sin(s.orbitPhase+(lon2-s.lon)*0.02)*s.inc*0.9;
+        const op=project(lat2,lon2,cx,cy,R,rotation);
+        if(op.visible){
+          if(firstOrbit){gCtx.moveTo(op.x,op.y);firstOrbit=false;}
+          else gCtx.lineTo(op.x,op.y);
+        } else firstOrbit=true;
+      }
+      gCtx.strokeStyle=s.color.replace(')',',0.15)').replace('rgb','rgba').replace('#','rgba(')
+        .replace('rgba(','').replace(')','');
+      // Simpler approach
+      gCtx.strokeStyle=hexToRgba(s.color,0.12);
+      gCtx.lineWidth=0.8;
+      gCtx.stroke();
+    }
+
+    // Satellite dot
+    if(!p.visible) return;
+    const isSelected=selectedSat===s.id;
+    const dotR=s.type==='iss'?5:s.type==='debris'?2:3;
+    gCtx.beginPath();
+    gCtx.arc(p.x,p.y,dotR+(isSelected?2:0),0,Math.PI*2);
+    gCtx.fillStyle=s.color;
+    gCtx.shadowColor=s.color;
+    gCtx.shadowBlur=isSelected?20:8;
+    gCtx.fill();
+    gCtx.shadowBlur=0;
+
+    // Label for selected or ISS
+    if(isSelected||s.type==='iss'){
+      gCtx.fillStyle=s.color;
+      gCtx.font=`${isSelected?'700 ':''} 9px 'Space Mono'`;
+      gCtx.fillText(s.name.split(' ')[0],p.x+7,p.y-5);
+      if(isSelected){
+        gCtx.strokeStyle=hexToRgba(s.color,0.3);
+        gCtx.lineWidth=1;
+        gCtx.beginPath();
+        gCtx.arc(p.x,p.y,12,0,Math.PI*2);
+        gCtx.stroke();
+      }
+    }
+  });
+
+  gCtx.restore();
+
+  // Atmosphere glow
+  const atmGrad=gCtx.createRadialGradient(cx,cy,R*0.95,cx,cy,R*1.08);
+  atmGrad.addColorStop(0,'rgba(0,200,255,0.06)');
+  atmGrad.addColorStop(1,'rgba(0,200,255,0)');
+  gCtx.beginPath();
+  gCtx.arc(cx,cy,R*1.08,0,Math.PI*2);
+  gCtx.fillStyle=atmGrad;
+  gCtx.fill();
+
+  // Specular highlight
+  const specGrad=gCtx.createRadialGradient(cx-R*0.35,cy-R*0.35,0,cx-R*0.35,cy-R*0.35,R*0.5);
+  specGrad.addColorStop(0,'rgba(255,255,255,0.04)');
+  specGrad.addColorStop(1,'rgba(255,255,255,0)');
+  gCtx.beginPath();
+  gCtx.arc(cx,cy,R,0,Math.PI*2);
+  gCtx.fillStyle=specGrad;
+  gCtx.fill();
+
+  // Auto-rotate when not dragging
+  if(!isDragging) rotation+=0.05;
 }
 
-function processResult(r) {
-  if (!r.gameDetected || r.decision==='NO GAME') {
-    setState('s-waiting');
-    setUI('AUCUN JEU','','Aucune table détectée');
-    document.getElementById('insight-pill').classList.remove('show');
-    return;
+function project(lat,lon,cx,cy,R,rot){
+  const phi=lat*Math.PI/180;
+  const lambda=(lon+rot)*Math.PI/180;
+  const x=Math.cos(phi)*Math.sin(lambda);
+  const y=-Math.sin(phi);
+  const z=Math.cos(phi)*Math.cos(lambda);
+  if(z<0) return{visible:false,x:0,y:0};
+  return{visible:true,x:cx+R*x,y:cy+R*y};
+}
+
+function hexToRgba(hex,alpha){
+  if(hex.startsWith('#')){
+    const r=parseInt(hex.slice(1,3),16);
+    const g=parseInt(hex.slice(3,5),16);
+    const b=parseInt(hex.slice(5,7),16);
+    return `rgba(${r},${g},${b},${alpha})`;
   }
-  const dec = r.decision||'WAIT';
-  const detail = r.decisionDetail ? ` — ${r.decisionDetail}` : '';
-  const conf = r.confidence ? `${r.confidence}%` : '';
-  const stateMap = {FOLD:'s-fold',CALL:'s-call',RAISE:'s-raise','ALL-IN':'s-allin',CHECK:'s-check',WAIT:'s-waiting'};
-  setState(stateMap[dec]||'s-waiting');
-  setUI(dec+detail, conf, r.reasoning||'');
+  return hex;
+}
 
-  if (r.newHand) session.hands++;
-  if (r.myStack) session.myStack = r.myStack;
+function drawLand(cx,cy,R){
+  // Draw simplified continent outlines
+  const continents=[
+    // North America (simplified polygon)
+    [{lat:70,lon:-140},{lat:72,lon:-120},{lat:68,lon:-95},{lat:60,lon:-85},{lat:50,lon:-57},{lat:47,lon:-53},{lat:45,lon:-66},{lat:30,lon:-80},{lat:25,lon:-90},{lat:20,lon:-87},{lat:15,lon:-83},{lat:10,lon:-85},{lat:8,lon:-77},{lat:9,lon:-79},{lat:22,lon:-110},{lat:32,lon:-117},{lat:49,lon:-124},{lat:60,lon:-140},{lat:65,lon:-168},{lat:70,lon:-155}],
+    // Europe (simplified)
+    [{lat:71,lon:28},{lat:70,lon:18},{lat:58,lon:5},{lat:51,lon:2},{lat:43,lon:-9},{lat:36,lon:-8},{lat:36,lon:10},{lat:37,lon:15},{lat:38,lon:26},{lat:41,lon:29},{lat:43,lon:28},{lat:47,lon:23},{lat:54,lon:18},{lat:55,lon:21},{lat:59,lon:24},{lat:60,lon:25},{lat:65,lon:25},{lat:71,lon:28}],
+    // Africa (simplified)
+    [{lat:37,lon:10},{lat:37,lon:37},{lat:30,lon:32},{lat:22,lon:37},{lat:12,lon:43},{lat:5,lon:41},{lat:-4,lon:40},{lat:-10,lon:40},{lat:-26,lon:33},{lat:-34,lon:26},{lat:-34,lon:18},{lat:-22,lon:14},{lat:-18,lon:12},{lat:0,lon:9},{lat:5,lon:2},{lat:4,lon:-8},{lat:14,lon:-17},{lat:22,lon:-17},{lat:30,lon:-10},{lat:37,lon:10}],
+    // Asia (simplified)
+    [{lat:41,lon:29},{lat:42,lon:41},{lat:38,lon:48},{lat:27,lon:57},{lat:23,lon:58},{lat:8,lon:77},{lat:10,lon:80},{lat:7,lon:80},{lat:8,lon:77},{lat:22,lon:90},{lat:22,lon:91},{lat:20,lon:93},{lat:22,lon:100},{lat:20,lon:110},{lat:22,lon:114},{lat:23,lon:120},{lat:25,lon:122},{lat:35,lon:140},{lat:45,lon:142},{lat:55,lon:135},{lat:60,lon:150},{lat:70,lon:161},{lat:72,lon:141},{lat:72,lon:105},{lat:75,lon:82},{lat:73,lon:55},{lat:70,lon:59},{lat:65,lon:60},{lat:60,lon:60},{lat:55,lon:50},{lat:45,lon:40},{lat:41,lon:29}],
+    // Australia
+    [{lat:-16,lon:136},{lat:-12,lon:130},{lat:-15,lon:124},{lat:-22,lon:114},{lat:-32,lon:115},{lat:-38,lon:140},{lat:-39,lon:147},{lat:-38,lon:148},{lat:-28,lon:153},{lat:-23,lon:152},{lat:-17,lon:146},{lat:-16,lon:136}],
+    // South America
+    [{lat:12,lon:-72},{lat:11,lon:-63},{lat:10,lon:-62},{lat:8,lon:-60},{lat:5,lon:-51},{lat:4,lon:-52},{lat:0,lon:-50},{lat:-5,lon:-35},{lat:-15,lon:-39},{lat:-23,lon:-43},{lat:-33,lon:-53},{lat:-42,lon:-63},{lat:-55,lon:-65},{lat:-55,lon:-68},{lat:-42,lon:-74},{lat:-30,lon:-72},{lat:-20,lon:-70},{lat:-18,lon:-70},{lat:-5,lon:-81},{lat:0,lon:-80},{lat:10,lon:-75},{lat:12,lon:-72}],
+  ];
 
-  renderCards(r.myCards);
-  document.getElementById('my-stack').textContent = r.myStack||session.myStack||'—';
-  const pi = [r.pot?`Pot ${r.pot}`:null, r.myBet?`Mise ${r.myBet}`:null].filter(Boolean).join(' · ');
-  document.getElementById('pot-info').textContent = pi||'—';
+  gCtx.fillStyle='rgba(0,80,120,0.25)';
+  gCtx.strokeStyle='rgba(0,200,255,0.2)';
+  gCtx.lineWidth=0.6;
 
-  const pill = document.getElementById('insight-pill');
-  if (r.insight) { pill.textContent='💡 '+r.insight; pill.classList.add('show'); }
-  else pill.classList.remove('show');
-
-  if (r.players?.length>0) {
-    r.players.forEach(p=>{
-      if (!session.players[p.id]) session.players[p.id]={type:'unknown',notes:'',hands:0,lastAction:null,stack:null};
-      const ex = session.players[p.id];
-      ex.type = p.type||ex.type;
-      ex.lastAction = p.lastAction||ex.lastAction;
-      ex.stack = p.stack||ex.stack;
-      ex.hands++;
-      if (p.notes && !ex.notes.includes(p.notes)) {
-        ex.notes = ex.notes ? ex.notes+' · '+p.notes : p.notes;
+  continents.forEach(cont=>{
+    gCtx.beginPath();
+    let first=true;
+    cont.forEach(p=>{
+      const proj=project(p.lat,p.lon,cx,cy,R,rotation);
+      if(proj.visible){
+        if(first){gCtx.moveTo(proj.x,proj.y);first=false;}
+        else gCtx.lineTo(proj.x,proj.y);
+      } else {
+        first=true;
       }
     });
-    renderPlayers();
+    gCtx.fill();
+    gCtx.stroke();
+  });
+}
+
+// ══════════════════════════════════════
+// UPDATE AIS SHIPS
+// ══════════════════════════════════════
+function updateAIS(){
+  aisShips.forEach(ship=>{
+    ship.lon+=((Math.random()-0.5)*0.1)*(ship.speed>0?1:0);
+    ship.lat+=((Math.random()-0.5)*0.05)*(ship.speed>0?1:0);
+    if(ship.lon>180) ship.lon-=360;
+    if(ship.lon<-180) ship.lon+=360;
+  });
+}
+
+// ══════════════════════════════════════
+// MAIN LOOP
+// ══════════════════════════════════════
+let frame=0;
+function mainLoop(){
+  frame++;
+  updateSatPositions();
+  if(frame%3===0) updateAIS();
+  if(frame%30===0) renderSatList();
+  if(frame%60===0){
+    // Update topbar stats
+    document.getElementById('tb-sats').textContent=(847+Math.floor(Math.random()*3-1));
+    document.getElementById('tb-alerts').textContent=(Math.floor(Math.random()*3+2));
+    document.getElementById('tb-cov').textContent=(94+Math.random()).toFixed(1)+'%';
   }
+  drawGlobe();
+  requestAnimationFrame(mainLoop);
+}
+mainLoop();
 
-  if (r.reasoning) {
-    session.history.push({decision:dec, sit:r.reasoning});
-    if (session.history.length>20) session.history.shift();
-  }
-}
-
-function renderCards(cards) {
-  const suits={'h':'♥','d':'♦','c':'♣','s':'♠'};
-  const red=['h','d'];
-  function parse(s){ if(!s) return null; const r=s.slice(0,-1).toUpperCase(); const su=s.slice(-1).toLowerCase(); return {txt:r+(suits[su]||su), red:red.includes(su)}; }
-  const c1=document.getElementById('card1'), c2=document.getElementById('card2');
-  const p1=parse(cards?.[0]), p2=parse(cards?.[1]);
-  if(p1){c1.textContent=p1.txt; c1.className='card '+(p1.red?'red':'black');}
-  else{c1.textContent='?'; c1.className='card empty';}
-  if(p2){c2.textContent=p2.txt; c2.className='card '+(p2.red?'red':'black');}
-  else{c2.textContent='?'; c2.className='card empty';}
-}
-
-function renderPlayers() {
-  const s=document.getElementById('players-scroll');
-  if(!Object.keys(session.players).length){
-    s.innerHTML='<div class="player-card-empty">Aucun<br>joueur<br>détecté</div>'; return;
-  }
-  s.innerHTML=Object.entries(session.players).map(([name,p])=>`
-    <div class="player-card ${p.type}">
-      <div class="player-name">${name}</div>
-      <div class="player-type">${p.type}</div>
-      <div class="player-stat">${p.stack?`Stack <span>${p.stack}</span>`:''}</div>
-      <div class="player-stat">Mains <span>${p.hands}</span></div>
-      ${p.lastAction?`<div class="player-stat">Action <span>${p.lastAction}</span></div>`:''}
-      ${p.notes?`<div class="player-notes">${p.notes.slice(0,70)}${p.notes.length>70?'…':''}</div>`:''}
-    </div>`).join('');
-}
-
-function setState(s){app.className=s;}
-function setUI(main,conf,reason){
-  document.getElementById('decision-main').textContent=main;
-  document.getElementById('decision-chip-text').textContent=main.split('—')[0].trim();
-  document.getElementById('confidence-badge').textContent=conf?`· ${conf}`:'';
-  document.getElementById('decision-reason').textContent=reason;
-}
-function setBtnLoading(on){
-  const b=document.getElementById('btn-analyze');
-  b.classList.toggle('loading',on);
-  b.textContent=on?'Analyse en cours…':'Analyser la table';
-}
-
-function toggleAuto(){
-  autoMode=!autoMode;
-  document.getElementById('btn-auto').classList.toggle('active',autoMode);
-  if(autoMode){ autoTimer=setInterval(()=>{if(!isAnalyzing)analyzeNow();},9000); toast('Auto activé — toutes les 9s'); }
-  else{ clearInterval(autoTimer); toast('Auto désactivé'); }
-}
-
-function toast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2400);
-}
+window.toggleLayer=toggleLayer;
+window.selectSat=selectSat;
 </script>
 </body>
 </html>
