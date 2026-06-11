@@ -300,14 +300,7 @@ hr.div{border:none;border-top:1px solid var(--line)}
     <div class="ucard" onclick="goDemo('mtg')">
       <div class="ucover uc-mtg">
         <div class="ubadge ubadge-new">✦ New</div>
-        <div class="ucover-visual">
-          <div class="mini-stack">
-            <div class="mini-card mc-black">⚔️</div>
-            <div class="mini-card mc-purple">🟣</div>
-            <div class="mini-card mc-blue">🔮</div>
-          </div>
-          <div class="ucover-label">Magic</div>
-        </div>
+        <img src="https://corsproxy.io/?url=https://cards.scryfall.io/large/front/a/9/a9424e78-f591-4aa8-8e73-72113a059e29.jpg" alt="MTG" onerror="this.style.display='none'">
       </div>
       <div class="ucard-body">
         <div class="ucard-name">Magic: The Gathering</div>
@@ -318,14 +311,7 @@ hr.div{border:none;border-top:1px solid var(--line)}
 
     <div class="ucard" onclick="goDemo('sports')">
       <div class="ucover uc-sports">
-        <div class="ucover-visual">
-          <div class="mini-stack">
-            <div class="mini-card mc-green">🏒</div>
-            <div class="mini-card mc-teal">🏀</div>
-            <div class="mini-card mc-dark">⚾</div>
-          </div>
-          <div class="ucover-label">Sports</div>
-        </div>
+        <img src="https://corsproxy.io/?url=https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/2018_Upper_Deck_1-250_Hockey_Card_Set_-_No._1_-_Connor_McDavid_%28Edmonton_Oilers%29_%2842924413285%29.jpg/800px-2018_Upper_Deck_1-250_Hockey_Card_Set_-_No._1_-_Connor_McDavid_%28Edmonton_Oilers%29_%2842924413285%29.jpg" alt="Sports" onerror="this.style.display='none'">
       </div>
       <div class="ucard-body">
         <div class="ucard-name">Sports Cards</div>
@@ -428,14 +414,14 @@ const UNIVERSES = {
   mtg: {
     bg: 'linear-gradient(160deg,#0e0820,#080412)',
     cards: [
-      {type:'css', bg:'linear-gradient(135deg,#1a0d35,#0e0620)', icon:'⚔️', name:'Liliana of the Veil',     rarity:'Mythic Rare'},
-      {type:'css', bg:'linear-gradient(135deg,#0d1230,#08091e)', icon:'🔮', name:'Jace, the Mind Sculptor', rarity:'Mythic Rare'},
-      {type:'css', bg:'linear-gradient(135deg,#250d18,#16080e)', icon:'🩸', name:'Black Lotus Reprint',     rarity:'Reserved List'},
-      {type:'css', bg:'linear-gradient(135deg,#1e1035,#100820)', icon:'🟣', name:'Mana Crypt',              rarity:'Rare'},
-      {type:'css', bg:'linear-gradient(135deg,#0a1830,#060f1e)', icon:'💎', name:'Force of Will',           rarity:'Rare'},
-      {type:'css', bg:'linear-gradient(135deg,#1a0d28,#0e0818)', icon:'🌑', name:'Snapcaster Mage',         rarity:'Rare'},
-      {type:'css', bg:'linear-gradient(135deg,#201035,#120820)', icon:'⚡', name:'Ragavan, Nimble Pilferer',rarity:'Mythic Rare'},
-      {type:'css', bg:'linear-gradient(135deg,#0e1830,#08101e)', icon:'🌊', name:'Tarmogoyf',               rarity:'Rare'},
+      {type:'img', img:'https://corsproxy.io/?url=https://cards.scryfall.io/large/front/8/d/8d994700-0c75-4b66-8660-4f0dc3eba37a.jpg',   name:'Liliana of the Veil',     rarity:'Mythic Rare'},
+      {type:'img', img:'https://corsproxy.io/?url=https://cards.scryfall.io/large/front/1/0/10c12e90-9f74-4a8d-ada7-dab2b14af0b8.jpg',   name:'Jace, Mind Sculptor',     rarity:'Mythic Rare'},
+      {type:'img', img:'https://corsproxy.io/?url=https://cards.scryfall.io/large/front/4/d/4d960186-4559-4af5-9ef2-4d3cc040e832.jpg',   name:'Mana Crypt',              rarity:'Rare'},
+      {type:'img', img:'https://corsproxy.io/?url=https://cards.scryfall.io/large/front/a/9/a9424e78-f591-4aa8-8e73-72113a059e29.jpg',   name:'Ragavan, Nimble Pilferer',rarity:'Mythic Rare'},
+      {type:'img', img:'https://corsproxy.io/?url=https://cards.scryfall.io/large/front/5/5/55c24fc3-4979-4a62-a7ad-b7ee00700e92.jpg',   name:'Snapcaster Mage',         rarity:'Rare'},
+      {type:'img', img:'https://corsproxy.io/?url=https://cards.scryfall.io/large/front/a/8/a82d8dce-56c6-4b9f-87fb-09d68dfdc2c8.jpg',   name:'Tarmogoyf',               rarity:'Rare'},
+      {type:'img', img:'https://corsproxy.io/?url=https://cards.scryfall.io/large/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg',   name:'Black Lotus',             rarity:'Reserved List'},
+      {type:'img', img:'https://corsproxy.io/?url=https://cards.scryfall.io/large/front/3/6/36b59c5b-a5a5-4e15-9f55-576c5bb00e54.jpg',   name:'Force of Will',           rarity:'Rare'},
     ]
   },
   sports: {
