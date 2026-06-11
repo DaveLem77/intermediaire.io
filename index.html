@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,408 +7,460 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-:root {
-  --bg:      #0c0c0e;
-  --bg2:     #111114;
-  --bg3:     #18181c;
-  --line:    rgba(255,255,255,0.07);
-  --line2:   rgba(255,255,255,0.13);
-  --text:    #eeeef2;
-  --text2:   #8888a0;
-  --text3:   #4a4a60;
-  --accent:  #ffffff;
-  --r:       10px;
-  --r-lg:    14px;
+:root{
+  --bg:    #000000;
+  --bg2:   #050507;
+  --bg3:   #0c0c0f;
+  --bg4:   #141418;
+  --line:  rgba(255,255,255,0.06);
+  --line2: rgba(255,255,255,0.11);
+  --text:  #e8e8ed;
+  --text2: #7a7a92;
+  --text3: #3e3e54;
+  --blue:  #5b9cf6;
+  --blue2: rgba(91,156,246,0.14);
+  --r:     10px;
+  --r-lg:  16px;
 }
 
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
-  line-height: 1.65;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
+html{scroll-behavior:smooth;background:#000}
+body{
+  background:#000000;color:var(--text);
+  font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.65;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
 }
 
 /* ── NAV ── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  height: 56px;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 20px;
-  background: rgba(12,12,14,0.92);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--line);
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;height:56px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;
+  background:rgba(0,0,0,0.96);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--line);
 }
-
-.nav-logo {
-  font-weight: 600; font-size: 16px; letter-spacing: -0.2px;
-  color: var(--text); display: flex; align-items: center; gap: 7px;
-  flex-shrink: 0;
+.nav-logo{
+  font-weight:600;font-size:16px;letter-spacing:-.2px;
+  color:var(--text);display:flex;align-items:center;gap:7px;flex-shrink:0;
 }
-.nav-mark {
-  width: 24px; height: 24px; border-radius: 6px;
-  border: 1px solid var(--line2);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; color: var(--text2);
+.nav-mark{
+  width:24px;height:24px;border-radius:6px;
+  border:1px solid var(--line2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:var(--text2);
 }
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:13px;transition:color .18s}
+.nav-links a:hover{color:var(--text)}
+@media(max-width:600px){.nav-links{display:none}}
+.nav-right{display:flex;gap:8px;align-items:center;flex-shrink:0}
 
-/* hide links on mobile */
-.nav-links { display: flex; gap: 24px; list-style: none; }
-.nav-links a { color: var(--text2); text-decoration: none; font-size: 13px; transition: color .18s; }
-.nav-links a:hover { color: var(--text); }
-
-@media (max-width: 600px) {
-  .nav-links { display: none; }
+.btn-ghost-sm{
+  background:none;border:1px solid var(--line2);color:var(--text2);
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;
+  padding:6px 14px;border-radius:8px;cursor:pointer;
+  transition:border-color .18s,color .18s;white-space:nowrap;
 }
+.btn-ghost-sm:hover{color:var(--text);border-color:var(--line2)}
 
-.nav-right { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
-
-.btn-ghost-sm {
-  background: none; border: 1px solid var(--line2);
-  color: var(--text2); font-family: 'DM Sans', sans-serif;
-  font-size: 13px; font-weight: 400;
-  padding: 6px 14px; border-radius: 8px; cursor: pointer;
-  transition: border-color .18s, color .18s; white-space: nowrap;
+.btn-white-sm{
+  background:var(--text);color:#000000;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+  padding:6px 16px;border-radius:8px;border:none;cursor:pointer;
+  transition:opacity .18s;white-space:nowrap;
 }
-.btn-ghost-sm:hover { border-color: var(--line2); color: var(--text); }
-
-.btn-white-sm {
-  background: var(--text); color: #0c0c0e;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px; font-weight: 600;
-  padding: 6px 16px; border-radius: 8px; border: none;
-  cursor: pointer; transition: opacity .18s; white-space: nowrap;
-}
-.btn-white-sm:hover { opacity: .88; }
+.btn-white-sm:hover{opacity:.88}
 
 /* ── HERO ── */
-.hero {
-  padding: 110px 24px 0;
-  display: flex; flex-direction: column; align-items: center;
-  text-align: center;
+.hero{
+  padding:108px 24px 0;
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);
+  width:600px;height:360px;
+  background:radial-gradient(ellipse at 50% 0%,rgba(91,156,246,0.05) 0%,transparent 70%);
+  pointer-events:none;
 }
 
-.hero-eyebrow {
-  font-size: 11px; font-weight: 500; letter-spacing: 0.8px;
-  text-transform: uppercase; color: var(--text2);
-  margin-bottom: 20px;
+.live-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(74,222,128,0.07);border:1px solid rgba(74,222,128,0.16);
+  border-radius:100px;padding:4px 12px;
+  font-size:11px;color:#4ade80;font-weight:500;margin-bottom:20px;
+  position:relative;
+}
+.ldot{
+  width:6px;height:6px;border-radius:50%;background:#4ade80;
+  animation:livepulse 1.6s infinite;
+}
+@keyframes livepulse{
+  0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(74,222,128,.35)}
+  50%{opacity:.5;box-shadow:0 0 0 5px rgba(74,222,128,0)}
 }
 
-h1 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 400;
-  font-size: clamp(36px, 8vw, 72px);
-  line-height: 1.08; letter-spacing: -.5px;
-  max-width: 600px; margin-bottom: 18px;
+h1{
+  font-family:'Playfair Display',serif;font-weight:400;
+  font-size:clamp(34px,8vw,70px);
+  line-height:1.07;letter-spacing:-.5px;
+  max-width:600px;margin-bottom:18px;position:relative;
 }
-h1 em { font-style: italic; }
+h1 em{font-style:italic;color:#7ab3ff}
 
-.hero-sub {
-  font-size: 15px; font-weight: 300; color: var(--text2);
-  max-width: 360px; margin: 0 auto 32px;
-}
-
-.hero-cta-row {
-  display: flex; gap: 10px; justify-content: center;
-  flex-wrap: wrap; margin-bottom: 56px;
+.hero-sub{
+  font-size:15px;font-weight:300;color:var(--text2);
+  max-width:360px;margin:0 auto 32px;position:relative;
 }
 
-.btn-main {
-  background: var(--text); color: #0c0c0e;
-  font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 14px;
-  padding: 12px 26px; border-radius: 10px; border: none;
-  cursor: pointer; transition: opacity .18s, transform .18s;
-}
-.btn-main:hover { opacity: .9; transform: translateY(-1px); }
-
-.btn-outline {
-  background: none; border: 1px solid var(--line2);
-  color: var(--text2); font-family: 'DM Sans', sans-serif;
-  font-size: 14px; font-weight: 400;
-  padding: 12px 22px; border-radius: 10px;
-  cursor: pointer; transition: border-color .18s, color .18s;
-}
-.btn-outline:hover { border-color: rgba(255,255,255,.2); color: var(--text); }
-
-/* ── CARD FAN (mobile-safe) ── */
-.fan-wrap {
-  width: 100%; max-width: 500px;
-  margin: 0 auto;
-  display: flex; align-items: flex-end; justify-content: center;
-  gap: 0;
-  padding: 0 16px 0;
-  overflow: visible;
+.hero-cta-row{
+  display:flex;gap:10px;justify-content:center;
+  flex-wrap:wrap;margin-bottom:52px;position:relative;
 }
 
-.fcard {
-  flex-shrink: 0;
-  /* mobile: smaller cards */
-  width: clamp(72px, 18vw, 110px);
-  aspect-ratio: 0.716;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.09);
-  background: var(--bg3);
-  position: relative;
-  cursor: pointer;
-  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), z-index 0s;
+.btn-main{
+  background:var(--text);color:#000000;
+  font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;
+  padding:12px 26px;border-radius:10px;border:none;cursor:pointer;
+  box-shadow:0 0 0 0 rgba(232,232,237,0);
+  transition:opacity .18s,transform .18s,box-shadow .18s;
+}
+.btn-main:hover{opacity:.9;transform:translateY(-1px);box-shadow:0 6px 28px rgba(232,232,237,.12)}
+
+.btn-pulse{
+  background:none;border:1px solid var(--line2);color:var(--text2);
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;
+  padding:12px 22px;border-radius:10px;cursor:pointer;
+  animation:btn-bounce 2.6s ease-in-out infinite;
+  transition:border-color .18s,color .18s;
+}
+.btn-pulse:hover{
+  border-color:rgba(255,255,255,.2);color:var(--text);
+  animation-play-state:paused;
+}
+@keyframes btn-bounce{
+  0%,100%{transform:translateY(0);box-shadow:none}
+  40%{transform:translateY(-5px);box-shadow:0 8px 24px rgba(91,156,246,.13)}
+  60%{transform:translateY(-2px)}
 }
 
-.fcard img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
+/* ── MIXED FAN ── */
+.fan-wrap{
+  width:100%;max-width:500px;margin:0 auto;
+  display:flex;align-items:flex-end;justify-content:center;
+  padding:0 12px;overflow:visible;position:relative;
 }
 
-/* fan positions — tighter on mobile */
-.fcard:nth-child(1) { transform: rotate(-10deg) translateY(14px) translateX(8px); z-index:1; }
-.fcard:nth-child(2) { transform: rotate(-4deg)  translateY(6px)  translateX(4px); z-index:2; }
-.fcard:nth-child(3) { transform: rotate(0deg)   translateY(0);  z-index:5;
-  box-shadow: 0 20px 50px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,0.14); }
-.fcard:nth-child(4) { transform: rotate(4deg)   translateY(6px)  translateX(-4px); z-index:2; }
-.fcard:nth-child(5) { transform: rotate(10deg)  translateY(14px) translateX(-8px); z-index:1; }
+/* generic card slot */
+.fcard{
+  flex-shrink:0;
+  width:clamp(66px,16vw,100px);
+  aspect-ratio:0.716;
+  border-radius:8px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.08);
+  background:var(--bg3);position:relative;cursor:pointer;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1),z-index 0s;
+}
+.fcard img{width:100%;height:100%;object-fit:cover;display:block}
 
-.fcard:hover { z-index: 10 !important; }
-.fcard:nth-child(1):hover { transform: rotate(-10deg) translateY(0) translateX(8px) scale(1.06); }
-.fcard:nth-child(2):hover { transform: rotate(-4deg)  translateY(-6px) translateX(4px) scale(1.06); }
-.fcard:nth-child(3):hover { transform: scale(1.08) translateY(-8px); }
-.fcard:nth-child(4):hover { transform: rotate(4deg)   translateY(-6px) translateX(-4px) scale(1.06); }
-.fcard:nth-child(5):hover { transform: rotate(10deg)  translateY(0) translateX(-8px) scale(1.06); }
+/* Lego fig slot — taller, narrower */
+.fcard.fig{
+  aspect-ratio:0.56;
+  border-radius:10px;
+}
+
+/* fan rotations */
+.fcard:nth-child(1){transform:rotate(-10deg) translateY(14px) translateX(8px);z-index:1}
+.fcard:nth-child(2){transform:rotate(-4deg)  translateY(6px)  translateX(4px); z-index:2}
+.fcard:nth-child(3){transform:rotate(0)       translateY(0);                   z-index:5;
+  box-shadow:0 20px 50px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.12),0 0 40px rgba(91,156,246,.1)}
+.fcard:nth-child(4){transform:rotate(4deg)   translateY(6px)  translateX(-4px);z-index:2}
+.fcard:nth-child(5){transform:rotate(10deg)  translateY(14px) translateX(-8px);z-index:1}
+
+.fcard:nth-child(3){animation:float 3.5s ease-in-out infinite}
+@keyframes float{
+  0%,100%{transform:rotate(0) translateY(0)}
+  50%{transform:rotate(0) translateY(-7px)}
+}
+.fcard:nth-child(3):hover{animation-play-state:paused}
+
+.fcard:hover{z-index:10!important}
+.fcard:nth-child(1):hover{transform:rotate(-10deg) translateY(0) translateX(8px) scale(1.07)}
+.fcard:nth-child(2):hover{transform:rotate(-4deg)  translateY(-7px) translateX(4px) scale(1.07)}
+.fcard:nth-child(3):hover{transform:scale(1.09) translateY(-9px)}
+.fcard:nth-child(4):hover{transform:rotate(4deg)   translateY(-7px) translateX(-4px) scale(1.07)}
+.fcard:nth-child(5):hover{transform:rotate(10deg)  translateY(0) translateX(-8px) scale(1.07)}
+
+/* placeholder inside fcard when no img */
+.fcard-placeholder{
+  width:100%;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;padding:10px;
+  background:var(--bg3);
+}
+.fcard-placeholder .fig-icon{font-size:clamp(28px,6vw,42px)}
+.fcard-placeholder .fig-label{font-size:9px;color:var(--text3);font-weight:500;text-align:center;line-height:1.3}
 
 /* ── FEED ── */
-.feed-wrap {
-  background: var(--bg2);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  padding: 12px 0;
-  overflow: hidden; position: relative;
-  margin-top: 56px;
+.feed-wrap{
+  background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:11px 0;overflow:hidden;position:relative;margin-top:52px;
 }
-.feed-wrap::before, .feed-wrap::after {
-  content:''; position:absolute; top:0; bottom:0; width:60px; z-index:2; pointer-events:none;
+.feed-wrap::before,.feed-wrap::after{
+  content:'';position:absolute;top:0;bottom:0;width:60px;z-index:2;pointer-events:none;
 }
-.feed-wrap::before { left:0; background:linear-gradient(to right, var(--bg2), transparent); }
-.feed-wrap::after  { right:0; background:linear-gradient(to left, var(--bg2), transparent); }
+.feed-wrap::before{left:0;background:linear-gradient(to right,var(--bg2),transparent)}
+.feed-wrap::after{right:0;background:linear-gradient(to left,var(--bg2),transparent)}
+.feed-track{display:flex;width:max-content;animation:feed-scroll 30s linear infinite}
+.feed-track:hover{animation-play-state:paused}
+@keyframes feed-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.feed-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:0 18px;height:30px;font-size:12px;color:var(--text2);
+  white-space:nowrap;border-right:1px solid var(--line);
+}
+.feed-pill .dot{width:5px;height:5px;border-radius:50%;background:#4ade80;flex-shrink:0}
+.feed-pill strong{color:var(--text);font-weight:500}
+.feed-pill .val{color:var(--text);font-weight:600}
 
-.feed-track {
-  display:flex; width:max-content;
-  animation: feed-scroll 28s linear infinite;
+/* ── SHARED SECTION ── */
+.sec{max-width:1040px;margin:0 auto;padding:72px 24px}
+.sec-label{
+  font-size:11px;font-weight:500;letter-spacing:1px;
+  text-transform:uppercase;color:var(--text3);margin-bottom:12px;
 }
-.feed-track:hover { animation-play-state: paused; }
-@keyframes feed-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-.feed-pill {
-  display:inline-flex; align-items:center; gap:8px;
-  padding: 0 18px; height: 30px;
-  font-size: 12px; color: var(--text2);
-  white-space: nowrap;
-  border-right: 1px solid var(--line);
-}
-.feed-pill .dot { width:5px;height:5px;border-radius:50%;background:#4ade80;flex-shrink:0; }
-.feed-pill strong { color: var(--text); font-weight:500; }
-.feed-pill .val { color: var(--text); font-weight:600; }
-
-/* ── SECTIONS ── */
-.sec {
-  max-width: 1040px; margin: 0 auto;
-  padding: 72px 24px;
+.sec-title{
+  font-family:'Playfair Display',serif;font-weight:400;
+  font-size:clamp(24px,4vw,38px);letter-spacing:-.3px;line-height:1.15;
+  margin-bottom:40px;
 }
 
-.sec-label {
-  font-size: 11px; font-weight:500; letter-spacing:1px;
-  text-transform: uppercase; color: var(--text2);
-  margin-bottom: 12px;
+/* ── UNIVERSE GRID — 4 fixed cards ── */
+.univ-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+@media(min-width:720px){
+  .univ-grid{grid-template-columns:repeat(4,1fr)}
 }
 
-.sec-title {
-  font-family: 'Playfair Display', serif;
-  font-weight:400; font-size: clamp(24px, 4vw, 38px);
-  letter-spacing: -.3px; line-height:1.15;
-  margin-bottom: 40px;
+.ucard{
+  background:var(--bg2);border:1px solid var(--line);
+  border-radius:var(--r-lg);overflow:hidden;
+  cursor:pointer;position:relative;
+  display:flex;flex-direction:column;
+  transition:border-color .22s,transform .2s,box-shadow .22s;
+}
+.ucard:hover{
+  border-color:var(--line2);transform:translateY(-3px);
+  box-shadow:0 12px 36px rgba(0,0,0,.45);
 }
 
-/* ── UNIVERSES ── */
-.univ-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+.ucard-img-wrap{
+  position:relative;height:170px;overflow:hidden;flex-shrink:0;
+  background:var(--bg3);
 }
-@media (min-width: 720px) {
-  .univ-grid { grid-template-columns: repeat(4, 1fr); }
+.ucard-img-wrap img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  filter:brightness(.62) saturate(.72);
+  transition:filter .3s,transform .4s;
 }
+.ucard:hover .ucard-img-wrap img{filter:brightness(.76) saturate(.88);transform:scale(1.04)}
 
-.ucard {
-  background: var(--bg2); border: 1px solid var(--line);
-  border-radius: var(--r-lg); overflow: hidden;
-  cursor: pointer; position: relative;
-  transition: border-color .22s, transform .22s;
+/* colour tint per universe */
+.ucard-img-wrap::after{
+  content:'';position:absolute;inset:0;opacity:.3;
+  transition:opacity .3s;pointer-events:none;
 }
-.ucard:hover { border-color: var(--line2); transform: translateY(-2px); }
+.ucard:hover .ucard-img-wrap::after{opacity:.15}
+.u-blue  .ucard-img-wrap::after{background:linear-gradient(135deg,#4f8ef7 0%,transparent 55%)}
+.u-purple.ucard-img-wrap::after, .u-purple .ucard-img-wrap::after{background:linear-gradient(135deg,#9b6dfa 0%,transparent 55%)}
+.u-green .ucard-img-wrap::after{background:linear-gradient(135deg,#34d399 0%,transparent 55%)}
+.u-orange.ucard-img-wrap::after{background:linear-gradient(135deg,#f97316 0%,transparent 55%)}
 
-.ucard-img {
-  width:100%; height:130px; object-fit:cover; display:block;
-  filter: brightness(.65) saturate(.7);
-  transition: filter .3s;
+/* lego placeholder inside img-wrap */
+.lego-placeholder{
+  width:100%;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  background:linear-gradient(135deg,#1a1624 0%,#120e1c 100%);
 }
-.ucard:hover .ucard-img { filter: brightness(.78) saturate(.85); }
+.lego-figs{display:flex;gap:4px;align-items:flex-end}
+.lego-fig{font-size:clamp(22px,5vw,34px);filter:drop-shadow(0 4px 8px rgba(0,0,0,.6))}
+.lego-sub{font-size:10px;color:var(--text3);font-weight:500;letter-spacing:.3px}
 
-.ucard-body { padding: 14px 16px 16px; }
-.ucard-name { font-weight:600; font-size:14px; margin-bottom:3px; }
-.ucard-desc { font-size:12px; color:var(--text2); margin-bottom:10px; line-height:1.45; }
-.ucard-price { font-size:12px; color:var(--text2); }
-.ucard-price strong { color:var(--text); font-weight:500; }
-
-.ubadge {
-  position:absolute; top:10px; right:10px;
-  font-size:10px; font-weight:600; letter-spacing:.3px; text-transform:uppercase;
-  padding:3px 8px; border-radius:100px;
+.ucard-body{padding:14px 16px 18px;flex:1;display:flex;flex-direction:column}
+.ucard-name{font-weight:600;font-size:14px;margin-bottom:4px}
+.ucard-desc{font-size:12px;color:var(--text2);margin-bottom:14px;line-height:1.45;flex:1}
+.ucard-footer{display:flex;align-items:center;justify-content:space-between}
+.ucard-price{font-size:12.5px;color:var(--text2)}
+.ucard-price strong{color:var(--text);font-weight:500}
+.ucard-arrow{
+  width:26px;height:26px;border-radius:7px;
+  border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;
+  font-size:12px;color:var(--text2);transition:background .18s,color .18s,border-color .18s;
 }
-.ubadge-hot { background:rgba(239,68,68,.15); color:#f87171; border:1px solid rgba(239,68,68,.2); }
-.ubadge-new { background:rgba(139,92,246,.12); color:#a78bfa; border:1px solid rgba(139,92,246,.2); }
+.ucard:hover .ucard-arrow{background:var(--text);color:var(--bg);border-color:transparent}
+
+.ubadge{
+  position:absolute;top:10px;right:10px;z-index:3;
+  font-size:9px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;
+  padding:3px 8px;border-radius:100px;
+}
+.ubadge-hot{background:rgba(249,115,22,.18);color:#fb923c;border:1px solid rgba(249,115,22,.28)}
+.ubadge-new{background:rgba(155,109,250,.15);color:#c4a0ff;border:1px solid rgba(155,109,250,.28)}
 
 /* ── PULL DEMO ── */
-.demo-bg {
-  background: var(--bg2);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+.demo-bg{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.demo-inner{max-width:1040px;margin:0 auto;padding:64px 24px}
+
+.demo-stage{
+  background:#000000;border:1px solid var(--line);
+  border-radius:18px;padding:44px 0 38px;
+  position:relative;overflow:hidden;
 }
-.demo-inner {
-  max-width:1040px; margin:0 auto; padding:64px 24px;
+.demo-stage::before,.demo-stage::after{
+  content:'';position:absolute;top:0;bottom:0;width:90px;z-index:3;pointer-events:none;
+}
+.demo-stage::before{left:0;background:linear-gradient(to right,var(--bg),transparent)}
+.demo-stage::after{right:0;background:linear-gradient(to left,var(--bg),transparent)}
+
+/* ambient glow behind center slot */
+.demo-glow{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:220px;height:220px;
+  background:radial-gradient(circle,rgba(91,156,246,.07),transparent 70%);
+  pointer-events:none;z-index:0;
+  animation:glow-pulse 3s ease-in-out infinite;
+}
+@keyframes glow-pulse{
+  0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}
+  50%{opacity:1;transform:translate(-50%,-50%) scale(1.25)}
 }
 
-.demo-stage {
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  padding: 40px 0 36px;
-  position: relative; overflow: hidden;
+/* center indicator — thin line + dot */
+.center-indicator{
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:0;
+  z-index:4;pointer-events:none;
 }
-.demo-stage::before, .demo-stage::after {
-  content:''; position:absolute; top:0; bottom:0; width:80px; z-index:3; pointer-events:none;
+.ci-line{
+  width:1px;height:32px;
+  background:linear-gradient(to top,rgba(255,255,255,.35),transparent);
 }
-.demo-stage::before { left:0; background:linear-gradient(to right, var(--bg), transparent); }
-.demo-stage::after  { right:0; background:linear-gradient(to left, var(--bg), transparent); }
-
-.reel {
-  display:flex; align-items:center; justify-content:center;
-  gap: 12px; padding: 0 20px;
-  min-height: 180px;
+.ci-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:rgba(255,255,255,.4);
+  margin-bottom:10px;
 }
 
-.rc {
+.reel{
+  display:flex;align-items:center;justify-content:center;
+  gap:14px;padding:0 20px;min-height:190px;position:relative;z-index:1;
+}
+
+.rc{
   flex-shrink:0;
-  width: clamp(72px, 16vw, 100px);
-  aspect-ratio: 0.716;
-  border-radius: 8px; overflow:hidden;
-  border: 1px solid var(--line);
-  background: var(--bg3); position:relative;
-  transition: transform .32s cubic-bezier(.34,1.56,.64,1), box-shadow .32s, border-color .32s, opacity .32s;
+  width:clamp(68px,14vw,96px);aspect-ratio:0.716;
+  border-radius:8px;overflow:hidden;border:1px solid var(--line);
+  background:var(--bg3);position:relative;
+  transition:transform .0s,box-shadow .0s,border-color .0s,opacity .0s;
 }
-.rc img { width:100%;height:100%;object-fit:cover;display:block; }
+/* smooth transition only when NOT spinning */
+.reel.smooth .rc{
+  transition:transform .38s cubic-bezier(.34,1.56,.64,1),
+             box-shadow .38s,border-color .38s,opacity .38s;
+}
 
-.rc.center {
-  transform: scale(1.20);
-  border-color: rgba(255,255,255,0.22);
-  box-shadow: 0 0 0 1px rgba(255,255,255,.1), 0 16px 40px rgba(0,0,0,.5);
+.rc img{width:100%;height:100%;object-fit:cover;display:block}
+
+.rc.center{
+  transform:scale(1.22);
+  border-color:rgba(255,255,255,.18);
+  box-shadow:0 0 0 1px rgba(255,255,255,.07),
+             0 0 28px rgba(91,156,246,.15),
+             0 16px 40px rgba(0,0,0,.55);
   z-index:2;
 }
-.rc.s1    { transform: scale(1.05); opacity:.75; }
-.rc.s2    { transform: scale(0.90); opacity:.45; }
-.rc.far   { transform: scale(0.76); opacity:.22; }
+.rc.s1 {transform:scale(1.06);opacity:.72}
+.rc.s2 {transform:scale(0.90);opacity:.40}
+.rc.far{transform:scale(0.76);opacity:.18}
 
-.rc.center.revealed::after {
-  content:''; position:absolute; inset:-200%;
-  background: linear-gradient(110deg, transparent 38%, rgba(255,255,255,.05) 50%, transparent 62%);
-  animation: shimmer 2s infinite;
+.rc.center.revealed::after{
+  content:'';position:absolute;inset:-200%;
+  background:linear-gradient(110deg,transparent 38%,rgba(255,255,255,.055) 50%,transparent 62%);
+  animation:shimmer 2.2s infinite;
 }
-@keyframes shimmer {
-  from { transform: translateX(-80%) rotate(8deg); }
-  to   { transform: translateX(180%) rotate(8deg); }
+@keyframes shimmer{
+  from{transform:translateX(-80%) rotate(8deg)}
+  to{transform:translateX(180%) rotate(8deg)}
 }
+.rc-info{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(to top,rgba(0,0,0,.88),transparent);
+  padding:20px 8px 8px;opacity:0;transition:opacity .3s;text-align:center;
+}
+.rc.center.revealed .rc-info{opacity:1}
+.ri-name{font-size:8.5px;font-weight:600;color:#fff;line-height:1.3}
+.ri-rarity{font-size:7.5px;color:rgba(255,255,255,.5);margin-top:2px}
 
-.rc-info {
-  position:absolute; bottom:0; left:0; right:0;
-  background: linear-gradient(to top, rgba(0,0,0,.85), transparent);
-  padding:20px 8px 8px;
-  opacity:0; transition: opacity .3s; text-align:center;
+.demo-footer{text-align:center;margin-top:28px}
+.btn-spin{
+  background:var(--text);color:#000000;
+  font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;
+  padding:12px 40px;border-radius:10px;border:none;cursor:pointer;
+  box-shadow:0 0 0 0 rgba(232,232,237,0);
+  transition:opacity .18s,transform .18s,box-shadow .18s;
 }
-.rc.center.revealed .rc-info { opacity:1; }
-.rc-info .ri-name { font-size:9px; font-weight:600; color:#fff; line-height:1.3; }
-.rc-info .ri-rarity { font-size:8px; color:rgba(255,255,255,.55); margin-top:2px; }
-
-.demo-footer { text-align:center; margin-top:28px; }
-
-.btn-spin {
-  background: var(--text); color: #0c0c0e;
-  font-family:'DM Sans', sans-serif; font-weight:600; font-size:14px;
-  padding:12px 40px; border-radius:10px; border:none;
-  cursor:pointer; transition: opacity .18s, transform .18s;
+.btn-spin:hover:not(:disabled){
+  opacity:.9;transform:translateY(-1px);
+  box-shadow:0 6px 24px rgba(232,232,237,.10);
 }
-.btn-spin:hover:not(:disabled) { opacity:.9; transform:translateY(-1px); }
-.btn-spin:disabled { opacity:.35; cursor:not-allowed; }
-
-.spin-result {
-  margin-top:12px; min-height:18px;
-  font-size:13px; color:var(--text3); transition:color .3s;
+.btn-spin:disabled{opacity:.35;cursor:not-allowed}
+.spin-result{
+  margin-top:12px;min-height:18px;font-size:13px;color:var(--text3);transition:color .3s;
 }
-.spin-result.win { color:var(--text2); font-weight:500; }
+.spin-result.win{color:var(--text2);font-weight:500}
 
 /* ── HOW ── */
-.how-grid {
-  display:grid; grid-template-columns: 1fr 1fr;
-  gap:1px; background:var(--line);
-  border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden;
+.how-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;
 }
-@media (min-width:640px) {
-  .how-grid { grid-template-columns: repeat(4,1fr); }
-}
-
-.how-step {
-  background:var(--bg2); padding:28px 22px;
-}
-.how-num { font-size:11px; color:var(--text3); font-weight:500; letter-spacing:.5px; margin-bottom:14px; }
-.how-ico { font-size:22px; margin-bottom:12px; }
-.how-title { font-weight:600; font-size:14px; margin-bottom:5px; }
-.how-desc { font-size:12.5px; color:var(--text2); line-height:1.55; }
+@media(min-width:640px){.how-grid{grid-template-columns:repeat(4,1fr)}}
+.how-step{background:var(--bg2);padding:28px 22px}
+.how-num{font-size:11px;color:var(--text3);font-weight:500;letter-spacing:.5px;margin-bottom:14px}
+.how-ico{font-size:22px;margin-bottom:12px}
+.how-title{font-weight:600;font-size:14px;margin-bottom:5px}
+.how-desc{font-size:12.5px;color:var(--text2);line-height:1.55}
 
 /* ── TRUST ── */
-.trust-grid {
-  display:grid; grid-template-columns: repeat(2,1fr);
-  gap:1px; background:var(--line);
-  border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden;
+.trust-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;
 }
-@media (min-width:500px) {
-  .trust-grid { grid-template-columns: repeat(4,1fr); }
+@media(min-width:500px){.trust-grid{grid-template-columns:repeat(4,1fr)}}
+.trust-item{background:var(--bg2);padding:24px 20px;text-align:center}
+.trust-num{
+  font-family:'Playfair Display',serif;font-size:28px;font-weight:400;
+  color:var(--text);margin-bottom:4px;
 }
-.trust-item {
-  background:var(--bg2); padding:24px 20px; text-align:center;
-}
-.trust-num {
-  font-family:'Playfair Display',serif; font-size:28px; font-weight:400;
-  color:var(--text); margin-bottom:4px;
-}
-.trust-label { font-size:12px; color:var(--text2); }
+.trust-label{font-size:12px;color:var(--text2)}
 
 /* ── FOOTER ── */
-footer {
-  border-top:1px solid var(--line);
-  padding:32px 24px;
-  display:flex; align-items:center; justify-content:space-between;
-  flex-wrap:wrap; gap:14px;
+footer{
+  border-top:1px solid var(--line);padding:32px 24px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;
 }
-.footer-logo { font-weight:600; font-size:15px; color:var(--text2); }
-.footer-links { display:flex; gap:18px; }
-.footer-links a { font-size:12px; color:var(--text3); text-decoration:none; transition:color .18s; }
-.footer-links a:hover { color:var(--text2); }
-.footer-copy { font-size:12px; color:var(--text3); }
-
-hr.div { border:none; border-top:1px solid var(--line); }
+.footer-logo{font-weight:600;font-size:15px;color:var(--text2)}
+.footer-links{display:flex;gap:18px}
+.footer-links a{font-size:12px;color:var(--text3);text-decoration:none;transition:color .18s}
+.footer-links a:hover{color:var(--text2)}
+.footer-copy{font-size:12px;color:var(--text3)}
+hr.div{border:none;border-top:1px solid var(--line)}
 </style>
 </head>
 <body>
@@ -420,96 +472,150 @@ hr.div { border:none; border-top:1px solid var(--line); }
     MystCard
   </div>
   <ul class="nav-links">
-    <li><a href="#universes">Univers</a></li>
-    <li><a href="#demo">Comment ça marche</a></li>
+    <li><a href="#universes">Universes</a></li>
+    <li><a href="#demo">How it works</a></li>
   </ul>
   <div class="nav-right">
-    <button class="btn-ghost-sm">Se connecter</button>
-    <button class="btn-white-sm">Créer un compte</button>
+    <button class="btn-ghost-sm">Sign in</button>
+    <button class="btn-white-sm">Get started</button>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-eyebrow">Cartes authentiques · Livraison Canada</div>
-  <h1>Chaque pull est une <em>vraie</em> surprise</h1>
-  <p class="hero-sub">Choisis ton univers, fais tourner le carrousel. Ta carte arrive par la poste.</p>
+  <div class="live-badge"><span class="ldot"></span>Live pulls happening now</div>
+  <h1>Every pull is a <em>real</em> surprise</h1>
+  <p class="hero-sub">Pick your universe, spin the carousel. Your item ships to your door.</p>
   <div class="hero-cta-row">
-    <button class="btn-main">Faire mon premier pull</button>
-    <button class="btn-outline">Voir les univers</button>
+    <button class="btn-main">Make my first pull</button>
+    <button class="btn-pulse" onclick="document.getElementById('universes').scrollIntoView({behavior:'smooth'})">Browse universes ↓</button>
   </div>
 
-  <!-- CARD FAN -->
+  <!-- FAN: mix of cards + lego fig -->
   <div class="fan-wrap">
-    <div class="fcard"><img src="https://images.pokemontcg.io/swsh4/18_hires.png" alt="card" onerror="this.parentNode.style.background='#1e1e26'"></div>
-    <div class="fcard"><img src="https://images.pokemontcg.io/swsh35/17_hires.png" alt="card" onerror="this.parentNode.style.background='#1e1e26'"></div>
-    <div class="fcard"><img src="https://images.pokemontcg.io/swsh9/74_hires.png" alt="card" onerror="this.parentNode.style.background='#1e1e26'"></div>
-    <div class="fcard"><img src="https://images.pokemontcg.io/swsh35/18_hires.png" alt="card" onerror="this.parentNode.style.background='#1e1e26'"></div>
-    <div class="fcard"><img src="https://images.pokemontcg.io/swsh10/196_hires.png" alt="card" onerror="this.parentNode.style.background='#1e1e26'"></div>
+    <!-- MTG card -->
+    <div class="fcard">
+      <img src="https://cards.scryfall.io/large/front/a/9/a9424e78-f591-4aa8-8e73-72113a059e29.jpg" alt="MTG"
+        onerror="this.style.display='none'">
+    </div>
+    <!-- Sports card -->
+    <div class="fcard">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/2018_Upper_Deck_1-250_Hockey_Card_Set_-_No._1_-_Connor_McDavid_%28Edmonton_Oilers%29_%2842924413285%29.jpg/800px-2018_Upper_Deck_1-250_Hockey_Card_Set_-_No._1_-_Connor_McDavid_%28Edmonton_Oilers%29_%2842924413285%29.jpg" alt="Sports"
+        onerror="this.style.display='none'">
+    </div>
+    <!-- Pokémon — center, floating -->
+    <div class="fcard">
+      <img src="https://images.pokemontcg.io/swsh9/74_hires.png" alt="Pokémon"
+        onerror="this.style.display='none'">
+    </div>
+    <!-- Pokémon alt -->
+    <div class="fcard">
+      <img src="https://images.pokemontcg.io/swsh35/18_hires.png" alt="Pokémon"
+        onerror="this.style.display='none'">
+    </div>
+    <!-- Lego fig — taller slot -->
+    <div class="fcard fig">
+      <div class="fcard-placeholder">
+        <div class="fig-icon">🧱</div>
+        <div class="fig-label">Lego<br>Series 25</div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- LIVE FEED -->
 <div class="feed-wrap">
-  <div class="feed-track" id="feedTrack">
-    <div class="feed-pill"><span class="dot"></span><strong>maxime_qc</strong> a pull Charizard ex Full Art — <span class="val">$89</span></div>
-    <div class="feed-pill"><span class="dot"></span><strong>sarah.mtg</strong> a pull Liliana of the Veil — <span class="val">$44</span></div>
-    <div class="feed-pill"><span class="dot"></span><strong>phil_nord</strong> a pull Carey Price Rookie SP — <span class="val">$31</span></div>
-    <div class="feed-pill"><span class="dot"></span><strong>jade.cards</strong> a pull Umbreon VMAX Alt Art — <span class="val">$110</span></div>
-    <div class="feed-pill"><span class="dot"></span><strong>felix_rv</strong> a pull Black Lotus Reprint — <span class="val">$130</span></div>
-    <div class="feed-pill"><span class="dot"></span><strong>tommy_oc</strong> a pull Mewtwo V Alt Art — <span class="val">$62</span></div>
-    <div class="feed-pill"><span class="dot"></span><strong>léa.collect</strong> a pull McDavid Upper Deck SP — <span class="val">$55</span></div>
-    <div class="feed-pill"><span class="dot"></span><strong>kevin_qc</strong> a pull Gengar VMAX PSA 10 — <span class="val">$74</span></div>
-    <div class="feed-pill"><span class="dot"></span><strong>maxime_qc</strong> a pull Charizard ex Full Art — <span class="val">$89</span></div>
-    <div class="feed-pill"><span class="dot"></span><strong>sarah.mtg</strong> a pull Liliana of the Veil — <span class="val">$44</span></div>
-    <div class="feed-pill"><span class="dot"></span><strong>phil_nord</strong> a pull Carey Price Rookie SP — <span class="val">$31</span></div>
-    <div class="feed-pill"><span class="dot"></span><strong>jade.cards</strong> a pull Umbreon VMAX Alt Art — <span class="val">$110</span></div>
-    <div class="feed-pill"><span class="dot"></span><strong>felix_rv</strong> a pull Black Lotus Reprint — <span class="val">$130</span></div>
-    <div class="feed-pill"><span class="dot"></span><strong>tommy_oc</strong> a pull Mewtwo V Alt Art — <span class="val">$62</span></div>
-    <div class="feed-pill"><span class="dot"></span><strong>léa.collect</strong> a pull McDavid Upper Deck SP — <span class="val">$55</span></div>
-    <div class="feed-pill"><span class="dot"></span><strong>kevin_qc</strong> a pull Gengar VMAX PSA 10 — <span class="val">$74</span></div>
+  <div class="feed-track">
+    <div class="feed-pill"><span class="dot"></span><strong>maxime_qc</strong> pulled Charizard ex Full Art — <span class="val">$89</span></div>
+    <div class="feed-pill"><span class="dot"></span><strong>sarah.mtg</strong> pulled Liliana of the Veil — <span class="val">$44</span></div>
+    <div class="feed-pill"><span class="dot"></span><strong>phil_nord</strong> pulled Carey Price Rookie SP — <span class="val">$31</span></div>
+    <div class="feed-pill"><span class="dot"></span><strong>jade.cards</strong> pulled Umbreon VMAX Alt Art — <span class="val">$110</span></div>
+    <div class="feed-pill"><span class="dot"></span><strong>felix_rv</strong> pulled Black Lotus Reprint — <span class="val">$130</span></div>
+    <div class="feed-pill"><span class="dot"></span><strong>tommy_oc</strong> pulled Mewtwo V Alt Art — <span class="val">$62</span></div>
+    <div class="feed-pill"><span class="dot"></span><strong>lea.collect</strong> pulled McDavid Upper Deck SP — <span class="val">$55</span></div>
+    <div class="feed-pill"><span class="dot"></span><strong>kevin_qc</strong> pulled Series 24 Alien — <span class="val">$18</span></div>
+    <div class="feed-pill"><span class="dot"></span><strong>maxime_qc</strong> pulled Charizard ex Full Art — <span class="val">$89</span></div>
+    <div class="feed-pill"><span class="dot"></span><strong>sarah.mtg</strong> pulled Liliana of the Veil — <span class="val">$44</span></div>
+    <div class="feed-pill"><span class="dot"></span><strong>phil_nord</strong> pulled Carey Price Rookie SP — <span class="val">$31</span></div>
+    <div class="feed-pill"><span class="dot"></span><strong>jade.cards</strong> pulled Umbreon VMAX Alt Art — <span class="val">$110</span></div>
+    <div class="feed-pill"><span class="dot"></span><strong>felix_rv</strong> pulled Black Lotus Reprint — <span class="val">$130</span></div>
+    <div class="feed-pill"><span class="dot"></span><strong>tommy_oc</strong> pulled Mewtwo V Alt Art — <span class="val">$62</span></div>
+    <div class="feed-pill"><span class="dot"></span><strong>lea.collect</strong> pulled McDavid Upper Deck SP — <span class="val">$55</span></div>
+    <div class="feed-pill"><span class="dot"></span><strong>kevin_qc</strong> pulled Series 24 Alien — <span class="val">$18</span></div>
   </div>
 </div>
 
 <!-- UNIVERSES -->
 <section class="sec" id="universes">
-  <div class="sec-label">Univers</div>
-  <h2 class="sec-title">Quatre mondes à explorer</h2>
+  <div class="sec-label">Universes</div>
+  <h2 class="sec-title">Four worlds to explore</h2>
   <div class="univ-grid">
-    <div class="ucard">
-      <div class="ubadge ubadge-hot">🔥 Hot</div>
-      <img class="ucard-img" src="https://images.pokemontcg.io/swsh9/74_hires.png" alt="Pokémon">
+
+    <div class="ucard u-blue">
+      <div class="ucard-img-wrap">
+        <div class="ubadge ubadge-hot">🔥 Most popular</div>
+        <img src="https://images.pokemontcg.io/swsh9/74_hires.png" alt="Pokémon TCG">
+      </div>
       <div class="ucard-body">
         <div class="ucard-name">Pokémon TCG</div>
-        <div class="ucard-desc">Scarlet &amp; Violet, sets classiques, holos rares.</div>
-        <div class="ucard-price">Dès <strong>$9.99</strong></div>
+        <div class="ucard-desc">Scarlet &amp; Violet, classic sets, holo rares.</div>
+        <div class="ucard-footer">
+          <div class="ucard-price">From <strong>$9.99</strong></div>
+          <div class="ucard-arrow">→</div>
+        </div>
       </div>
     </div>
-    <div class="ucard">
-      <div class="ubadge ubadge-new">✦ Nouveau</div>
-      <img class="ucard-img" src="https://cards.scryfall.io/large/front/a/9/a9424e78-f591-4aa8-8e73-72113a059e29.jpg" alt="MTG">
+
+    <div class="ucard u-purple">
+      <div class="ucard-img-wrap">
+        <div class="ubadge ubadge-new">✦ New</div>
+        <img src="https://cards.scryfall.io/large/front/a/9/a9424e78-f591-4aa8-8e73-72113a059e29.jpg" alt="MTG">
+      </div>
       <div class="ucard-body">
         <div class="ucard-name">Magic: The Gathering</div>
-        <div class="ucard-desc">Reserved list, Commander singles, Modern staples.</div>
-        <div class="ucard-price">Dès <strong>$14.99</strong></div>
+        <div class="ucard-desc">Commander singles, Modern staples, Reserved list.</div>
+        <div class="ucard-footer">
+          <div class="ucard-price">From <strong>$14.99</strong></div>
+          <div class="ucard-arrow">→</div>
+        </div>
       </div>
     </div>
-    <div class="ucard">
-      <img class="ucard-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/2018_Upper_Deck_1-250_Hockey_Card_Set_-_No._1_-_Connor_McDavid_%28Edmonton_Oilers%29_%2842924413285%29.jpg/800px-2018_Upper_Deck_1-250_Hockey_Card_Set_-_No._1_-_Connor_McDavid_%28Edmonton_Oilers%29_%2842924413285%29.jpg" alt="Sports">
+
+    <div class="ucard u-green">
+      <div class="ucard-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/2018_Upper_Deck_1-250_Hockey_Card_Set_-_No._1_-_Connor_McDavid_%28Edmonton_Oilers%29_%2842924413285%29.jpg/800px-2018_Upper_Deck_1-250_Hockey_Card_Set_-_No._1_-_Connor_McDavid_%28Edmonton_Oilers%29_%2842924413285%29.jpg" alt="Sports">
+      </div>
       <div class="ucard-body">
-        <div class="ucard-name">Cartes Sportives</div>
-        <div class="ucard-desc">NHL, NBA. Rookies, autos, refractors. Spécial Canada.</div>
-        <div class="ucard-price">Dès <strong>$12.99</strong></div>
+        <div class="ucard-name">Sports Cards</div>
+        <div class="ucard-desc">NHL, NBA. Rookies, autos, refractors. Canada special.</div>
+        <div class="ucard-footer">
+          <div class="ucard-price">From <strong>$12.99</strong></div>
+          <div class="ucard-arrow">→</div>
+        </div>
       </div>
     </div>
-    <div class="ucard">
-      <img class="ucard-img" src="https://images.pokemontcg.io/swsh35/17_hires.png" alt="One Piece">
+
+    <div class="ucard u-orange">
+      <div class="ucard-img-wrap">
+        <div class="lego-placeholder">
+          <div class="lego-figs">
+            <span class="lego-fig">🧱</span>
+            <span class="lego-fig" style="font-size:clamp(32px,7vw,48px);transform:translateY(-4px)">🧍</span>
+            <span class="lego-fig">🧱</span>
+          </div>
+          <div class="lego-sub">Minifigures</div>
+        </div>
+      </div>
       <div class="ucard-body">
-        <div class="ucard-name">One Piece TCG</div>
-        <div class="ucard-desc">Le TCG qui explose. Leaders alt art, rares exclusifs.</div>
-        <div class="ucard-price">Dès <strong>$9.99</strong></div>
+        <div class="ucard-name">Lego Minifigures</div>
+        <div class="ucard-desc">Series exclusives, rare figs, limited editions.</div>
+        <div class="ucard-footer">
+          <div class="ucard-price">From <strong>$9.99</strong></div>
+          <div class="ucard-arrow">→</div>
+        </div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -518,48 +624,50 @@ hr.div { border:none; border-top:1px solid var(--line); }
 <!-- PULL DEMO -->
 <div class="demo-bg" id="demo">
   <div class="demo-inner">
-    <div class="sec-label" style="text-align:center">Démo interactive</div>
-    <h2 class="sec-title" style="text-align:center;max-width:100%;margin-bottom:32px;">Le carrousel, c'est le pull.</h2>
+    <div class="sec-label" style="text-align:center">Interactive demo</div>
+    <h2 class="sec-title" style="text-align:center;max-width:100%;margin-bottom:32px">The carousel <em>is</em> the pull.</h2>
     <div class="demo-stage">
+      <div class="demo-glow"></div>
       <div class="reel" id="reel"></div>
+      <!-- center target indicator -->
+      <div class="center-indicator">
+        <div class="ci-line"></div>
+        <div class="ci-dot"></div>
+      </div>
     </div>
     <div class="demo-footer">
-      <button class="btn-spin" id="spinBtn">Tourner le carrousel</button>
-      <div class="spin-result" id="spinResult">Essaie — c'est gratuit ici</div>
+      <button class="btn-spin" id="spinBtn">Spin the carousel</button>
+      <div class="spin-result" id="spinResult">Try it — it's free here</div>
     </div>
   </div>
 </div>
 
 <hr class="div">
 
-<!-- HOW -->
+<!-- HOW IT WORKS -->
 <section class="sec">
-  <div class="sec-label">Comment ça marche</div>
-  <h2 class="sec-title">Quatre étapes, une carte chez toi.</h2>
+  <div class="sec-label">How it works</div>
+  <h2 class="sec-title">Four steps, one item at your door.</h2>
   <div class="how-grid">
     <div class="how-step">
-      <div class="how-num">01</div>
-      <div class="how-ico">🎯</div>
-      <div class="how-title">Choisis ton univers</div>
-      <div class="how-desc">Pokémon, MTG, sports — sélectionne la niche et le tier de valeur.</div>
+      <div class="how-num">01</div><div class="how-ico">🎯</div>
+      <div class="how-title">Pick your universe</div>
+      <div class="how-desc">Pokémon, MTG, sports — choose your niche and price tier.</div>
     </div>
     <div class="how-step">
-      <div class="how-num">02</div>
-      <div class="how-ico">🎰</div>
-      <div class="how-title">Lance le carrousel</div>
-      <div class="how-desc">Il ralentit sur ta carte. L'anticipation, c'est la moitié du fun.</div>
+      <div class="how-num">02</div><div class="how-ico">🎰</div>
+      <div class="how-title">Spin the carousel</div>
+      <div class="how-desc">It slows down on your item. The anticipation is half the fun.</div>
     </div>
     <div class="how-step">
-      <div class="how-num">03</div>
-      <div class="how-ico">📦</div>
-      <div class="how-title">On expédie</div>
-      <div class="how-desc">C'est une vraie carte physique. On l'emballe et on l'envoie.</div>
+      <div class="how-num">03</div><div class="how-ico">📦</div>
+      <div class="how-title">We ship it</div>
+      <div class="how-desc">A real physical item. We pack it and send it your way.</div>
     </div>
     <div class="how-step">
-      <div class="how-num">04</div>
-      <div class="how-ico">🔄</div>
-      <div class="how-title">Tu recommences</div>
-      <div class="how-desc">Chaque pull est unique. Construis ta collection.</div>
+      <div class="how-num">04</div><div class="how-ico">🔄</div>
+      <div class="how-title">Do it again</div>
+      <div class="how-desc">Every pull is unique. Build your collection, share your wins.</div>
     </div>
   </div>
 </section>
@@ -567,12 +675,12 @@ hr.div { border:none; border-top:1px solid var(--line); }
 <hr class="div">
 
 <!-- TRUST -->
-<section class="sec" style="padding-top:48px;padding-bottom:48px;">
+<section class="sec" style="padding-top:48px;padding-bottom:48px">
   <div class="trust-grid">
-    <div class="trust-item"><div class="trust-num">100%</div><div class="trust-label">Cartes authentiques</div></div>
-    <div class="trust-item"><div class="trust-num">3–5j</div><div class="trust-label">Livraison Canada</div></div>
-    <div class="trust-item"><div class="trust-num">4+</div><div class="trust-label">Univers disponibles</div></div>
-    <div class="trust-item"><div class="trust-num">$9</div><div class="trust-label">Pour commencer</div></div>
+    <div class="trust-item"><div class="trust-num">100%</div><div class="trust-label">Authentic items</div></div>
+    <div class="trust-item"><div class="trust-num">3–5d</div><div class="trust-label">Canada shipping</div></div>
+    <div class="trust-item"><div class="trust-num">4+</div><div class="trust-label">Universes available</div></div>
+    <div class="trust-item"><div class="trust-num">$9</div><div class="trust-label">To start pulling</div></div>
   </div>
 </section>
 
@@ -580,90 +688,96 @@ hr.div { border:none; border-top:1px solid var(--line); }
 <footer>
   <div class="footer-logo">MystCard</div>
   <div class="footer-links">
-    <a href="#">Confidentialité</a>
-    <a href="#">Conditions</a>
-    <a href="#">Contact</a>
+    <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Contact</a>
   </div>
   <div class="footer-copy">© 2026 MystCard</div>
 </footer>
 
 <script>
-const CARDS = [
-  { img:'https://images.pokemontcg.io/swsh9/74_hires.png',   name:'Charizard VSTAR',      rarity:'Secret Rare' },
-  { img:'https://images.pokemontcg.io/swsh35/17_hires.png',  name:'Glaceon V Alt Art',    rarity:'Ultra Rare'  },
-  { img:'https://images.pokemontcg.io/swsh4/18_hires.png',   name:'Pikachu V Full Art',   rarity:'Holo Rare'   },
-  { img:'https://images.pokemontcg.io/swsh35/18_hires.png',  name:'Umbreon VMAX Alt Art', rarity:'Secret Rare' },
-  { img:'https://images.pokemontcg.io/swsh10/196_hires.png', name:'Arceus VSTAR Rainbow', rarity:'Secret Rare' },
-  { img:'https://images.pokemontcg.io/sm35/4_hires.png',     name:'Mewtwo GX Full Art',   rarity:'Ultra Rare'  },
-  { img:'https://images.pokemontcg.io/swsh1/79_hires.png',   name:'Marnie Full Art',      rarity:'Holo Rare'   },
-  { img:'https://images.pokemontcg.io/swsh5/180_hires.png',  name:'Gengar VMAX Alt Art',  rarity:'Secret Rare' },
+const CARDS=[
+  {img:'https://images.pokemontcg.io/swsh9/74_hires.png',    name:'Charizard VSTAR',      rarity:'Secret Rare'},
+  {img:'https://images.pokemontcg.io/swsh35/17_hires.png',   name:'Glaceon V Alt Art',    rarity:'Ultra Rare'},
+  {img:'https://images.pokemontcg.io/swsh4/18_hires.png',    name:'Pikachu V Full Art',   rarity:'Holo Rare'},
+  {img:'https://images.pokemontcg.io/swsh35/18_hires.png',   name:'Umbreon VMAX Alt Art', rarity:'Secret Rare'},
+  {img:'https://images.pokemontcg.io/swsh10/196_hires.png',  name:'Arceus VSTAR Rainbow', rarity:'Secret Rare'},
+  {img:'https://cards.scryfall.io/large/front/a/9/a9424e78-f591-4aa8-8e73-72113a059e29.jpg', name:'Liliana of the Veil', rarity:'Mythic Rare'},
+  {img:'https://images.pokemontcg.io/swsh1/79_hires.png',    name:'Marnie Full Art',      rarity:'Holo Rare'},
+  {img:'https://images.pokemontcg.io/swsh5/180_hires.png',   name:'Gengar VMAX Alt Art',  rarity:'Secret Rare'},
 ];
 
-// 7 slots: far, s2, s1, center, s1, s2, far
-const CLASSES = ['far','s2','s1','center','s1','s2','far'];
-const N = 7, MID = 3;
-let cursor = 0, spinning = false, revealed = false;
+const CLS=['far','s2','s1','center','s1','s2','far'];
+const N=7,MID=3;
+let cursor=0,spinning=false,revealed=false;
+const reelEl=document.getElementById('reel');
+const spinBtn=document.getElementById('spinBtn');
+const spinRes=document.getElementById('spinResult');
 
-const reel    = document.getElementById('reel');
-const spinBtn = document.getElementById('spinBtn');
-const spinRes = document.getElementById('spinResult');
-
-function build(ci, showReveal) {
-  reel.innerHTML = '';
-  for (let i = 0; i < N; i++) {
-    const idx = ((ci + i - MID) % CARDS.length + CARDS.length) % CARDS.length;
-    const c = CARDS[idx];
-    const d = document.createElement('div');
-    d.className = 'rc ' + CLASSES[i];
-    if (i === MID && showReveal) d.classList.add('revealed');
-    d.innerHTML = `<img src="${c.img}" alt="${c.name}" onerror="this.parentNode.style.background='#222'">
+function build(ci,showReveal){
+  reelEl.innerHTML='';
+  for(let i=0;i<N;i++){
+    const idx=((ci+i-MID)%CARDS.length+CARDS.length)%CARDS.length;
+    const c=CARDS[idx];
+    const d=document.createElement('div');
+    d.className='rc '+CLS[i];
+    if(i===MID&&showReveal) d.classList.add('revealed');
+    d.innerHTML=`<img src="${c.img}" alt="${c.name}" onerror="this.parentNode.style.background='#1a1a24'">
       <div class="rc-info"><div class="ri-name">${c.name}</div><div class="ri-rarity">${c.rarity}</div></div>`;
-    reel.appendChild(d);
+    reelEl.appendChild(d);
   }
 }
+build(cursor,false);
 
-build(cursor, false);
-
-spinBtn.addEventListener('click', () => {
-  if (spinning) return;
-  if (revealed) {
-    revealed = false;
-    spinBtn.textContent = 'Tourner le carrousel';
-    spinRes.className = 'spin-result';
-    spinRes.textContent = "Essaie — c'est gratuit ici";
-    build(cursor, false);
+spinBtn.addEventListener('click',()=>{
+  if(spinning) return;
+  if(revealed){
+    revealed=false;
+    spinBtn.textContent='Spin the carousel';
+    spinRes.className='spin-result';
+    spinRes.textContent="Try it — it's free here";
+    build(cursor,false);
     return;
   }
+  spinning=true; spinBtn.disabled=true; spinRes.textContent='';
+  reelEl.classList.remove('smooth');
 
-  spinning = true;
-  spinBtn.disabled = true;
-  spinRes.textContent = '';
+  const winner=Math.floor(Math.random()*CARDS.length);
+  // More steps, gentler easing
+  const total=28+Math.floor(Math.random()*8);
+  let step=0, delay=48, pos=cursor;
 
-  const winner = Math.floor(Math.random() * CARDS.length);
-  const total  = 22 + Math.floor(Math.random() * 8);
-  let step = 0, delay = 52, pos = cursor;
-
-  function tick() {
-    if (step >= total) {
-      cursor = winner;
-      build(winner, false);
-      spinning = false; spinBtn.disabled = false;
-      setTimeout(() => {
-        build(winner, true);
-        revealed = true;
-        spinRes.textContent = CARDS[winner].name + ' · ' + CARDS[winner].rarity;
-        spinRes.className = 'spin-result win';
-        spinBtn.textContent = 'Rejouer →';
-      }, 260);
+  function tick(){
+    if(step>=total){
+      // final land
+      cursor=winner;
+      reelEl.classList.add('smooth');
+      build(winner,false);
+      spinning=false; spinBtn.disabled=false;
+      setTimeout(()=>{
+        build(winner,true); revealed=true;
+        spinRes.textContent=CARDS[winner].name+' · '+CARDS[winner].rarity;
+        spinRes.className='spin-result win';
+        spinBtn.textContent='Spin again →';
+      },320);
       return;
     }
-    pos = step < total - 1 ? (pos + 1) % CARDS.length : winner;
-    cursor = pos;
-    build(pos, false);
+    pos = step < total-1 ? (pos+1)%CARDS.length : winner;
+    cursor=pos;
+    build(pos,false);
     step++;
-    const p = step / total;
-    if (p < 0.35) delay = Math.max(38, delay - 2);
-    else delay = Math.min(300, delay + p * 20);
+
+    const p=step/total;
+    // Phase 1 (0–30%): accelerate
+    // Phase 2 (30–70%): hold fast
+    // Phase 3 (70–100%): ease out slowly
+    if(p<0.30){
+      delay=Math.max(35, delay-2.5);
+    } else if(p<0.70){
+      delay=38; // hold at peak speed
+    } else {
+      // gentle exponential slow-down
+      const progress=(p-0.70)/0.30; // 0→1 in last 30%
+      delay=38+Math.pow(progress,1.8)*280;
+    }
     setTimeout(tick, delay);
   }
   tick();
