@@ -8,287 +8,144 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
 :root{
-  --bg:    #000000;
-  --bg2:   #050507;
-  --bg3:   #0c0c0f;
-  --bg4:   #141418;
-  --line:  rgba(255,255,255,0.06);
-  --line2: rgba(255,255,255,0.11);
-  --text:  #e8e8ed;
-  --text2: #7a7a92;
-  --text3: #3e3e54;
-  --blue:  #5b9cf6;
-  --blue2: rgba(91,156,246,0.14);
-  --r:     10px;
-  --r-lg:  16px;
+  --bg:#000000;
+  --bg2:#0a0a0c;
+  --bg3:#111115;
+  --bg4:#18181e;
+  --line:rgba(255,255,255,0.07);
+  --line2:rgba(255,255,255,0.13);
+  --text:#e8e8ed;
+  --text2:#72728a;
+  --text3:#38384e;
 }
+html,body{background:#000;color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
-html{scroll-behavior:smooth;background:#000}
-body{
-  background:#000000;color:var(--text);
-  font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.65;
-  overflow-x:hidden;-webkit-font-smoothing:antialiased;
-}
-
-/* ── NAV ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;height:56px;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 20px;
-  background:rgba(0,0,0,0.96);backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--line);
-}
-.nav-logo{
-  font-weight:600;font-size:16px;letter-spacing:-.2px;
-  color:var(--text);display:flex;align-items:center;gap:7px;flex-shrink:0;
-}
-.nav-mark{
-  width:24px;height:24px;border-radius:6px;
-  border:1px solid var(--line2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:11px;color:var(--text2);
-}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
+.nav-logo{font-weight:600;font-size:16px;color:var(--text);display:flex;align-items:center;gap:7px;flex-shrink:0}
+.nav-mark{width:24px;height:24px;border-radius:6px;border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text2)}
 .nav-links{display:flex;gap:24px;list-style:none}
 .nav-links a{color:var(--text2);text-decoration:none;font-size:13px;transition:color .18s}
 .nav-links a:hover{color:var(--text)}
 @media(max-width:600px){.nav-links{display:none}}
 .nav-right{display:flex;gap:8px;align-items:center;flex-shrink:0}
+.btn-ghost-sm{background:none;border:1px solid var(--line2);color:var(--text2);font-family:'DM Sans',sans-serif;font-size:13px;padding:6px 14px;border-radius:8px;cursor:pointer;transition:color .18s;white-space:nowrap}
+.btn-ghost-sm:hover{color:var(--text)}
+.btn-white-sm{background:var(--text);color:#000;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;padding:6px 16px;border-radius:8px;border:none;cursor:pointer;white-space:nowrap}
 
-.btn-ghost-sm{
-  background:none;border:1px solid var(--line2);color:var(--text2);
-  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;
-  padding:6px 14px;border-radius:8px;cursor:pointer;
-  transition:border-color .18s,color .18s;white-space:nowrap;
-}
-.btn-ghost-sm:hover{color:var(--text);border-color:var(--line2)}
+/* HERO */
+.hero{padding:108px 24px 0;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:600px;height:360px;background:radial-gradient(ellipse at 50% 0%,rgba(91,156,246,0.05) 0%,transparent 70%);pointer-events:none}
 
-.btn-white-sm{
-  background:var(--text);color:#000000;
-  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
-  padding:6px 16px;border-radius:8px;border:none;cursor:pointer;
-  transition:opacity .18s;white-space:nowrap;
-}
-.btn-white-sm:hover{opacity:.88}
+.live-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(74,222,128,0.07);border:1px solid rgba(74,222,128,0.15);border-radius:100px;padding:4px 12px;font-size:11px;color:#4ade80;font-weight:500;margin-bottom:20px}
+.ldot{width:6px;height:6px;border-radius:50%;background:#4ade80;animation:livepulse 1.6s infinite}
+@keyframes livepulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(74,222,128,.35)}50%{opacity:.5;box-shadow:0 0 0 5px rgba(74,222,128,0)}}
 
-/* ── HERO ── */
-.hero{
-  padding:108px 24px 0;
-  display:flex;flex-direction:column;align-items:center;
-  text-align:center;position:relative;overflow:hidden;
-}
-.hero::before{
-  content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);
-  width:600px;height:360px;
-  background:radial-gradient(ellipse at 50% 0%,rgba(91,156,246,0.05) 0%,transparent 70%);
-  pointer-events:none;
-}
-
-.live-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  background:rgba(74,222,128,0.07);border:1px solid rgba(74,222,128,0.16);
-  border-radius:100px;padding:4px 12px;
-  font-size:11px;color:#4ade80;font-weight:500;margin-bottom:20px;
-  position:relative;
-}
-.ldot{
-  width:6px;height:6px;border-radius:50%;background:#4ade80;
-  animation:livepulse 1.6s infinite;
-}
-@keyframes livepulse{
-  0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(74,222,128,.35)}
-  50%{opacity:.5;box-shadow:0 0 0 5px rgba(74,222,128,0)}
-}
-
-h1{
-  font-family:'Playfair Display',serif;font-weight:400;
-  font-size:clamp(34px,8vw,70px);
-  line-height:1.07;letter-spacing:-.5px;
-  max-width:600px;margin-bottom:18px;position:relative;
-}
+h1{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(34px,8vw,70px);line-height:1.07;letter-spacing:-.5px;max-width:600px;margin-bottom:18px}
 h1 em{font-style:italic;color:#7ab3ff}
+.hero-sub{font-size:15px;font-weight:300;color:var(--text2);max-width:360px;margin:0 auto 32px}
+.hero-cta-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:52px}
+.btn-main{background:var(--text);color:#000;font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;padding:12px 26px;border-radius:10px;border:none;cursor:pointer;transition:opacity .18s,transform .18s}
+.btn-main:hover{opacity:.9;transform:translateY(-1px)}
+.btn-pulse{background:none;border:1px solid var(--line2);color:var(--text2);font-family:'DM Sans',sans-serif;font-size:14px;padding:12px 22px;border-radius:10px;cursor:pointer;animation:btn-bounce 2.6s ease-in-out infinite;transition:border-color .18s,color .18s}
+.btn-pulse:hover{border-color:var(--line2);color:var(--text);animation-play-state:paused}
+@keyframes btn-bounce{0%,100%{transform:translateY(0)}40%{transform:translateY(-5px);box-shadow:0 8px 24px rgba(91,156,246,.12)}60%{transform:translateY(-2px)}}
 
-.hero-sub{
-  font-size:15px;font-weight:300;color:var(--text2);
-  max-width:360px;margin:0 auto 32px;position:relative;
-}
-
-.hero-cta-row{
-  display:flex;gap:10px;justify-content:center;
-  flex-wrap:wrap;margin-bottom:52px;position:relative;
-}
-
-.btn-main{
-  background:var(--text);color:#000000;
-  font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;
-  padding:12px 26px;border-radius:10px;border:none;cursor:pointer;
-  box-shadow:0 0 0 0 rgba(232,232,237,0);
-  transition:opacity .18s,transform .18s,box-shadow .18s;
-}
-.btn-main:hover{opacity:.9;transform:translateY(-1px);box-shadow:0 6px 28px rgba(232,232,237,.12)}
-
-.btn-pulse{
-  background:none;border:1px solid var(--line2);color:var(--text2);
-  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;
-  padding:12px 22px;border-radius:10px;cursor:pointer;
-  animation:btn-bounce 2.6s ease-in-out infinite;
-  transition:border-color .18s,color .18s;
-}
-.btn-pulse:hover{
-  border-color:rgba(255,255,255,.2);color:var(--text);
-  animation-play-state:paused;
-}
-@keyframes btn-bounce{
-  0%,100%{transform:translateY(0);box-shadow:none}
-  40%{transform:translateY(-5px);box-shadow:0 8px 24px rgba(91,156,246,.13)}
-  60%{transform:translateY(-2px)}
-}
-
-/* ── MIXED FAN ── */
-.fan-wrap{
-  width:100%;max-width:500px;margin:0 auto;
-  display:flex;align-items:flex-end;justify-content:center;
-  padding:0 12px;overflow:visible;position:relative;
-}
-
-/* generic card slot */
-.fcard{
-  flex-shrink:0;
-  width:clamp(66px,16vw,100px);
-  aspect-ratio:0.716;
-  border-radius:8px;overflow:hidden;
-  border:1px solid rgba(255,255,255,.08);
-  background:var(--bg3);position:relative;cursor:pointer;
-  transition:transform .35s cubic-bezier(.34,1.56,.64,1),z-index 0s;
-}
+/* FAN */
+.fan-wrap{width:100%;max-width:500px;margin:0 auto;display:flex;align-items:flex-end;justify-content:center;padding:0 12px;overflow:visible}
+.fcard{flex-shrink:0;width:clamp(66px,16vw,100px);aspect-ratio:0.716;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:var(--bg3);position:relative;cursor:pointer;transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
 .fcard img{width:100%;height:100%;object-fit:cover;display:block}
-
-/* Lego fig slot — taller, narrower */
-.fcard.fig{
-  aspect-ratio:0.56;
-  border-radius:10px;
-}
-
-/* fan rotations */
 .fcard:nth-child(1){transform:rotate(-10deg) translateY(14px) translateX(8px);z-index:1}
-.fcard:nth-child(2){transform:rotate(-4deg)  translateY(6px)  translateX(4px); z-index:2}
-.fcard:nth-child(3){transform:rotate(0)       translateY(0);                   z-index:5;
-  box-shadow:0 20px 50px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.12),0 0 40px rgba(91,156,246,.1)}
-.fcard:nth-child(4){transform:rotate(4deg)   translateY(6px)  translateX(-4px);z-index:2}
-.fcard:nth-child(5){transform:rotate(10deg)  translateY(14px) translateX(-8px);z-index:1}
-
-.fcard:nth-child(3){animation:float 3.5s ease-in-out infinite}
-@keyframes float{
-  0%,100%{transform:rotate(0) translateY(0)}
-  50%{transform:rotate(0) translateY(-7px)}
-}
+.fcard:nth-child(2){transform:rotate(-4deg) translateY(6px) translateX(4px);z-index:2}
+.fcard:nth-child(3){transform:rotate(0) translateY(0);z-index:5;box-shadow:0 20px 50px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.12),0 0 40px rgba(91,156,246,.09);animation:float 3.5s ease-in-out infinite}
+.fcard:nth-child(4){transform:rotate(4deg) translateY(6px) translateX(-4px);z-index:2}
+.fcard:nth-child(5){transform:rotate(10deg) translateY(14px) translateX(-8px);z-index:1}
+@keyframes float{0%,100%{transform:rotate(0) translateY(0)}50%{transform:rotate(0) translateY(-7px)}}
 .fcard:nth-child(3):hover{animation-play-state:paused}
-
 .fcard:hover{z-index:10!important}
 .fcard:nth-child(1):hover{transform:rotate(-10deg) translateY(0) translateX(8px) scale(1.07)}
-.fcard:nth-child(2):hover{transform:rotate(-4deg)  translateY(-7px) translateX(4px) scale(1.07)}
+.fcard:nth-child(2):hover{transform:rotate(-4deg) translateY(-7px) translateX(4px) scale(1.07)}
 .fcard:nth-child(3):hover{transform:scale(1.09) translateY(-9px)}
-.fcard:nth-child(4):hover{transform:rotate(4deg)   translateY(-7px) translateX(-4px) scale(1.07)}
-.fcard:nth-child(5):hover{transform:rotate(10deg)  translateY(0) translateX(-8px) scale(1.07)}
+.fcard:nth-child(4):hover{transform:rotate(4deg) translateY(-7px) translateX(-4px) scale(1.07)}
+.fcard:nth-child(5):hover{transform:rotate(10deg) translateY(0) translateX(-8px) scale(1.07)}
 
-/* placeholder inside fcard when no img */
-.fcard-placeholder{
-  width:100%;height:100%;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:6px;padding:10px;
-  background:var(--bg3);
-}
-.fcard-placeholder .fig-icon{font-size:clamp(28px,6vw,42px)}
-.fcard-placeholder .fig-label{font-size:9px;color:var(--text3);font-weight:500;text-align:center;line-height:1.3}
+/* CSS card visuals for non-pokemon in fan */
+.fcard-inner{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.fi-icon{font-size:clamp(20px,4vw,28px)}
+.fi-label{font-size:7px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,.25)}
 
-/* ── FEED ── */
-.feed-wrap{
-  background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-  padding:11px 0;overflow:hidden;position:relative;margin-top:52px;
-}
-.feed-wrap::before,.feed-wrap::after{
-  content:'';position:absolute;top:0;bottom:0;width:60px;z-index:2;pointer-events:none;
-}
+/* FEED */
+.feed-wrap{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:11px 0;overflow:hidden;position:relative;margin-top:52px}
+.feed-wrap::before,.feed-wrap::after{content:'';position:absolute;top:0;bottom:0;width:60px;z-index:2;pointer-events:none}
 .feed-wrap::before{left:0;background:linear-gradient(to right,var(--bg2),transparent)}
 .feed-wrap::after{right:0;background:linear-gradient(to left,var(--bg2),transparent)}
 .feed-track{display:flex;width:max-content;animation:feed-scroll 30s linear infinite}
 .feed-track:hover{animation-play-state:paused}
 @keyframes feed-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.feed-pill{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:0 18px;height:30px;font-size:12px;color:var(--text2);
-  white-space:nowrap;border-right:1px solid var(--line);
-}
+.feed-pill{display:inline-flex;align-items:center;gap:8px;padding:0 18px;height:30px;font-size:12px;color:var(--text2);white-space:nowrap;border-right:1px solid var(--line)}
 .feed-pill .dot{width:5px;height:5px;border-radius:50%;background:#4ade80;flex-shrink:0}
 .feed-pill strong{color:var(--text);font-weight:500}
 .feed-pill .val{color:var(--text);font-weight:600}
 
-/* ── SHARED SECTION ── */
+/* SECTIONS */
 .sec{max-width:1040px;margin:0 auto;padding:72px 24px}
-.sec-label{
-  font-size:11px;font-weight:500;letter-spacing:1px;
-  text-transform:uppercase;color:var(--text3);margin-bottom:12px;
-}
-.sec-title{
-  font-family:'Playfair Display',serif;font-weight:400;
-  font-size:clamp(24px,4vw,38px);letter-spacing:-.3px;line-height:1.15;
-  margin-bottom:40px;
-}
+.sec-label{font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:12px}
+.sec-title{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(24px,4vw,38px);letter-spacing:-.3px;line-height:1.15;margin-bottom:40px}
 
-/* ── UNIVERSE GRID — 4 fixed cards ── */
-.univ-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-}
-@media(min-width:720px){
-  .univ-grid{grid-template-columns:repeat(4,1fr)}
-}
+/* UNIVERSE GRID */
+.univ-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:720px){.univ-grid{grid-template-columns:repeat(4,1fr)}}
 
-.ucard{
-  background:var(--bg2);border:1px solid var(--line);
-  border-radius:var(--r-lg);overflow:hidden;
-  cursor:pointer;position:relative;
-  display:flex;flex-direction:column;
-  transition:border-color .22s,transform .2s,box-shadow .22s;
-}
-.ucard:hover{
-  border-color:var(--line2);transform:translateY(-3px);
-  box-shadow:0 12px 36px rgba(0,0,0,.45);
-}
+.ucard{background:var(--bg2);border:1px solid var(--line);border-radius:16px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:border-color .22s,transform .2s,box-shadow .22s}
+.ucard:hover{border-color:var(--line2);transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,.45)}
 
-.ucard-img-wrap{
-  position:relative;height:170px;overflow:hidden;flex-shrink:0;
-  background:var(--bg3);
-}
-.ucard-img-wrap img{
-  width:100%;height:100%;object-fit:cover;display:block;
-  filter:brightness(.62) saturate(.72);
-  transition:filter .3s,transform .4s;
-}
-.ucard:hover .ucard-img-wrap img{filter:brightness(.76) saturate(.88);transform:scale(1.04)}
+/* universe cover — fixed height, CSS background */
+.ucover{height:180px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ucover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.6) saturate(.7);transition:filter .3s,transform .4s}
+.ucard:hover .ucover img{filter:brightness(.78) saturate(.85);transform:scale(1.04)}
 
-/* colour tint per universe */
-.ucard-img-wrap::after{
-  content:'';position:absolute;inset:0;opacity:.3;
-  transition:opacity .3s;pointer-events:none;
-}
-.ucard:hover .ucard-img-wrap::after{opacity:.15}
-.u-blue  .ucard-img-wrap::after{background:linear-gradient(135deg,#4f8ef7 0%,transparent 55%)}
-.u-purple.ucard-img-wrap::after, .u-purple .ucard-img-wrap::after{background:linear-gradient(135deg,#9b6dfa 0%,transparent 55%)}
-.u-green .ucard-img-wrap::after{background:linear-gradient(135deg,#34d399 0%,transparent 55%)}
-.u-orange.ucard-img-wrap::after{background:linear-gradient(135deg,#f97316 0%,transparent 55%)}
+/* per-universe bg */
+.uc-poke{background:linear-gradient(160deg,#0e1520 0%,#060c16 100%)}
+.uc-mtg{background:linear-gradient(160deg,#130828 0%,#0a041a 100%)}
+.uc-sports{background:linear-gradient(160deg,#061810 0%,#030e09 100%)}
+.uc-lego{background:linear-gradient(160deg,#150820 0%,#0c0516 100%)}
 
-/* lego placeholder inside img-wrap */
-.lego-placeholder{
-  width:100%;height:100%;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
-  background:linear-gradient(135deg,#1a1624 0%,#120e1c 100%);
-}
-.lego-figs{display:flex;gap:4px;align-items:flex-end}
-.lego-fig{font-size:clamp(22px,5vw,34px);filter:drop-shadow(0 4px 8px rgba(0,0,0,.6))}
-.lego-sub{font-size:10px;color:var(--text3);font-weight:500;letter-spacing:.3px}
+/* visual inside cover */
+.ucover-visual{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;width:100%;height:100%;padding:16px}
+
+/* mini card stack for MTG / Sports */
+.mini-stack{display:flex;align-items:flex-end;justify-content:center;gap:0}
+.mini-card{width:44px;height:62px;border-radius:5px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.mini-card:nth-child(1){transform:rotate(-9deg) translate(6px,5px);z-index:1}
+.mini-card:nth-child(2){transform:rotate(0deg);z-index:3;box-shadow:0 8px 20px rgba(0,0,0,.5)}
+.mini-card:nth-child(3){transform:rotate(9deg) translate(-6px,5px);z-index:1}
+.ucard:hover .mini-card{filter:brightness(1.15)}
+.ucard:hover .mini-card:nth-child(1){transform:rotate(-12deg) translate(8px,8px)}
+.ucard:hover .mini-card:nth-child(3){transform:rotate(12deg) translate(-8px,8px)}
+
+/* MTG card colors */
+.mc-black{background:linear-gradient(135deg,#1a1025,#0e0818)}
+.mc-blue{background:linear-gradient(135deg,#0d1835,#071022)}
+.mc-purple{background:linear-gradient(135deg,#1e1035,#130820)}
+/* Sports card colors */
+.mc-green{background:linear-gradient(135deg,#0a2010,#051408)}
+.mc-teal{background:linear-gradient(135deg,#051d18,#031210)}
+.mc-dark{background:linear-gradient(135deg,#121820,#080e14)}
+
+/* Lego figs */
+.lego-row{display:flex;align-items:flex-end;justify-content:center;gap:6px}
+.lego-fig{font-size:clamp(28px,6vw,40px);filter:drop-shadow(0 6px 14px rgba(0,0,0,.7));transition:transform .3s}
+.lego-fig:nth-child(2){transform:scale(1.15) translateY(-4px)}
+.ucard:hover .lego-fig:nth-child(1){transform:translateY(-3px) rotate(-5deg)}
+.ucard:hover .lego-fig:nth-child(2){transform:scale(1.2) translateY(-8px)}
+.ucard:hover .lego-fig:nth-child(3){transform:translateY(-3px) rotate(5deg)}
+
+.ucover-label{font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)}
+
+.ubadge{position:absolute;top:10px;right:10px;z-index:4;font-size:9px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;padding:3px 8px;border-radius:100px}
+.ubadge-hot{background:rgba(249,115,22,.18);color:#fb923c;border:1px solid rgba(249,115,22,.28)}
+.ubadge-new{background:rgba(155,109,250,.15);color:#c4a0ff;border:1px solid rgba(155,109,250,.28)}
 
 .ucard-body{padding:14px 16px 18px;flex:1;display:flex;flex-direction:column}
 .ucard-name{font-weight:600;font-size:14px;margin-bottom:4px}
@@ -296,139 +153,60 @@ h1 em{font-style:italic;color:#7ab3ff}
 .ucard-footer{display:flex;align-items:center;justify-content:space-between}
 .ucard-price{font-size:12.5px;color:var(--text2)}
 .ucard-price strong{color:var(--text);font-weight:500}
-.ucard-arrow{
-  width:26px;height:26px;border-radius:7px;
-  border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;
-  font-size:12px;color:var(--text2);transition:background .18s,color .18s,border-color .18s;
-}
-.ucard:hover .ucard-arrow{background:var(--text);color:var(--bg);border-color:transparent}
+.ucard-arrow{width:26px;height:26px;border-radius:7px;border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--text2);transition:background .18s,color .18s}
+.ucard:hover .ucard-arrow{background:var(--text);color:#000;border-color:transparent}
 
-.ubadge{
-  position:absolute;top:10px;right:10px;z-index:3;
-  font-size:9px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;
-  padding:3px 8px;border-radius:100px;
-}
-.ubadge-hot{background:rgba(249,115,22,.18);color:#fb923c;border:1px solid rgba(249,115,22,.28)}
-.ubadge-new{background:rgba(155,109,250,.15);color:#c4a0ff;border:1px solid rgba(155,109,250,.28)}
-
-/* ── PULL DEMO ── */
+/* DEMO */
 .demo-bg{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .demo-inner{max-width:1040px;margin:0 auto;padding:64px 24px}
 
-.demo-stage{
-  background:#000000;border:1px solid var(--line);
-  border-radius:18px;padding:44px 0 38px;
-  position:relative;overflow:hidden;
-}
-.demo-stage::before,.demo-stage::after{
-  content:'';position:absolute;top:0;bottom:0;width:90px;z-index:3;pointer-events:none;
-}
-.demo-stage::before{left:0;background:linear-gradient(to right,var(--bg),transparent)}
-.demo-stage::after{right:0;background:linear-gradient(to left,var(--bg),transparent)}
+/* Universe selector pills */
+.univ-pills{display:flex;gap:8px;justify-content:center;margin-bottom:28px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.univ-pills::-webkit-scrollbar{display:none}
+.upill{background:none;border:1px solid var(--line);color:var(--text2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;padding:7px 16px;border-radius:100px;cursor:pointer;transition:all .18s;white-space:nowrap;flex-shrink:0}
+.upill:hover{border-color:var(--line2);color:var(--text)}
+.upill.active{background:var(--text);color:#000;border-color:transparent;font-weight:500}
 
-/* ambient glow behind center slot */
-.demo-glow{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:220px;height:220px;
-  background:radial-gradient(circle,rgba(91,156,246,.07),transparent 70%);
-  pointer-events:none;z-index:0;
-  animation:glow-pulse 3s ease-in-out infinite;
-}
-@keyframes glow-pulse{
-  0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}
-  50%{opacity:1;transform:translate(-50%,-50%) scale(1.25)}
-}
+.demo-stage{background:#000;border:1px solid var(--line);border-radius:18px;padding:44px 0 38px;position:relative;overflow:hidden}
+.demo-stage::before,.demo-stage::after{content:'';position:absolute;top:0;bottom:0;width:90px;z-index:3;pointer-events:none}
+.demo-stage::before{left:0;background:linear-gradient(to right,#000,transparent)}
+.demo-stage::after{right:0;background:linear-gradient(to left,#000,transparent)}
+.demo-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:220px;height:220px;background:radial-gradient(circle,rgba(91,156,246,.06),transparent 70%);pointer-events:none;z-index:0;animation:glow-pulse 3s ease-in-out infinite}
+@keyframes glow-pulse{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.25)}}
 
-/* center indicator — thin line + dot */
-.center-indicator{
-  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:0;
-  z-index:4;pointer-events:none;
-}
-.ci-line{
-  width:1px;height:32px;
-  background:linear-gradient(to top,rgba(255,255,255,.35),transparent);
-}
-.ci-dot{
-  width:5px;height:5px;border-radius:50%;
-  background:rgba(255,255,255,.4);
-  margin-bottom:10px;
-}
+/* center target */
+.center-indicator{position:absolute;bottom:0;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;z-index:4;pointer-events:none}
+.ci-line{width:1px;height:28px;background:linear-gradient(to top,rgba(255,255,255,.3),transparent)}
+.ci-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.35);margin-bottom:10px}
 
-.reel{
-  display:flex;align-items:center;justify-content:center;
-  gap:14px;padding:0 20px;min-height:190px;position:relative;z-index:1;
-}
-
-.rc{
-  flex-shrink:0;
-  width:clamp(68px,14vw,96px);aspect-ratio:0.716;
-  border-radius:8px;overflow:hidden;border:1px solid var(--line);
-  background:var(--bg3);position:relative;
-  transition:transform .0s,box-shadow .0s,border-color .0s,opacity .0s;
-}
-/* smooth transition only when NOT spinning */
-.reel.smooth .rc{
-  transition:transform .38s cubic-bezier(.34,1.56,.64,1),
-             box-shadow .38s,border-color .38s,opacity .38s;
-}
-
+.reel{display:flex;align-items:center;justify-content:center;gap:14px;padding:0 20px;min-height:190px;position:relative;z-index:1}
+.rc{flex-shrink:0;width:clamp(68px,14vw,96px);aspect-ratio:0.716;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:var(--bg3);position:relative}
 .rc img{width:100%;height:100%;object-fit:cover;display:block}
-
-.rc.center{
-  transform:scale(1.22);
-  border-color:rgba(255,255,255,.18);
-  box-shadow:0 0 0 1px rgba(255,255,255,.07),
-             0 0 28px rgba(91,156,246,.15),
-             0 16px 40px rgba(0,0,0,.55);
-  z-index:2;
-}
-.rc.s1 {transform:scale(1.06);opacity:.72}
-.rc.s2 {transform:scale(0.90);opacity:.40}
+.rc.center{transform:scale(1.22);border-color:rgba(255,255,255,.18);box-shadow:0 0 0 1px rgba(255,255,255,.07),0 0 28px rgba(91,156,246,.14),0 16px 40px rgba(0,0,0,.55);z-index:2}
+.rc.s1{transform:scale(1.06);opacity:.72}
+.rc.s2{transform:scale(0.90);opacity:.40}
 .rc.far{transform:scale(0.76);opacity:.18}
-
-.rc.center.revealed::after{
-  content:'';position:absolute;inset:-200%;
-  background:linear-gradient(110deg,transparent 38%,rgba(255,255,255,.055) 50%,transparent 62%);
-  animation:shimmer 2.2s infinite;
-}
-@keyframes shimmer{
-  from{transform:translateX(-80%) rotate(8deg)}
-  to{transform:translateX(180%) rotate(8deg)}
-}
-.rc-info{
-  position:absolute;bottom:0;left:0;right:0;
-  background:linear-gradient(to top,rgba(0,0,0,.88),transparent);
-  padding:20px 8px 8px;opacity:0;transition:opacity .3s;text-align:center;
-}
+.rc.center.revealed::after{content:'';position:absolute;inset:-200%;background:linear-gradient(110deg,transparent 38%,rgba(255,255,255,.055) 50%,transparent 62%);animation:shimmer 2.2s infinite}
+@keyframes shimmer{from{transform:translateX(-80%) rotate(8deg)}to{transform:translateX(180%) rotate(8deg)}}
+.rc-info{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.88),transparent);padding:20px 8px 8px;opacity:0;transition:opacity .3s;text-align:center}
 .rc.center.revealed .rc-info{opacity:1}
 .ri-name{font-size:8.5px;font-weight:600;color:#fff;line-height:1.3}
 .ri-rarity{font-size:7.5px;color:rgba(255,255,255,.5);margin-top:2px}
 
+/* CSS reel card for non-image items */
+.rc-css{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:8px}
+.rc-css-icon{font-size:clamp(22px,4vw,30px)}
+.rc-css-label{font-size:8px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:rgba(255,255,255,.25);text-align:center;line-height:1.3}
+
 .demo-footer{text-align:center;margin-top:28px}
-.btn-spin{
-  background:var(--text);color:#000000;
-  font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;
-  padding:12px 40px;border-radius:10px;border:none;cursor:pointer;
-  box-shadow:0 0 0 0 rgba(232,232,237,0);
-  transition:opacity .18s,transform .18s,box-shadow .18s;
-}
-.btn-spin:hover:not(:disabled){
-  opacity:.9;transform:translateY(-1px);
-  box-shadow:0 6px 24px rgba(232,232,237,.10);
-}
+.btn-spin{background:var(--text);color:#000;font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;padding:12px 40px;border-radius:10px;border:none;cursor:pointer;transition:opacity .18s,transform .18s,box-shadow .18s}
+.btn-spin:hover:not(:disabled){opacity:.9;transform:translateY(-1px);box-shadow:0 6px 24px rgba(232,232,237,.10)}
 .btn-spin:disabled{opacity:.35;cursor:not-allowed}
-.spin-result{
-  margin-top:12px;min-height:18px;font-size:13px;color:var(--text3);transition:color .3s;
-}
+.spin-result{margin-top:12px;min-height:18px;font-size:13px;color:var(--text3);transition:color .3s}
 .spin-result.win{color:var(--text2);font-weight:500}
 
-/* ── HOW ── */
-.how-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;
-}
+/* HOW */
+.how-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
 @media(min-width:640px){.how-grid{grid-template-columns:repeat(4,1fr)}}
 .how-step{background:var(--bg2);padding:28px 22px}
 .how-num{font-size:11px;color:var(--text3);font-weight:500;letter-spacing:.5px;margin-bottom:14px}
@@ -436,121 +214,34 @@ h1 em{font-style:italic;color:#7ab3ff}
 .how-title{font-weight:600;font-size:14px;margin-bottom:5px}
 .how-desc{font-size:12.5px;color:var(--text2);line-height:1.55}
 
-/* ── TRUST ── */
-.trust-grid{
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;
-}
+/* TRUST */
+.trust-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
 @media(min-width:500px){.trust-grid{grid-template-columns:repeat(4,1fr)}}
 .trust-item{background:var(--bg2);padding:24px 20px;text-align:center}
-.trust-num{
-  font-family:'Playfair Display',serif;font-size:28px;font-weight:400;
-  color:var(--text);margin-bottom:4px;
-}
+.trust-num{font-family:'Playfair Display',serif;font-size:28px;font-weight:400;color:var(--text);margin-bottom:4px}
 .trust-label{font-size:12px;color:var(--text2)}
 
-/* ── FOOTER ── */
-footer{
-  border-top:1px solid var(--line);padding:32px 24px;
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;
-}
+/* FOOTER */
+footer{border-top:1px solid var(--line);padding:32px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
 .footer-logo{font-weight:600;font-size:15px;color:var(--text2)}
 .footer-links{display:flex;gap:18px}
 .footer-links a{font-size:12px;color:var(--text3);text-decoration:none;transition:color .18s}
 .footer-links a:hover{color:var(--text2)}
 .footer-copy{font-size:12px;color:var(--text3)}
 hr.div{border:none;border-top:1px solid var(--line)}
-
-/* ── UNIVERSE CARD VISUALS ── */
-.ucard-cover{position:relative;height:190px;overflow:hidden;flex-shrink:0;background:#000}
-.ucard-cover img{width:100%;height:100%;object-fit:cover;display:block;
-  filter:brightness(.6) saturate(.75);transition:filter .3s,transform .4s}
-.ucard:hover .ucard-cover img{filter:brightness(.78) saturate(.88);transform:scale(1.04)}
-.cover-overlay{position:absolute;inset:0;pointer-events:none}
-.poke-cover{background:#0a0818}
-.mtg-cover{background:#0e0920}
-.sports-cover{background:#071510}
-.lego-cover{background:#100a1a}
-
-.ucard-visual{width:100%;height:100%}
-.uv-bg{
-  width:100%;height:100%;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
-  position:relative;
-}
-.mtg-bg{background:linear-gradient(160deg,#130a28 0%,#0a061a 100%)}
-.sports-bg{background:linear-gradient(160deg,#071a0e 0%,#040f08 100%)}
-.lego-bg{background:linear-gradient(160deg,#180e28 0%,#0e0818 100%)}
-
-.uv-cards{display:flex;align-items:flex-end;justify-content:center;gap:0}
-.uv-card{
-  width:52px;height:72px;border-radius:6px;
-  border:1px solid rgba(255,255,255,0.08);
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
-}
-.ucard:hover .uv-card{filter:brightness(1.1)}
-
-.uv-figs{display:flex;align-items:flex-end;justify-content:center;gap:8px}
-.uv-fig{font-size:36px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.6))}
-
-.uv-label{
-  font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
-  color:rgba(255,255,255,.2);
-}
-
-/* ── DEMO TABS ── */
-.demo-tabs{
-  display:flex;gap:8px;justify-content:center;
-  margin-bottom:24px;flex-wrap:wrap;
-}
-.dtab{
-  background:none;border:1px solid var(--line);
-  color:var(--text2);font-family:'DM Sans',sans-serif;
-  font-size:13px;font-weight:500;
-  padding:8px 16px;border-radius:100px;cursor:pointer;
-  transition:background .18s,border-color .18s,color .18s;
-  white-space:nowrap;
-}
-.dtab:hover{border-color:var(--line2);color:var(--text)}
-.dtab.active{
-  background:var(--text);color:#000;border-color:transparent;
-}
-
-
-/* ── UNIVERSE PLACEHOLDERS ── */
-.uni-placeholder{
-  width:100%;height:100%;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:10px;
-}
-.mtg-bg{background:linear-gradient(135deg,#1a1030 0%,#0e0920 50%,#160d28 100%)}
-.sports-bg{background:linear-gradient(135deg,#0a1f18 0%,#071510 50%,#0d2018 100%)}
-.uni-ph-icon{font-size:44px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.5))}
-.uni-ph-name{font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--text3)}
-
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <div class="nav-logo">
-    <div class="nav-mark">✦</div>
-    MystCard
-  </div>
-  <ul class="nav-links">
-    <li><a href="#universes">Universes</a></li>
-    <li><a href="#demo">How it works</a></li>
-  </ul>
+  <div class="nav-logo"><div class="nav-mark">✦</div>MystCard</div>
+  <ul class="nav-links"><li><a href="#universes">Universes</a></li><li><a href="#demo">How it works</a></li></ul>
   <div class="nav-right">
     <button class="btn-ghost-sm">Sign in</button>
     <button class="btn-white-sm">Get started</button>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="live-badge"><span class="ldot"></span>Live pulls happening now</div>
   <h1>Every pull is a <em>real</em> surprise</h1>
@@ -559,41 +250,15 @@ hr.div{border:none;border-top:1px solid var(--line)}
     <button class="btn-main">Make my first pull</button>
     <button class="btn-pulse" onclick="document.getElementById('universes').scrollIntoView({behavior:'smooth'})">Browse universes ↓</button>
   </div>
-
-  <!-- FAN: mix of cards + lego fig -->
   <div class="fan-wrap">
-    <!-- MTG card -->
-    <div class="fcard">
-      <img src="https://images.pokemontcg.io/swsh10/196_hires.png" alt="card"
-        onerror="this.style.display='none';this.parentNode.style.background='var(--bg3)'">
-    </div>
-    <!-- Sports card -->
-    <div class="fcard">
-      <img src="https://images.pokemontcg.io/swsh5/180_hires.png" alt="card"
-        onerror="this.style.display='none';this.parentNode.style.background='var(--bg3)'">
-    </div>
-    <!-- Pokémon — center, floating -->
-    <div class="fcard">
-      <img src="https://images.pokemontcg.io/swsh9/74_hires.png" alt="Pokémon"
-        onerror="this.style.display='none';this.parentNode.style.background='var(--bg3)'">
-    </div>
-    <!-- Pokémon alt -->
-    <div class="fcard">
-      <img src="https://images.pokemontcg.io/swsh35/18_hires.png" alt="Pokémon"
-        onerror="this.style.display='none';this.parentNode.style.background='var(--bg3)'">
-    </div>
-    <!-- Lego fig — taller slot -->
-    <div class="fcard fig">
-      <div class="fcard-placeholder" style="background:linear-gradient(160deg,#1a1020,#0e0a18);gap:4px">
-        <div class="fig-icon" style="font-size:clamp(24px,5vw,36px)">🧍</div>
-        <div class="fig-icon" style="font-size:clamp(16px,3vw,22px);margin-top:-8px">🧱</div>
-        <div class="fig-label" style="color:#5a4a7a;font-size:8px">LEGO</div>
-      </div>
-    </div>
+    <div class="fcard"><img src="https://images.pokemontcg.io/swsh10/196_hires.png" alt="card" onerror="this.style.display='none'"></div>
+    <div class="fcard"><img src="https://images.pokemontcg.io/swsh5/180_hires.png" alt="card" onerror="this.style.display='none'"></div>
+    <div class="fcard"><img src="https://images.pokemontcg.io/swsh9/74_hires.png" alt="card" onerror="this.style.display='none'"></div>
+    <div class="fcard"><img src="https://images.pokemontcg.io/swsh35/18_hires.png" alt="card" onerror="this.style.display='none'"></div>
+    <div class="fcard"><img src="https://images.pokemontcg.io/swsh35/17_hires.png" alt="card" onerror="this.style.display='none'"></div>
   </div>
 </section>
 
-<!-- LIVE FEED -->
 <div class="feed-wrap">
   <div class="feed-track">
     <div class="feed-pill"><span class="dot"></span><strong>maxime_qc</strong> pulled Charizard ex Full Art — <span class="val">$89</span></div>
@@ -603,7 +268,7 @@ hr.div{border:none;border-top:1px solid var(--line)}
     <div class="feed-pill"><span class="dot"></span><strong>felix_rv</strong> pulled Black Lotus Reprint — <span class="val">$130</span></div>
     <div class="feed-pill"><span class="dot"></span><strong>tommy_oc</strong> pulled Mewtwo V Alt Art — <span class="val">$62</span></div>
     <div class="feed-pill"><span class="dot"></span><strong>lea.collect</strong> pulled McDavid Upper Deck SP — <span class="val">$55</span></div>
-    <div class="feed-pill"><span class="dot"></span><strong>kevin_qc</strong> pulled Series 24 Alien — <span class="val">$18</span></div>
+    <div class="feed-pill"><span class="dot"></span><strong>kevin_qc</strong> pulled Series 25 Alien Fig — <span class="val">$18</span></div>
     <div class="feed-pill"><span class="dot"></span><strong>maxime_qc</strong> pulled Charizard ex Full Art — <span class="val">$89</span></div>
     <div class="feed-pill"><span class="dot"></span><strong>sarah.mtg</strong> pulled Liliana of the Veil — <span class="val">$44</span></div>
     <div class="feed-pill"><span class="dot"></span><strong>phil_nord</strong> pulled Carey Price Rookie SP — <span class="val">$31</span></div>
@@ -611,112 +276,79 @@ hr.div{border:none;border-top:1px solid var(--line)}
     <div class="feed-pill"><span class="dot"></span><strong>felix_rv</strong> pulled Black Lotus Reprint — <span class="val">$130</span></div>
     <div class="feed-pill"><span class="dot"></span><strong>tommy_oc</strong> pulled Mewtwo V Alt Art — <span class="val">$62</span></div>
     <div class="feed-pill"><span class="dot"></span><strong>lea.collect</strong> pulled McDavid Upper Deck SP — <span class="val">$55</span></div>
-    <div class="feed-pill"><span class="dot"></span><strong>kevin_qc</strong> pulled Series 24 Alien — <span class="val">$18</span></div>
+    <div class="feed-pill"><span class="dot"></span><strong>kevin_qc</strong> pulled Series 25 Alien Fig — <span class="val">$18</span></div>
   </div>
 </div>
 
-<!-- UNIVERSES -->
 <section class="sec" id="universes">
   <div class="sec-label">Universes</div>
   <h2 class="sec-title">Four worlds to explore</h2>
   <div class="univ-grid">
 
-    <div class="ucard" onclick="selectUniverse('pokemon')">
-      <div class="ucard-cover poke-cover">
+    <div class="ucard" onclick="goDemo('pokemon')">
+      <div class="ucover uc-poke">
         <div class="ubadge ubadge-hot">🔥 Most popular</div>
-        <img src="https://images.pokemontcg.io/swsh9/74_hires.png" alt="Pokémon TCG"
-          onerror="this.style.display='none'">
-        <div class="cover-overlay"></div>
+        <img src="https://images.pokemontcg.io/swsh9/74_hires.png" alt="Pokémon" onerror="this.style.display='none'">
       </div>
       <div class="ucard-body">
         <div class="ucard-name">Pokémon TCG</div>
-        <div class="ucard-desc">Scarlet &amp; Violet, classic sets, holo rares.</div>
-        <div class="ucard-footer">
-          <div class="ucard-price">From <strong>$9.99</strong></div>
-          <div class="ucard-arrow">→</div>
-        </div>
+        <div class="ucard-desc">Scarlet & Violet, classic sets, holo rares.</div>
+        <div class="ucard-footer"><div class="ucard-price">From <strong>$9.99</strong></div><div class="ucard-arrow">→</div></div>
       </div>
     </div>
 
-    <div class="ucard" onclick="selectUniverse('mtg')">
-      <div class="ucard-cover mtg-cover">
+    <div class="ucard" onclick="goDemo('mtg')">
+      <div class="ucover uc-mtg">
         <div class="ubadge ubadge-new">✦ New</div>
-        <div class="ucard-visual">
-          <div class="uv-bg mtg-bg">
-            <div class="uv-cards">
-              <div class="uv-card" style="background:linear-gradient(135deg,#2a1545,#180d30);transform:rotate(-8deg) translate(-8px,4px)">
-                <div style="font-size:22px">⚔️</div>
-              </div>
-              <div class="uv-card" style="background:linear-gradient(135deg,#1a0d35,#251550);transform:rotate(2deg)">
-                <div style="font-size:22px">🟣</div>
-              </div>
-              <div class="uv-card" style="background:linear-gradient(135deg,#0d1535,#152050);transform:rotate(10deg) translate(8px,4px)">
-                <div style="font-size:22px">🔮</div>
-              </div>
-            </div>
-            <div class="uv-label">Magic</div>
+        <div class="ucover-visual">
+          <div class="mini-stack">
+            <div class="mini-card mc-black">⚔️</div>
+            <div class="mini-card mc-purple">🟣</div>
+            <div class="mini-card mc-blue">🔮</div>
           </div>
+          <div class="ucover-label">Magic</div>
         </div>
       </div>
       <div class="ucard-body">
         <div class="ucard-name">Magic: The Gathering</div>
         <div class="ucard-desc">Commander singles, Modern staples, Reserved list.</div>
-        <div class="ucard-footer">
-          <div class="ucard-price">From <strong>$14.99</strong></div>
-          <div class="ucard-arrow">→</div>
-        </div>
+        <div class="ucard-footer"><div class="ucard-price">From <strong>$14.99</strong></div><div class="ucard-arrow">→</div></div>
       </div>
     </div>
 
-    <div class="ucard" onclick="selectUniverse('sports')">
-      <div class="ucard-cover sports-cover">
-        <div class="ucard-visual">
-          <div class="uv-bg sports-bg">
-            <div class="uv-cards">
-              <div class="uv-card" style="background:linear-gradient(135deg,#0a2010,#051508);transform:rotate(-8deg) translate(-8px,4px)">
-                <div style="font-size:22px">🏒</div>
-              </div>
-              <div class="uv-card" style="background:linear-gradient(135deg,#081a10,#0a2014);transform:rotate(2deg)">
-                <div style="font-size:22px">🏀</div>
-              </div>
-              <div class="uv-card" style="background:linear-gradient(135deg,#051510,#0a1f12);transform:rotate(10deg) translate(8px,4px)">
-                <div style="font-size:22px">⚾</div>
-              </div>
-            </div>
-            <div class="uv-label">Sports</div>
+    <div class="ucard" onclick="goDemo('sports')">
+      <div class="ucover uc-sports">
+        <div class="ucover-visual">
+          <div class="mini-stack">
+            <div class="mini-card mc-green">🏒</div>
+            <div class="mini-card mc-teal">🏀</div>
+            <div class="mini-card mc-dark">⚾</div>
           </div>
+          <div class="ucover-label">Sports</div>
         </div>
       </div>
       <div class="ucard-body">
         <div class="ucard-name">Sports Cards</div>
         <div class="ucard-desc">NHL, NBA. Rookies, autos, refractors. Canada special.</div>
-        <div class="ucard-footer">
-          <div class="ucard-price">From <strong>$12.99</strong></div>
-          <div class="ucard-arrow">→</div>
-        </div>
+        <div class="ucard-footer"><div class="ucard-price">From <strong>$12.99</strong></div><div class="ucard-arrow">→</div></div>
       </div>
     </div>
 
-    <div class="ucard" onclick="selectUniverse('lego')">
-      <div class="ucard-cover lego-cover">
-        <div class="ucard-visual">
-          <div class="uv-bg lego-bg">
-            <div class="uv-figs">
-              <div class="uv-fig">🧍</div>
-              <div class="uv-fig" style="transform:scale(1.2) translateY(-4px)">🧍</div>
-              <div class="uv-fig">🧍</div>
-            </div>
-            <div class="uv-label">LEGO</div>
+    <div class="ucard" onclick="goDemo('lego')">
+      <div class="ucover uc-lego">
+        <div class="ucover-visual">
+          <div class="lego-row">
+            <div class="lego-fig">🧍</div>
+            <div class="lego-fig">🧍</div>
+            <div class="lego-fig">🧍</div>
           </div>
+          <div class="ucover-label">LEGO</div>
         </div>
       </div>
       <div class="ucard-body">
         <div class="ucard-name">Lego Minifigures</div>
         <div class="ucard-desc">Series exclusives, rare figs, limited editions.</div>
-        <div class="ucard-footer">
-          <div class="ucard-price">From <strong>$9.99</strong></div>
-          <div class="ucard-arrow">→</div>
-        </div>
+        <div class="ucard-footer"><div class="ucard-price">From <strong>$9.99</strong></div><div class="ucard-arrow">→</div></div>
       </div>
     </div>
 
@@ -725,26 +357,20 @@ hr.div{border:none;border-top:1px solid var(--line)}
 
 <hr class="div">
 
-<!-- PULL DEMO -->
 <div class="demo-bg" id="demo">
   <div class="demo-inner">
     <div class="sec-label" style="text-align:center">Interactive demo</div>
     <h2 class="sec-title" style="text-align:center;max-width:100%;margin-bottom:24px">The carousel <em>is</em> the pull.</h2>
-    <!-- Universe tabs -->
-    <div class="demo-tabs">
-      <button class="dtab active" onclick="switchUniverse('pokemon',this)">⚡ Pokémon</button>
-      <button class="dtab" onclick="switchUniverse('mtg',this)">🟣 MTG</button>
-      <button class="dtab" onclick="switchUniverse('sports',this)">🏒 Sports</button>
-      <button class="dtab" onclick="switchUniverse('lego',this)">🧍 Lego</button>
+    <div class="univ-pills">
+      <button class="upill active" data-u="pokemon">⚡ Pokémon</button>
+      <button class="upill" data-u="mtg">🟣 MTG</button>
+      <button class="upill" data-u="sports">🏒 Sports</button>
+      <button class="upill" data-u="lego">🧍 Lego</button>
     </div>
     <div class="demo-stage">
       <div class="demo-glow"></div>
       <div class="reel" id="reel"></div>
-      <!-- center target indicator -->
-      <div class="center-indicator">
-        <div class="ci-line"></div>
-        <div class="ci-dot"></div>
-      </div>
+      <div class="center-indicator"><div class="ci-line"></div><div class="ci-dot"></div></div>
     </div>
     <div class="demo-footer">
       <button class="btn-spin" id="spinBtn">Spin the carousel</button>
@@ -755,128 +381,111 @@ hr.div{border:none;border-top:1px solid var(--line)}
 
 <hr class="div">
 
-<!-- HOW IT WORKS -->
 <section class="sec">
   <div class="sec-label">How it works</div>
   <h2 class="sec-title">Four steps, one item at your door.</h2>
   <div class="how-grid">
-    <div class="how-step">
-      <div class="how-num">01</div><div class="how-ico">🎯</div>
-      <div class="how-title">Pick your universe</div>
-      <div class="how-desc">Pokémon, MTG, sports — choose your niche and price tier.</div>
-    </div>
-    <div class="how-step">
-      <div class="how-num">02</div><div class="how-ico">🎰</div>
-      <div class="how-title">Spin the carousel</div>
-      <div class="how-desc">It slows down on your item. The anticipation is half the fun.</div>
-    </div>
-    <div class="how-step">
-      <div class="how-num">03</div><div class="how-ico">📦</div>
-      <div class="how-title">We ship it</div>
-      <div class="how-desc">A real physical item. We pack it and send it your way.</div>
-    </div>
-    <div class="how-step">
-      <div class="how-num">04</div><div class="how-ico">🔄</div>
-      <div class="how-title">Do it again</div>
-      <div class="how-desc">Every pull is unique. Build your collection, share your wins.</div>
-    </div>
+    <div class="how-step"><div class="how-num">01</div><div class="how-ico">🎯</div><div class="how-title">Pick your universe</div><div class="how-desc">Pokémon, MTG, sports — choose your niche and price tier.</div></div>
+    <div class="how-step"><div class="how-num">02</div><div class="how-ico">🎰</div><div class="how-title">Spin the carousel</div><div class="how-desc">It slows down on your item. The anticipation is half the fun.</div></div>
+    <div class="how-step"><div class="how-num">03</div><div class="how-ico">📦</div><div class="how-title">We ship it</div><div class="how-desc">A real physical item. We pack it and send it your way.</div></div>
+    <div class="how-step"><div class="how-num">04</div><div class="how-ico">🔄</div><div class="how-title">Do it again</div><div class="how-desc">Every pull is unique. Build your collection, share your wins.</div></div>
   </div>
 </section>
 
 <hr class="div">
 
-<!-- TRUST -->
 <section class="sec" style="padding-top:48px;padding-bottom:48px">
   <div class="trust-grid">
     <div class="trust-item"><div class="trust-num">100%</div><div class="trust-label">Authentic items</div></div>
     <div class="trust-item"><div class="trust-num">3–5d</div><div class="trust-label">Canada shipping</div></div>
-    <div class="trust-item"><div class="trust-num">4+</div><div class="trust-label">Universes available</div></div>
+    <div class="trust-item"><div class="trust-num">4+</div><div class="trust-label">Universes</div></div>
     <div class="trust-item"><div class="trust-num">$9</div><div class="trust-label">To start pulling</div></div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-logo">MystCard</div>
-  <div class="footer-links">
-    <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Contact</a>
-  </div>
+  <div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Contact</a></div>
   <div class="footer-copy">© 2026 MystCard</div>
 </footer>
 
 <script>
+// ── DATA ──
 const UNIVERSES = {
-  pokemon: [
-    {img:'https://images.pokemontcg.io/swsh9/74_hires.png',    name:'Charizard VSTAR',      rarity:'Secret Rare'},
-    {img:'https://images.pokemontcg.io/swsh35/17_hires.png',   name:'Glaceon V Alt Art',    rarity:'Ultra Rare'},
-    {img:'https://images.pokemontcg.io/swsh4/18_hires.png',    name:'Pikachu V Full Art',   rarity:'Holo Rare'},
-    {img:'https://images.pokemontcg.io/swsh35/18_hires.png',   name:'Umbreon VMAX Alt Art', rarity:'Secret Rare'},
-    {img:'https://images.pokemontcg.io/swsh10/196_hires.png',  name:'Arceus VSTAR Rainbow', rarity:'Secret Rare'},
-    {img:'https://images.pokemontcg.io/swsh6/171_hires.png',   name:'Rayquaza VMAX',        rarity:'Secret Rare'},
-    {img:'https://images.pokemontcg.io/swsh1/79_hires.png',    name:'Marnie Full Art',      rarity:'Holo Rare'},
-    {img:'https://images.pokemontcg.io/swsh5/180_hires.png',   name:'Gengar VMAX Alt Art',  rarity:'Secret Rare'},
-  ],
-  mtg: [
-    {img:'https://images.pokemontcg.io/swsh35/18_hires.png',   name:'Liliana of the Veil',  rarity:'Mythic Rare', label:'MTG'},
-    {img:'https://images.pokemontcg.io/swsh9/74_hires.png',    name:'Black Lotus Reprint',  rarity:'Reserved List', label:'MTG'},
-    {img:'https://images.pokemontcg.io/swsh10/196_hires.png',  name:'Jace, the Mind Sculptor', rarity:'Mythic Rare', label:'MTG'},
-    {img:'https://images.pokemontcg.io/swsh5/180_hires.png',   name:'Mana Crypt',           rarity:'Rare', label:'MTG'},
-    {img:'https://images.pokemontcg.io/swsh4/18_hires.png',    name:'Ragavan, Nimble Pilferer', rarity:'Mythic Rare', label:'MTG'},
-    {img:'https://images.pokemontcg.io/swsh35/17_hires.png',   name:'Force of Will',        rarity:'Rare', label:'MTG'},
-    {img:'https://images.pokemontcg.io/swsh1/79_hires.png',    name:'Tarmogoyf',            rarity:'Rare', label:'MTG'},
-    {img:'https://images.pokemontcg.io/swsh6/171_hires.png',   name:'Snapcaster Mage',      rarity:'Rare', label:'MTG'},
-  ],
-  sports: [
-    {img:'https://images.pokemontcg.io/swsh9/74_hires.png',    name:'Connor McDavid RC SP', rarity:'Upper Deck', label:'NHL'},
-    {img:'https://images.pokemontcg.io/swsh35/17_hires.png',   name:'LeBron James Auto',    rarity:'Panini Prizm', label:'NBA'},
-    {img:'https://images.pokemontcg.io/swsh4/18_hires.png',    name:'Patrick Roy Vintage',  rarity:'Upper Deck', label:'NHL'},
-    {img:'https://images.pokemontcg.io/swsh10/196_hires.png',  name:'Carey Price Rookie SP',rarity:'Upper Deck', label:'NHL'},
-    {img:'https://images.pokemontcg.io/swsh35/18_hires.png',   name:'Michael Jordan Fleer', rarity:'Rookie Card', label:'NBA'},
-    {img:'https://images.pokemontcg.io/swsh5/180_hires.png',   name:'Nathan MacKinnon Auto',rarity:'Upper Deck', label:'NHL'},
-    {img:'https://images.pokemontcg.io/swsh1/79_hires.png',    name:'Wayne Gretzky OPC',    rarity:'Vintage', label:'NHL'},
-    {img:'https://images.pokemontcg.io/swsh6/171_hires.png',   name:'Shohei Ohtani RC',     rarity:'Topps Chrome', label:'MLB'},
-  ],
-  lego: [
-    {img:null, name:'Series 25 — Alien', rarity:'Rare Fig', label:'🧍'},
-    {img:null, name:'Series 24 — Pirate', rarity:'Common Fig', label:'🧍'},
-    {img:null, name:'Series 23 — Astronaut', rarity:'Rare Fig', label:'🧍'},
-    {img:null, name:'Series 25 — Robot', rarity:'Ultra Rare Fig', label:'🧍'},
-    {img:null, name:'Series 22 — Viking', rarity:'Common Fig', label:'🧍'},
-    {img:null, name:'Series 25 — Witch', rarity:'Rare Fig', label:'🧍'},
-    {img:null, name:'Series 24 — Ninja', rarity:'Common Fig', label:'🧍'},
-    {img:null, name:'Series 23 — Dragon', rarity:'Ultra Rare Fig', label:'🧍'},
-  ],
+  pokemon: {
+    bg: '#000',
+    cards: [
+      {type:'img', img:'https://images.pokemontcg.io/swsh9/74_hires.png',   name:'Charizard VSTAR',      rarity:'Secret Rare'},
+      {type:'img', img:'https://images.pokemontcg.io/swsh35/17_hires.png',  name:'Glaceon V Alt Art',    rarity:'Ultra Rare'},
+      {type:'img', img:'https://images.pokemontcg.io/swsh4/18_hires.png',   name:'Pikachu V Full Art',   rarity:'Holo Rare'},
+      {type:'img', img:'https://images.pokemontcg.io/swsh35/18_hires.png',  name:'Umbreon VMAX Alt Art', rarity:'Secret Rare'},
+      {type:'img', img:'https://images.pokemontcg.io/swsh10/196_hires.png', name:'Arceus VSTAR Rainbow', rarity:'Secret Rare'},
+      {type:'img', img:'https://images.pokemontcg.io/swsh6/171_hires.png',  name:'Rayquaza VMAX',        rarity:'Secret Rare'},
+      {type:'img', img:'https://images.pokemontcg.io/swsh1/79_hires.png',   name:'Marnie Full Art',      rarity:'Holo Rare'},
+      {type:'img', img:'https://images.pokemontcg.io/swsh5/180_hires.png',  name:'Gengar VMAX Alt Art',  rarity:'Secret Rare'},
+    ]
+  },
+  mtg: {
+    bg: 'linear-gradient(160deg,#0e0820,#080412)',
+    cards: [
+      {type:'css', bg:'linear-gradient(135deg,#1a0d35,#0e0620)', icon:'⚔️', name:'Liliana of the Veil',     rarity:'Mythic Rare'},
+      {type:'css', bg:'linear-gradient(135deg,#0d1230,#08091e)', icon:'🔮', name:'Jace, the Mind Sculptor', rarity:'Mythic Rare'},
+      {type:'css', bg:'linear-gradient(135deg,#250d18,#16080e)', icon:'🩸', name:'Black Lotus Reprint',     rarity:'Reserved List'},
+      {type:'css', bg:'linear-gradient(135deg,#1e1035,#100820)', icon:'🟣', name:'Mana Crypt',              rarity:'Rare'},
+      {type:'css', bg:'linear-gradient(135deg,#0a1830,#060f1e)', icon:'💎', name:'Force of Will',           rarity:'Rare'},
+      {type:'css', bg:'linear-gradient(135deg,#1a0d28,#0e0818)', icon:'🌑', name:'Snapcaster Mage',         rarity:'Rare'},
+      {type:'css', bg:'linear-gradient(135deg,#201035,#120820)', icon:'⚡', name:'Ragavan, Nimble Pilferer',rarity:'Mythic Rare'},
+      {type:'css', bg:'linear-gradient(135deg,#0e1830,#08101e)', icon:'🌊', name:'Tarmogoyf',               rarity:'Rare'},
+    ]
+  },
+  sports: {
+    bg: 'linear-gradient(160deg,#061810,#030e08)',
+    cards: [
+      {type:'css', bg:'linear-gradient(135deg,#0a2010,#051408)', icon:'🏒', name:'Connor McDavid RC SP',  rarity:'Upper Deck'},
+      {type:'css', bg:'linear-gradient(135deg,#102008,#081504)', icon:'🏀', name:'LeBron James Auto',     rarity:'Panini Prizm'},
+      {type:'css', bg:'linear-gradient(135deg,#0a1e14,#051410)', icon:'🏒', name:'Patrick Roy Vintage',   rarity:'Upper Deck'},
+      {type:'css', bg:'linear-gradient(135deg,#0e2010,#08160a)', icon:'⚾', name:'Shohei Ohtani RC',      rarity:'Topps Chrome'},
+      {type:'css', bg:'linear-gradient(135deg,#0a1a0e,#061008)', icon:'🏒', name:'Wayne Gretzky OPC',     rarity:'Vintage'},
+      {type:'css', bg:'linear-gradient(135deg,#102208,#081604)', icon:'🏈', name:'Patrick Mahomes Auto',  rarity:'Panini'},
+      {type:'css', bg:'linear-gradient(135deg,#0c2012,#07160c)', icon:'🏒', name:'Carey Price Rookie SP', rarity:'Upper Deck'},
+      {type:'css', bg:'linear-gradient(135deg,#0e1c0c,#091208)', icon:'🏀', name:'Michael Jordan Fleer',  rarity:'Rookie Card'},
+    ]
+  },
+  lego: {
+    bg: 'linear-gradient(160deg,#150820,#0a0514)',
+    cards: [
+      {type:'css', bg:'linear-gradient(135deg,#1a1030,#0e0820)', icon:'🧍', name:'Series 25 — Alien',     rarity:'Rare Fig'},
+      {type:'css', bg:'linear-gradient(135deg,#120c28,#0a0618)', icon:'🧍', name:'Series 24 — Pirate',    rarity:'Common Fig'},
+      {type:'css', bg:'linear-gradient(135deg,#1e1035,#120820)', icon:'🧍', name:'Series 25 — Robot',     rarity:'Ultra Rare Fig'},
+      {type:'css', bg:'linear-gradient(135deg,#160e2c,#0e0818)', icon:'🧍', name:'Series 23 — Astronaut', rarity:'Rare Fig'},
+      {type:'css', bg:'linear-gradient(135deg,#1a1030,#0e0820)', icon:'🧍', name:'Series 25 — Witch',     rarity:'Rare Fig'},
+      {type:'css', bg:'linear-gradient(135deg,#100c24,#080618)', icon:'🧍', name:'Series 24 — Ninja',     rarity:'Common Fig'},
+      {type:'css', bg:'linear-gradient(135deg,#1c1032,#10081e)', icon:'🧍', name:'Series 22 — Viking',    rarity:'Common Fig'},
+      {type:'css', bg:'linear-gradient(135deg,#200e38,#140820)', icon:'🧍', name:'Series 25 — Dragon',    rarity:'Ultra Rare Fig'},
+    ]
+  }
 };
 
-let currentUniverse = 'pokemon';
-let CARDS = UNIVERSES.pokemon;
-
-function switchUniverse(u, btn) {
-  currentUniverse = u;
-  CARDS = UNIVERSES[u];
-  cursor = 0; revealed = false;
-  spinBtn.textContent = 'Spin the carousel';
-  spinRes.className = 'spin-result';
-  spinRes.textContent = "Try it — it's free here";
-  build(cursor, false);
-  document.querySelectorAll('.dtab').forEach(b => b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-}
-
-function selectUniverse(u) {
-  document.getElementById('demo').scrollIntoView({behavior:'smooth'});
-  const tab = document.querySelector(`.dtab[onclick*="${u}"]`);
-  switchUniverse(u, tab);
-}
-
 const CLS=['far','s2','s1','center','s1','s2','far'];
-const N=7,MID=3;
-let cursor=0,spinning=false,revealed=false;
+const N=7, MID=3;
+let activeUniverse='pokemon';
+let CARDS=UNIVERSES.pokemon.cards;
+let cursor=0, spinning=false, revealed=false;
+
 const reelEl=document.getElementById('reel');
 const spinBtn=document.getElementById('spinBtn');
 const spinRes=document.getElementById('spinResult');
 
-function build(ci,showReveal){
+function makeCardHTML(c, isCenter, showReveal) {
+  const cls = 'rc ' + CLS[isCenter ? MID : 0];
+  if(c.type==='img') {
+    return `<img src="${c.img}" alt="${c.name}" onerror="this.style.display='none';this.parentNode.style.background='#111'">`;
+  } else {
+    return `<div class="rc-css" style="background:${c.bg}"><div class="rc-css-icon">${c.icon}</div><div class="rc-css-label">${c.name.split(' ')[0]}</div></div>`;
+  }
+}
+
+function build(ci, showReveal) {
   reelEl.innerHTML='';
   for(let i=0;i<N;i++){
     const idx=((ci+i-MID)%CARDS.length+CARDS.length)%CARDS.length;
@@ -884,67 +493,76 @@ function build(ci,showReveal){
     const d=document.createElement('div');
     d.className='rc '+CLS[i];
     if(i===MID&&showReveal) d.classList.add('revealed');
-    const inner = c.img
-      ? `<img src="${c.img}" alt="${c.name}" onerror="this.style.display='none';this.parentNode.style.background='#1a1a24'">`
-      : `<div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:linear-gradient(160deg,#180e28,#0e0818)"><div style="font-size:32px">🧍</div><div style="font-size:9px;color:#5a4a7a;font-weight:600;letter-spacing:1px">LEGO</div></div>`;
-    d.innerHTML = inner + `<div class="rc-info"><div class="ri-name">${c.name}</div><div class="ri-rarity">${c.rarity}</div></div>`;
+    let inner='';
+    if(c.type==='img'){
+      inner=`<img src="${c.img}" alt="${c.name}" onerror="this.style.display='none';this.parentNode.style.background='#111'">`;
+    } else {
+      inner=`<div class="rc-css" style="background:${c.bg}"><div class="rc-css-icon">${c.icon}</div><div class="rc-css-label">${c.name.split('—')[1]||c.name.split(' ').slice(0,2).join(' ')}</div></div>`;
+    }
+    d.innerHTML=inner+`<div class="rc-info"><div class="ri-name">${c.name}</div><div class="ri-rarity">${c.rarity}</div></div>`;
     reelEl.appendChild(d);
   }
 }
+
+function resetSpin() {
+  revealed=false;
+  spinning=false;
+  spinBtn.disabled=false;
+  spinBtn.textContent='Spin the carousel';
+  spinRes.className='spin-result';
+  spinRes.textContent="Try it — it's free here";
+}
+
+function setUniverse(u) {
+  activeUniverse=u;
+  CARDS=UNIVERSES[u].cards;
+  cursor=0;
+  resetSpin();
+  build(cursor,false);
+  document.querySelectorAll('.upill').forEach(b=>{
+    b.classList.toggle('active', b.dataset.u===u);
+  });
+}
+
+// pill clicks
+document.querySelectorAll('.upill').forEach(btn=>{
+  btn.addEventListener('click',()=>setUniverse(btn.dataset.u));
+});
+
+function goDemo(u) {
+  setUniverse(u);
+  document.getElementById('demo').scrollIntoView({behavior:'smooth'});
+}
+
 build(cursor,false);
 
 spinBtn.addEventListener('click',()=>{
   if(spinning) return;
-  if(revealed){
-    revealed=false;
-    spinBtn.textContent='Spin the carousel';
-    spinRes.className='spin-result';
-    spinRes.textContent="Try it — it's free here";
-    build(cursor,false);
-    return;
-  }
+  if(revealed){ resetSpin(); build(cursor,false); return; }
   spinning=true; spinBtn.disabled=true; spinRes.textContent='';
-  reelEl.classList.remove('smooth');
-
   const winner=Math.floor(Math.random()*CARDS.length);
-  // More steps, gentler easing
   const total=28+Math.floor(Math.random()*8);
   let step=0, delay=48, pos=cursor;
 
   function tick(){
     if(step>=total){
-      // final land
-      cursor=winner;
-      reelEl.classList.add('smooth');
-      build(winner,false);
+      cursor=winner; build(winner,false);
       spinning=false; spinBtn.disabled=false;
       setTimeout(()=>{
         build(winner,true); revealed=true;
         spinRes.textContent=CARDS[winner].name+' · '+CARDS[winner].rarity;
         spinRes.className='spin-result win';
         spinBtn.textContent='Spin again →';
-      },320);
+      },280);
       return;
     }
-    pos = step < total-1 ? (pos+1)%CARDS.length : winner;
-    cursor=pos;
-    build(pos,false);
-    step++;
-
+    pos=step<total-1?(pos+1)%CARDS.length:winner;
+    cursor=pos; build(pos,false); step++;
     const p=step/total;
-    // Phase 1 (0–30%): accelerate
-    // Phase 2 (30–70%): hold fast
-    // Phase 3 (70–100%): ease out slowly
-    if(p<0.30){
-      delay=Math.max(35, delay-2.5);
-    } else if(p<0.70){
-      delay=38; // hold at peak speed
-    } else {
-      // gentle exponential slow-down
-      const progress=(p-0.70)/0.30; // 0→1 in last 30%
-      delay=38+Math.pow(progress,1.8)*280;
-    }
-    setTimeout(tick, delay);
+    if(p<0.30) delay=Math.max(35,delay-2.5);
+    else if(p<0.68) delay=36;
+    else delay=36+Math.pow((p-0.68)/0.32,1.8)*280;
+    setTimeout(tick,delay);
   }
   tick();
 });
