@@ -34,10 +34,7 @@ nav{
   background:rgba(255,255,255,.93);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--rule);
 }
-.nav-logo{
-  font-size:15px;font-weight:900;letter-spacing:-.04em;color:var(--ink);
-  text-decoration:none;display:flex;align-items:center;gap:7px;
-}
+.nav-logo{font-size:15px;font-weight:900;letter-spacing:-.04em;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:7px}
 .nav-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);animation:ndot 2.4s ease-in-out infinite}
 @keyframes ndot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.6);opacity:.4}}
 .nav-r{display:flex;align-items:center;gap:10px}
@@ -46,71 +43,59 @@ nav{
 .nav-cta{background:var(--ink);color:#fff;padding:7px 16px;border-radius:6px;font-size:12px;font-weight:700;border:none;cursor:pointer;transition:opacity .15s}
 .nav-cta:hover{opacity:.72}
 
-/* ── HERO ── */
+/* ── HERO — compact, no wasted space ── */
 .hero{
-  padding-top:50px;
+  padding: 70px 20px 40px;
+  display:flex;flex-direction:column;gap:24px;
   min-height:100svh;
-  display:flex;flex-direction:column;
   justify-content:center;
-  padding-left:20px;padding-right:20px;
-  gap:0;
-  position:relative;
 }
-
-/* giant number as bg element */
-.hero-bg-num{
-  position:absolute;
-  top:50%;left:50%;transform:translate(-50%,-50%);
-  font-size:clamp(160px,42vw,320px);
-  font-weight:900;letter-spacing:-.06em;
-  color:transparent;
-  -webkit-text-stroke:1px rgba(12,11,15,.05);
-  pointer-events:none;user-select:none;
-  white-space:nowrap;
-  line-height:1;
-}
-
-.hero-content{position:relative;z-index:1;display:flex;flex-direction:column;gap:28px}
 
 .hero-tag{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink4);
-  opacity:0;animation:fu .5s cubic-bezier(.2,1,.4,1) .1s forwards;
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--ink4);
+  animation:fu .5s cubic-bezier(.2,1,.4,1) .05s both;
 }
 .hero-tag .dot{width:5px;height:5px;border-radius:50%;background:var(--blue);animation:ndot 2s ease-in-out infinite}
 
 .hero-h1{
-  font-size:clamp(44px,12vw,72px);
-  font-weight:900;line-height:.9;letter-spacing:-.055em;color:var(--ink);
-  opacity:0;animation:fu .5s cubic-bezier(.2,1,.4,1) .18s forwards;
+  font-size:clamp(52px,14vw,80px);
+  font-weight:900;line-height:.88;letter-spacing:-.055em;color:var(--ink);
+  animation:fu .5s cubic-bezier(.2,1,.4,1) .12s both;
 }
-.hero-h1 .accent{color:var(--blue)}
+.hero-h1 .blue{color:var(--blue)}
 
-/* item preview — 3 real cards stacked, rotated */
-.hero-cards-preview{
-  position:relative;height:130px;
-  opacity:0;animation:fu .5s cubic-bezier(.2,1,.4,1) .28s forwards;
+/* ── CARD STACK — touch-friendly fan ── */
+.card-stack{
+  position:relative;height:100px;
+  animation:fu .5s cubic-bezier(.2,1,.4,1) .22s both;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;
 }
 .hcp{
   position:absolute;left:0;right:0;
   background:#fff;border:1px solid var(--rule);border-radius:12px;
-  padding:14px 16px;
+  padding:13px 14px;
   display:flex;align-items:center;gap:12px;
-  box-shadow:0 2px 12px rgba(0,0,0,.06);
-  transition:transform .3s cubic-bezier(.2,1,.4,1);
+  box-shadow:0 2px 10px rgba(0,0,0,.07);
+  transition:transform .35s cubic-bezier(.34,1.2,.64,1),box-shadow .35s;
+  will-change:transform;
 }
 .hcp::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:12px 12px 0 0}
 .hcp.rl::before{background:var(--legendary)}
 .hcp.re::before{background:var(--epic)}
 .hcp.rr::before{background:var(--rare)}
-.hcp-1{top:14px;transform:rotate(-2.5deg) translateY(0);z-index:1}
-.hcp-2{top:6px;transform:rotate(1.2deg) translateY(0);z-index:2}
-.hcp-3{top:0;transform:rotate(0deg);z-index:3}
-/* fan on hover */
-.hero-cards-preview:hover .hcp-1{transform:rotate(-8deg) translateX(-12px) translateY(4px)}
-.hero-cards-preview:hover .hcp-2{transform:rotate(0deg) translateY(-2px)}
-.hero-cards-preview:hover .hcp-3{transform:rotate(7deg) translateX(12px) translateY(4px)}
-.hcp-em{font-size:28px;line-height:1;flex-shrink:0}
+
+/* stacked state */
+.hcp-1{z-index:1;transform:rotate(-3deg) translateY(10px) scale(.94)}
+.hcp-2{z-index:2;transform:rotate(1.5deg) translateY(5px) scale(.97)}
+.hcp-3{z-index:3;transform:rotate(0deg)}
+
+/* fanned state — JS toggles .fanned on .card-stack */
+.card-stack.fanned .hcp-1{transform:rotate(-14deg) translateX(-28px) translateY(16px) scale(.93);box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.card-stack.fanned .hcp-2{transform:rotate(0deg) translateY(-4px) scale(.97);box-shadow:0 6px 20px rgba(0,0,0,.1)}
+.card-stack.fanned .hcp-3{transform:rotate(13deg) translateX(28px) translateY(16px) scale(.93);box-shadow:0 4px 16px rgba(0,0,0,.1)}
+
+.hcp-em{font-size:26px;line-height:1;flex-shrink:0}
 .hcp-info{flex:1;min-width:0}
 .hcp-brand{font-size:8.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink4);margin-bottom:2px}
 .hcp-name{font-size:13px;font-weight:700;color:var(--ink);letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -121,15 +106,19 @@ nav{
 .hcp.re .hcp-pill{background:rgba(139,43,226,.09);color:var(--epic)}
 .hcp.rr .hcp-pill{background:rgba(24,69,245,.09);color:var(--rare)}
 
+/* tap hint */
+.stack-hint{
+  font-size:10px;font-weight:500;color:var(--ink4);letter-spacing:.04em;
+  text-align:center;margin-top:4px;
+  transition:opacity .3s;
+}
+.card-stack.fanned+.stack-hint{opacity:0}
+
 .hero-sub{
   font-size:14px;font-weight:400;color:var(--ink3);line-height:1.6;
-  max-width:320px;
-  opacity:0;animation:fu .5s cubic-bezier(.2,1,.4,1) .36s forwards;
+  animation:fu .5s cubic-bezier(.2,1,.4,1) .3s both;
 }
 
-.hero-cta{
-  opacity:0;animation:fu .5s cubic-bezier(.2,1,.4,1) .44s forwards;
-}
 .btn-hero{
   width:100%;background:var(--ink);color:#fff;
   padding:16px 20px;border-radius:11px;border:none;cursor:pointer;
@@ -137,6 +126,8 @@ nav{
   display:flex;align-items:center;justify-content:center;gap:8px;
   transition:opacity .15s,transform .13s;
   position:relative;overflow:hidden;
+  animation:fu .5s cubic-bezier(.2,1,.4,1) .36s both;
+  -webkit-tap-highlight-color:transparent;
 }
 .btn-hero::after{
   content:'';position:absolute;inset:0;
@@ -145,32 +136,27 @@ nav{
   animation:glint 5s ease-in-out infinite 3s;
 }
 @keyframes glint{0%,100%{transform:translateX(-100%) skewX(-20deg)}50%{transform:translateX(200%) skewX(-20deg)}}
-.btn-hero:hover{opacity:.76;transform:translateY(-1px)}
-.btn-hero:active{transform:scale(.97)}
-.price-tag{background:rgba(255,255,255,.16);padding:3px 10px;border-radius:5px;font-size:13px;font-weight:900}
+.btn-hero:active{transform:scale(.97);opacity:.8}
+.price-tag{background:rgba(255,255,255,.18);padding:3px 10px;border-radius:5px;font-size:13px;font-weight:900}
 
-/* stats row */
 .hero-stats{
   display:grid;grid-template-columns:repeat(3,1fr);
   border:1px solid var(--rule);border-radius:10px;overflow:hidden;
-  opacity:0;animation:fu .5s cubic-bezier(.2,1,.4,1) .52s forwards;
+  animation:fu .5s cubic-bezier(.2,1,.4,1) .42s both;
 }
 .hs{border-right:1px solid var(--rule);padding:12px 8px;text-align:center}
 .hs:last-child{border-right:none}
-.hs-num{font-size:17px;font-weight:900;letter-spacing:-.04em;color:var(--ink);line-height:1}
+.hs-num{font-size:16px;font-weight:900;letter-spacing:-.04em;color:var(--ink);line-height:1}
 .hs-label{font-size:9px;font-weight:500;letter-spacing:.04em;color:var(--ink4);margin-top:2px}
 
 @keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
-/* ── SECTION BASE ── */
-.sec{padding:56px 20px;border-top:1px solid var(--rule)}
-.sec-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink4);margin-bottom:6px}
-.sec-title{font-size:22px;font-weight:800;letter-spacing:-.04em;color:var(--ink);margin-bottom:3px}
-.sec-sub{font-size:13px;color:var(--ink3);margin-bottom:24px}
-
 /* ── RAIL ── */
 .rail-sec{padding:56px 0 64px;border-top:1px solid var(--rule)}
 .rail-hd{padding:0 20px 24px}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink4);margin-bottom:6px}
+.sec-title{font-size:22px;font-weight:800;letter-spacing:-.04em;color:var(--ink);margin-bottom:3px}
+.sec-sub{font-size:13px;color:var(--ink3)}
 
 .strip-outer{
   position:relative;overflow:hidden;
@@ -210,10 +196,11 @@ nav{
 
 .rail-ft{padding:0 20px}
 .btn-open{
-  width:100%;padding:15px;border-radius:10px;
+  width:100%;padding:16px;border-radius:10px;
   background:var(--ink);color:#fff;border:none;cursor:pointer;
   font-size:15px;font-weight:800;letter-spacing:-.03em;
   transition:opacity .15s,transform .13s;position:relative;overflow:hidden;
+  -webkit-tap-highlight-color:transparent;
 }
 .btn-open::after{
   content:'';position:absolute;inset:0;
@@ -221,15 +208,15 @@ nav{
   transform:translateX(-100%) skewX(-20deg);
   animation:glint 5s ease-in-out infinite 3s;
 }
-.btn-open:hover{opacity:.74;transform:translateY(-1px)}
-.btn-open:active{transform:scale(.97)}
+.btn-open:active{transform:scale(.97);opacity:.8}
 .btn-open:disabled{opacity:.22;cursor:not-allowed;transform:none}
-.btn-free-wrap{text-align:center;margin-top:11px}
-.btn-free{font-size:11px;font-weight:500;color:var(--ink4);background:none;border:none;cursor:pointer;transition:color .15s}
+.btn-free-wrap{text-align:center;margin-top:12px}
+.btn-free{font-size:11px;font-weight:500;color:var(--ink4);background:none;border:none;cursor:pointer;transition:color .15s;padding:6px}
 .btn-free:hover{color:var(--ink3)}
 
 /* ODDS */
 .odds-sec{background:var(--bg2);border-top:1px solid var(--rule);padding:56px 20px}
+.odds-sec .sec-sub{margin-bottom:24px}
 table{width:100%;border-collapse:collapse}
 thead tr{border-bottom:1.5px solid var(--ink)}
 thead th{padding:0 6px 10px;text-align:left;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4)}
@@ -307,59 +294,40 @@ footer p{font-size:11px;color:var(--ink4)}
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg-num">25$</div>
+  <div class="hero-tag"><div class="dot"></div>Drop actif · Coffret Signature QC</div>
 
-  <div class="hero-content">
-    <div class="hero-tag"><div class="dot"></div>Drop actif · Coffret Signature QC</div>
+  <div class="hero-h1">25$<br>pour une<br>marque <span class="blue">d'ici.</span></div>
 
-    <div class="hero-h1">
-      25$<br>
-      pour une<br>
-      marque <span class="accent">d'ici.</span>
+  <!-- Card stack — tap to fan -->
+  <div class="card-stack" id="cardStack">
+    <div class="hcp hcp-1 rl">
+      <div class="hcp-em">🏆</div>
+      <div class="hcp-info"><div class="hcp-brand">Kanuk × Dime MTL</div><div class="hcp-name">Parka Collab Limitée</div></div>
+      <div class="hcp-right"><span class="hcp-val">895$</span><span class="hcp-pill">Légendaire</span></div>
     </div>
-
-    <!-- 3 stacked cards, fan on hover -->
-    <div class="hero-cards-preview">
-      <div class="hcp hcp-1 rl">
-        <div class="hcp-em">🏆</div>
-        <div class="hcp-info">
-          <div class="hcp-brand">Kanuk × Dime MTL</div>
-          <div class="hcp-name">Parka Collab Limitée</div>
-        </div>
-        <div class="hcp-right"><span class="hcp-val">895$</span><span class="hcp-pill">Légendaire</span></div>
-      </div>
-      <div class="hcp hcp-2 re">
-        <div class="hcp-em">🎿</div>
-        <div class="hcp-info">
-          <div class="hcp-brand">Souvenir Snow</div>
-          <div class="hcp-name">Jacket de ski Crew</div>
-        </div>
-        <div class="hcp-right"><span class="hcp-val">340$</span><span class="hcp-pill">Épique</span></div>
-      </div>
-      <div class="hcp hcp-3 rr">
-        <div class="hcp-em">🧥</div>
-        <div class="hcp-info">
-          <div class="hcp-brand">Dime MTL</div>
-          <div class="hcp-name">Hoodie Script Logo</div>
-        </div>
-        <div class="hcp-right"><span class="hcp-val">120$</span><span class="hcp-pill">Rare</span></div>
-      </div>
+    <div class="hcp hcp-2 re">
+      <div class="hcp-em">🎿</div>
+      <div class="hcp-info"><div class="hcp-brand">Souvenir Snow</div><div class="hcp-name">Jacket de ski Crew</div></div>
+      <div class="hcp-right"><span class="hcp-val">340$</span><span class="hcp-pill">Épique</span></div>
     </div>
-
-    <p class="hero-sub">Un item québécois au hasard, livré chez toi. 14 marques possibles.</p>
-
-    <div class="hero-cta">
-      <button class="btn-hero" onclick="scrollRail()">
-        Ouvrir une box
-        <span class="price-tag">25$</span>
-      </button>
+    <div class="hcp hcp-3 rr">
+      <div class="hcp-em">🧥</div>
+      <div class="hcp-info"><div class="hcp-brand">Dime MTL</div><div class="hcp-name">Hoodie Script Logo</div></div>
+      <div class="hcp-right"><span class="hcp-val">120$</span><span class="hcp-pill">Rare</span></div>
     </div>
+  </div>
+  <div class="stack-hint" id="stackHint">Appuie pour voir les items ↑</div>
 
-    <div class="hero-stats">
-      <div class="hs"><div class="hs-num">14</div><div class="hs-label">items</div></div>
-      <div class="hs"><div class="hs-num">895$</div><div class="hs-label">valeur max</div></div>
-      <div class="hs"><div class="hs-num">100%</div><div class="hs-label">marques QC</div></div>
-    </div>
+  <p class="hero-sub">Un item québécois au hasard, livré chez toi. 14 marques possibles.</p>
+
+  <button class="btn-hero" onclick="scrollRail()">
+    Ouvrir une box <span class="price-tag">25$</span>
+  </button>
+
+  <div class="hero-stats">
+    <div class="hs"><div class="hs-num">14</div><div class="hs-label">items</div></div>
+    <div class="hs"><div class="hs-num">895$</div><div class="hs-label">valeur max</div></div>
+    <div class="hs"><div class="hs-num">100%</div><div class="hs-label">marques QC</div></div>
   </div>
 </section>
 
@@ -456,10 +424,34 @@ let spinning=false,offset=0;
 
 function scrollRail(){document.getElementById('rail').scrollIntoView({behavior:'smooth',block:'start'})}
 
-/* AUDIO — mechanical clack + rich chime */
+// Card stack — tap to toggle fan
+const stack = document.getElementById('cardStack');
+const hint  = document.getElementById('stackHint');
+let fanned = false;
+stack.addEventListener('click', () => {
+  fanned = !fanned;
+  stack.classList.toggle('fanned', fanned);
+  hint.textContent = fanned ? 'Appuie pour refermer ↑' : 'Appuie pour voir les items ↑';
+});
+// also auto-fan after 1.5s as a hint, then close
+setTimeout(() => {
+  if (!fanned) {
+    stack.classList.add('fanned');
+    fanned = true;
+    hint.textContent = 'Appuie pour refermer ↑';
+    setTimeout(() => {
+      if (fanned) {
+        stack.classList.remove('fanned');
+        fanned = false;
+        hint.textContent = 'Appuie pour voir les items ↑';
+      }
+    }, 2000);
+  }
+}, 1500);
+
+/* AUDIO */
 let actx=null;
 function getCtx(){if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();return actx}
-
 function clack(speed){
   try{
     const c=getCtx();
@@ -469,9 +461,7 @@ function clack(speed){
     for(let i=0;i<len;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/len,3);
     const src=c.createBufferSource();src.buffer=buf;
     const filt=c.createBiquadFilter();
-    filt.type='bandpass';
-    filt.frequency.value=300+speed*2800;
-    filt.Q.value=.8;
+    filt.type='bandpass';filt.frequency.value=300+speed*2800;filt.Q.value=.8;
     const gain=c.createGain();
     src.connect(filt);filt.connect(gain);gain.connect(c.destination);
     gain.gain.setValueAtTime(.14+speed*.09,c.currentTime);
@@ -479,7 +469,6 @@ function clack(speed){
     src.start();src.stop(c.currentTime+.032);
   }catch(e){}
 }
-
 function winChime(r){
   try{
     const c=getCtx();
@@ -489,9 +478,9 @@ function winChime(r){
       const o2=c.createOscillator(),g2=c.createGain();
       o.type='sine';o.frequency.value=freq;
       o2.type='sine';o2.frequency.value=freq*1.004;
-      [o,g],[o2,g2].forEach(([os,gn])=>{os.connect(gn);gn.connect(c.destination)});
-      const t=c.currentTime+i*.12;
-      const v=.18;
+      o.connect(g);g.connect(c.destination);
+      o2.connect(g2);g2.connect(c.destination);
+      const t=c.currentTime+i*.12,v=.18;
       g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.04);g.gain.exponentialRampToValueAtTime(.001,t+.6);
       g2.gain.setValueAtTime(0,t);g2.gain.linearRampToValueAtTime(v*.35,t+.04);g2.gain.exponentialRampToValueAtTime(.001,t+.6);
       [o,o2].forEach(os=>{os.start(t);os.stop(t+.62)});
@@ -509,7 +498,6 @@ function buildStrip(){
   }
   t.appendChild(f);
 }
-
 function buildOdds(){
   const s=[...P].sort((a,b)=>b.odds-a.odds),mx=s[0].odds,f=document.createDocumentFragment();
   s.forEach(p=>{
@@ -528,11 +516,9 @@ function openBox(isFree){
   document.getElementById('openBtn').disabled=true;
   try{getCtx().resume()}catch(e){}
   scrollRail();
-
   const tw=P.reduce((a,p)=>a+p.odds,0);
   let rnd=Math.random()*tw,win=0;
   for(let i=0;i<P.length;i++){rnd-=P[i].odds;if(rnd<=0){win=i;break}}
-
   const track=document.getElementById('strack');
   const cw=track.parentElement.offsetWidth;
   const base=P.length*6;
@@ -543,7 +529,6 @@ function openBox(isFree){
   const dur=7200+Math.random()*1400;
   const t0=performance.now();
   let lastCard=-1,lastClack=0;
-
   function frame(now){
     const prog=Math.min((now-t0)/dur,1);
     const eased=easeOutExpo(prog);
@@ -584,7 +569,6 @@ function closeModal(){
   spinning=false;document.getElementById('openBtn').disabled=false;
 }
 document.getElementById('mov').addEventListener('click',e=>{if(e.target.id==='mov')closeModal()});
-
 function confetti(r){
   const pal=r==='legendary'?['#b45309','#f59e0b','#0c0b0f']:r==='epic'?['#8b2be2','#a855f7','#0c0b0f']:['#1845f5','#3b6eff','#0c0b0f'];
   for(let i=0;i<55;i++){
@@ -593,7 +577,6 @@ function confetti(r){
     document.body.appendChild(el);setTimeout(()=>el.remove(),4500);
   }
 }
-
 const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');obs.unobserve(x.target)}}),{threshold:.08});
 document.querySelectorAll('.ani').forEach(el=>obs.observe(el));
 buildStrip();buildOdds();
