@@ -43,29 +43,25 @@ nav{
 .nav-cta{background:var(--ink);color:#fff;padding:7px 16px;border-radius:6px;font-size:12px;font-weight:700;border:none;cursor:pointer;transition:opacity .15s}
 .nav-cta:hover{opacity:.72}
 
-/* ── HERO — compact, no wasted space ── */
+/* HERO */
 .hero{
-  padding: 70px 20px 40px;
+  padding:70px 20px 40px;
   display:flex;flex-direction:column;gap:24px;
-  min-height:100svh;
-  justify-content:center;
+  min-height:100svh;justify-content:center;
 }
-
 .hero-tag{
   display:inline-flex;align-items:center;gap:7px;
   font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--ink4);
   animation:fu .5s cubic-bezier(.2,1,.4,1) .05s both;
 }
 .hero-tag .dot{width:5px;height:5px;border-radius:50%;background:var(--blue);animation:ndot 2s ease-in-out infinite}
-
 .hero-h1{
-  font-size:clamp(52px,14vw,80px);
-  font-weight:900;line-height:.88;letter-spacing:-.055em;color:var(--ink);
+  font-size:clamp(52px,14vw,80px);font-weight:900;line-height:.88;letter-spacing:-.055em;color:var(--ink);
   animation:fu .5s cubic-bezier(.2,1,.4,1) .12s both;
 }
 .hero-h1 .blue{color:var(--blue)}
 
-/* ── CARD STACK — touch-friendly fan ── */
+/* card stack */
 .card-stack{
   position:relative;height:100px;
   animation:fu .5s cubic-bezier(.2,1,.4,1) .22s both;
@@ -84,18 +80,13 @@ nav{
 .hcp.rl::before{background:var(--legendary)}
 .hcp.re::before{background:var(--epic)}
 .hcp.rr::before{background:var(--rare)}
-
-/* stacked state */
 .hcp-1{z-index:1;transform:rotate(-3deg) translateY(10px) scale(.94)}
 .hcp-2{z-index:2;transform:rotate(1.5deg) translateY(5px) scale(.97)}
 .hcp-3{z-index:3;transform:rotate(0deg)}
-
-/* fanned state — JS toggles .fanned on .card-stack */
 .card-stack.fanned .hcp-1{transform:rotate(-14deg) translateX(-28px) translateY(16px) scale(.93);box-shadow:0 4px 16px rgba(0,0,0,.1)}
 .card-stack.fanned .hcp-2{transform:rotate(0deg) translateY(-4px) scale(.97);box-shadow:0 6px 20px rgba(0,0,0,.1)}
 .card-stack.fanned .hcp-3{transform:rotate(13deg) translateX(28px) translateY(16px) scale(.93);box-shadow:0 4px 16px rgba(0,0,0,.1)}
-
-.hcp-em{font-size:26px;line-height:1;flex-shrink:0}
+.hcp-img{width:40px;height:40px;object-fit:contain;flex-shrink:0;border-radius:6px}
 .hcp-info{flex:1;min-width:0}
 .hcp-brand{font-size:8.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink4);margin-bottom:2px}
 .hcp-name{font-size:13px;font-weight:700;color:var(--ink);letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -105,64 +96,41 @@ nav{
 .hcp.rl .hcp-pill{background:rgba(180,83,9,.09);color:var(--legendary)}
 .hcp.re .hcp-pill{background:rgba(139,43,226,.09);color:var(--epic)}
 .hcp.rr .hcp-pill{background:rgba(24,69,245,.09);color:var(--rare)}
-
-/* tap hint */
-.stack-hint{
-  font-size:10px;font-weight:500;color:var(--ink4);letter-spacing:.04em;
-  text-align:center;margin-top:4px;
-  transition:opacity .3s;
-}
-.card-stack.fanned+.stack-hint{opacity:0}
+.stack-hint{font-size:10px;font-weight:500;color:var(--ink4);letter-spacing:.04em;text-align:center;margin-top:4px}
 
 .hero-sub{
   font-size:14px;font-weight:400;color:var(--ink3);line-height:1.6;
   animation:fu .5s cubic-bezier(.2,1,.4,1) .3s both;
 }
-
 .btn-hero{
-  width:100%;background:var(--ink);color:#fff;
-  padding:16px 20px;border-radius:11px;border:none;cursor:pointer;
+  width:100%;background:var(--ink);color:#fff;padding:16px 20px;border-radius:11px;border:none;cursor:pointer;
   font-size:15px;font-weight:800;letter-spacing:-.03em;
   display:flex;align-items:center;justify-content:center;gap:8px;
-  transition:opacity .15s,transform .13s;
-  position:relative;overflow:hidden;
-  animation:fu .5s cubic-bezier(.2,1,.4,1) .36s both;
-  -webkit-tap-highlight-color:transparent;
+  transition:opacity .15s,transform .13s;position:relative;overflow:hidden;
+  animation:fu .5s cubic-bezier(.2,1,.4,1) .36s both;-webkit-tap-highlight-color:transparent;
 }
-.btn-hero::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);
-  transform:translateX(-100%) skewX(-20deg);
-  animation:glint 5s ease-in-out infinite 3s;
-}
+.btn-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transform:translateX(-100%) skewX(-20deg);animation:glint 5s ease-in-out infinite 3s}
 @keyframes glint{0%,100%{transform:translateX(-100%) skewX(-20deg)}50%{transform:translateX(200%) skewX(-20deg)}}
 .btn-hero:active{transform:scale(.97);opacity:.8}
 .price-tag{background:rgba(255,255,255,.18);padding:3px 10px;border-radius:5px;font-size:13px;font-weight:900}
-
 .hero-stats{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  border:1px solid var(--rule);border-radius:10px;overflow:hidden;
+  display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--rule);border-radius:10px;overflow:hidden;
   animation:fu .5s cubic-bezier(.2,1,.4,1) .42s both;
 }
 .hs{border-right:1px solid var(--rule);padding:12px 8px;text-align:center}
 .hs:last-child{border-right:none}
 .hs-num{font-size:16px;font-weight:900;letter-spacing:-.04em;color:var(--ink);line-height:1}
 .hs-label{font-size:9px;font-weight:500;letter-spacing:.04em;color:var(--ink4);margin-top:2px}
-
 @keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
-/* ── RAIL ── */
+/* RAIL */
 .rail-sec{padding:56px 0 64px;border-top:1px solid var(--rule)}
 .rail-hd{padding:0 20px 24px}
 .sec-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink4);margin-bottom:6px}
 .sec-title{font-size:22px;font-weight:800;letter-spacing:-.04em;color:var(--ink);margin-bottom:3px}
 .sec-sub{font-size:13px;color:var(--ink3)}
 
-.strip-outer{
-  position:relative;overflow:hidden;
-  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
-  background:var(--bg2);margin-bottom:20px;
-}
+.strip-outer{position:relative;overflow:hidden;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--bg2);margin-bottom:20px}
 .sf{position:absolute;top:0;bottom:0;width:80px;z-index:4;pointer-events:none}
 .sf-l{left:0;background:linear-gradient(to right,var(--bg2) 20%,transparent)}
 .sf-r{right:0;background:linear-gradient(to left,var(--bg2) 20%,transparent)}
@@ -173,20 +141,22 @@ nav{
 .sovf{overflow:hidden}
 .strack{display:flex;will-change:transform;width:max-content}
 
+/* strip card with real image */
 .sc{
-  width:112px;min-width:112px;height:158px;
+  width:120px;min-width:120px;height:168px;
   display:flex;flex-direction:column;align-items:center;justify-content:space-between;
-  padding:11px 8px 10px;border-right:1px solid var(--rule);
+  padding:12px 8px 10px;border-right:1px solid var(--rule);
   background:#fff;flex-shrink:0;position:relative;overflow:hidden;
+  gap:4px;
 }
 .sc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px}
 .sc.rc::after{background:var(--rule)}
 .sc.rr::after{background:var(--rare)}
 .sc.re::after{background:var(--epic)}
 .sc.rl::after{background:var(--legendary)}
-.sc-em{font-size:30px;line-height:1;flex-shrink:0}
-.sc-brand{font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink4)}
-.sc-name{font-size:10px;font-weight:600;color:var(--ink);text-align:center;line-height:1.25;padding:0 2px;flex:1;display:flex;align-items:center;justify-content:center}
+.sc-img{width:64px;height:64px;object-fit:contain;flex-shrink:0;border-radius:8px}
+.sc-brand{font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink4);text-align:center}
+.sc-name{font-size:9.5px;font-weight:600;color:var(--ink);text-align:center;line-height:1.25;padding:0 2px;flex:1;display:flex;align-items:center;justify-content:center}
 .sc-odds{font-size:8px;font-weight:700;padding:2px 6px;border-radius:3px}
 .sc.rc .sc-odds{background:var(--bg3);color:var(--ink3)}
 .sc.rr .sc-odds{background:rgba(24,69,245,.08);color:var(--rare)}
@@ -196,18 +166,11 @@ nav{
 
 .rail-ft{padding:0 20px}
 .btn-open{
-  width:100%;padding:16px;border-radius:10px;
-  background:var(--ink);color:#fff;border:none;cursor:pointer;
+  width:100%;padding:16px;border-radius:10px;background:var(--ink);color:#fff;border:none;cursor:pointer;
   font-size:15px;font-weight:800;letter-spacing:-.03em;
-  transition:opacity .15s,transform .13s;position:relative;overflow:hidden;
-  -webkit-tap-highlight-color:transparent;
+  transition:opacity .15s,transform .13s;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent;
 }
-.btn-open::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);
-  transform:translateX(-100%) skewX(-20deg);
-  animation:glint 5s ease-in-out infinite 3s;
-}
+.btn-open::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);transform:translateX(-100%) skewX(-20deg);animation:glint 5s ease-in-out infinite 3s}
 .btn-open:active{transform:scale(.97);opacity:.8}
 .btn-open:disabled{opacity:.22;cursor:not-allowed;transform:none}
 .btn-free-wrap{text-align:center;margin-top:12px}
@@ -219,14 +182,14 @@ nav{
 .odds-sec .sec-sub{margin-bottom:24px}
 table{width:100%;border-collapse:collapse}
 thead tr{border-bottom:1.5px solid var(--ink)}
-thead th{padding:0 6px 10px;text-align:left;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4)}
+thead th{padding:0 5px 10px;text-align:left;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4)}
 th.r,td.r{text-align:right}
 tbody tr{border-bottom:1px solid var(--rule)}
 tbody tr:last-child{border-bottom:none}
-td{padding:11px 6px;vertical-align:middle}
-.te{font-size:20px;width:28px;line-height:1}
-.tb{font-size:8.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:2px}
-.tn{font-size:12.5px;font-weight:700;color:var(--ink);letter-spacing:-.02em}
+td{padding:10px 5px;vertical-align:middle}
+.timg{width:36px;height:36px;object-fit:contain;border-radius:6px;display:block}
+.tb{font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:2px}
+.tn{font-size:12px;font-weight:700;color:var(--ink);letter-spacing:-.02em}
 .rpill{display:inline-block;font-size:8px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:2px 6px;border-radius:3px}
 .rc2{background:var(--bg3);color:var(--ink3)}
 .rr2{background:rgba(24,69,245,.08);color:var(--rare)}
@@ -235,7 +198,7 @@ td{padding:11px 6px;vertical-align:middle}
 .tv{font-size:13px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
 .tp{font-size:12px;font-weight:700}
 .tp.common{color:var(--ink4)}.tp.rare{color:var(--rare)}.tp.epic{color:var(--epic)}.tp.legendary{color:var(--legendary)}
-.pbar{height:3px;border-radius:2px;background:var(--rule);margin-top:4px;min-width:44px}
+.pbar{height:3px;border-radius:2px;background:var(--rule);margin-top:4px;min-width:40px}
 .pfill{height:100%;border-radius:2px}
 
 /* HOW */
@@ -253,18 +216,12 @@ footer p{font-size:11px;color:var(--ink4)}
 /* MODAL */
 .moverlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(12,11,15,.52);backdrop-filter:blur(12px);align-items:flex-end;justify-content:center}
 .moverlay.show{display:flex}
-.modal{
-  background:#fff;border-radius:20px 20px 0 0;
-  padding:8px 22px 44px;width:100%;max-width:480px;text-align:center;
-  box-shadow:0 -8px 48px rgba(0,0,0,.12);
-  animation:slideUp .38s cubic-bezier(.2,1,.4,1);
-  position:relative;overflow:hidden;
-}
+.modal{background:#fff;border-radius:20px 20px 0 0;padding:8px 22px 44px;width:100%;max-width:480px;text-align:center;box-shadow:0 -8px 48px rgba(0,0,0,.12);animation:slideUp .38s cubic-bezier(.2,1,.4,1);position:relative;overflow:hidden}
 @keyframes slideUp{from{transform:translateY(60px);opacity:0}to{transform:none;opacity:1}}
 .mbar{position:absolute;top:0;left:0;right:0;height:3px}
 .mb-c{background:var(--rule)}.mb-r{background:var(--rare)}.mb-e{background:var(--epic)}.mb-l{background:var(--legendary)}
 .handle{width:32px;height:3px;border-radius:2px;background:var(--rule);margin:12px auto 18px}
-.m-em{font-size:60px;line-height:1;display:block;margin-bottom:12px}
+.m-img{width:100px;height:100px;object-fit:contain;margin:0 auto 12px;display:block;border-radius:10px}
 .m-won{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink4);margin-bottom:3px}
 .m-brand{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
 .m-name{font-size:22px;font-weight:900;letter-spacing:-.04em;color:var(--ink);line-height:1.05;margin-bottom:8px}
@@ -292,41 +249,36 @@ footer p{font-size:11px;color:var(--ink4)}
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-tag"><div class="dot"></div>Drop actif · Coffret Signature QC</div>
-
   <div class="hero-h1">25$<br>pour une<br>marque <span class="blue">d'ici.</span></div>
 
-  <!-- Card stack — tap to fan -->
   <div class="card-stack" id="cardStack">
     <div class="hcp hcp-1 rl">
-      <div class="hcp-em">🏆</div>
-      <div class="hcp-info"><div class="hcp-brand">Kanuk × Dime MTL</div><div class="hcp-name">Parka Collab Limitée</div></div>
-      <div class="hcp-right"><span class="hcp-val">895$</span><span class="hcp-pill">Légendaire</span></div>
+      <img class="hcp-img" src="images/Untitled Project - Standard 22.png" alt="Canadiens">
+      <div class="hcp-info"><div class="hcp-brand">Canadiens de Montréal</div><div class="hcp-name">Carte-cadeau officielle</div></div>
+      <div class="hcp-right"><span class="hcp-val">150$</span><span class="hcp-pill">Légendaire</span></div>
     </div>
     <div class="hcp hcp-2 re">
-      <div class="hcp-em">🎿</div>
-      <div class="hcp-info"><div class="hcp-brand">Souvenir Snow</div><div class="hcp-name">Jacket de ski Crew</div></div>
-      <div class="hcp-right"><span class="hcp-val">340$</span><span class="hcp-pill">Épique</span></div>
+      <img class="hcp-img" src="images/Untitled Project - Standard 13.png" alt="Quest Hoodie">
+      <div class="hcp-info"><div class="hcp-brand">Quest MTL</div><div class="hcp-name">Hoodie Noir</div></div>
+      <div class="hcp-right"><span class="hcp-val">90$</span><span class="hcp-pill">Épique</span></div>
     </div>
     <div class="hcp hcp-3 rr">
-      <div class="hcp-em">🧥</div>
-      <div class="hcp-info"><div class="hcp-brand">Dime MTL</div><div class="hcp-name">Hoodie Script Logo</div></div>
-      <div class="hcp-right"><span class="hcp-val">120$</span><span class="hcp-pill">Rare</span></div>
+      <img class="hcp-img" src="images/Untitled Project - Standard 1.png" alt="GURU">
+      <div class="hcp-info"><div class="hcp-brand">GURU Énergie</div><div class="hcp-name">Pack 12 canettes</div></div>
+      <div class="hcp-right"><span class="hcp-val">32$</span><span class="hcp-pill">Rare</span></div>
     </div>
   </div>
   <div class="stack-hint" id="stackHint">Appuie pour voir les items ↑</div>
 
-  <p class="hero-sub">Un item québécois au hasard, livré chez toi. 14 marques possibles.</p>
+  <p class="hero-sub">Un item québécois au hasard, livré chez toi. 26 items possibles.</p>
 
-  <button class="btn-hero" onclick="scrollRail()">
-    Ouvrir une box <span class="price-tag">25$</span>
-  </button>
+  <button class="btn-hero" onclick="scrollRail()">Ouvrir une box <span class="price-tag">25$</span></button>
 
   <div class="hero-stats">
-    <div class="hs"><div class="hs-num">14</div><div class="hs-label">items</div></div>
-    <div class="hs"><div class="hs-num">895$</div><div class="hs-label">valeur max</div></div>
+    <div class="hs"><div class="hs-num">26</div><div class="hs-label">items</div></div>
+    <div class="hs"><div class="hs-num">150$</div><div class="hs-label">valeur max</div></div>
     <div class="hs"><div class="hs-num">100%</div><div class="hs-label">marques QC</div></div>
   </div>
 </section>
@@ -355,7 +307,7 @@ footer p{font-size:11px;color:var(--ink4)}
   <div class="sec-title">Items & odds</div>
   <div class="sec-sub">Probabilités exactes · Valeur réelle</div>
   <table>
-    <thead><tr><th style="width:28px"></th><th>Produit</th><th>Rareté</th><th class="r">Valeur</th><th class="r">Odds</th></tr></thead>
+    <thead><tr><th style="width:36px"></th><th>Produit</th><th>Rareté</th><th class="r">Valeur</th><th class="r">Odds</th></tr></thead>
     <tbody id="tbody"></tbody>
   </table>
 </section>
@@ -382,7 +334,7 @@ footer p{font-size:11px;color:var(--ink4)}
   <div class="modal">
     <div class="mbar" id="mbar"></div>
     <div class="handle"></div>
-    <span class="m-em" id="mem"></span>
+    <img class="m-img" id="mimg" src="" alt="">
     <div class="m-won">Tu as gagné</div>
     <div class="m-brand" id="mbrand"></div>
     <div class="m-name" id="mname"></div>
@@ -398,74 +350,83 @@ footer p{font-size:11px;color:var(--ink4)}
 </div>
 
 <script>
-const P=[
-  {brand:"Brûlerie T&M", name:"Blend Signature 340g",  desc:"Café single origin torréfié à Montréal. Notes caramel, noisette, longue finale.",     val:28, em:"☕",r:"common",   odds:26.2},
-  {brand:"Boréale",      name:"Pack 12 Rousse",         desc:"Douze canettes Boréale brassées à Mont-Royal. Maltées, légèrement caramélisées.",     val:36, em:"🍺",r:"common",   odds:18.4},
-  {brand:"Dime MTL",     name:"Casquette 5-Panel",      desc:"Cap five-panel coton sergé, broderie Dime or. Édition capsule.",                       val:55, em:"🧢",r:"common",   odds:14.8},
-  {brand:"Plusieurs",    name:"Tee-shirt QC Club",      desc:"Streetwear québécois épuré, coupe boxy oversized. Sérigraphié à Montréal.",            val:68, em:"👕",r:"common",   odds:11.6},
-  {brand:"Gin Ungava",   name:"Bouteille 750ml",        desc:"Gin aux botaniques arctiques, distillé au QC. Bouteille hexagonale collector.",        val:52, em:"🌿",r:"common",   odds:9.8},
-  {brand:"Frank & Oak",  name:"Coffret Soins",          desc:"Kit soins naturels : gel, crème hydratante, déo. Formules propres.",                   val:85, em:"🧴",r:"common",   odds:7.4},
-  {brand:"Neige",        name:"Cidre de glace 375ml",   desc:"Cidre de glace réserve — le must du terroir québécois, reconnu mondialement.",        val:49, em:"🍾",r:"rare",     odds:5.2},
-  {brand:"Rhum Masson",  name:"Vieux 15 ans 750ml",     desc:"Rhum vieilli en fûts de chêne québécois, Rougemont. Médaille or 2023.",               val:95, em:"🥃",r:"rare",     odds:3.4},
-  {brand:"Dime MTL",     name:"Hoodie Script Logo",     desc:"Hoodie coton lourd coupe boxy, logo brodé Dime classique. L'incontournable.",          val:120,em:"🧥",r:"rare",     odds:2.1},
-  {brand:"Frank & Oak",  name:"Sneakers Cuir Grain",    desc:"Sneaker basse cuir pleine fleur, semelle crêpe. B-Corp certifié, Montréal.",          val:195,em:"👟",r:"rare",     odds:0.9},
-  {brand:"Kanuk",        name:"Veste Polar Mi-saison",  desc:"Polaire recyclé coupe slim. Made in Québec depuis 1970. La référence absolue.",        val:280,em:"🧤",r:"epic",     odds:0.41},
-  {brand:"Souvenir Snow",name:"Jacket de ski Crew",     desc:"Veste snowboard imperméable, esthétique 90s. Collab artiste MTL, édition limitée.",   val:340,em:"🎿",r:"epic",     odds:0.21},
-  {brand:"BRP / Ski-Doo",name:"Casque Modular",         desc:"Casque BRP Ski-Doo homologué, visière anti-buée, liner amovible. Valcourt, QC.",      val:420,em:"🏔",r:"epic",     odds:0.09},
-  {brand:"Kanuk × Dime", name:"Parka Collab Limitée",   desc:"Collaboration exclusive Kanuk × Dime. Édition 200 pièces numérotées. L'item ultime.",val:895,em:"🏆",r:"legendary",odds:0.01},
+// All 26 items from the images folder
+const P = [
+  // GURU — plusieurs saveurs (commun)
+  {brand:"GURU Énergie", name:"GURU Original",          img:"images/Untitled Project - Standard.png",    val:4,  r:"common",   odds:8.0},
+  {brand:"GURU Énergie", name:"GURU Saveur 1",           img:"images/Untitled Project - image.png",       val:4,  r:"common",   odds:7.5},
+  {brand:"GURU Énergie", name:"GURU Saveur 2",           img:"images/Untitled Project - Standard 1.png",  val:4,  r:"common",   odds:7.0},
+  {brand:"GURU Énergie", name:"GURU Saveur 3",           img:"images/Untitled Project - Standard 2.png",  val:4,  r:"common",   odds:6.5},
+  {brand:"GURU Énergie", name:"GURU Saveur 4",           img:"images/Untitled Project - Standard 3.png",  val:4,  r:"common",   odds:6.0},
+  {brand:"GURU Énergie", name:"GURU Saveur 5",           img:"images/Untitled Project - Standard 4.png",  val:4,  r:"common",   odds:5.5},
+  {brand:"GURU Énergie", name:"GURU Saveur 6",           img:"images/Untitled Project - Standard 5.png",  val:4,  r:"common",   odds:5.0},
+  {brand:"GURU Énergie", name:"GURU Saveur 7",           img:"images/Untitled Project - Standard 6.png",  val:4,  r:"common",   odds:4.5},
+  {brand:"GURU Énergie", name:"GURU Saveur 8",           img:"images/Untitled Project - Standard 7.png",  val:4,  r:"common",   odds:4.0},
+  {brand:"GURU Énergie", name:"GURU Saveur 9",           img:"images/Untitled Project - Standard 8.png",  val:4,  r:"common",   odds:3.5},
+  {brand:"GURU Énergie", name:"GURU Saveur 10",          img:"images/Untitled Project - Standard 9.png",  val:4,  r:"common",   odds:3.0},
+  {brand:"GURU Énergie", name:"GURU Pack 12",            img:"images/Untitled Project - Standard 10.png", val:32, r:"rare",     odds:2.5},
+  {brand:"GURU Énergie", name:"GURU Pack 24",            img:"images/Untitled Project - Standard 11.png", val:55, r:"rare",     odds:1.8},
+  // Quest MTL hoodies (rare/epic)
+  {brand:"Quest MTL",    name:"Hoodie Beige",            img:"images/Untitled Project - Standard 12.png", val:90, r:"rare",     odds:3.5},
+  {brand:"Quest MTL",    name:"Hoodie Noir",             img:"images/Untitled Project - Standard 13.png", val:90, r:"rare",     odds:3.0},
+  {brand:"Quest MTL",    name:"Hoodie Forêt",            img:"images/Untitled Project - Standard 14.png", val:90, r:"rare",     odds:2.5},
+  {brand:"Quest MTL",    name:"Hoodie Marine",           img:"images/Untitled Project - Standard 15.png", val:90, r:"rare",     odds:2.0},
+  {brand:"Quest MTL",    name:"Hoodie Gris Clair",       img:"images/Untitled Project - Standard 16.png", val:90, r:"rare",     odds:1.8},
+  // Quest MTL t-shirts (commun/rare)
+  {brand:"Quest MTL",    name:"T-shirt Blanc",           img:"images/Untitled Project - Standard 17.png", val:55, r:"common",   odds:3.0},
+  {brand:"Quest MTL",    name:"T-shirt Noir",            img:"images/Untitled Project - Standard 18.png", val:55, r:"common",   odds:2.5},
+  {brand:"Quest MTL",    name:"T-shirt Menthe",          img:"images/Untitled Project - Standard 19.png", val:55, r:"common",   odds:2.0},
+  // Marques QC emblématiques (epic/legendary)
+  {brand:"Starbucks QC", name:"Carte-cadeau 50$",        img:"images/Untitled Project - Standard 20.png", val:50, r:"rare",     odds:2.2},
+  {brand:"Shawbridge",   name:"Carte Bière 25$",         img:"images/Untitled Project - Standard 21.png", val:25, r:"common",   odds:4.0},
+  {brand:"CH Montréal",  name:"Carte-cadeau boutique",   img:"images/Untitled Project - Standard 22.png", val:150,r:"legendary",odds:0.2},
+  {brand:"Sea-Doo BRP",  name:"Bon d'expérience 50$",    img:"images/Untitled Project - Standard 23.png", val:50, r:"epic",     odds:0.8},
+  {brand:"Tim Hortons",  name:"Carte-cadeau 25$",        img:"images/Untitled Project - Standard 24.png", val:25, r:"common",   odds:5.5},
+  {brand:"Air Transat",  name:"Bon de voyage 100$",      img:"images/Untitled Project - Standard 25.png", val:100,r:"epic",     odds:0.4},
 ];
+
+// Shuffle array for random order in strip
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
 const RC={common:"rc",rare:"rr",epic:"re",legendary:"rl"};
 const RL={common:"Commun",rare:"Rare",epic:"Épique",legendary:"Légendaire"};
 const RP={common:"rc2",rare:"rr2",epic:"re2",legendary:"rl2"};
 const MB={common:"mb-c",rare:"mb-r",epic:"mb-e",legendary:"mb-l"};
 const RCOL={common:"var(--ink4)",rare:"var(--rare)",epic:"var(--epic)",legendary:"var(--legendary)"};
-const CW=112;
+const CW=120;
 let spinning=false,offset=0;
 
 function scrollRail(){document.getElementById('rail').scrollIntoView({behavior:'smooth',block:'start'})}
 
-// Card stack — tap to toggle fan
-const stack = document.getElementById('cardStack');
-const hint  = document.getElementById('stackHint');
-let fanned = false;
-stack.addEventListener('click', () => {
-  fanned = !fanned;
-  stack.classList.toggle('fanned', fanned);
-  hint.textContent = fanned ? 'Appuie pour refermer ↑' : 'Appuie pour voir les items ↑';
+// Card stack fan
+const stack=document.getElementById('cardStack');
+const hint=document.getElementById('stackHint');
+let fanned=false;
+stack.addEventListener('click',()=>{
+  fanned=!fanned;
+  stack.classList.toggle('fanned',fanned);
+  hint.textContent=fanned?'Appuie pour refermer ↑':'Appuie pour voir les items ↑';
 });
-// also auto-fan after 1.5s as a hint, then close
-setTimeout(() => {
-  if (!fanned) {
-    stack.classList.add('fanned');
-    fanned = true;
-    hint.textContent = 'Appuie pour refermer ↑';
-    setTimeout(() => {
-      if (fanned) {
-        stack.classList.remove('fanned');
-        fanned = false;
-        hint.textContent = 'Appuie pour voir les items ↑';
-      }
-    }, 2000);
+setTimeout(()=>{
+  if(!fanned){
+    stack.classList.add('fanned');fanned=true;hint.textContent='Appuie pour refermer ↑';
+    setTimeout(()=>{if(fanned){stack.classList.remove('fanned');fanned=false;hint.textContent='Appuie pour voir les items ↑';}},2200);
   }
-}, 1500);
+},1600);
 
-/* AUDIO */
+// AUDIO
 let actx=null;
 function getCtx(){if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();return actx}
 function clack(speed){
   try{
-    const c=getCtx();
-    const len=Math.floor(c.sampleRate*.028);
-    const buf=c.createBuffer(1,len,c.sampleRate);
-    const d=buf.getChannelData(0);
-    for(let i=0;i<len;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/len,3);
+    const c=getCtx(),len=Math.floor(c.sampleRate*.028),buf=c.createBuffer(1,len,c.sampleRate),d=buf.getChannelData(0);
+    for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,3);
     const src=c.createBufferSource();src.buffer=buf;
-    const filt=c.createBiquadFilter();
-    filt.type='bandpass';filt.frequency.value=300+speed*2800;filt.Q.value=.8;
-    const gain=c.createGain();
-    src.connect(filt);filt.connect(gain);gain.connect(c.destination);
-    gain.gain.setValueAtTime(.14+speed*.09,c.currentTime);
-    gain.gain.exponentialRampToValueAtTime(.001,c.currentTime+.03);
+    const filt=c.createBiquadFilter();filt.type='bandpass';filt.frequency.value=300+speed*2800;filt.Q.value=.8;
+    const g=c.createGain();
+    src.connect(filt);filt.connect(g);g.connect(c.destination);
+    g.gain.setValueAtTime(.14+speed*.09,c.currentTime);
+    g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.03);
     src.start();src.stop(c.currentTime+.032);
   }catch(e){}
 }
@@ -474,12 +435,9 @@ function winChime(r){
     const c=getCtx();
     const notes={common:[440,554],rare:[440,554,659],epic:[440,554,659,880],legendary:[523,659,784,1047,1318]}[r];
     notes.forEach((freq,i)=>{
-      const o=c.createOscillator(),g=c.createGain();
-      const o2=c.createOscillator(),g2=c.createGain();
-      o.type='sine';o.frequency.value=freq;
-      o2.type='sine';o2.frequency.value=freq*1.004;
-      o.connect(g);g.connect(c.destination);
-      o2.connect(g2);g2.connect(c.destination);
+      const o=c.createOscillator(),g=c.createGain(),o2=c.createOscillator(),g2=c.createGain();
+      o.type='sine';o.frequency.value=freq;o2.type='sine';o2.frequency.value=freq*1.004;
+      o.connect(g);g.connect(c.destination);o2.connect(g2);g2.connect(c.destination);
       const t=c.currentTime+i*.12,v=.18;
       g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.04);g.gain.exponentialRampToValueAtTime(.001,t+.6);
       g2.gain.setValueAtTime(0,t);g2.gain.linearRampToValueAtTime(v*.35,t+.04);g2.gain.exponentialRampToValueAtTime(.001,t+.6);
@@ -488,21 +446,31 @@ function winChime(r){
   }catch(e){}
 }
 
+// BUILD STRIP — shuffled, repeated
 function buildStrip(){
-  const t=document.getElementById('strack'),f=document.createDocumentFragment();
-  for(let i=0;i<P.length*12;i++){
-    const p=P[i%P.length],d=document.createElement('div');
-    d.className=`sc ${RC[p.r]}`;
-    d.innerHTML=`<div class="sc-em">${p.em}</div><div class="sc-brand">${p.brand}</div><div class="sc-name">${p.name}</div><span class="sc-odds">${p.odds}%</span>`;
-    f.appendChild(d);
+  const track=document.getElementById('strack');
+  const f=document.createDocumentFragment();
+  const REPS=10;
+  for(let r=0;r<REPS;r++){
+    const shuffled=shuffle(P);
+    shuffled.forEach(p=>{
+      const d=document.createElement('div');
+      d.className=`sc ${RC[p.r]}`;
+      d.innerHTML=`<img class="sc-img" src="${p.img}" alt="${p.name}" loading="lazy"><div class="sc-brand">${p.brand}</div><div class="sc-name">${p.name}</div><span class="sc-odds">${p.odds}%</span>`;
+      f.appendChild(d);
+    });
   }
-  t.appendChild(f);
+  track.appendChild(f);
 }
+
+// BUILD ODDS TABLE
 function buildOdds(){
-  const s=[...P].sort((a,b)=>b.odds-a.odds),mx=s[0].odds,f=document.createDocumentFragment();
-  s.forEach(p=>{
+  const sorted=[...P].sort((a,b)=>b.odds-a.odds);
+  const mx=sorted[0].odds;
+  const f=document.createDocumentFragment();
+  sorted.forEach(p=>{
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td class="te">${p.em}</td><td><div class="tb">${p.brand}</div><div class="tn">${p.name}</div></td><td><span class="rpill ${RP[p.r]}">${RL[p.r]}</span></td><td class="r tv">${p.val}$</td><td class="r"><div class="tp ${p.r}">${p.odds}%</div><div class="pbar"><div class="pfill" style="width:${(p.odds/mx)*100}%;background:${RCOL[p.r]}"></div></div></td>`;
+    tr.innerHTML=`<td><img class="timg" src="${p.img}" alt="${p.name}" loading="lazy"></td><td><div class="tb">${p.brand}</div><div class="tn">${p.name}</div></td><td><span class="rpill ${RP[p.r]}">${RL[p.r]}</span></td><td class="r tv">${p.val}$</td><td class="r"><div class="tp ${p.r}">${p.odds}%</div><div class="pbar"><div class="pfill" style="width:${(p.odds/mx)*100}%;background:${RCOL[p.r]}"></div></div></td>`;
     f.appendChild(tr);
   });
   document.getElementById('tbody').appendChild(f);
@@ -510,25 +478,33 @@ function buildOdds(){
 
 function easeOutExpo(t){return t>=1?1:1-Math.pow(2,-10*t)}
 
+// OPEN — weighted by odds
 function openBox(isFree){
   if(spinning)return;
   spinning=true;
   document.getElementById('openBtn').disabled=true;
   try{getCtx().resume()}catch(e){}
   scrollRail();
+
   const tw=P.reduce((a,p)=>a+p.odds,0);
   let rnd=Math.random()*tw,win=0;
   for(let i=0;i<P.length;i++){rnd-=P[i].odds;if(rnd<=0){win=i;break}}
+
   const track=document.getElementById('strack');
   const cw=track.parentElement.offsetWidth;
-  const base=P.length*6;
-  const aligned=base-(base%P.length)+win+P.length*3;
+  const TOTAL=P.length*10;
+  // find a card index deep in the strip that matches the winner
+  const base=Math.floor(TOTAL*0.55);
+  const baseAligned=base-(base%P.length);
+  const aligned=baseAligned+win+P.length;
   const jitter=Math.floor(Math.random()*20)-10;
   const target=aligned*CW-Math.floor(cw/2)+CW/2+jitter;
+
   const start=offset,dist=target-start;
   const dur=7200+Math.random()*1400;
   const t0=performance.now();
   let lastCard=-1,lastClack=0;
+
   function frame(now){
     const prog=Math.min((now-t0)/dur,1);
     const eased=easeOutExpo(prog);
@@ -553,10 +529,11 @@ function openBox(isFree){
 }
 
 function showResult(p,isFree){
-  document.getElementById('mem').textContent=p.em;
+  document.getElementById('mimg').src=p.img;
+  document.getElementById('mimg').alt=p.name;
   document.getElementById('mbrand').textContent=p.brand;
   document.getElementById('mname').textContent=p.name;
-  document.getElementById('mdesc').textContent=p.desc;
+  document.getElementById('mdesc').textContent=`${p.name} par ${p.brand}. Livré directement chez toi au Québec.`;
   document.getElementById('mval').textContent=p.val+'$';
   document.getElementById('minfo').textContent=`Odds: ${p.odds}%${isFree?' · Mode test':' · Valeur marchande'}`;
   const b=document.getElementById('mbadge');b.textContent=RL[p.r];b.className=`rpill ${RP[p.r]}`;
@@ -569,6 +546,7 @@ function closeModal(){
   spinning=false;document.getElementById('openBtn').disabled=false;
 }
 document.getElementById('mov').addEventListener('click',e=>{if(e.target.id==='mov')closeModal()});
+
 function confetti(r){
   const pal=r==='legendary'?['#b45309','#f59e0b','#0c0b0f']:r==='epic'?['#8b2be2','#a855f7','#0c0b0f']:['#1845f5','#3b6eff','#0c0b0f'];
   for(let i=0;i<55;i++){
